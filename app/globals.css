@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode (.dark on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
 }
 
 @theme inline {
@@ -10,17 +13,155 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Brand Override: Mapping indigo to Soft Pink (#EC4899) */
+  --color-indigo-50: #fdf2f8;
+  --color-indigo-100: #fce7f3;
+  --color-indigo-200: #fbcfe8;
+  --color-indigo-300: #f9a8d4;
+  --color-indigo-400: #f472b6;
+  --color-indigo-500: #f472b6;
+  --color-indigo-600: #ec4899; /* Primary brand color (Soft Pink) */
+  --color-indigo-700: #db2777;
+  --color-indigo-800: #be185d;
+  --color-indigo-900: #9d174d;
+  --color-indigo-950: #831843;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121212;
+    --foreground: #fafafa;
   }
+}
+
+/* Force dark mode class override */
+.dark {
+  --background: #121212;
+  --foreground: #fafafa;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(99, 102, 241, 0.25);
+}
+
+/* Custom scrollbar for dark mode */
+.dark ::-webkit-scrollbar,
+.dark::-webkit-scrollbar {
+  width: 8px;
+}
+.dark ::-webkit-scrollbar-track,
+.dark::-webkit-scrollbar-track {
+  background: #121212;
+}
+.dark ::-webkit-scrollbar-thumb,
+.dark::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb:hover,
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* ─── Scroll-triggered entrance animations ─── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-in-from-top-2 {
+  from { transform: translateY(-8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-in-from-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-up-sm {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+.fade-in {
+  animation-name: fade-in;
+}
+.slide-in-from-top-2 {
+  animation-name: slide-in-from-top-2;
+}
+.slide-in-from-right {
+  animation-name: slide-in-from-right;
+}
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-fade-up-sm {
+  animation: fade-up-sm 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-blur-in {
+  animation: blur-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.duration-200 {
+  animation-duration: 200ms;
+}
+.duration-300 {
+  animation-duration: 300ms;
+}
+
+/* Stagger delays for children */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* ─── Prose overrides for dark mode ─── */
+.dark .prose-zinc {
+  --tw-prose-body: #a1a1aa;
+  --tw-prose-headings: #fafafa;
+  --tw-prose-lead: #a1a1aa;
+  --tw-prose-links: #818cf8;
+  --tw-prose-bold: #fafafa;
+  --tw-prose-counters: #71717a;
+  --tw-prose-bullets: #71717a;
+  --tw-prose-hr: #27272a;
+  --tw-prose-quotes: #d4d4d8;
+  --tw-prose-quote-borders: #3f3f46;
+}
+
+/* ─── Gradient text helper ─── */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
