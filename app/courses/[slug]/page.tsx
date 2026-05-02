@@ -18,6 +18,7 @@ const coursesData: Record<string, {
   students: number;
   duration: string;
   lessons: number;
+  image?: string;
   gradient: string;
   instructor: { name: string; title: string; avatar: string };
   highlights: string[];
@@ -207,7 +208,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
         {/* ─── Hero Banner ─── */}
         <section className="relative py-20 md:py-28 px-6 overflow-hidden bg-zinc-900 dark:bg-zinc-950">
           <Image 
-            src={course.image} 
+            src={course.image || '/images/courses/course-1.jpg'} 
             alt={course.title} 
             fill 
             className="object-cover opacity-40 dark:opacity-30" 
