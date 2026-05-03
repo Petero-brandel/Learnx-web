@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       redirectBasedOnRole(userData);
     } else {
       await fetchUser();
-      // Need to rely on updated state, but state update is async, so we'll fetch explicitly and redirect
+      
       try {
         const response = await api.get('/auth/me/');
         const fetchedUser = response.data;
