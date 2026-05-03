@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, BookOpen, Star, Briefcase, Trophy, CheckCircle, PlayCircle, Users, Video, HelpCircle, FileText, Shield, CreditCard, ArrowRight, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { useAuth } from '@/context/AuthContext'
 
 // ─── Mega-menu content definitions ───
 const megaMenus: Record<string, {
@@ -109,6 +110,7 @@ const megaMenus: Record<string, {
 export default function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
+  const { user } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
@@ -147,7 +149,7 @@ export default function Navbar() {
     { label: 'Resources', hasMenu: true },
     { label: 'Pricing', hasMenu: true },
     { label: 'Company', hasMenu: true },
-    { label: 'My Learning', href: '/lms' },
+    { label: 'My Learning', href: user ? '/dashboard' : '/login' },
   ]
 
   return (
@@ -406,6 +408,13 @@ export default function Navbar() {
               {Object.entries(megaMenus).map(([key, menu]) => (
                 <MobileAccordion key={key} label={key} menu={menu} onClose={() => setIsOpen(false)} />
               ))}
+              <Link
+                href={user ? '/dashboard' : '/login'}
+                onClick={() => setIsOpen(false)}
+                className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-xl transition-colors"
+              >
+                My Learning
+              </Link>
               <Link
                 href="/pricing"
                 onClick={() => setIsOpen(false)}

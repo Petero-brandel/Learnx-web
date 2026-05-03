@@ -1,7 +1,11 @@
 'use client';
 
-import { use } from 'react';
+import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { fetchCourseDetail } from '@/lib/dashboard';
+import { checkoutCourse } from '@/lib/payments';
 import Image from 'next/image';
 import Navbar from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
@@ -200,6 +204,41 @@ const fallbackCourse = coursesData['prompt-engineering'];
 export default function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const course = coursesData[slug] || fallbackCourse;
+  
+  const [courseId, setCourseId] = useState<number | null>(null);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchCourseDetail(slug)
+      .then(data => setCourseId(data.id))
+      .catch(err => console.error("Failed to fetch course detail from backend", err));
+  }, [slug]);
+
+  const handleEnroll = async () => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+    if (!courseId) {
+      alert("Course ID not loaded yet. Please wait a moment.");
+      return;
+    }
+    try {
+      setIsCheckingOut(true);
+      const res = await checkoutCourse(courseId);
+      if (res.authorization_url) {
+        window.location.href = res.authorization_url;
+      }
+    } catch (err: any) {
+      console.error(err);
+      const errorMessage = err.response?.data?.error || 'Checkout failed. Please try again.';
+      alert(errorMessage);
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#121212] font-sans text-zinc-950 dark:text-zinc-50 selection:bg-indigo-500/30">
@@ -321,13 +360,14 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
                 <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">{course.price}</p>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">One-time payment · Lifetime access</p>
 
-                <Link
-                  href="/login"
-                  className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold text-base hover:opacity-90 transition-opacity mb-4"
+                <button
+                  onClick={handleEnroll}
+                  disabled={isCheckingOut || !courseId}
+                  className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold text-base hover:opacity-90 disabled:opacity-50 transition-opacity mb-4"
                 >
-                  Enroll Now
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                  {isCheckingOut ? 'Processing...' : 'Enroll Now'}
+                  {!isCheckingOut && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
+                </button>
 
                 <p className="text-center text-xs text-zinc-400 dark:text-zinc-500 mb-8">
                   14-day money-back guarantee
