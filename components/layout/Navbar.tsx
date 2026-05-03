@@ -147,7 +147,7 @@ export default function Navbar() {
     { label: 'Resources', hasMenu: true },
     { label: 'Pricing', hasMenu: true },
     { label: 'Company', hasMenu: true },
-    { label: 'Teach on LearnX', href: '/teach' },
+    { label: 'My Learning', href: '/lms' },
   ]
 
   return (
