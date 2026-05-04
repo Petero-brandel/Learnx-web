@@ -106,7 +106,15 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
       clearErrors();
       try {
         const response = await api.post('/auth/google/', { access_token: tokenResponse.access_token });
-        await login(response.data.access, response.data.refresh, response.data.user);
+        const loggedInUser = await login(response.data.access, response.data.refresh, response.data.user);
+        if (loggedInUser) {
+          if (mode === 'modal') {
+            router.back();
+          } else {
+            const dest = loggedInUser.is_staff || loggedInUser.is_superuser ? '/admin/dashboard' : '/dashboard';
+            window.location.replace(dest);
+          }
+        }
       } catch (err: any) {
         setError(extractMessage(err.response?.data, variant, isSignup ? 'Google signup failed' : 'Google login failed'));
       } finally {
@@ -141,8 +149,15 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
         setIsVerificationSent(true);
       } else {
         const response = await api.post('/auth/login/', { email, password });
-        await login(response.data.access, response.data.refresh, response.data.user);
-        // Modal will automatically close when route changes after successful login
+        const loggedInUser = await login(response.data.access, response.data.refresh, response.data.user);
+        if (loggedInUser) {
+          if (mode === 'modal') {
+            router.back();
+          } else {
+            const dest = loggedInUser.is_staff || loggedInUser.is_superuser ? '/admin/dashboard' : '/dashboard';
+            window.location.replace(dest);
+          }
+        }
       }
     } catch (err: any) {
       if (!err.response) {

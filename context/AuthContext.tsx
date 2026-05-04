@@ -18,7 +18,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: (access: string, refresh: string, userData?: User) => Promise<void>;
+  login: (access: string, refresh: string, userData?: User) => Promise<User | null>;
   logout: () => void;
   fetchUser: () => Promise<void>;
 }
@@ -52,33 +52,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (access: string, refresh: string, userData?: User) => {
-    Cookies.set('access_token', access, { secure: true, sameSite: 'strict' });
-    Cookies.set('refresh_token', refresh, { secure: true, sameSite: 'strict' });
+    Cookies.set('access_token', access, { secure: true, sameSite: 'lax' });
+    Cookies.set('refresh_token', refresh, { secure: true, sameSite: 'lax' });
     
     if (userData) {
       setUser(userData);
-      redirectBasedOnRole(userData);
+      return userData;
     } else {
       await fetchUser();
       
       try {
         const response = await api.get('/auth/me/');
         const fetchedUser = response.data;
-        redirectBasedOnRole(fetchedUser);
+        return fetchedUser as User;
       } catch (err) {
-        // Fallback redirect (hard navigation so modal route is cleared)
-        window.location.replace('/dashboard');
+        return null;
       }
-    }
-  };
-
-  const redirectBasedOnRole = (userData: User) => {
-    // Hard navigation is required to clear the @modal parallel route slot
-    // (soft navigation via router.replace does not reset intercepted modal state)
-    if (userData.is_staff || userData.is_superuser) {
-      window.location.replace('/admin/dashboard');
-    } else {
-      window.location.replace('/dashboard');
     }
   };
 

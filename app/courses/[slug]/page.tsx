@@ -4,7 +4,7 @@ import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { fetchCourseDetail } from '@/lib/dashboard';
+import { fetchCourseDetail, fetchMyEnrollments } from '@/lib/dashboard';
 import { checkoutCourse } from '@/lib/payments';
 import Image from 'next/image';
 import Navbar from "@/components/layout/Navbar";
@@ -207,6 +207,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
   
   const [courseId, setCourseId] = useState<number | null>(null);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -216,11 +217,29 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
       .catch(err => console.error("Failed to fetch course detail from backend", err));
   }, [slug]);
 
+  // Check if user is already enrolled in this course
+  useEffect(() => {
+    if (!user) return;
+    fetchMyEnrollments()
+      .then(enrollments => {
+        const enrolled = enrollments.some(e => e.course_slug === slug);
+        setIsEnrolled(enrolled);
+      })
+      .catch(err => console.error("Failed to check enrollment status", err));
+  }, [user, slug]);
+
   const handleEnroll = async () => {
     if (!user) {
       router.push('/login');
       return;
     }
+
+    // If already enrolled, redirect to the learning page
+    if (isEnrolled) {
+      router.push(`/dashboard/courses/${slug}`);
+      return;
+    }
+
     if (!courseId) {
       alert("Course ID not loaded yet. Please wait a moment.");
       return;
@@ -362,10 +381,10 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
 
                 <button
                   onClick={handleEnroll}
-                  disabled={isCheckingOut || !courseId}
+                  disabled={isCheckingOut || (!isEnrolled && !courseId)}
                   className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold text-base hover:opacity-90 disabled:opacity-50 transition-opacity mb-4"
                 >
-                  {isCheckingOut ? 'Processing...' : 'Enroll Now'}
+                  {isCheckingOut ? 'Processing...' : (isEnrolled ? 'Continue Learning' : 'Enroll Now')}
                   {!isCheckingOut && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
 
