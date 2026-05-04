@@ -230,7 +230,11 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
 
   const handleEnroll = async () => {
     if (!user) {
-      router.push('/login');
+      if (courseId) {
+        router.push(`/login?checkout=${courseId}`);
+      } else {
+        router.push('/login');
+      }
       return;
     }
 

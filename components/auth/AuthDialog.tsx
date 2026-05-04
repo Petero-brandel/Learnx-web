@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2, Mail, X } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -47,8 +47,9 @@ function extractMessage(payload: any, variant: Variant, fallback: string) {
   return fieldErrors.email || fieldErrors.password || fieldErrors.name || fallback;
 }
 
-export function AuthDialog({ variant, mode }: AuthDialogProps) {
+function AuthDialogContent({ variant, mode }: AuthDialogProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login } = useAuth();
   const { resolvedTheme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
@@ -108,12 +109,24 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
         const response = await api.post('/auth/google/', { access_token: tokenResponse.access_token });
         const loggedInUser = await login(response.data.access, response.data.refresh, response.data.user);
         if (loggedInUser) {
-          if (mode === 'modal') {
-            router.back();
-          } else {
-            const dest = loggedInUser.is_staff || loggedInUser.is_superuser ? '/admin/dashboard' : '/dashboard';
-            window.location.replace(dest);
+          const checkoutId = searchParams.get('checkout');
+          if (checkoutId) {
+            try {
+              const checkoutRes = await api.post('/payments/checkout/', { course_id: parseInt(checkoutId) });
+              if (checkoutRes.data?.authorization_url) {
+                window.location.href = checkoutRes.data.authorization_url;
+                return;
+              }
+            } catch (err: any) {
+              if (err.response?.data?.code === 'already_enrolled') {
+                window.location.replace('/dashboard');
+                return;
+              }
+              console.error('Checkout redirect failed', err);
+            }
           }
+          const dest = loggedInUser.is_staff || loggedInUser.is_superuser ? '/admin/dashboard' : '/dashboard';
+          window.location.replace(dest);
         }
       } catch (err: any) {
         setError(extractMessage(err.response?.data, variant, isSignup ? 'Google signup failed' : 'Google login failed'));
@@ -151,12 +164,24 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
         const response = await api.post('/auth/login/', { email, password });
         const loggedInUser = await login(response.data.access, response.data.refresh, response.data.user);
         if (loggedInUser) {
-          if (mode === 'modal') {
-            router.back();
-          } else {
-            const dest = loggedInUser.is_staff || loggedInUser.is_superuser ? '/admin/dashboard' : '/dashboard';
-            window.location.replace(dest);
+          const checkoutId = searchParams.get('checkout');
+          if (checkoutId) {
+            try {
+              const checkoutRes = await api.post('/payments/checkout/', { course_id: parseInt(checkoutId) });
+              if (checkoutRes.data?.authorization_url) {
+                window.location.href = checkoutRes.data.authorization_url;
+                return;
+              }
+            } catch (err: any) {
+              if (err.response?.data?.code === 'already_enrolled') {
+                window.location.replace('/dashboard');
+                return;
+              }
+              console.error('Checkout redirect failed', err);
+            }
           }
+          const dest = loggedInUser.is_staff || loggedInUser.is_superuser ? '/admin/dashboard' : '/dashboard';
+          window.location.replace(dest);
         }
       }
     } catch (err: any) {
@@ -423,5 +448,13 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
         {CardContent}
       </div>
     </div>
+  );
+}
+
+export function AuthDialog(props: AuthDialogProps) {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center p-8 h-full"><Loader2 className="h-8 w-8 animate-spin text-zinc-500" /></div>}>
+      <AuthDialogContent {...props} />
+    </Suspense>
   );
 }
