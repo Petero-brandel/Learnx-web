@@ -66,17 +66,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const fetchedUser = response.data;
         redirectBasedOnRole(fetchedUser);
       } catch (err) {
-        // Fallback redirect
-        router.push('/dashboard');
+        // Fallback redirect (hard navigation so modal route is cleared)
+        window.location.replace('/dashboard');
       }
     }
   };
 
   const redirectBasedOnRole = (userData: User) => {
+    // Hard navigation is required to clear the @modal parallel route slot
+    // (soft navigation via router.replace does not reset intercepted modal state)
     if (userData.is_staff || userData.is_superuser) {
-      router.push('/admin/dashboard');
+      window.location.replace('/admin/dashboard');
     } else {
-      router.push('/dashboard');
+      window.location.replace('/dashboard');
     }
   };
 
@@ -84,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
     setUser(null);
-    router.push('/login');
+    router.replace('/login');
   };
 
   return (
