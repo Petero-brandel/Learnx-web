@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
@@ -47,7 +47,7 @@ function extractMessage(payload: any, variant: Variant, fallback: string) {
   return fieldErrors.email || fieldErrors.password || fieldErrors.name || fallback;
 }
 
-export function AuthDialog({ variant, mode }: AuthDialogProps) {
+function AuthDialogContent({ variant, mode }: AuthDialogProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login } = useAuth();
@@ -448,5 +448,13 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
         {CardContent}
       </div>
     </div>
+  );
+}
+
+export function AuthDialog(props: AuthDialogProps) {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center p-8 h-full"><Loader2 className="h-8 w-8 animate-spin text-zinc-500" /></div>}>
+      <AuthDialogContent {...props} />
+    </Suspense>
   );
 }
