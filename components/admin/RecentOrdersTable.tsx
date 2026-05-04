@@ -1,0 +1,74 @@
+'use client'
+
+import type { RecentOrder } from '@/lib/admin'
+
+interface RecentOrdersTableProps {
+  orders: RecentOrder[]
+}
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount)
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+
+export default function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
+  if (orders.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 rounded-xl bg-zinc-800/10">
+        <p className="text-sm text-zinc-500">No orders yet</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="overflow-x-auto rounded-xl border border-zinc-800/60">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-zinc-800/60 bg-zinc-900/50">
+            <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
+            <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Course</th>
+            <th className="text-right px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Amount</th>
+            <th className="text-right px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order, i) => (
+            <tr
+              key={order.id}
+              className="border-b border-zinc-800/30 last:border-0 hover:bg-zinc-800/20 transition-colors"
+            >
+              <td className="px-4 py-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex-shrink-0 h-7 w-7 rounded-full bg-indigo-500/15 flex items-center justify-center">
+                    <span className="text-[10px] font-bold text-indigo-400">
+                      {order.student.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <span className="text-zinc-300 truncate max-w-[180px]">{order.student}</span>
+                </div>
+              </td>
+              <td className="px-4 py-3 text-zinc-400 truncate max-w-[200px]">{order.course}</td>
+              <td className="px-4 py-3 text-right">
+                <span className="text-emerald-400 font-semibold">{formatCurrency(order.amount)}</span>
+              </td>
+              <td className="px-4 py-3 text-right text-zinc-500 text-xs whitespace-nowrap">{formatDate(order.date)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
