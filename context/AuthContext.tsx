@@ -66,17 +66,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const fetchedUser = response.data;
         redirectBasedOnRole(fetchedUser);
       } catch (err) {
-        // Fallback redirect
-        router.push('/dashboard');
+        // Fallback redirect (use replace so modal route is removed from history)
+        router.replace('/dashboard');
       }
     }
   };
 
   const redirectBasedOnRole = (userData: User) => {
     if (userData.is_staff || userData.is_superuser) {
-      router.push('/admin/dashboard');
+      router.replace('/admin/dashboard');
     } else {
-      router.push('/dashboard');
+      router.replace('/dashboard');
     }
   };
 
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
     setUser(null);
-    router.push('/login');
+    router.replace('/login');
   };
 
   return (
