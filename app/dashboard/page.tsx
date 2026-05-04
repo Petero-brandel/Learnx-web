@@ -31,7 +31,7 @@ export default function DashboardPage() {
 }
 
 function DashboardContent() {
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
   const [enrollments, setEnrollments] = useState<Enrollment[]>([])
@@ -39,6 +39,13 @@ function DashboardContent() {
   const [certificateCount, setCertificateCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [verifying, setVerifying] = useState(false)
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login')
+    }
+  }, [user, authLoading, router])
 
   useEffect(() => {
     async function initDashboard() {
