@@ -66,17 +66,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const fetchedUser = response.data;
         redirectBasedOnRole(fetchedUser);
       } catch (err) {
-        // Fallback redirect (use replace so modal route is removed from history)
-        router.replace('/dashboard');
+        // Fallback redirect (hard navigation so modal route is cleared)
+        window.location.replace('/dashboard');
       }
     }
   };
 
   const redirectBasedOnRole = (userData: User) => {
+    // Hard navigation is required to clear the @modal parallel route slot
+    // (soft navigation via router.replace does not reset intercepted modal state)
     if (userData.is_staff || userData.is_superuser) {
-      router.replace('/admin/dashboard');
+      window.location.replace('/admin/dashboard');
     } else {
-      router.replace('/dashboard');
+      window.location.replace('/dashboard');
     }
   };
 
