@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import {
   fetchRevenueStats, fetchUserStats, fetchCoursePerformance, fetchRecentActivity,
@@ -29,12 +30,22 @@ function formatCurrency(amount: number): string {
 }
 
 export default function AdminDashboardPage() {
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
+  const router = useRouter()
   const [revenue, setRevenue] = useState<RevenueStats | null>(null)
   const [userStats, setUserStats] = useState<UserStats | null>(null)
   const [coursePerf, setCoursePerf] = useState<CoursePerformance | null>(null)
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([])
   const [loading, setLoading] = useState(true)
+
+  // Redirect to login if not authenticated or not admin
+  useEffect(() => {
+    if (!authLoading) {
+      if (!user || (!user.is_staff && !user.is_superuser)) {
+        router.push('/login')
+      }
+    }
+  }, [user, authLoading, router])
 
   useEffect(() => {
     async function loadData() {

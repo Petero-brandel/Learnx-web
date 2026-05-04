@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const fetchedUser = response.data;
         redirectBasedOnRole(fetchedUser);
       } catch (err) {
-        // Fallback
+        // Fallback redirect
         router.push('/dashboard');
       }
     }

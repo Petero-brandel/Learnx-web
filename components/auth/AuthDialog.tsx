@@ -142,6 +142,7 @@ export function AuthDialog({ variant, mode }: AuthDialogProps) {
       } else {
         const response = await api.post('/auth/login/', { email, password });
         await login(response.data.access, response.data.refresh, response.data.user);
+        // Modal will automatically close when route changes after successful login
       }
     } catch (err: any) {
       if (!err.response) {
