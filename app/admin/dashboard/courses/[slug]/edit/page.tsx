@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { 
   fetchCourse, 
@@ -224,6 +224,8 @@ function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initial
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(!!initialVideoId)
 
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -302,20 +304,26 @@ function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initial
       
       {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
 
-      <label className={cn(
-        "mt-3 inline-flex items-center px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer",
-        uploading && "opacity-50 cursor-not-allowed pointer-events-none"
-      )}>
+      <button 
+        type="button"
+        disabled={uploading}
+        onClick={() => fileInputRef.current?.click()}
+        className={cn(
+          "mt-3 inline-flex items-center px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer",
+          uploading && "opacity-50 cursor-not-allowed pointer-events-none"
+        )}
+      >
         {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
         {uploading ? 'Uploading...' : 'Select Video File'}
-        <input 
-          type="file" 
-          accept="video/*" 
-          className="hidden" 
-          onChange={handleFileChange}
-          disabled={uploading}
-        />
-      </label>
+      </button>
+      <input 
+        ref={fileInputRef}
+        type="file" 
+        accept="video/*" 
+        className="hidden" 
+        onChange={handleFileChange}
+        disabled={uploading}
+      />
     </div>
   )
 }
