@@ -29,8 +29,12 @@ export async function uploadPdfAction(formData: FormData): Promise<{ url?: strin
     });
 
     if (!response.ok) {
-      const err = await response.text();
-      return { error: `Failed to upload to Supabase: ${err}` };
+      try {
+        const errorData = await response.json();
+        return { error: errorData.message || 'We encountered an issue uploading your file. Please try again.' };
+      } catch {
+        return { error: 'Upload failed due to a server configuration issue. Please try again later.' };
+      }
     }
 
     // Return the public URL
