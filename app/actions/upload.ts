@@ -1,19 +1,26 @@
 'use server'
 
 export async function uploadPdfAction(formData: FormData): Promise<{ url?: string; error?: string }> {
+  return uploadToSupabase(formData, 'pdfs');
+}
+
+export async function uploadThumbnailAction(formData: FormData): Promise<{ url?: string; error?: string }> {
+  return uploadToSupabase(formData, 'thumbnails');
+}
+
+async function uploadToSupabase(formData: FormData, folder: string): Promise<{ url?: string; error?: string }> {
   try {
     const file = formData.get('file') as File;
     if (!file) {
       return { error: 'No file provided' };
     }
 
-    // Generate a unique filename to prevent overwriting
-    const uniqueFilename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    const uniqueFilename = `${folder}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !serviceRoleKey) {
-      return { error: 'Supabase credentials not configured on the server.' };
+      return { error: 'Storage credentials not configured. Please contact support.' };
     }
 
     const buffer = await file.arrayBuffer();
@@ -23,7 +30,7 @@ export async function uploadPdfAction(formData: FormData): Promise<{ url?: strin
       headers: {
         'Authorization': `Bearer ${serviceRoleKey}`,
         'apikey': serviceRoleKey,
-        'Content-Type': file.type || 'application/pdf',
+        'Content-Type': file.type || 'application/octet-stream',
       },
       body: buffer,
     });
@@ -37,7 +44,6 @@ export async function uploadPdfAction(formData: FormData): Promise<{ url?: strin
       }
     }
 
-    // Return the public URL
     const publicUrl = `${supabaseUrl}/storage/v1/object/public/learnx-pdfs/${uniqueFilename}`;
     return { url: publicUrl };
 

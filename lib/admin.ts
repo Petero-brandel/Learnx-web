@@ -168,6 +168,7 @@ export async function createCourse(data: {
   description: string;
   price: number;
   is_published: boolean;
+  thumbnail?: string;
 }): Promise<AdminCourse> {
   const response = await api.post('/courses/', data);
   return response.data;
