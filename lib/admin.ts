@@ -155,6 +155,11 @@ export async function fetchAllCourses(): Promise<AdminCourse[]> {
   return response.data;
 }
 
+export async function fetchCourse(slug: string): Promise<AdminCourse> {
+  const response = await api.get(`/courses/${slug}/`);
+  return response.data;
+}
+
 export async function createCourse(data: {
   title: string;
   description: string;
@@ -172,4 +177,53 @@ export async function updateCourse(slug: string, data: Partial<AdminCourse>): Pr
 
 export async function deleteCourse(slug: string): Promise<void> {
   await api.delete(`/courses/${slug}/`);
+}
+
+// ─── Module Management ───────────────────────────────────
+
+export async function createModule(data: {
+  course: number;
+  title: string;
+}): Promise<AdminModule> {
+  const response = await api.post('/modules/', data);
+  return response.data;
+}
+
+export async function updateModule(id: number, data: Partial<AdminModule>): Promise<AdminModule> {
+  const response = await api.patch(`/modules/${id}/`, data);
+  return response.data;
+}
+
+export async function deleteModule(id: number): Promise<void> {
+  await api.delete(`/modules/${id}/`);
+}
+
+// ─── Lesson Management ───────────────────────────────────
+
+export async function createLesson(data: {
+  module: number;
+  title: string;
+  content_type: 'video' | 'text' | 'pdf' | 'quiz';
+}): Promise<AdminLesson> {
+  const response = await api.post('/lessons/', data);
+  return response.data;
+}
+
+export async function updateLesson(id: number, data: Partial<AdminLesson>): Promise<AdminLesson> {
+  const response = await api.patch(`/lessons/${id}/`, data);
+  return response.data;
+}
+
+export async function deleteLesson(id: number): Promise<void> {
+  await api.delete(`/lessons/${id}/`);
+}
+
+export async function reorderLessons(lessonIds: number[]): Promise<{ status: string }> {
+  const response = await api.post('/lessons/reorder/', { lesson_ids: lessonIds });
+  return response.data;
+}
+
+export async function requestUploadUrl(lessonId: number): Promise<{ video_id: string; library_id: string }> {
+  const response = await api.post(`/lessons/${lessonId}/request_upload_url/`);
+  return response.data;
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { fetchAllCourses, updateCourse, type AdminCourse } from '@/lib/admin'
-import { BookOpen, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react'
+import { BookOpen, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, ExternalLink, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
@@ -61,11 +61,20 @@ export default function AdminCoursesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Course Management</h1>
-        <p className="text-sm text-zinc-500 mt-1">
-          View and manage all courses. {published.length} published, {drafts.length} draft{drafts.length !== 1 ? 's' : ''}.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Course Management</h1>
+          <p className="text-sm text-zinc-500 mt-1">
+            View and manage all courses. {published.length} published, {drafts.length} draft{drafts.length !== 1 ? 's' : ''}.
+          </p>
+        </div>
+        <Link
+          href="/admin/dashboard/courses/new"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors"
+        >
+          <Plus className="h-4 w-4" />
+          Create Course
+        </Link>
       </div>
 
       {/* Feedback */}
