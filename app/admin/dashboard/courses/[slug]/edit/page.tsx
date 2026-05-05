@@ -23,6 +23,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { uploadPdfAction } from '@/app/actions/upload'
 
 // @dnd-kit
 import {
@@ -328,6 +329,87 @@ function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initial
   )
 }
 
+function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl: (url: string) => void }) {
+  const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setError(null)
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      
+      const { url, error: uploadError } = await uploadPdfAction(formData)
+      
+      if (uploadError) throw new Error(uploadError)
+      if (url) onUpdateUrl(url)
+
+    } catch (err: any) {
+      console.error(err)
+      setError(err.message || 'Failed to upload PDF.')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+        <File className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+        <p className="text-xs text-zinc-400">
+          Upload a PDF directly to Supabase Storage
+        </p>
+        
+        {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+
+        <button 
+          type="button"
+          disabled={uploading}
+          onClick={() => fileInputRef.current?.click()}
+          className={cn(
+            "mt-3 inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-xs font-medium transition-colors cursor-pointer",
+            uploading && "opacity-50 cursor-not-allowed pointer-events-none"
+          )}
+        >
+          {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+          {uploading ? 'Uploading PDF...' : 'Select PDF File'}
+        </button>
+        <input 
+          ref={fileInputRef}
+          type="file" 
+          accept="application/pdf" 
+          className="hidden" 
+          onChange={handleFileChange}
+          disabled={uploading}
+        />
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="h-px bg-zinc-800 flex-1"></div>
+        <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">OR</span>
+        <div className="h-px bg-zinc-800 flex-1"></div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="block text-xs font-medium text-zinc-400">Host Externally (Google Drive, etc.)</label>
+        <input
+          type="url"
+          value={lesson.file_url || ''}
+          onChange={(e) => onUpdateUrl(e.target.value)}
+          placeholder="https://example.com/document.pdf"
+          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+        />
+      </div>
+    </div>
+  )
+}
+
 // ─── Main Page ───────────────────────────────────────────────
 
 export default function CourseBuilderPage() {
@@ -595,17 +677,10 @@ export default function CourseBuilderPage() {
 
                     {activeLesson.content_type === 'pdf' && (
                       <div className="space-y-3">
-                        <label className="block text-xs font-medium text-zinc-400">PDF Document URL</label>
-                        <input
-                          type="url"
-                          value={activeLesson.file_url || ''}
-                          onChange={(e) => setActiveLesson({...activeLesson, file_url: e.target.value})}
-                          placeholder="https://example.com/document.pdf"
-                          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+                        <PdfUploader 
+                          lesson={activeLesson} 
+                          onUpdateUrl={(url) => setActiveLesson({...activeLesson, file_url: url})} 
                         />
-                        <p className="text-[10px] text-zinc-500">
-                          Please host your PDF externally (e.g., Google Drive) and paste the public link here.
-                        </p>
                       </div>
                     )}
                   </div>
