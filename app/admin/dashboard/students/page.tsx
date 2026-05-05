@@ -1,11 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { manualRegisterUser, manualEnrollUser, generateCertificate, fetchAllCourses, type AdminCourse } from '@/lib/admin'
-import { UserPlus, GraduationCap, Award, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
+import { useState, useEffect, useMemo } from 'react'
+import { manualRegisterUser, manualEnrollUser, generateCertificate, fetchAllCourses, fetchAllStudents, type AdminCourse, type AdminStudent } from '@/lib/admin'
+import { UserPlus, GraduationCap, Award, Loader2, CheckCircle2, AlertCircle, Search, Users, Mail, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type FeedbackState = { type: 'success' | 'error'; message: string } | null
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
 
 function FormCard({
   icon: Icon,
@@ -117,6 +125,9 @@ function SubmitButton({ loading, label }: { loading: boolean; label: string }) {
 
 export default function StudentsPage() {
   const [courses, setCourses] = useState<AdminCourse[]>([])
+  const [students, setStudents] = useState<AdminStudent[]>([])
+  const [studentsLoading, setStudentsLoading] = useState(true)
+  const [search, setSearch] = useState('')
 
   // Register form
   const [regEmail, setRegEmail] = useState('')
@@ -144,7 +155,22 @@ export default function StudentsPage() {
       .catch(() => {})
   }, [])
 
+  useEffect(() => {
+    fetchAllStudents()
+      .then(setStudents)
+      .catch(() => {})
+      .finally(() => setStudentsLoading(false))
+  }, [])
+
   const courseOptions = courses.map((c) => ({ value: String(c.id), label: c.title }))
+
+  const filteredStudents = useMemo(() => {
+    if (!search.trim()) return students
+    const q = search.toLowerCase()
+    return students.filter(
+      (s) => s.email.toLowerCase().includes(q) || s.full_name.toLowerCase().includes(q) || String(s.id).includes(q)
+    )
+  }, [students, search])
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -162,6 +188,8 @@ export default function StudentsPage() {
       setRegPassword('')
       setRegFirstName('')
       setRegLastName('')
+      // Refresh student list
+      fetchAllStudents().then(setStudents).catch(() => {})
     } catch (err: any) {
       setRegFeedback({ type: 'error', message: err?.response?.data?.error || 'Registration failed' })
     } finally {
@@ -212,7 +240,120 @@ export default function StudentsPage() {
       {/* Page header */}
       <div>
         <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Student Management</h1>
-        <p className="text-sm text-zinc-500 mt-1">Register students, manage enrollments, and generate certificates.</p>
+        <p className="text-sm text-zinc-500 mt-1">Browse students, manage enrollments, and generate certificates.</p>
+      </div>
+
+      {/* ─── Student Directory ─── */}
+      <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
+              <Users className="h-5 w-5 text-indigo-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-zinc-200">Student Directory</h3>
+              <p className="text-xs text-zinc-500 mt-0.5">{students.length} registered student{students.length !== 1 ? 's' : ''}</p>
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="relative max-w-xs w-full">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by name, email, or ID..."
+              className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700/50 pl-10 pr-4 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"
+            />
+          </div>
+        </div>
+
+        {studentsLoading ? (
+          <div className="space-y-3 animate-pulse">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="h-12 bg-zinc-800/30 rounded-lg" />
+            ))}
+          </div>
+        ) : filteredStudents.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-dashed border-zinc-800 bg-zinc-900/20">
+            <Users className="h-8 w-8 text-zinc-700 mb-2" />
+            <p className="text-sm text-zinc-500">{search ? 'No matching students' : 'No students registered yet'}</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-zinc-800/60">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-zinc-800/60 bg-zinc-900/50">
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">ID</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Email</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Courses</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Verified</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Joined</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredStudents.map((student) => (
+                  <tr
+                    key={student.id}
+                    className="border-b border-zinc-800/30 last:border-0 hover:bg-zinc-800/20 transition-colors cursor-pointer"
+                    onClick={() => {
+                      setEnrollUserId(String(student.id))
+                      setCertUserId(String(student.id))
+                    }}
+                    title="Click to use this student's ID in forms below"
+                  >
+                    <td className="px-4 py-3">
+                      <span className="inline-flex items-center justify-center h-6 min-w-[28px] px-1.5 rounded-md bg-zinc-800 text-[11px] font-bold text-zinc-400">
+                        {student.id}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex-shrink-0 h-7 w-7 rounded-full bg-indigo-500/15 flex items-center justify-center">
+                          <span className="text-[10px] font-bold text-indigo-400">
+                            {(student.full_name || student.email).charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <span className="text-zinc-200 truncate max-w-[150px]">
+                          {student.full_name || '—'}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-zinc-400 truncate max-w-[200px]">{student.email}</td>
+                    <td className="px-4 py-3 text-center">
+                      <span className={cn(
+                        "inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold",
+                        student.enrollment_count > 0
+                          ? "bg-indigo-500/10 text-indigo-400"
+                          : "bg-zinc-800 text-zinc-500"
+                      )}>
+                        {student.enrollment_count}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {student.is_email_verified ? (
+                        <ShieldCheck className="h-4 w-4 text-emerald-400 mx-auto" />
+                      ) : (
+                        <Mail className="h-4 w-4 text-zinc-600 mx-auto" />
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-center text-xs text-zinc-500 whitespace-nowrap">
+                      {formatDate(student.date_joined)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {!studentsLoading && (
+          <p className="text-xs text-zinc-600">
+            Showing {filteredStudents.length} of {students.length} student{students.length !== 1 ? 's' : ''}
+          </p>
+        )}
       </div>
 
       {/* Register User */}

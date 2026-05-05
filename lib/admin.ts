@@ -99,6 +99,21 @@ export async function fetchRecentActivity(): Promise<RecentActivity> {
 
 // ─── Student Management ──────────────────────────────────
 
+export interface AdminStudent {
+  id: number;
+  email: string;
+  full_name: string;
+  date_joined: string;
+  is_active: boolean;
+  is_email_verified: boolean;
+  enrollment_count: number;
+}
+
+export async function fetchAllStudents(): Promise<AdminStudent[]> {
+  const response = await api.get('/dashboard/management/students/');
+  return response.data;
+}
+
 export async function manualRegisterUser(data: {
   email: string;
   password: string;
