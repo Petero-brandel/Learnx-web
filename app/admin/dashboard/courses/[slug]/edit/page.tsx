@@ -585,6 +585,8 @@ export default function CourseBuilderPage() {
                       <div className="space-y-2">
                         <textarea
                           rows={6}
+                          value={activeLesson.text_content || ''}
+                          onChange={(e) => setActiveLesson({...activeLesson, text_content: e.target.value})}
                           placeholder="Write your lesson content here..."
                           className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50 resize-none"
                         />
@@ -592,18 +594,30 @@ export default function CourseBuilderPage() {
                     )}
 
                     {activeLesson.content_type === 'pdf' && (
-                      <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center">
-                        <File className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
-                        <button className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors">
-                          Upload PDF
-                        </button>
+                      <div className="space-y-3">
+                        <label className="block text-xs font-medium text-zinc-400">PDF Document URL</label>
+                        <input
+                          type="url"
+                          value={activeLesson.file_url || ''}
+                          onChange={(e) => setActiveLesson({...activeLesson, file_url: e.target.value})}
+                          placeholder="https://example.com/document.pdf"
+                          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+                        />
+                        <p className="text-[10px] text-zinc-500">
+                          Please host your PDF externally (e.g., Google Drive) and paste the public link here.
+                        </p>
                       </div>
                     )}
                   </div>
 
                   <div className="pt-4 flex justify-end">
                     <button
-                      onClick={() => handleSaveLessonEdit({ title: activeLesson.title, content_type: activeLesson.content_type })}
+                      onClick={() => handleSaveLessonEdit({ 
+                        title: activeLesson.title, 
+                        content_type: activeLesson.content_type,
+                        text_content: activeLesson.text_content,
+                        file_url: activeLesson.file_url
+                      })}
                       disabled={saving}
                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
                     >
