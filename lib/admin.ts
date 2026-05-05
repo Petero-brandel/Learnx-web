@@ -68,6 +68,9 @@ export interface AdminLesson {
   id: number;
   title: string;
   content_type: 'video' | 'text' | 'pdf' | 'quiz';
+  video_id: string | null;
+  text_content: string | null;
+  file_url: string | null;
   order: number;
   is_preview: boolean;
 }
@@ -223,7 +226,12 @@ export async function reorderLessons(lessonIds: number[]): Promise<{ status: str
   return response.data;
 }
 
-export async function requestUploadUrl(lessonId: number): Promise<{ video_id: string; library_id: string }> {
+export async function requestUploadUrl(lessonId: number): Promise<{ 
+  video_id: string; 
+  library_id: string;
+  authorization_signature: string;
+  authorization_expire: number;
+}> {
   const response = await api.post(`/lessons/${lessonId}/request_upload_url/`);
   return response.data;
 }

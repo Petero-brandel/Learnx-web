@@ -12,6 +12,7 @@ import {
   updateLesson, 
   deleteLesson,
   reorderLessons,
+  requestUploadUrl,
   type AdminCourse,
   type AdminModule,
   type AdminLesson
@@ -41,6 +42,7 @@ import {
   useSortable
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import * as tus from 'tus-js-client'
 
 // ─── Sub-Components ──────────────────────────────────────────
 
@@ -216,6 +218,107 @@ function SortableModule({
   )
 }
 
+function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initialVideoId: string | null }) {
+  const [uploading, setUploading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(!!initialVideoId)
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setProgress(0)
+    setError(null)
+    setSuccess(false)
+
+    try {
+      const { video_id, library_id, authorization_signature, authorization_expire } = await requestUploadUrl(lessonId)
+
+      const upload = new tus.Upload(file, {
+        endpoint: 'https://video.bunnycdn.com/tusupload',
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          AuthorizationSignature: authorization_signature,
+          AuthorizationExpire: authorization_expire.toString(),
+          VideoId: video_id,
+          LibraryId: library_id,
+        },
+        metadata: {
+          filetype: file.type,
+          title: file.name,
+        },
+        onError: function (error) {
+          console.error('Failed because: ' + error)
+          setError('Upload failed. Please try again.')
+          setUploading(false)
+        },
+        onProgress: function (bytesUploaded, bytesTotal) {
+          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
+          setProgress(Number(percentage))
+        },
+        onSuccess: function () {
+          setSuccess(true)
+          setUploading(false)
+        },
+      })
+
+      upload.start()
+
+    } catch (err: any) {
+      console.error(err)
+      setError('Failed to request upload URL.')
+      setUploading(false)
+    }
+  }
+
+  if (success && !uploading) {
+    return (
+      <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center">
+        <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
+        <p className="text-sm text-emerald-400 font-medium">Video uploaded successfully!</p>
+        <p className="text-xs text-zinc-400 mt-1">Bunny Stream is now encoding it.</p>
+        <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors">
+          Replace Video
+          <input type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
+        </label>
+      </div>
+    )
+  }
+
+  return (
+    <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+      {uploading && (
+        <div 
+          className="absolute top-0 left-0 h-1 bg-indigo-500 transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      )}
+      <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+      <p className="text-xs text-zinc-400">
+        {uploading ? `Uploading... ${progress}%` : "Select a video to upload directly to Bunny Stream."}
+      </p>
+      
+      {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+
+      <label className={cn(
+        "mt-3 inline-flex items-center px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer",
+        uploading && "opacity-50 cursor-not-allowed pointer-events-none"
+      )}>
+        {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {uploading ? 'Uploading...' : 'Select Video File'}
+        <input 
+          type="file" 
+          accept="video/*" 
+          className="hidden" 
+          onChange={handleFileChange}
+          disabled={uploading}
+        />
+      </label>
+    </div>
+  )
+}
 
 // ─── Main Page ───────────────────────────────────────────────
 
@@ -466,13 +569,7 @@ export default function CourseBuilderPage() {
                     {/* Placeholder for actual content editing based on type */}
                     {activeLesson.content_type === 'video' && (
                       <div className="space-y-3">
-                        <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center">
-                          <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
-                          <p className="text-xs text-zinc-400">Video upload via Bunny Stream API will be configured here.</p>
-                          <button className="mt-3 px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors">
-                            Select Video File
-                          </button>
-                        </div>
+                        <VideoUploader lessonId={activeLesson.id} initialVideoId={activeLesson.video_id} />
                       </div>
                     )}
 
