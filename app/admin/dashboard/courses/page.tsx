@@ -170,29 +170,6 @@ export default function AdminCoursesPage() {
                       <Pencil className="h-4 w-4" />
                     </button>
 
-                    {/* Publish toggle */}
-                    <button
-                      onClick={() => handleTogglePublish(course)}
-                      disabled={toggling === course.id}
-                      className={cn(
-                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-zinc-950",
-                        course.is_published ? "bg-emerald-500" : "bg-zinc-700",
-                        toggling === course.id && "opacity-50 cursor-not-allowed"
-                      )}
-                      title={course.is_published ? 'Unpublish course' : 'Publish course'}
-                    >
-                      {toggling === course.id ? (
-                        <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
-                      ) : null}
-                      <span
-                        className={cn(
-                          "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
-                          course.is_published ? "translate-x-4" : "translate-x-0",
-                          toggling === course.id && "opacity-0"
-                        )}
-                      />
-                    </button>
-
                     {/* Delete */}
                     <button
                       onClick={async () => {
@@ -220,6 +197,29 @@ export default function AdminCoursesPage() {
                       ) : (
                         <Trash2 className="h-4 w-4" />
                       )}
+                    </button>
+
+                    {/* Publish toggle */}
+                    <button
+                      onClick={() => handleTogglePublish(course)}
+                      disabled={toggling === course.id}
+                      className={cn(
+                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-zinc-950",
+                        course.is_published ? "bg-emerald-500" : "bg-zinc-700",
+                        toggling === course.id && "opacity-50 cursor-not-allowed"
+                      )}
+                      title={course.is_published ? 'Unpublish course' : 'Publish course'}
+                    >
+                      {toggling === course.id ? (
+                        <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
+                      ) : null}
+                      <span
+                        className={cn(
+                          "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                          course.is_published ? "translate-x-4" : "translate-x-0",
+                          toggling === course.id && "opacity-0"
+                        )}
+                      />
                     </button>
                   </div>
                 </div>
