@@ -117,7 +117,7 @@ export default function AdminCoursesPage() {
             return (
               <div
                 key={course.id}
-                className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-5 hover:bg-zinc-900/50 transition-colors"
+                className="group rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-5 hover:bg-zinc-900/50 transition-colors"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   {/* Thumbnail */}
@@ -164,7 +164,7 @@ export default function AdminCoursesPage() {
                     {/* Edit */}
                     <button
                       onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
-                      className="p-2 rounded-lg text-zinc-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition-colors"
+                      className="p-2 rounded-lg text-zinc-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all opacity-0 group-hover:opacity-100"
                       title="Edit course"
                     >
                       <Pencil className="h-4 w-4" />
@@ -187,8 +187,8 @@ export default function AdminCoursesPage() {
                       }}
                       disabled={deleting === course.id}
                       className={cn(
-                        "p-2 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-colors",
-                        deleting === course.id && "opacity-50 cursor-not-allowed"
+                        "p-2 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-all",
+                        deleting === course.id ? "opacity-50 cursor-not-allowed" : "opacity-0 group-hover:opacity-100"
                       )}
                       title="Delete course"
                     >
