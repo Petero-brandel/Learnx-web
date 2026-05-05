@@ -585,8 +585,8 @@ export default function CourseBuilderPage() {
       const updated = await fetchCourse(slug)
       setCourse(updated)
       // Update active lesson reference to the newly fetched one
-      const newActive = updated.modules.flatMap(m => m.lessons).find(l => l.id === activeLesson.id)
-      if (newActive) setActiveLesson(newActive)
+      // Close the edit pane on save so it's ready for the next edit
+      setActiveLesson(null)
     } finally {
       setSaving(false)
     }

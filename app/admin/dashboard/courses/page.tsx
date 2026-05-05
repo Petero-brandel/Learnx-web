@@ -160,34 +160,40 @@ export default function AdminCoursesPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-3 shrink-0">
+                    {/* Edit */}
                     <button
                       onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-indigo-400 hover:bg-indigo-500/10 transition-colors"
+                      className="p-2 rounded-lg text-zinc-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition-colors"
+                      title="Edit course"
                     >
-                      <Pencil className="h-3.5 w-3.5" />
-                      Edit
+                      <Pencil className="h-4 w-4" />
                     </button>
+
+                    {/* Publish toggle */}
                     <button
                       onClick={() => handleTogglePublish(course)}
                       disabled={toggling === course.id}
                       className={cn(
-                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        course.is_published
-                          ? "text-amber-400 hover:bg-amber-500/10"
-                          : "text-emerald-400 hover:bg-emerald-500/10",
+                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-zinc-950",
+                        course.is_published ? "bg-emerald-500" : "bg-zinc-700",
                         toggling === course.id && "opacity-50 cursor-not-allowed"
                       )}
+                      title={course.is_published ? 'Unpublish course' : 'Publish course'}
                     >
                       {toggling === course.id ? (
-                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                      ) : course.is_published ? (
-                        <EyeOff className="h-3.5 w-3.5" />
-                      ) : (
-                        <Eye className="h-3.5 w-3.5" />
-                      )}
-                      {course.is_published ? 'Unpublish' : 'Publish'}
+                        <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
+                      ) : null}
+                      <span
+                        className={cn(
+                          "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                          course.is_published ? "translate-x-4" : "translate-x-0",
+                          toggling === course.id && "opacity-0"
+                        )}
+                      />
                     </button>
+
+                    {/* Delete */}
                     <button
                       onClick={async () => {
                         if (!confirm(`Are you sure you want to delete "${course.title}"? This will permanently remove all modules and lessons.`)) return
@@ -204,16 +210,16 @@ export default function AdminCoursesPage() {
                       }}
                       disabled={deleting === course.id}
                       className={cn(
-                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 hover:bg-red-500/10 transition-colors",
+                        "p-2 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-colors",
                         deleting === course.id && "opacity-50 cursor-not-allowed"
                       )}
+                      title="Delete course"
                     >
                       {deleting === course.id ? (
-                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
-                        <Trash2 className="h-3.5 w-3.5" />
+                        <Trash2 className="h-4 w-4" />
                       )}
-                      Delete
                     </button>
                   </div>
                 </div>
