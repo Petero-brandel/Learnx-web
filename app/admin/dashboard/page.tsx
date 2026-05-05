@@ -80,16 +80,30 @@ export default function AdminDashboardPage() {
     return <LoadingSkeleton />
   }
 
-  // Chart data transformations
-  const revenueChartData = (revenue?.revenue_over_time || []).map((d) => ({
-    label: new Date(d.day).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    value: Number(d.total),
-  }))
+  // Generate the last 7 days array
+  const last7Days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date()
+    d.setDate(d.getDate() - (6 - i))
+    return d
+  })
 
-  const signupsChartData = (userStats?.signups_over_time || []).map((d) => ({
-    label: new Date(d.day).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    value: d.count,
-  }))
+  const revenueMap = new Map((revenue?.revenue_over_time || []).map(d => [d.day, Number(d.total)]))
+  const revenueChartData = last7Days.map(d => {
+    const dayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    return {
+      label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      value: revenueMap.get(dayStr) || 0
+    }
+  })
+
+  const signupsMap = new Map((userStats?.signups_over_time || []).map(d => [d.day, d.count]))
+  const signupsChartData = last7Days.map(d => {
+    const dayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    return {
+      label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      value: signupsMap.get(dayStr) || 0
+    }
+  })
 
   // Popular courses for bar visualization
   const popularCourses = coursePerf?.popular_courses || []
@@ -144,7 +158,7 @@ export default function AdminDashboardPage() {
         <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-200">Revenue (30 Days)</h3>
+              <h3 className="text-sm font-semibold text-zinc-200">Revenue (7 Days)</h3>
               <p className="text-xs text-zinc-500 mt-0.5">Daily revenue trend</p>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium bg-emerald-500/10 rounded-full px-3 py-1">
@@ -159,7 +173,7 @@ export default function AdminDashboardPage() {
         <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-200">New Students (30 Days)</h3>
+              <h3 className="text-sm font-semibold text-zinc-200">New Students (7 Days)</h3>
               <p className="text-xs text-zinc-500 mt-0.5">Daily signups trend</p>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-sky-400 font-medium bg-sky-500/10 rounded-full px-3 py-1">
