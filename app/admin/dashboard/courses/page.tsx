@@ -70,7 +70,7 @@ export default function AdminCoursesPage() {
         </div>
         <Link
           href="/admin/dashboard/courses/new"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-sm font-medium transition-colors"
         >
           <Plus className="h-4 w-4" />
           Create Course

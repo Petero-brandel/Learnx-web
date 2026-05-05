@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { 
   fetchCourse, 
@@ -12,6 +12,7 @@ import {
   updateLesson, 
   deleteLesson,
   reorderLessons,
+  requestUploadUrl,
   type AdminCourse,
   type AdminModule,
   type AdminLesson
@@ -41,6 +42,7 @@ import {
   useSortable
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import * as tus from 'tus-js-client'
 
 // ─── Sub-Components ──────────────────────────────────────────
 
@@ -152,11 +154,11 @@ function SortableModule({
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="flex-1 px-3 py-1.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500"
+              className="flex-1 px-3 py-1.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500"
               autoFocus
               onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             />
-            <button onClick={handleSave} className="p-1.5 text-emerald-400 hover:bg-emerald-500/10 rounded-md">
+            <button onClick={handleSave} className="p-1.5 text-indigo-400 hover:bg-indigo-500/10 rounded-md">
               <CheckCircle2 className="h-4 w-4" />
             </button>
           </div>
@@ -216,6 +218,115 @@ function SortableModule({
   )
 }
 
+function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initialVideoId: string | null }) {
+  const [uploading, setUploading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(!!initialVideoId)
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setProgress(0)
+    setError(null)
+    setSuccess(false)
+
+    try {
+      const { video_id, library_id, authorization_signature, authorization_expire } = await requestUploadUrl(lessonId)
+
+      const upload = new tus.Upload(file, {
+        endpoint: 'https://video.bunnycdn.com/tusupload',
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          AuthorizationSignature: authorization_signature,
+          AuthorizationExpire: authorization_expire.toString(),
+          VideoId: video_id,
+          LibraryId: library_id,
+        },
+        metadata: {
+          filetype: file.type,
+          title: file.name,
+        },
+        onError: function (error) {
+          console.error('Failed because: ' + error)
+          setError('Upload failed. Please try again.')
+          setUploading(false)
+        },
+        onProgress: function (bytesUploaded, bytesTotal) {
+          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
+          setProgress(Number(percentage))
+        },
+        onSuccess: function () {
+          setSuccess(true)
+          setUploading(false)
+        },
+      })
+
+      upload.start()
+
+    } catch (err: any) {
+      console.error(err)
+      setError('Failed to request upload URL.')
+      setUploading(false)
+    }
+  }
+
+  if (success && !uploading) {
+    return (
+      <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center">
+        <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
+        <p className="text-sm text-emerald-400 font-medium">Video uploaded successfully!</p>
+        <p className="text-xs text-zinc-400 mt-1">Bunny Stream is now encoding it.</p>
+        <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors">
+          Replace Video
+          <input type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
+        </label>
+      </div>
+    )
+  }
+
+  return (
+    <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+      {uploading && (
+        <div 
+          className="absolute top-0 left-0 h-1 bg-indigo-500 transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      )}
+      <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+      <p className="text-xs text-zinc-400">
+        {uploading ? `Uploading... ${progress}%` : "Select a video to upload directly to Bunny Stream."}
+      </p>
+      
+      {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+
+      <button 
+        type="button"
+        disabled={uploading}
+        onClick={() => fileInputRef.current?.click()}
+        className={cn(
+          "mt-3 inline-flex items-center px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer",
+          uploading && "opacity-50 cursor-not-allowed pointer-events-none"
+        )}
+      >
+        {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {uploading ? 'Uploading...' : 'Select Video File'}
+      </button>
+      <input 
+        ref={fileInputRef}
+        type="file" 
+        accept="video/*" 
+        className="hidden" 
+        onChange={handleFileChange}
+        disabled={uploading}
+      />
+    </div>
+  )
+}
 
 // ─── Main Page ───────────────────────────────────────────────
 
@@ -445,7 +556,7 @@ export default function CourseBuilderPage() {
                       type="text"
                       value={activeLesson.title}
                       onChange={(e) => setActiveLesson({...activeLesson, title: e.target.value})}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500/50"
+                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
                     />
                   </div>
 
@@ -454,7 +565,7 @@ export default function CourseBuilderPage() {
                     <select
                       value={activeLesson.content_type}
                       onChange={(e) => setActiveLesson({...activeLesson, content_type: e.target.value as any})}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500/50 appearance-none"
+                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50 appearance-none"
                     >
                       <option value="video">Video Lesson</option>
                       <option value="text">Text Lesson</option>
@@ -466,13 +577,7 @@ export default function CourseBuilderPage() {
                     {/* Placeholder for actual content editing based on type */}
                     {activeLesson.content_type === 'video' && (
                       <div className="space-y-3">
-                        <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center">
-                          <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
-                          <p className="text-xs text-zinc-400">Video upload via Bunny Stream API will be configured here.</p>
-                          <button className="mt-3 px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors">
-                            Select Video File
-                          </button>
-                        </div>
+                        <VideoUploader lessonId={activeLesson.id} initialVideoId={activeLesson.video_id} />
                       </div>
                     )}
 
@@ -481,7 +586,7 @@ export default function CourseBuilderPage() {
                         <textarea
                           rows={6}
                           placeholder="Write your lesson content here..."
-                          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500/50 resize-none"
+                          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50 resize-none"
                         />
                       </div>
                     )}
@@ -500,7 +605,7 @@ export default function CourseBuilderPage() {
                     <button
                       onClick={() => handleSaveLessonEdit({ title: activeLesson.title, content_type: activeLesson.content_type })}
                       disabled={saving}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
                     >
                       {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                       Save Lesson
