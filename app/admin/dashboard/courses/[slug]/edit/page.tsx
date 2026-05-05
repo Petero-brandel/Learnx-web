@@ -152,11 +152,11 @@ function SortableModule({
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="flex-1 px-3 py-1.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500"
+              className="flex-1 px-3 py-1.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500"
               autoFocus
               onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             />
-            <button onClick={handleSave} className="p-1.5 text-emerald-400 hover:bg-emerald-500/10 rounded-md">
+            <button onClick={handleSave} className="p-1.5 text-indigo-400 hover:bg-indigo-500/10 rounded-md">
               <CheckCircle2 className="h-4 w-4" />
             </button>
           </div>
@@ -445,7 +445,7 @@ export default function CourseBuilderPage() {
                       type="text"
                       value={activeLesson.title}
                       onChange={(e) => setActiveLesson({...activeLesson, title: e.target.value})}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500/50"
+                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
                     />
                   </div>
 
@@ -454,7 +454,7 @@ export default function CourseBuilderPage() {
                     <select
                       value={activeLesson.content_type}
                       onChange={(e) => setActiveLesson({...activeLesson, content_type: e.target.value as any})}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500/50 appearance-none"
+                      className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50 appearance-none"
                     >
                       <option value="video">Video Lesson</option>
                       <option value="text">Text Lesson</option>
@@ -481,7 +481,7 @@ export default function CourseBuilderPage() {
                         <textarea
                           rows={6}
                           placeholder="Write your lesson content here..."
-                          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-emerald-500/50 resize-none"
+                          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50 resize-none"
                         />
                       </div>
                     )}
@@ -500,7 +500,7 @@ export default function CourseBuilderPage() {
                     <button
                       onClick={() => handleSaveLessonEdit({ title: activeLesson.title, content_type: activeLesson.content_type })}
                       disabled={saving}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
                     >
                       {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                       Save Lesson
