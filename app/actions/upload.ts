@@ -18,7 +18,7 @@ export async function uploadPdfAction(formData: FormData): Promise<{ url?: strin
 
     const buffer = await file.arrayBuffer();
 
-    const response = await fetch(`${supabaseUrl}/storage/v1/object/learx-pdfs/${uniqueFilename}`, {
+    const response = await fetch(`${supabaseUrl}/storage/v1/object/learnx-pdfs/${uniqueFilename}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${serviceRoleKey}`,
@@ -34,7 +34,7 @@ export async function uploadPdfAction(formData: FormData): Promise<{ url?: strin
     }
 
     // Return the public URL
-    const publicUrl = `${supabaseUrl}/storage/v1/object/public/learx-pdfs/${uniqueFilename}`;
+    const publicUrl = `${supabaseUrl}/storage/v1/object/public/learnx-pdfs/${uniqueFilename}`;
     return { url: publicUrl };
 
   } catch (err: any) {
