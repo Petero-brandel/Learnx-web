@@ -358,6 +358,48 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
     }
   }
 
+  const hasFile = !!lesson.file_url
+
+  if (hasFile && !uploading) {
+    const isSupabase = lesson.file_url?.includes('supabase.co')
+    const displayLabel = isSupabase ? 'Supabase PDF Attached' : 'External PDF Attached'
+    const fileName = lesson.file_url?.split('/').pop() || lesson.file_url
+
+    return (
+      <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center">
+        <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
+        <p className="text-sm text-emerald-400 font-medium">{displayLabel}</p>
+        <p className="text-xs text-emerald-400/80 mt-1 truncate px-4" title={lesson.file_url || ''}>
+          {fileName}
+        </p>
+        
+        <div className="mt-4 flex items-center justify-center gap-2">
+          <button 
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="inline-flex px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+          >
+            Replace File
+          </button>
+          <input 
+            ref={fileInputRef}
+            type="file" 
+            accept="application/pdf" 
+            className="hidden" 
+            onChange={handleFileChange}
+          />
+          <button 
+            type="button"
+            onClick={() => onUpdateUrl('')}
+            className="inline-flex px-3 py-1.5 text-red-400 hover:bg-red-500/10 rounded-lg text-xs font-medium transition-colors"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-4">
       <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
