@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { fetchAllCourses, updateCourse, type AdminCourse } from '@/lib/admin'
-import { BookOpen, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, ExternalLink, Plus } from 'lucide-react'
+import { fetchAllCourses, updateCourse, deleteCourse, type AdminCourse } from '@/lib/admin'
+import { BookOpen, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, Pencil, Trash2, Plus } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 function formatDate(dateStr: string): string {
@@ -24,9 +25,11 @@ function formatPrice(price: string | number): string {
 }
 
 export default function AdminCoursesPage() {
+  const router = useRouter()
   const [courses, setCourses] = useState<AdminCourse[]>([])
   const [loading, setLoading] = useState(true)
   const [toggling, setToggling] = useState<number | null>(null)
+  const [deleting, setDeleting] = useState<number | null>(null)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
   useEffect(() => {
@@ -158,14 +161,13 @@ export default function AdminCoursesPage() {
 
                   {/* Actions */}
                   <div className="flex items-center gap-2 shrink-0">
-                    <Link
-                      href={`/courses/${course.slug}`}
-                      target="_blank"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors"
+                    <button
+                      onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-indigo-400 hover:bg-indigo-500/10 transition-colors"
                     >
-                      <ExternalLink className="h-3.5 w-3.5" />
-                      View
-                    </Link>
+                      <Pencil className="h-3.5 w-3.5" />
+                      Edit
+                    </button>
                     <button
                       onClick={() => handleTogglePublish(course)}
                       disabled={toggling === course.id}
@@ -185,6 +187,33 @@ export default function AdminCoursesPage() {
                         <Eye className="h-3.5 w-3.5" />
                       )}
                       {course.is_published ? 'Unpublish' : 'Publish'}
+                    </button>
+                    <button
+                      onClick={async () => {
+                        if (!confirm(`Are you sure you want to delete "${course.title}"? This will permanently remove all modules and lessons.`)) return
+                        setDeleting(course.id)
+                        try {
+                          await deleteCourse(course.slug)
+                          setCourses((prev) => prev.filter((c) => c.id !== course.id))
+                          setFeedback({ type: 'success', message: `"${course.title}" deleted successfully` })
+                        } catch {
+                          setFeedback({ type: 'error', message: `Failed to delete "${course.title}"` })
+                        } finally {
+                          setDeleting(null)
+                        }
+                      }}
+                      disabled={deleting === course.id}
+                      className={cn(
+                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 hover:bg-red-500/10 transition-colors",
+                        deleting === course.id && "opacity-50 cursor-not-allowed"
+                      )}
+                    >
+                      {deleting === course.id ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-3.5 w-3.5" />
+                      )}
+                      Delete
                     </button>
                   </div>
                 </div>
