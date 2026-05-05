@@ -135,6 +135,39 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
     )
   }
 
+  // ── DEACTIVATED: Enrollment is deactivated ──
+  if (enrollment.is_active === false) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 px-6">
+        <div className="h-16 w-16 rounded-2xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2 text-center">
+          Enrollment Deactivated
+        </h2>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center max-w-sm mb-6">
+          Your access to <span className="font-semibold text-zinc-700 dark:text-zinc-300">{course.title}</span> has been deactivated. Please contact support to resolve this issue.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href="mailto:support@learnx.com?subject=Deactivated Enrollment for Course"
+            className="inline-flex items-center justify-center gap-2 bg-indigo-600 text-white rounded-full px-6 py-2.5 text-sm font-semibold hover:bg-indigo-700 transition-colors"
+          >
+            Contact Support
+          </a>
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center justify-center gap-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-full px-6 py-2.5 text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+          >
+            Back to Dashboard
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 md:-my-8">
       {/* Top bar */}

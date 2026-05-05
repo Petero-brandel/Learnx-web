@@ -171,21 +171,22 @@ export default function EnrollmentsPage() {
                       onClick={() => handleToggle(enrollment)}
                       disabled={toggling === enrollment.id}
                       className={cn(
-                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        enrollment.is_active
-                          ? "text-red-400 hover:bg-red-500/10"
-                          : "text-emerald-400 hover:bg-emerald-500/10",
+                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-zinc-950",
+                        enrollment.is_active ? "bg-indigo-600" : "bg-zinc-700",
                         toggling === enrollment.id && "opacity-50 cursor-not-allowed"
                       )}
+                      aria-label={enrollment.is_active ? 'Deactivate enrollment' : 'Activate enrollment'}
                     >
                       {toggling === enrollment.id ? (
-                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                      ) : enrollment.is_active ? (
-                        <ToggleRight className="h-3.5 w-3.5" />
-                      ) : (
-                        <ToggleLeft className="h-3.5 w-3.5" />
-                      )}
-                      {enrollment.is_active ? 'Deactivate' : 'Activate'}
+                        <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
+                      ) : null}
+                      <span
+                        className={cn(
+                          "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                          enrollment.is_active ? "translate-x-4" : "translate-x-0",
+                          toggling === enrollment.id && "opacity-0"
+                        )}
+                      />
                     </button>
                   </td>
                 </tr>

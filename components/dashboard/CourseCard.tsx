@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { CheckCircle, ArrowRight } from 'lucide-react'
+import { CheckCircle, ArrowRight, AlertCircle } from 'lucide-react'
 import type { Enrollment } from '@/lib/dashboard'
 
 interface CourseCardProps {
@@ -15,7 +15,10 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
   return (
     <Link
       href={`/dashboard/courses/${enrollment.course_slug}`}
-      className="group block rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-700 active:scale-[0.98]"
+      className={cn(
+        "group block rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-700 active:scale-[0.98]",
+        enrollment.is_active === false && "opacity-75 grayscale-[0.5]"
+      )}
     >
       {/* Thumbnail */}
       <div className="relative aspect-video bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
@@ -34,7 +37,12 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
         )}
 
         {/* Completion badge */}
-        {isComplete && (
+        {enrollment.is_active === false ? (
+          <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-red-500/90 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm">
+            <AlertCircle className="h-3.5 w-3.5" />
+            Deactivated
+          </div>
+        ) : isComplete && (
           <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
             <CheckCircle className="h-3.5 w-3.5" />
             Completed

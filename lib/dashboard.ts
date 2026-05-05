@@ -9,6 +9,7 @@ export interface Enrollment {
   course_thumbnail: string | null;
   progress_percentage: number;
   enrolled_at: string;
+  is_active: boolean;
 }
 
 export interface Lesson {
