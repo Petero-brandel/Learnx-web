@@ -361,25 +361,33 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
   const hasFile = !!lesson.file_url
 
   if (hasFile && !uploading) {
-    const isSupabase = lesson.file_url?.includes('supabase.co')
-    const displayLabel = isSupabase ? 'Supabase PDF Attached' : 'External PDF Attached'
-    const fileName = lesson.file_url?.split('/').pop() || lesson.file_url
+    let fileName = lesson.file_url?.split('/').pop() || lesson.file_url || 'Document.pdf';
+    // Remove the timestamp prefix generated during upload (e.g., 17145234-filename.pdf)
+    if (fileName.match(/^\d{13}-/)) {
+      fileName = fileName.substring(fileName.indexOf('-') + 1);
+    }
+    // Decode URI encoding (like %20 for spaces)
+    try { fileName = decodeURIComponent(fileName); } catch(e){}
 
     return (
-      <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center">
-        <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
-        <p className="text-sm text-emerald-400 font-medium">{displayLabel}</p>
-        <p className="text-xs text-emerald-400/80 mt-1 truncate px-4" title={lesson.file_url || ''}>
-          {fileName}
-        </p>
+      <div className="p-3 border border-indigo-500/30 bg-indigo-500/10 rounded-xl flex items-center justify-between">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <div className="p-2 bg-indigo-500/20 rounded-lg shrink-0">
+            <FileText className="h-5 w-5 text-indigo-400" />
+          </div>
+          <div className="text-left overflow-hidden">
+            <p className="text-sm text-zinc-200 font-medium truncate" title={fileName}>{fileName}</p>
+            <p className="text-[10px] text-indigo-400/80 uppercase tracking-wider mt-0.5 font-semibold">PDF Attached</p>
+          </div>
+        </div>
         
-        <div className="mt-4 flex items-center justify-center gap-2">
+        <div className="flex items-center gap-1.5 shrink-0 ml-4">
           <button 
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+            className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg text-xs font-medium transition-colors cursor-pointer"
           >
-            Replace File
+            Replace
           </button>
           <input 
             ref={fileInputRef}
@@ -391,9 +399,10 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
           <button 
             type="button"
             onClick={() => onUpdateUrl('')}
-            className="inline-flex px-3 py-1.5 text-red-400 hover:bg-red-500/10 rounded-lg text-xs font-medium transition-colors"
+            className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+            title="Remove file"
           >
-            Remove
+            <Trash2 className="h-4 w-4" />
           </button>
         </div>
       </div>
