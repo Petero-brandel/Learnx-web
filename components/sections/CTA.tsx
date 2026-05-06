@@ -9,7 +9,7 @@ export function CTA() {
         <Reveal>
           <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 isolate">
             {/* Background gradient */}
-            <div className="absolute inset-0 bg-indigo-600" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[#1A73E8]" aria-hidden="true" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15),_transparent_60%)]" aria-hidden="true" />
 
             <h2 className="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
