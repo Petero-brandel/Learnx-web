@@ -60,7 +60,7 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              LearnX was founded with a singular mission: to make cutting-edge AI and digital
+              Bluedemy was founded with a singular mission: to make cutting-edge AI and digital
               skills accessible to everyone, regardless of background or experience level.
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function AboutPage() {
                 The Team
               </p>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-                Meet the people behind LearnX
+                Meet the people behind Bluedemy
               </h2>
             </div>
             <div className="grid md:grid-cols-3 gap-6">

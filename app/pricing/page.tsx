@@ -23,7 +23,7 @@ const plans = [
     href: '/courses',
   },
   {
-    name: 'LearnX Pro',
+    name: 'Bluedemy Pro',
     description: 'Best for career switchers and dedicated learners.',
     price: '₦150,000',
     duration: 'per year',
@@ -46,7 +46,7 @@ const plans = [
     duration: 'for teams of 5+',
     popular: false,
     features: [
-      'Everything in LearnX Pro',
+      'Everything in Bluedemy Pro',
       'Dedicated success manager',
       'Team progress analytics dashboard',
       'Custom learning paths',
@@ -54,7 +54,7 @@ const plans = [
       'Invoice billing available',
     ],
     cta: 'Contact Sales',
-    href: 'mailto:enterprise@learnx.com',
+    href: 'mailto:enterprise@bluedemy.com',
   },
 ];
 

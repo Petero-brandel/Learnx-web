@@ -74,7 +74,7 @@ const megaMenus: Record<string, {
         ],
       },
       {
-        title: 'Why LearnX Pro',
+        title: 'Why Bluedemy Pro',
         items: [
           { label: 'Certificates', description: 'Earn certificates to share on LinkedIn', href: '/#pricing', icon: Trophy },
           { label: 'Cancel Anytime', description: 'No lock-in contracts for subscriptions', href: '/#pricing', icon: Shield },
@@ -85,7 +85,7 @@ const megaMenus: Record<string, {
     cta: { label: 'View all plans', href: '/#pricing', description: 'Compare features and pricing →' },
   },
   Company: {
-    heading: 'About LearnX',
+    heading: 'About Bluedemy',
     description: 'Learn more about our mission, team, and policies.',
     columns: [
       {
@@ -167,7 +167,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
               <div className="relative transition-transform duration-300 group-hover:scale-105">
-                <span className="font-bold text-2xl tracking-tight text-zinc-900 dark:text-zinc-50">LearnX</span>
+                <span className="font-bold text-2xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
               </div>
             </Link>
 
@@ -203,7 +203,7 @@ export default function Navbar() {
                     className={cn(
                       "px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
-                      item.label === 'Teach on LearnX'
+                      item.label === 'Teach on Bluedemy'
                         ? "text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40"
                         : cn(
                             "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/50",
@@ -393,7 +393,7 @@ export default function Navbar() {
             {/* Mobile header */}
             <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800">
               <Link href="/" onClick={() => setIsOpen(false)}>
-                <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">LearnX</span>
+                <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
               </Link>
               <button
                 onClick={() => setIsOpen(false)}
@@ -427,7 +427,7 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-xl transition-colors"
               >
-                Teach on LearnX
+                Teach on Bluedemy
               </Link>
             </div>
 

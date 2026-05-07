@@ -23,7 +23,7 @@ export default function AdminMobileHeader({ onMenuOpen }: AdminMobileHeaderProps
             <Shield className="h-4 w-4 text-indigo-400" />
           </div>
           <div>
-            <span className="text-sm font-bold text-zinc-100">LearnX</span>
+            <span className="text-sm font-bold text-zinc-100">Bluedemy</span>
             <span className="ml-1.5 text-[9px] font-semibold text-indigo-400 uppercase tracking-wider">Admin</span>
           </div>
         </div>

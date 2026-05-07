@@ -13,7 +13,7 @@ const testimonials = [
   {
     name: 'Tunde B.',
     role: 'Digital Marketer',
-    content: 'LearnX gave me the practical digital marketing skills that no university course ever did. My client base has doubled.',
+    content: 'Bluedemy gave me the practical digital marketing skills that no university course ever did. My client base has doubled.',
     rating: 5,
     avatar: 'T',
     gradient: 'bg-violet-500',
@@ -42,7 +42,7 @@ export function Testimonials() {
               Loved by learners
             </h2>
             <p className="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Hear from real students who have transformed their careers with LearnX.
+              Hear from real students who have transformed their careers with Bluedemy.
             </p>
           </div>
         </Reveal>

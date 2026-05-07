@@ -152,7 +152,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <a
-            href="mailto:support@learnx.com?subject=Deactivated Enrollment for Course"
+            href="mailto:support@bluedemy.com?subject=Deactivated Enrollment for Course"
             className="inline-flex items-center justify-center gap-2 bg-indigo-600 text-white rounded-full px-6 py-2.5 text-sm font-semibold hover:bg-indigo-700 transition-colors"
           >
             Contact Support

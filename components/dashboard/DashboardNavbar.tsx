@@ -102,7 +102,7 @@ export default function DashboardNavbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <span className="font-bold text-2xl tracking-tight text-zinc-900 dark:text-zinc-50 transition-transform duration-300 group-hover:scale-105">
-              LearnX
+              Bluedemy
             </span>
           </Link>
 
