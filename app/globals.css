@@ -6,6 +6,21 @@
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
+
+  /* Bluedemy Brand Colors */
+  --color-bluedemy-primary: #1A73E8;
+  --color-bluedemy-primary-dark: #1557C0;
+  --color-bluedemy-primary-light: #4A90F7;
+
+  /* Learning Progress - Reserved Indigo */
+  --color-learning-progress: #6366F1;
+  --color-learning-progress-light: #818CF8;
+
+  /* Accent Colors */
+  --color-accent-emerald: #34D399;
+  --color-accent-amber: #FBBF24;
+  --color-accent-sky: #0EA5E9;
+  --color-accent-rose: #F43F5E;
 }
 
 @theme inline {
@@ -14,18 +29,18 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  /* Brand Override: Mapping indigo to Soft Pink (#EC4899) */
-  --color-indigo-50: #fdf2f8;
-  --color-indigo-100: #fce7f3;
-  --color-indigo-200: #fbcfe8;
-  --color-indigo-300: #f9a8d4;
-  --color-indigo-400: #f472b6;
-  --color-indigo-500: #f472b6;
-  --color-indigo-600: #ec4899; /* Primary brand color (Soft Pink) */
-  --color-indigo-700: #db2777;
-  --color-indigo-800: #be185d;
-  --color-indigo-900: #9d174d;
-  --color-indigo-950: #831843;
+  /* Brand Override: Mapping indigo to learning progress (#6366F1) */
+  --color-indigo-50: #eef2ff;
+  --color-indigo-100: #e0e7ff;
+  --color-indigo-200: #c7d2fe;
+  --color-indigo-300: #a5b4fc;
+  --color-indigo-400: #818cf8;
+  --color-indigo-500: #6366f1;
+  --color-indigo-600: #6366f1; /* Learning progress indigo */
+  --color-indigo-700: #4f46e5;
+  --color-indigo-800: #4338ca;
+  --color-indigo-900: #312e81;
+  --color-indigo-950: #1e1b4b;
 }
 
 @media (prefers-color-scheme: dark) {

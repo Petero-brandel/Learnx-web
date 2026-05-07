@@ -13,7 +13,7 @@ export function Hero() {
             Learn to build with
           </span>
           <br />
-          <span className="text-[#1A73E8]">
+          <span style={{ color: 'var(--color-bluedemy-primary)' }}>
             AI & Digital Skills
           </span>
         </h1>

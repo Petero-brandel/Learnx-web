@@ -65,8 +65,9 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
             <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Progress</span>
             <span className={cn(
               "text-[11px] font-bold",
-              isComplete ? "text-emerald-600 dark:text-emerald-400" : "text-indigo-600 dark:text-indigo-400"
-            )}>
+              isComplete ? "text-emerald-600 dark:text-emerald-400" : "dark:text-zinc-400"
+            )}
+            style={{ color: isComplete ? undefined : 'var(--color-learning-progress)' }}>
               {enrollment.progress_percentage}%
             </span>
           </div>
@@ -76,9 +77,12 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
                 "h-full rounded-full transition-all duration-700 ease-out",
                 isComplete
                   ? "bg-emerald-500"
-                  : "bg-indigo-600 dark:bg-indigo-500"
+                  : "bg-zinc-600"
               )}
-              style={{ width: `${enrollment.progress_percentage}%` }}
+              style={{ 
+                width: `${enrollment.progress_percentage}%`,
+                backgroundColor: isComplete ? undefined : 'var(--color-learning-progress)'
+              }}
             />
           </div>
         </div>
