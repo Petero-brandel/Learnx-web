@@ -21,6 +21,23 @@ export interface Lesson {
   file_url: string | null;
   order: number;
   is_preview: boolean;
+  quiz?: {
+    id: number;
+    passing_score: number;
+    max_attempts: number;
+    time_limit_minutes: number;
+    is_required: boolean;
+    show_correct_answers: boolean;
+    shuffle_questions: boolean;
+    shuffle_answers: boolean;
+    questions: {
+      id: number;
+      text: string;
+      question_type: 'multiple_choice' | 'true_false';
+      order: number;
+      answers: { id: number; text: string; is_correct?: boolean }[];
+    }[];
+  } | null;
 }
 
 export interface Module {

@@ -73,6 +73,44 @@ export interface AdminLesson {
   file_url: string | null;
   order: number;
   is_preview: boolean;
+  quiz?: AdminQuiz | null;
+}
+
+export interface AdminAnswer {
+  id?: number;
+  text: string;
+  is_correct: boolean;
+}
+
+export interface AdminQuestion {
+  id?: number;
+  text: string;
+  question_type: 'multiple_choice' | 'true_false';
+  order: number;
+  answers: AdminAnswer[];
+}
+
+export interface AdminQuiz {
+  id?: number;
+  lesson: number;
+  passing_score: number;
+  max_attempts: number;
+  time_limit_minutes: number;
+  is_required: boolean;
+  show_correct_answers: boolean;
+  shuffle_questions: boolean;
+  shuffle_answers: boolean;
+  questions: AdminQuestion[];
+}
+
+export interface QuizResult {
+  score: number;
+  passed: boolean;
+  total_questions: number;
+  correct_count: number;
+  attempts_used: number;
+  attempts_remaining: number | null;
+  correct_answers?: Record<string, number>;
 }
 
 // ─── Analytics ───────────────────────────────────────────
@@ -249,5 +287,51 @@ export async function requestUploadUrl(lessonId: number): Promise<{
   authorization_expire: number;
 }> {
   const response = await api.post(`/lessons/${lessonId}/request_upload_url/`);
+  return response.data;
+}
+
+// ─── Quiz Management ─────────────────────────────────────────
+
+export async function createQuizForLesson(lessonId: number): Promise<AdminQuiz> {
+  const response = await api.post('/quizzes/', { lesson: lessonId });
+  return response.data;
+}
+
+export async function saveQuizBulk(quizId: number, data: {
+  passing_score: number;
+  max_attempts: number;
+  time_limit_minutes: number;
+  is_required: boolean;
+  show_correct_answers: boolean;
+  shuffle_questions: boolean;
+  shuffle_answers: boolean;
+  questions: Omit<AdminQuestion, 'id'>[];
+}): Promise<AdminQuiz> {
+  const response = await api.post(`/quizzes/${quizId}/save_all/`, data);
+  return response.data;
+}
+
+export async function fetchStudentQuiz(quizId: number): Promise<AdminQuiz & { attempts_used: number; already_passed: boolean }> {
+  const response = await api.get(`/quizzes/${quizId}/student_view/`);
+  return response.data;
+}
+
+export async function submitQuiz(quizId: number, data: {
+  answers: Record<string, number>;
+  started_at?: string;
+  time_taken_seconds?: number;
+}): Promise<QuizResult> {
+  const response = await api.post(`/quizzes/${quizId}/submit/`, data);
+  return response.data;
+}
+
+export async function fetchQuizAttempts(quizId: number): Promise<{
+  id: number;
+  score: number;
+  passed: boolean;
+  attempted_at: string;
+  time_taken_seconds: number;
+}[]> {
+  const response = await api.get(`/quizzes/${quizId}/attempts/`);
   return response.data;
 }

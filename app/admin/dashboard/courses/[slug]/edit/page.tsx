@@ -13,13 +13,19 @@ import {
   deleteLesson,
   reorderLessons,
   requestUploadUrl,
+  createQuizForLesson,
+  saveQuizBulk,
   type AdminCourse,
   type AdminModule,
-  type AdminLesson
+  type AdminLesson,
+  type AdminQuiz,
+  type AdminQuestion,
+  type AdminAnswer
 } from '@/lib/admin'
 import { 
   Loader2, ArrowLeft, GripVertical, Plus, Trash2, 
-  Settings, Video, FileText, File, Save, CheckCircle2, AlertCircle 
+  Settings, Video, FileText, File, Save, CheckCircle2, AlertCircle,
+  HelpCircle, Clock, ChevronDown, ChevronUp, CircleDot
 } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -64,7 +70,7 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
     opacity: isDragging ? 0.5 : 1,
   }
 
-  const Icon = lesson.content_type === 'video' ? Video : lesson.content_type === 'pdf' ? File : FileText
+  const Icon = lesson.content_type === 'video' ? Video : lesson.content_type === 'pdf' ? File : lesson.content_type === 'quiz' ? HelpCircle : FileText
 
   return (
     <div
@@ -461,6 +467,365 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
   )
 }
 
+// ─── Quiz Builder ────────────────────────────────────────────
+
+function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => Promise<void> }) {
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
+
+  // Quiz state
+  const [quizId, setQuizId] = useState<number | null>(lesson.quiz?.id ?? null)
+  const [passingScore, setPassingScore] = useState(lesson.quiz?.passing_score ?? 70)
+  const [maxAttempts, setMaxAttempts] = useState(lesson.quiz?.max_attempts ?? 0)
+  const [timeLimitMinutes, setTimeLimitMinutes] = useState(lesson.quiz?.time_limit_minutes ?? 0)
+  const [isRequired, setIsRequired] = useState(lesson.quiz?.is_required ?? true)
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(lesson.quiz?.show_correct_answers ?? true)
+  const [shuffleQuestions, setShuffleQuestions] = useState(lesson.quiz?.shuffle_questions ?? false)
+  const [shuffleAnswers, setShuffleAnswers] = useState(lesson.quiz?.shuffle_answers ?? false)
+  const [questions, setQuestions] = useState<AdminQuestion[]>(lesson.quiz?.questions ?? [])
+
+  useEffect(() => {
+    // If quiz already exists, load its data
+    if (lesson.quiz) {
+      setQuizId(lesson.quiz.id ?? null)
+      setPassingScore(lesson.quiz.passing_score)
+      setMaxAttempts(lesson.quiz.max_attempts)
+      setTimeLimitMinutes(lesson.quiz.time_limit_minutes)
+      setIsRequired(lesson.quiz.is_required)
+      setShowCorrectAnswers(lesson.quiz.show_correct_answers)
+      setShuffleQuestions(lesson.quiz.shuffle_questions)
+      setShuffleAnswers(lesson.quiz.shuffle_answers)
+      setQuestions(lesson.quiz.questions ?? [])
+    }
+    setLoading(false)
+  }, [lesson.quiz])
+
+  const handleAddQuestion = (type: 'multiple_choice' | 'true_false') => {
+    const newQ: AdminQuestion = {
+      text: '',
+      question_type: type,
+      order: questions.length,
+      answers: type === 'true_false'
+        ? [{ text: 'True', is_correct: true }, { text: 'False', is_correct: false }]
+        : [{ text: '', is_correct: true }, { text: '', is_correct: false }],
+    }
+    setQuestions([...questions, newQ])
+  }
+
+  const handleDeleteQuestion = (idx: number) => {
+    setQuestions(questions.filter((_, i) => i !== idx))
+  }
+
+  const handleQuestionTextChange = (idx: number, text: string) => {
+    const updated = [...questions]
+    updated[idx] = { ...updated[idx], text }
+    setQuestions(updated)
+  }
+
+  const handleAnswerTextChange = (qIdx: number, aIdx: number, text: string) => {
+    const updated = [...questions]
+    const answers = [...updated[qIdx].answers]
+    answers[aIdx] = { ...answers[aIdx], text }
+    updated[qIdx] = { ...updated[qIdx], answers }
+    setQuestions(updated)
+  }
+
+  const handleCorrectAnswerChange = (qIdx: number, aIdx: number) => {
+    const updated = [...questions]
+    const answers = updated[qIdx].answers.map((a, i) => ({ ...a, is_correct: i === aIdx }))
+    updated[qIdx] = { ...updated[qIdx], answers }
+    setQuestions(updated)
+  }
+
+  const handleAddAnswer = (qIdx: number) => {
+    const updated = [...questions]
+    const answers = [...updated[qIdx].answers, { text: '', is_correct: false }]
+    updated[qIdx] = { ...updated[qIdx], answers }
+    setQuestions(updated)
+  }
+
+  const handleDeleteAnswer = (qIdx: number, aIdx: number) => {
+    const updated = [...questions]
+    const answers = updated[qIdx].answers.filter((_, i) => i !== aIdx)
+    // If we deleted the correct answer, make the first one correct
+    if (!answers.some(a => a.is_correct) && answers.length > 0) {
+      answers[0] = { ...answers[0], is_correct: true }
+    }
+    updated[qIdx] = { ...updated[qIdx], answers }
+    setQuestions(updated)
+  }
+
+  const handleSaveQuiz = async () => {
+    setSaving(true)
+    setError(null)
+    setSuccess(false)
+
+    try {
+      let currentQuizId = quizId
+
+      // Create quiz if it doesn't exist yet
+      if (!currentQuizId) {
+        const created = await createQuizForLesson(lesson.id)
+        currentQuizId = created.id!
+        setQuizId(currentQuizId)
+      }
+
+      // Bulk save settings + questions + answers
+      await saveQuizBulk(currentQuizId, {
+        passing_score: passingScore,
+        max_attempts: maxAttempts,
+        time_limit_minutes: timeLimitMinutes,
+        is_required: isRequired,
+        show_correct_answers: showCorrectAnswers,
+        shuffle_questions: shuffleQuestions,
+        shuffle_answers: shuffleAnswers,
+        questions: questions.map((q, i) => ({
+          text: q.text,
+          question_type: q.question_type,
+          order: i,
+          answers: q.answers,
+        })),
+      })
+
+      setSuccess(true)
+      await onSaved()
+      setTimeout(() => setSuccess(false), 3000)
+    } catch (err: any) {
+      console.error(err)
+      setError(err.response?.data?.detail || 'Failed to save quiz.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  if (loading) {
+    return <div className="flex justify-center py-6"><Loader2 className="h-5 w-5 animate-spin text-zinc-500" /></div>
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Settings Section */}
+      <button
+        type="button"
+        onClick={() => setSettingsOpen(!settingsOpen)}
+        className="w-full flex items-center justify-between px-3 py-2 bg-zinc-800/50 rounded-lg text-xs font-medium text-zinc-300 hover:bg-zinc-800 transition-colors"
+      >
+        <span className="flex items-center gap-2">
+          <Settings className="h-3.5 w-3.5" />
+          Quiz Settings
+        </span>
+        {settingsOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+      </button>
+
+      {settingsOpen && (
+        <div className="space-y-3 p-3 bg-zinc-900/50 border border-zinc-800/60 rounded-xl">
+          {/* Passing Score */}
+          <div>
+            <label className="block text-[11px] font-medium text-zinc-400 mb-1">Passing Score (%)</label>
+            <input
+              type="number"
+              min={0}
+              max={100}
+              value={passingScore}
+              onChange={(e) => setPassingScore(Number(e.target.value))}
+              className="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+            />
+          </div>
+
+          {/* Max Attempts */}
+          <div>
+            <label className="block text-[11px] font-medium text-zinc-400 mb-1">Max Attempts <span className="text-zinc-600">(0 = unlimited)</span></label>
+            <input
+              type="number"
+              min={0}
+              value={maxAttempts}
+              onChange={(e) => setMaxAttempts(Number(e.target.value))}
+              className="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+            />
+          </div>
+
+          {/* Time Limit */}
+          <div>
+            <label className="block text-[11px] font-medium text-zinc-400 mb-1">Time Limit (minutes) <span className="text-zinc-600">(0 = no limit)</span></label>
+            <input
+              type="number"
+              min={0}
+              value={timeLimitMinutes}
+              onChange={(e) => setTimeLimitMinutes(Number(e.target.value))}
+              className="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+            />
+          </div>
+
+          {/* Toggles */}
+          <div className="space-y-2 pt-1">
+            {[
+              { label: 'Required to pass', value: isRequired, setter: setIsRequired },
+              { label: 'Show correct answers', value: showCorrectAnswers, setter: setShowCorrectAnswers },
+              { label: 'Shuffle questions', value: shuffleQuestions, setter: setShuffleQuestions },
+              { label: 'Shuffle answers', value: shuffleAnswers, setter: setShuffleAnswers },
+            ].map(({ label, value, setter }) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setter(!value)}
+                className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-zinc-800/50 transition-colors"
+              >
+                <span className="text-xs text-zinc-300">{label}</span>
+                <div className={cn(
+                  "w-8 h-[18px] rounded-full transition-colors relative",
+                  value ? "bg-indigo-500" : "bg-zinc-700"
+                )}>
+                  <div className={cn(
+                    "absolute top-[2px] h-[14px] w-[14px] rounded-full bg-white transition-transform",
+                    value ? "left-[16px]" : "left-[2px]"
+                  )} />
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Questions Section */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h4 className="text-xs font-medium text-zinc-400">Questions ({questions.length})</h4>
+        </div>
+
+        {questions.length === 0 && (
+          <div className="p-4 text-center border border-dashed border-zinc-800 rounded-xl bg-zinc-900/20">
+            <HelpCircle className="h-5 w-5 text-zinc-600 mx-auto mb-1.5" />
+            <p className="text-[11px] text-zinc-500">No questions yet. Add one below.</p>
+          </div>
+        )}
+
+        {questions.map((q, qIdx) => (
+          <div key={qIdx} className="p-3 bg-zinc-900/60 border border-zinc-800/60 rounded-xl space-y-2.5">
+            {/* Question header */}
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
+                Q{qIdx + 1} · {q.question_type === 'true_false' ? 'True/False' : 'Multiple Choice'}
+              </span>
+              <button
+                type="button"
+                onClick={() => handleDeleteQuestion(qIdx)}
+                className="p-1 text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+
+            {/* Question text */}
+            <textarea
+              rows={2}
+              value={q.text}
+              onChange={(e) => handleQuestionTextChange(qIdx, e.target.value)}
+              placeholder="Enter your question..."
+              className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-indigo-500/50 resize-none"
+            />
+
+            {/* Answers */}
+            <div className="space-y-1.5 pl-1">
+              {q.answers.map((a, aIdx) => (
+                <div key={aIdx} className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleCorrectAnswerChange(qIdx, aIdx)}
+                    className={cn(
+                      "shrink-0 h-4 w-4 rounded-full border-2 transition-colors flex items-center justify-center",
+                      a.is_correct
+                        ? "border-emerald-500 bg-emerald-500"
+                        : "border-zinc-600 hover:border-zinc-400"
+                    )}
+                  >
+                    {a.is_correct && <CheckCircle2 className="h-2.5 w-2.5 text-white" />}
+                  </button>
+
+                  {q.question_type === 'true_false' ? (
+                    <span className="text-sm text-zinc-300 flex-1">{a.text}</span>
+                  ) : (
+                    <input
+                      type="text"
+                      value={a.text}
+                      onChange={(e) => handleAnswerTextChange(qIdx, aIdx, e.target.value)}
+                      placeholder={`Answer ${aIdx + 1}`}
+                      className="flex-1 px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-xs text-zinc-100 focus:outline-none focus:border-indigo-500/50"
+                    />
+                  )}
+
+                  {q.question_type !== 'true_false' && q.answers.length > 2 && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteAnswer(qIdx, aIdx)}
+                      className="p-0.5 text-zinc-600 hover:text-red-400 transition-colors"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </button>
+                  )}
+                </div>
+              ))}
+
+              {q.question_type !== 'true_false' && (
+                <button
+                  type="button"
+                  onClick={() => handleAddAnswer(qIdx)}
+                  className="inline-flex items-center gap-1 px-2 py-1 text-[11px] text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded-md transition-colors mt-1"
+                >
+                  <Plus className="h-3 w-3" /> Add Answer
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* Add Question Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => handleAddQuestion('multiple_choice')}
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors"
+          >
+            <CircleDot className="h-3.5 w-3.5" /> Multiple Choice
+          </button>
+          <button
+            type="button"
+            onClick={() => handleAddQuestion('true_false')}
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors"
+          >
+            <CheckCircle2 className="h-3.5 w-3.5" /> True / False
+          </button>
+        </div>
+      </div>
+
+      {/* Status Messages */}
+      {error && (
+        <div className="p-2.5 bg-red-500/10 border border-red-500/20 rounded-lg">
+          <p className="text-xs text-red-400">{error}</p>
+        </div>
+      )}
+      {success && (
+        <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+          <p className="text-xs text-emerald-400 font-medium">Quiz saved successfully!</p>
+        </div>
+      )}
+
+      {/* Save Button */}
+      <button
+        type="button"
+        onClick={handleSaveQuiz}
+        disabled={saving || questions.length === 0}
+        className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+      >
+        {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+        {saving ? 'Saving Quiz...' : 'Save Quiz'}
+      </button>
+    </div>
+  )
+}
+
 // ─── Main Page ───────────────────────────────────────────────
 
 export default function CourseBuilderPage() {
@@ -703,6 +1068,7 @@ export default function CourseBuilderPage() {
                       <option value="video">Video Lesson</option>
                       <option value="text">Text Lesson</option>
                       <option value="pdf">PDF Document</option>
+                      <option value="quiz">Quiz</option>
                     </select>
                   </div>
 
@@ -733,6 +1099,13 @@ export default function CourseBuilderPage() {
                           onUpdateUrl={(url) => setActiveLesson({...activeLesson, file_url: url})} 
                         />
                       </div>
+                    )}
+
+                    {activeLesson.content_type === 'quiz' && (
+                      <QuizBuilder lesson={activeLesson} onSaved={async () => {
+                        const updated = await fetchCourse(slug)
+                        setCourse(updated)
+                      }} />
                     )}
                   </div>
 
