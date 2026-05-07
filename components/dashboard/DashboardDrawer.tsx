@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { fetchNotifications } from '@/lib/dashboard'
 import { cn } from '@/lib/utils'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import {
   X, LayoutDashboard, BookOpen, Bell, Award,
   Settings, LogOut, ExternalLink
@@ -58,12 +59,15 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
           <Link href="/" onClick={onClose}>
             <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
           </Link>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
-          >
-            <X className="h-5 w-5 text-zinc-500" />
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+            >
+              <X className="h-5 w-5 text-zinc-500" />
+            </button>
+          </div>
         </div>
 
         {/* User profile card */}
