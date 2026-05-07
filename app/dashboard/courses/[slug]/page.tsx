@@ -201,7 +201,18 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
           {/* Video / content */}
           <div className="p-4 md:p-6">
             {activeLesson && (
-              <LessonPlayer lesson={activeLesson} bunnyLibraryId={BUNNY_LIBRARY_ID} />
+              <LessonPlayer
+                lesson={activeLesson}
+                bunnyLibraryId={BUNNY_LIBRARY_ID}
+                onQuizPassed={() => {
+                  setCompletedLessons(prev => new Set([...prev, activeLesson.id]))
+                  // Refetch enrollment to get updated progress
+                  fetchMyEnrollments().then(enrollments => {
+                    const updated = enrollments.find(e => e.course_slug === slug)
+                    if (updated) setProgress(updated.progress_percentage)
+                  })
+                }}
+              />
             )}
           </div>
 
@@ -238,8 +249,8 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                 <span className="hidden sm:inline">Previous</span>
               </button>
 
-              {/* Mark Complete */}
-              {activeLesson && !completedLessons.has(activeLesson.id) ? (
+              {/* Mark Complete — hidden for quiz lessons (quizzes auto-complete on pass) */}
+              {activeLesson && activeLesson.content_type !== 'quiz' && !completedLessons.has(activeLesson.id) ? (
                 <button
                   onClick={handleMarkComplete}
                   disabled={marking}
@@ -252,7 +263,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                   )}
                   {marking ? 'Saving...' : 'Mark Complete'}
                 </button>
-              ) : activeLesson ? (
+              ) : activeLesson && completedLessons.has(activeLesson.id) ? (
                 <div className="flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
                   <Check className="h-4 w-4" />
                   Completed
