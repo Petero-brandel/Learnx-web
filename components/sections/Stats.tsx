@@ -1,4 +1,5 @@
 import { Reveal } from '@/components/ui/Reveal';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 
 export function Stats() {
   const stats = [
@@ -16,9 +17,7 @@ export function Stats() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               {stats.map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white mb-2">
-                    {stat.value}
-                  </p>
+                  <AnimatedCounter value={stat.value} duration={2000} />
                   <p className="text-sm md:text-base text-zinc-400 font-medium">
                     {stat.label}
                   </p>
