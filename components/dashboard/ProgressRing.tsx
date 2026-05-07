@@ -36,8 +36,11 @@ export default function ProgressRing({ percentage, size = 80, strokeWidth = 6 }:
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          className={isComplete ? "text-emerald-500" : "text-indigo-600 dark:text-indigo-400"}
-          style={{ transition: 'stroke-dashoffset 0.7s ease-out' }}
+          className={isComplete ? "text-emerald-500" : "dark:text-zinc-400"}
+          style={{ 
+            color: isComplete ? undefined : 'var(--color-learning-progress)',
+            transition: 'stroke-dashoffset 0.7s ease-out'
+          }}
         />
       </svg>
       {/* Percentage text */}
