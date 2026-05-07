@@ -56,7 +56,7 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800">
           <Link href="/" onClick={onClose}>
-            <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">LearnX</span>
+            <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
           </Link>
           <button
             onClick={onClose}

@@ -27,7 +27,7 @@ export default function MobileHeader({ onMenuOpen }: MobileHeaderProps) {
       <div className="flex h-14 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">LearnX</span>
+          <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
         </Link>
 
         {/* Right actions */}

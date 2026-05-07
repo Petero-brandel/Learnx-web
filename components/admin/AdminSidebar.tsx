@@ -47,7 +47,7 @@ export default function AdminSidebar({ collapsed, onToggleCollapse, mobileOpen, 
         </div>
         {!collapsed && (
           <div className="min-w-0">
-            <p className="text-sm font-bold text-zinc-100 truncate">LearnX</p>
+            <p className="text-sm font-bold text-zinc-100 truncate">Bluedemy</p>
             <p className="text-[10px] font-medium text-indigo-400 uppercase tracking-wider">Admin Panel</p>
           </div>
         )}

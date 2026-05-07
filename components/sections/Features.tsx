@@ -60,7 +60,7 @@ export function Features() {
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-20">
             <p className="text-sm font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-4">
-              Why LearnX
+              Why Bluedemy
             </p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
               Everything you need to{' '}

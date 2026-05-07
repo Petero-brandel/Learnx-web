@@ -51,7 +51,7 @@ export default function MobileNav() {
         <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
           <Link href="/" className="flex items-center space-x-2" onClick={closeMenu}>
             <BookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">LearnX</span>
+            <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Bluedemy</span>
           </Link>
           <button
             onClick={closeMenu}
