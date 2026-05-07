@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import {
   LayoutDashboard, Users, BookOpen, GraduationCap, Send, Bell,
   ChevronLeft, ChevronRight, LogOut, Shield, X
@@ -62,6 +63,14 @@ export default function AdminSidebar({ collapsed, onToggleCollapse, mobileOpen, 
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        {/* Mobile theme toggle */}
+        <div className="md:hidden px-3 pt-3">
+          <div className="flex items-center justify-between px-3 py-3 rounded-xl bg-zinc-900/50">
+            <span className="text-xs font-medium text-zinc-400">Appearance</span>
+            <ThemeToggle />
+          </div>
+        </div>
+        
         {navItems.map((item) => {
           const active = isActive(item.href)
           return (
