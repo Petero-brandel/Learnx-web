@@ -11,6 +11,7 @@ import AdminStatsCard from '@/components/admin/AdminStatsCard'
 import MiniChart from '@/components/admin/MiniChart'
 import RecentOrdersTable from '@/components/admin/RecentOrdersTable'
 import { DollarSign, Users, BookOpen, TrendingUp, BarChart3, ShoppingCart } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 
 function getGreeting(): string {
   const hour = new Date().getHours()
@@ -105,13 +106,11 @@ export default function AdminDashboardPage() {
     }
   })
 
-  // Popular courses for bar visualization
-  const popularCourses = coursePerf?.popular_courses || []
-  const maxEnrollments = Math.max(...popularCourses.map(c => c.total_enrollments), 1)
+  // Popular courses for bar visualization (Top 5 only)
+  const popularCourses = (coursePerf?.popular_courses || []).slice(0, 5)
 
-  // Revenue per course
-  const revPerCourse = revenue?.revenue_per_course || []
-  const maxRevCourse = Math.max(...revPerCourse.map(c => Number(c.total)), 1)
+  // Revenue per course (Top 5 only)
+  const revPerCourse = (revenue?.revenue_per_course || []).slice(0, 5)
 
   return (
     <div className="space-y-8">
@@ -188,60 +187,110 @@ export default function AdminDashboardPage() {
       {/* Popular courses + Revenue per course */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Popular Courses */}
-        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6 flex flex-col">
           <div className="flex items-center gap-2 mb-5">
             <BarChart3 className="h-4 w-4 text-indigo-400" />
             <h3 className="text-sm font-semibold text-zinc-200">Popular Courses</h3>
           </div>
           {popularCourses.length > 0 ? (
-            <div className="space-y-3">
-              {popularCourses.map((course, i) => (
-                <div key={i} className="group">
-                  <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-zinc-300 font-medium truncate max-w-[70%]">{course.course_title}</span>
-                    <span className="text-zinc-500">{course.total_enrollments} enrolled</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-zinc-800/60 overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-400 transition-all duration-700"
-                      style={{ width: `${(course.total_enrollments / maxEnrollments) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="flex-1 min-h-[250px] w-full mt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={popularCourses} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#3f3f46" opacity={0.5} />
+                  <XAxis 
+                    dataKey="course_title" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#a1a1aa', fontSize: 11 }}
+                    dy={10}
+                    tickFormatter={(value) => value.length > 15 ? `${value.substring(0, 15)}...` : value}
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#a1a1aa', fontSize: 11 }}
+                    allowDecimals={false}
+                  />
+                  <Tooltip 
+                    cursor={{ fill: '#27272a', opacity: 0.4 }}
+                    contentStyle={{ 
+                      backgroundColor: '#18181b', 
+                      borderColor: '#27272a',
+                      borderRadius: '12px',
+                      fontSize: '13px',
+                      color: '#e4e4e7',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                    }}
+                    itemStyle={{ color: '#818cf8', fontWeight: 500 }}
+                    labelStyle={{ color: '#a1a1aa', marginBottom: '4px' }}
+                    formatter={(value: number) => [value, 'Enrollments']}
+                  />
+                  <Bar dataKey="total_enrollments" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                    {popularCourses.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill="#818cf8" />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-xs text-zinc-600 text-center py-8">No enrollment data yet</p>
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-xs text-zinc-600">No enrollment data yet</p>
+            </div>
           )}
         </div>
 
         {/* Revenue Per Course */}
-        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6 flex flex-col">
           <div className="flex items-center gap-2 mb-5">
             <DollarSign className="h-4 w-4 text-emerald-400" />
             <h3 className="text-sm font-semibold text-zinc-200">Revenue Per Course</h3>
           </div>
           {revPerCourse.length > 0 ? (
-            <div className="space-y-3">
-              {revPerCourse.map((course, i) => (
-                <div key={i} className="group">
-                  <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-zinc-300 font-medium truncate max-w-[60%]">{course.course_title}</span>
-                    <span className="text-emerald-400 font-semibold">
-                      ₦{Number(course.total).toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="h-2 rounded-full bg-zinc-800/60 overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-700"
-                      style={{ width: `${(Number(course.total) / maxRevCourse) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="flex-1 min-h-[250px] w-full mt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={revPerCourse} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#3f3f46" opacity={0.5} />
+                  <XAxis 
+                    dataKey="course_title" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#a1a1aa', fontSize: 11 }}
+                    dy={10}
+                    tickFormatter={(value) => value.length > 15 ? `${value.substring(0, 15)}...` : value}
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#a1a1aa', fontSize: 11 }}
+                    tickFormatter={(value) => `₦${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
+                  />
+                  <Tooltip 
+                    cursor={{ fill: '#27272a', opacity: 0.4 }}
+                    contentStyle={{ 
+                      backgroundColor: '#18181b', 
+                      borderColor: '#27272a',
+                      borderRadius: '12px',
+                      fontSize: '13px',
+                      color: '#e4e4e7',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                    }}
+                    itemStyle={{ color: '#34d399', fontWeight: 500 }}
+                    labelStyle={{ color: '#a1a1aa', marginBottom: '4px' }}
+                    formatter={(value: number) => [`₦${value.toLocaleString()}`, 'Revenue']}
+                  />
+                  <Bar dataKey="total" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                    {revPerCourse.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill="#34d399" />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-xs text-zinc-600 text-center py-8">No revenue data yet</p>
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-xs text-zinc-600">No revenue data yet</p>
+            </div>
           )}
         </div>
       </div>
