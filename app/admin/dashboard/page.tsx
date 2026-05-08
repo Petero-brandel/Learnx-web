@@ -223,7 +223,7 @@ export default function AdminDashboardPage() {
                     }}
                     itemStyle={{ color: '#818cf8', fontWeight: 500 }}
                     labelStyle={{ color: '#a1a1aa', marginBottom: '4px' }}
-                    formatter={(value: number) => [value, 'Enrollments']}
+                    formatter={(value: any) => [value, 'Enrollments']}
                   />
                   <Bar dataKey="total_enrollments" radius={[4, 4, 0, 0]} maxBarSize={40}>
                     {popularCourses.map((entry, index) => (
@@ -277,7 +277,7 @@ export default function AdminDashboardPage() {
                     }}
                     itemStyle={{ color: '#34d399', fontWeight: 500 }}
                     labelStyle={{ color: '#a1a1aa', marginBottom: '4px' }}
-                    formatter={(value: number) => [`₦${value.toLocaleString()}`, 'Revenue']}
+                    formatter={(value: any) => [`₦${Number(value || 0).toLocaleString()}`, 'Revenue']}
                   />
                   <Bar dataKey="total" radius={[4, 4, 0, 0]} maxBarSize={40}>
                     {revPerCourse.map((entry, index) => (
