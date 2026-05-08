@@ -421,7 +421,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  {error && (
  <div className="mt-3 flex items-center gap-3 p-3 border rounded-xl text-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100">
  <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
- <AlertCircle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
+ <AlertTriangle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
  </div>
  <p className="flex-1 font-medium text-xs">{error}</p>
  </div>
