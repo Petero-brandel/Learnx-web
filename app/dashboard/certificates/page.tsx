@@ -8,6 +8,28 @@ import Link from 'next/link'
 export default function CertificatesPage() {
   const [certificates, setCertificates] = useState<Certificate[]>([])
   const [loading, setLoading] = useState(true)
+  const [downloadingId, setDownloadingId] = useState<string | null>(null)
+
+  const handleDownload = async (url: string, title: string, id: string) => {
+    setDownloadingId(id)
+    try {
+      const response = await fetch(url)
+      const blob = await response.blob()
+      const blobUrl = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = blobUrl
+      a.download = `Certificate - ${title}.pdf`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(blobUrl)
+    } catch (err) {
+      console.error('Download failed, opening in new tab', err)
+      window.open(url, '_blank')
+    } finally {
+      setDownloadingId(null)
+    }
+  }
 
   useEffect(() => {
     async function load() {
@@ -81,15 +103,18 @@ export default function CertificatesPage() {
 
               {/* Download button */}
               {cert.pdf_url ? (
-                <a
-                  href={cert.pdf_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:opacity-90 transition-opacity"
+                <button
+                  onClick={() => handleDownload(cert.pdf_url!, cert.course_title, cert.certificate_id)}
+                  disabled={downloadingId === cert.certificate_id}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Download className="h-3.5 w-3.5" />
-                  Download PDF
-                </a>
+                  {downloadingId === cert.certificate_id ? (
+                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white dark:border-zinc-900 border-t-transparent" />
+                  ) : (
+                    <Download className="h-3.5 w-3.5" />
+                  )}
+                  {downloadingId === cert.certificate_id ? 'Downloading...' : 'Download PDF'}
+                </button>
               ) : (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
                   Processing...
