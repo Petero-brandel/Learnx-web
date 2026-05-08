@@ -156,7 +156,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  onClick={onMobileClose}
  />
  {/* Drawer */}
- <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-white dark:bg-[#0f0f0f] border-r border-zinc-200 dark:border-zinc-800/60 overflow-hidden animate-in slide-in-from-left duration-300">
+ <aside className="absolute right-0 top-0 bottom-0 w-[280px] bg-white dark:bg-[#0f0f0f] border-l border-zinc-200 dark:border-zinc-800/60 overflow-hidden animate-in slide-in-from-right duration-300">
  {sidebarContent}
  </aside>
  </div>
