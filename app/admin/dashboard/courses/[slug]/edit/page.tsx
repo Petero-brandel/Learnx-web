@@ -76,7 +76,7 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
  <div
  ref={setNodeRef}
  style={style}
- className="flex items-center gap-3 p-3 bg-zinc-900 border border-zinc-800 rounded-xl group relative"
+ className="flex items-center gap-3 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-none rounded-xl group relative"
  >
  <button 
  className="text-zinc-600 hover:text-zinc-400 cursor-grab active:cursor-grabbing p-1"
@@ -86,16 +86,16 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
  <GripVertical className="h-4 w-4" />
  </button>
  
- <div className="p-2 bg-zinc-800/50 rounded-lg">
+ <div className="p-2 bg-zinc-100 dark:bg-zinc-800/50 rounded-lg">
  <Icon className="h-4 w-4 text-zinc-400" />
  </div>
 
  <div className="flex-1 min-w-0">
- <h4 className="text-sm font-medium text-zinc-200 truncate">{lesson.title}</h4>
+ <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-200 truncate">{lesson.title}</h4>
  </div>
 
  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
- <button onClick={onEdit} className="p-1.5 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded-md">
+ <button onClick={onEdit} className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md">
  <Settings className="h-4 w-4" />
  </button>
  <button onClick={onDelete} className="p-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-md">
@@ -152,7 +152,7 @@ function SortableModule({
 )
 
  return (
- <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-2xl p-4 space-y-4">
+ <div className="bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-2xl p-4 space-y-4">
  {/* Module Header */}
  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
  {isEditing ? (
@@ -161,7 +161,7 @@ function SortableModule({
  type="text"
  value={title}
  onChange={(e) => setTitle(e.target.value)}
- className="flex-1 px-3 py-1.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500"
+ className="flex-1 px-3 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500 shadow-sm dark:shadow-none"
  autoFocus
  onKeyDown={(e) => e.key === 'Enter' && handleSave()}
  />
@@ -171,8 +171,8 @@ function SortableModule({
  </div>
 ) : (
  <div className="flex items-center gap-3">
- <h3 className="text-base font-semibold text-zinc-100">{module.title}</h3>
- <button onClick={() => setIsEditing(true)} className="p-1 text-zinc-500 hover:text-zinc-300">
+ <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{module.title}</h3>
+ <button onClick={() => setIsEditing(true)} className="p-1 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
  <Settings className="h-3.5 w-3.5" />
  </button>
  </div>
@@ -181,7 +181,7 @@ function SortableModule({
  <div className="flex items-center gap-2">
  <button 
  onClick={() => onAddLesson(module.id)}
- className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors"
+ className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors"
  >
  <Plus className="h-3.5 w-3.5" />
  Add Lesson
@@ -196,7 +196,7 @@ function SortableModule({
  </div>
 
  {/* Lessons List (Drag and Drop) */}
- <div className="pl-2 border-l border-zinc-800/60 space-y-2">
+ <div className="pl-2 border-l border-zinc-200 dark:border-zinc-800/60 space-y-2">
  {module.lessons.length === 0 ? (
  <p className="text-xs text-zinc-500 py-2">No lessons in this module yet.</p>
 ) : (
@@ -288,7 +288,7 @@ function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initial
  <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
  <p className="text-sm text-emerald-400 font-medium">Video uploaded successfully!</p>
  <p className="text-xs text-zinc-400 mt-1">Bunny Stream is now encoding it.</p>
- <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors">
+ <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors">
  Replace Video
  <input type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
  </label>
@@ -297,7 +297,7 @@ function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initial
  }
 
  return (
- <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+ <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
  {uploading && (
  <div 
  className="absolute top-0 left-0 h-1 bg-blue-500 transition-all duration-300"
@@ -316,7 +316,7 @@ function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initial
  disabled={uploading}
  onClick={() => fileInputRef.current?.click()}
  className={cn(
-"mt-3 inline-flex items-center px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-200 rounded-lg text-xs font-medium transition-colors cursor-pointer",
+"mt-3 inline-flex items-center px-4 py-2 bg-white dark:bg-zinc-200 dark:bg-zinc-700 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer",
  uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
 )}
  >
@@ -391,7 +391,7 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
  <button 
  type="button"
  onClick={() => fileInputRef.current?.click()}
- className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+ className="px-2.5 py-1.5 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer"
  >
  Replace
  </button>
@@ -417,7 +417,7 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
 
  return (
  <div className="space-y-4">
- <div className="p-4 border border-dashed border-zinc-700 bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+ <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
  <File className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
  <p className="text-xs text-zinc-400">
  Upload a PDF directly to Supabase Storage
@@ -448,9 +448,9 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
  </div>
 
  <div className="flex items-center gap-4">
- <div className="h-px bg-zinc-800 flex-1"></div>
+ <div className="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
  <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">OR</span>
- <div className="h-px bg-zinc-800 flex-1"></div>
+ <div className="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
  </div>
 
  <div className="space-y-2">
@@ -460,7 +460,7 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
  value={lesson.file_url || ''}
  onChange={(e) => onUpdateUrl(e.target.value)}
  placeholder="https://example.com/document.pdf"
- className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
  </div>
@@ -611,7 +611,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  <button
  type="button"
  onClick={() => setSettingsOpen(!settingsOpen)}
- className="w-full flex items-center justify-between px-3 py-2 bg-zinc-800/50 rounded-lg text-xs font-medium text-zinc-300 hover:bg-zinc-800 transition-colors"
+ className="w-full flex items-center justify-between px-3 py-2 bg-zinc-100 dark:bg-zinc-800/50 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
  >
  <span className="flex items-center gap-2">
  <Settings className="h-3.5 w-3.5" />
@@ -621,41 +621,41 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  </button>
 
  {settingsOpen && (
- <div className="space-y-3 p-3 bg-zinc-900/50 border border-zinc-800/60 rounded-xl">
+ <div className="space-y-3 p-3 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/60 rounded-xl shadow-sm dark:shadow-none">
  {/* Passing Score */}
  <div>
- <label className="block text-[11px] font-medium text-zinc-400 mb-1">Passing Score (%)</label>
+ <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Passing Score (%)</label>
  <input
  type="number"
  min={0}
  max={100}
  value={passingScore}
  onChange={(e) => setPassingScore(Number(e.target.value))}
- className="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
  {/* Max Attempts */}
  <div>
- <label className="block text-[11px] font-medium text-zinc-400 mb-1">Max Attempts <span className="text-zinc-600">(0 = unlimited)</span></label>
+ <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Max Attempts <span className="text-zinc-600">(0 = unlimited)</span></label>
  <input
  type="number"
  min={0}
  value={maxAttempts}
  onChange={(e) => setMaxAttempts(Number(e.target.value))}
- className="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
  {/* Time Limit */}
  <div>
- <label className="block text-[11px] font-medium text-zinc-400 mb-1">Time Limit (minutes) <span className="text-zinc-600">(0 = no limit)</span></label>
+ <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Time Limit (minutes) <span className="text-zinc-600">(0 = no limit)</span></label>
  <input
  type="number"
  min={0}
  value={timeLimitMinutes}
  onChange={(e) => setTimeLimitMinutes(Number(e.target.value))}
- className="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
@@ -671,12 +671,12 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  key={label}
  type="button"
  onClick={() => setter(!value)}
- className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-zinc-800/50 transition-colors"
+ className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
  >
  <span className="text-xs text-zinc-300">{label}</span>
  <div className={cn(
 "w-8 h-[18px] rounded-full transition-colors relative",
- value ?"bg-blue-500" :"bg-zinc-700"
+ value ?"bg-blue-500" :"bg-zinc-200 dark:bg-zinc-700"
 )}>
  <div className={cn(
 "absolute top-[2px] h-[14px] w-[14px] rounded-full bg-white transition-transform",
@@ -696,14 +696,14 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  </div>
 
  {questions.length === 0 && (
- <div className="p-4 text-center border border-dashed border-zinc-800 rounded-xl bg-zinc-900/20">
+ <div className="p-4 text-center border border-dashed border-zinc-300 dark:border-zinc-800 rounded-xl bg-zinc-900/20">
  <HelpCircle className="h-5 w-5 text-zinc-600 mx-auto mb-1.5" />
  <p className="text-[11px] text-zinc-500">No questions yet. Add one below.</p>
  </div>
 )}
 
  {questions.map((q, qIdx) => (
- <div key={qIdx} className="p-3 bg-zinc-900/60 border border-zinc-800/60 rounded-xl space-y-2.5">
+ <div key={qIdx} className="p-3 bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-xl space-y-2.5">
  {/* Question header */}
  <div className="flex items-center justify-between">
  <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
@@ -724,7 +724,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  value={q.text}
  onChange={(e) => handleQuestionTextChange(qIdx, e.target.value)}
  placeholder="Enter your question..."
- className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
  />
 
  {/* Answers */}
@@ -738,21 +738,21 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
 "shrink-0 h-4 w-4 rounded-full border-2 transition-colors flex items-center justify-center",
  a.is_correct
  ?"border-emerald-500 bg-emerald-500"
- :"border-zinc-600 hover:border-zinc-400"
+ :"border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-400"
 )}
  >
  {a.is_correct && <CheckCircle2 className="h-2.5 w-2.5 text-white" />}
  </button>
 
  {q.question_type === 'true_false' ? (
- <span className="text-sm text-zinc-300 flex-1">{a.text}</span>
+ <span className="text-sm text-zinc-700 dark:text-zinc-300 flex-1">{a.text}</span>
 ) : (
  <input
  type="text"
  value={a.text}
  onChange={(e) => handleAnswerTextChange(qIdx, aIdx, e.target.value)}
  placeholder={`Answer ${aIdx + 1}`}
- className="flex-1 px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-xs text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="flex-1 px-2 py-1 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
 )}
 
@@ -772,7 +772,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  <button
  type="button"
  onClick={() => handleAddAnswer(qIdx)}
- className="inline-flex items-center gap-1 px-2 py-1 text-[11px] text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded-md transition-colors mt-1"
+ className="inline-flex items-center gap-1 px-2 py-1 text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors mt-1"
  >
  <Plus className="h-3 w-3" /> Add Answer
  </button>
@@ -786,14 +786,14 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  <button
  type="button"
  onClick={() => handleAddQuestion('multiple_choice')}
- className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors"
+ className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors"
  >
  <CircleDot className="h-3.5 w-3.5" /> Multiple Choice
  </button>
  <button
  type="button"
  onClick={() => handleAddQuestion('true_false')}
- className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-xs font-medium transition-colors"
+ className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors"
  >
  <CheckCircle2 className="h-3.5 w-3.5" /> True / False
  </button>
@@ -969,12 +969,12 @@ export default function CourseBuilderPage() {
  <div>
  <Link 
  href="/admin/dashboard/courses"
- className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-200 transition-colors mb-2"
+ className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors mb-2"
  >
  <ArrowLeft className="h-4 w-4" />
  Back to Courses
  </Link>
- <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">{course.title}</h1>
+ <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{course.title}</h1>
  </div>
  <div className="flex items-center gap-3">
  {saving && <Loader2 className="h-4 w-4 animate-spin text-zinc-400" />}
@@ -995,10 +995,10 @@ export default function CourseBuilderPage() {
  {/* Modules List */}
  <div className="space-y-4">
  <div className="flex items-center justify-between">
- <h2 className="text-lg font-semibold text-zinc-200">Curriculum</h2>
+ <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-200">Curriculum</h2>
  <button 
  onClick={handleAddModule}
- className="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-lg text-sm font-medium transition-colors"
+ className="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-sm font-medium transition-colors"
  >
  <Plus className="h-4 w-4" />
  Add Module
@@ -1006,7 +1006,7 @@ export default function CourseBuilderPage() {
  </div>
 
  {course.modules.length === 0 ? (
- <div className="p-8 text-center border border-dashed border-zinc-800 rounded-2xl bg-zinc-900/30">
+ <div className="p-8 text-center border border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30">
  <p className="text-sm text-zinc-500">No modules yet. Add a module to start building your curriculum.</p>
  </div>
 ) : (
@@ -1032,7 +1032,7 @@ export default function CourseBuilderPage() {
  {/* Right Column: Lesson Editor (Sticky) */}
  <div className="w-full lg:w-96 shrink-0">
  <div className="sticky top-6">
- <div className="bg-zinc-900/50 border border-zinc-800/60 rounded-2xl p-5 min-h-[400px]">
+ <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-2xl p-5 min-h-[400px]">
  {!activeLesson ? (
  <div className="flex flex-col items-center justify-center h-full text-center space-y-3 opacity-60 min-h-[300px]">
  <Settings className="h-8 w-8 text-zinc-500" />
@@ -1041,8 +1041,8 @@ export default function CourseBuilderPage() {
 ) : (
  <div className="space-y-6">
  <div className="flex items-center justify-between">
- <h3 className="text-base font-semibold text-zinc-100">Edit Lesson</h3>
- <button onClick={() => setActiveLesson(null)} className="text-zinc-500 hover:text-zinc-300">
+ <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">Edit Lesson</h3>
+ <button onClick={() => setActiveLesson(null)} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
  Close
  </button>
  </div>
@@ -1054,7 +1054,7 @@ export default function CourseBuilderPage() {
  type="text"
  value={activeLesson.title}
  onChange={(e) => setActiveLesson({...activeLesson, title: e.target.value})}
- className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
@@ -1063,7 +1063,7 @@ export default function CourseBuilderPage() {
  <select
  value={activeLesson.content_type}
  onChange={(e) => setActiveLesson({...activeLesson, content_type: e.target.value as any})}
- className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50 appearance-none"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 appearance-none"
  >
  <option value="video">Video Lesson</option>
  <option value="text">Text Lesson</option>
@@ -1087,7 +1087,7 @@ export default function CourseBuilderPage() {
  value={activeLesson.text_content || ''}
  onChange={(e) => setActiveLesson({...activeLesson, text_content: e.target.value})}
  placeholder="Write your lesson content here..."
- className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
  />
  </div>
 )}
