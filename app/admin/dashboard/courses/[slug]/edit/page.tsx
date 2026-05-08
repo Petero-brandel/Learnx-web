@@ -983,8 +983,8 @@ export default function CourseBuilderPage() {
  className={cn(
 "px-4 py-2 rounded-xl text-sm font-medium transition-colors border",
  course.is_published 
- ?"bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
- :"bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+ ?"bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20"
+ :"bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20"
 )}
  >
  {course.is_published ? 'Unpublish' : 'Publish'}
