@@ -55,10 +55,21 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
         if (myEnrollment) {
           setEnrollment(myEnrollment)
           setProgress(myEnrollment.progress_percentage)
+          
+          const completedIds = new Set(myEnrollment.completed_lesson_ids || [])
+          setCompletedLessons(completedIds)
 
-          // Set first lesson as active only if enrolled
-          const firstLesson = courseData.modules[0]?.lessons[0]
-          if (firstLesson) setActiveLesson(firstLesson)
+          // Set active lesson to the first uncompleted lesson
+          const allLessonsLocal = courseData.modules.flatMap(m => m.lessons)
+          const firstUncompleted = allLessonsLocal.find(l => !completedIds.has(l.id))
+          
+          if (firstUncompleted) {
+            setActiveLesson(firstUncompleted)
+          } else {
+            // If all are completed, default to the first lesson
+            const firstLesson = courseData.modules[0]?.lessons[0]
+            if (firstLesson) setActiveLesson(firstLesson)
+          }
         }
         // If no enrollment found, enrollment stays null → access denied screen
       } catch (err) {

@@ -10,6 +10,7 @@ export interface Enrollment {
   progress_percentage: number;
   enrolled_at: string;
   is_active: boolean;
+  completed_lesson_ids?: number[];
 }
 
 export interface Lesson {
