@@ -288,7 +288,7 @@ export default function StudentsPage() {
  <table className="w-full text-sm">
  <thead>
  <tr className="border-b border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/50">
- <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">ID</th>
+ <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">#</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Email</th>
  <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Courses</th>
@@ -297,7 +297,7 @@ export default function StudentsPage() {
  </tr>
  </thead>
  <tbody>
- {filteredStudents.map((student) => (
+ {filteredStudents.map((student, index) => (
  <tr
  key={student.id}
  className="border-b border-zinc-200 dark:border-zinc-800/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors cursor-pointer"
@@ -309,7 +309,7 @@ export default function StudentsPage() {
  >
  <td className="px-4 py-3">
  <span className="inline-flex items-center justify-center h-6 min-w-[28px] px-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-[11px] font-bold text-zinc-600 dark:text-zinc-400">
- {student.id}
+ {index + 1}
  </span>
  </td>
  <td className="px-4 py-3">
