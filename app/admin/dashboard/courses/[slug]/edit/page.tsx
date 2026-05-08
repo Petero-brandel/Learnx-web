@@ -94,7 +94,7 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
  <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-200 truncate">{lesson.title}</h4>
  </div>
 
- <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+ <div className="flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
  <button onClick={onEdit} className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md">
  <Settings className="h-4 w-4" />
  </button>
