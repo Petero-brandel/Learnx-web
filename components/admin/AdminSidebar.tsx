@@ -41,18 +41,18 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
   const sidebarContent = (
     <div className="w-full md:w-[260px] flex flex-col h-full">
       {/* Brand header */}
-      <div className="flex items-center gap-3 pl-[16px] pr-4 h-16 border-b border-zinc-800/60 shrink-0">
-        <div className="flex items-center justify-center h-9 w-9 rounded-xl bg-indigo-500/15 shrink-0">
-          <Shield className="h-5 w-5 text-indigo-400" />
+      <div className="flex items-center gap-3 pl-[16px] pr-4 h-16 border-b border-zinc-200 dark:border-zinc-800/60 shrink-0">
+        <div className="flex items-center justify-center h-9 w-9 rounded-xl bg-indigo-100 dark:bg-indigo-500/15 shrink-0">
+          <Shield className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
         </div>
         <div className="min-w-0 opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300">
-          <p className="text-sm font-bold text-zinc-100 truncate">Bluedemy</p>
-          <p className="text-[10px] font-medium text-indigo-400 uppercase tracking-wider">Admin Panel</p>
+          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">Bluedemy</p>
+          <p className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Admin Panel</p>
         </div>
         {/* Mobile close */}
         <button
           onClick={onMobileClose}
-          className="ml-auto md:hidden p-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors"
+          className="ml-auto md:hidden p-1.5 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/50 transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
@@ -70,13 +70,13 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
               className={cn(
                 "group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
                 active
-                  ? "bg-indigo-500/15 text-indigo-400"
-                  : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50"
+                  ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-400"
+                  : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/50"
               )}
             >
               <item.icon className={cn(
                 "h-[18px] w-[18px] shrink-0 transition-colors",
-                active ? "text-indigo-400" : "text-zinc-500 group-hover:text-zinc-300"
+                active ? "text-indigo-700 dark:text-indigo-400" : "text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300"
               )} />
               <span className="truncate opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300 delay-100">{item.label}</span>
             </Link>
@@ -86,13 +86,13 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
         {/* Unified Theme Toggle */}
         <button
           onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
-          className="group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 w-full text-left mt-4"
+          className="group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/50 w-full text-left mt-4"
         >
           {mounted ? (
             currentTheme === 'dark' ? (
-              <Sun className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-500 group-hover:text-zinc-300" />
+              <Sun className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300" />
             ) : (
-              <Moon className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-500 group-hover:text-zinc-300" />
+              <Moon className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300" />
             )
           ) : (
             <div className="h-[18px] w-[18px] shrink-0" />
@@ -104,29 +104,29 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
       </nav>
 
       {/* User info + Logout */}
-      <div className="p-3 border-t border-zinc-800/60 shrink-0">
+      <div className="p-3 border-t border-zinc-200 dark:border-zinc-800/60 shrink-0">
         <div className="flex items-center gap-3 pl-[6px] pr-3 py-2 mb-2">
           {user?.profile_photo ? (
             <img
               src={user.profile_photo}
               alt={user.full_name}
-              className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-zinc-700"
+              className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-zinc-200 dark:ring-zinc-700"
             />
           ) : (
-            <div className="h-8 w-8 shrink-0 rounded-full bg-indigo-500/20 flex items-center justify-center ring-2 ring-zinc-700">
-              <span className="text-xs font-bold text-indigo-400">
+            <div className="h-8 w-8 shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-500/20 flex items-center justify-center ring-2 ring-zinc-200 dark:ring-zinc-700">
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
                 {user?.full_name?.charAt(0)?.toUpperCase() || 'A'}
               </span>
             </div>
           )}
           <div className="min-w-0 flex-1 opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300">
-            <p className="text-sm font-semibold text-zinc-200 truncate">{user?.full_name}</p>
-            <p className="text-[11px] text-zinc-500 truncate">{user?.email}</p>
+            <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 truncate">{user?.full_name}</p>
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-500 truncate">{user?.email}</p>
           </div>
         </div>
         <button
           onClick={logout}
-          className="flex items-center gap-3 w-full pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 transition-colors"
+          className="flex items-center gap-3 w-full pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10 transition-colors"
         >
           <LogOut className="h-[18px] w-[18px] shrink-0" />
           <span className="truncate opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300 delay-100">Log out</span>
@@ -140,7 +140,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
       {/* Desktop sidebar */}
       <aside
         className={cn(
-          "group/sidebar hidden md:flex flex-col fixed top-0 left-0 h-screen bg-[#0f0f0f] border-r border-zinc-800/60 z-40 transition-all duration-300 overflow-hidden",
+          "group/sidebar hidden md:flex flex-col fixed top-0 left-0 h-screen bg-white dark:bg-[#0f0f0f] border-r border-zinc-200 dark:border-zinc-800/60 z-40 transition-all duration-300 overflow-hidden",
           "w-[68px] hover:w-[260px]"
         )}
       >
@@ -156,7 +156,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
             onClick={onMobileClose}
           />
           {/* Drawer */}
-          <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-[#0f0f0f] border-r border-zinc-800/60 overflow-hidden animate-in slide-in-from-left duration-300">
+          <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-white dark:bg-[#0f0f0f] border-r border-zinc-200 dark:border-zinc-800/60 overflow-hidden animate-in slide-in-from-left duration-300">
             {sidebarContent}
           </aside>
         </div>

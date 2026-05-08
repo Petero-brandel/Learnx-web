@@ -66,7 +66,7 @@ export default function AdminCoursesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Course Management</h1>
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Course Management</h1>
           <p className="text-sm text-zinc-500 mt-1">
             View and manage all courses. {published.length} published, {drafts.length} draft{drafts.length !== 1 ? 's' : ''}.
           </p>
@@ -100,12 +100,12 @@ export default function AdminCoursesPage() {
       {loading ? (
         <div className="space-y-4 animate-pulse">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-24 rounded-2xl bg-zinc-800/30 border border-zinc-800/60" />
+            <div key={i} className="h-24 rounded-2xl bg-zinc-100 dark:bg-zinc-800/30 border border-zinc-200 dark:border-zinc-800/60" />
           ))}
         </div>
       ) : courses.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/20">
-          <BookOpen className="h-10 w-10 text-zinc-700 mb-3" />
+        <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20">
+          <BookOpen className="h-10 w-10 text-zinc-400 dark:text-zinc-700 mb-3" />
           <p className="text-sm text-zinc-500">No courses created yet</p>
         </div>
       ) : (
@@ -117,12 +117,12 @@ export default function AdminCoursesPage() {
             return (
               <div
                 key={course.id}
-                className="group rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-5 hover:bg-zinc-900/50 transition-colors"
+                className="group rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-5 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors shadow-sm dark:shadow-none"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   {/* Thumbnail */}
                   {course.thumbnail && (
-                    <div className="flex-shrink-0 w-full sm:w-28 h-20 rounded-xl overflow-hidden bg-zinc-800/50">
+                    <div className="flex-shrink-0 w-full sm:w-28 h-20 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50">
                       <img
                         src={course.thumbnail}
                         alt={course.title}
@@ -136,7 +136,7 @@ export default function AdminCoursesPage() {
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-sm font-semibold text-zinc-200 truncate">{course.title}</h3>
+                          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 truncate">{course.title}</h3>
                           <span
                             className={cn(
                               "inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold shrink-0",
@@ -149,7 +149,7 @@ export default function AdminCoursesPage() {
                           </span>
                         </div>
                         <p className="text-xs text-zinc-500 mt-1 line-clamp-1">{course.description || 'No description'}</p>
-                        <div className="flex items-center gap-4 mt-2 text-xs text-zinc-600">
+                        <div className="flex items-center gap-4 mt-2 text-xs text-zinc-500 dark:text-zinc-600">
                           <span>{formatPrice(course.price)}</span>
                           <span>{moduleCount} module{moduleCount !== 1 ? 's' : ''}</span>
                           <span>{lessonCount} lesson{lessonCount !== 1 ? 's' : ''}</span>
@@ -164,7 +164,7 @@ export default function AdminCoursesPage() {
                     {/* Edit */}
                     <button
                       onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
-                      className="p-2 rounded-lg text-zinc-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all opacity-0 group-hover:opacity-100"
+                      className="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-all opacity-0 group-hover:opacity-100"
                       title="Edit course"
                     >
                       <Pencil className="h-4 w-4" />
@@ -187,7 +187,7 @@ export default function AdminCoursesPage() {
                       }}
                       disabled={deleting === course.id}
                       className={cn(
-                        "p-2 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-all",
+                        "p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all",
                         deleting === course.id ? "opacity-50 cursor-not-allowed" : "opacity-0 group-hover:opacity-100"
                       )}
                       title="Delete course"
@@ -204,8 +204,8 @@ export default function AdminCoursesPage() {
                       onClick={() => handleTogglePublish(course)}
                       disabled={toggling === course.id}
                       className={cn(
-                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-zinc-950",
-                        course.is_published ? "bg-emerald-500" : "bg-zinc-700",
+                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950",
+                        course.is_published ? "bg-emerald-500" : "bg-zinc-300 dark:bg-zinc-700",
                         toggling === course.id && "opacity-50 cursor-not-allowed"
                       )}
                       title={course.is_published ? 'Unpublish course' : 'Publish course'}

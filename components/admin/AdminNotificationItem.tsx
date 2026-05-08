@@ -10,11 +10,11 @@ interface AdminNotificationItemProps {
 }
 
 const typeConfig: Record<string, { icon: React.ElementType; color: string; bg: string }> = {
-  system: { icon: Info, color: 'text-sky-400', bg: 'bg-sky-500/10' },
-  enrollment: { icon: BookOpen, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-  achievement: { icon: Trophy, color: 'text-amber-400', bg: 'bg-amber-500/10' },
-  sale: { icon: ShoppingCart, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-  broadcast: { icon: Megaphone, color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
+  system: { icon: Info, color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-100 dark:bg-sky-500/10' },
+  enrollment: { icon: BookOpen, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-500/10' },
+  achievement: { icon: Trophy, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-500/10' },
+  sale: { icon: ShoppingCart, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-500/10' },
+  broadcast: { icon: Megaphone, color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-500/10' },
 }
 
 function timeAgo(dateStr: string): string {
@@ -42,8 +42,8 @@ export default function AdminNotificationItem({ notification, onMarkRead }: Admi
       className={cn(
         "flex items-start gap-3 w-full p-4 rounded-xl text-left transition-all duration-200 border",
         notification.is_read
-          ? "border-zinc-800/30 bg-zinc-900/20 opacity-60"
-          : "border-zinc-800/60 bg-zinc-900/50 hover:bg-zinc-800/40 hover:border-zinc-700/60"
+          ? "border-zinc-200 bg-zinc-50 opacity-70 dark:border-zinc-800/30 dark:bg-zinc-900/20 dark:opacity-60"
+          : "border-zinc-300 bg-white hover:bg-zinc-50 hover:border-zinc-400 shadow-sm dark:shadow-none dark:border-zinc-800/60 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/40 dark:hover:border-zinc-700/60"
       )}
     >
       {/* Icon */}
@@ -58,7 +58,7 @@ export default function AdminNotificationItem({ notification, onMarkRead }: Admi
             "text-sm truncate",
             notification.is_read
               ? "font-medium text-zinc-500"
-              : "font-semibold text-zinc-200"
+              : "font-semibold text-zinc-900 dark:text-zinc-200"
           )}>
             {notification.title}
           </p>
@@ -72,7 +72,7 @@ export default function AdminNotificationItem({ notification, onMarkRead }: Admi
       </div>
 
       {/* Time */}
-      <span className="text-[10px] text-zinc-600 flex-shrink-0 mt-0.5">
+      <span className="text-[10px] text-zinc-400 dark:text-zinc-600 flex-shrink-0 mt-0.5">
         {timeAgo(notification.created_at)}
       </span>
     </button>

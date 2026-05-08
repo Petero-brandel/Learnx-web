@@ -4,8 +4,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #F7FBFB;
+  --foreground: #0f172a;
 
   /* Bluedemy Brand Colors */
   --color-bluedemy-primary: #1A73E8;

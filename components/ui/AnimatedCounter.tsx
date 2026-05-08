@@ -64,7 +64,7 @@ export function AnimatedCounter({ value, duration = 2000 }: AnimatedCounterProps
   };
 
   return (
-    <p ref={ref} className="text-3xl md:text-4xl lg:text-5xl font-bold text-white dark:text-white mb-2">
+    <p ref={ref} className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white mb-2">
       {displayValue}
     </p>
   );

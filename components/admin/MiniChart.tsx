@@ -1,5 +1,6 @@
 'use client'
 
+import { useTheme } from 'next-themes'
 import {
   Area,
   AreaChart,
@@ -16,22 +17,26 @@ interface MiniChartProps {
 }
 
 const colorMap = {
-  emerald: { stroke: '#34d399', fill: '#34d399' },
-  sky: { stroke: '#38bdf8', fill: '#38bdf8' },
-  indigo: { stroke: '#a78bfa', fill: '#a78bfa' },
-  amber: { stroke: '#fbbf24', fill: '#fbbf24' },
+  emerald: { stroke: '#34d399', fill: '#34d399', lightStroke: '#10b981' },
+  sky: { stroke: '#38bdf8', fill: '#38bdf8', lightStroke: '#0ea5e9' },
+  indigo: { stroke: '#a78bfa', fill: '#a78bfa', lightStroke: '#6366f1' },
+  amber: { stroke: '#fbbf24', fill: '#fbbf24', lightStroke: '#f59e0b' },
 }
 
 export default function MiniChart({ data, color = 'emerald', height = 200 }: MiniChartProps) {
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
+
   if (!data || data.length === 0) {
     return (
-      <div className="flex items-center justify-center rounded-xl bg-zinc-800/20 border border-zinc-800/40" style={{ height }}>
-        <p className="text-xs text-zinc-600">No data available</p>
+      <div className="flex items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-800/20 border border-zinc-200 dark:border-zinc-800/40" style={{ height }}>
+        <p className="text-xs text-zinc-500 dark:text-zinc-600">No data available</p>
       </div>
     )
   }
 
   const activeColor = colorMap[color]
+  const strokeColor = isDark ? activeColor.stroke : activeColor.lightStroke
 
   return (
     <div style={{ width: '100%', height }}>
@@ -39,41 +44,41 @@ export default function MiniChart({ data, color = 'emerald', height = 200 }: Min
         <AreaChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
           <defs>
             <linearGradient id={`color-${color}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={activeColor.fill} stopOpacity={0.2} />
-              <stop offset="95%" stopColor={activeColor.fill} stopOpacity={0} />
+              <stop offset="5%" stopColor={strokeColor} stopOpacity={0.2} />
+              <stop offset="95%" stopColor={strokeColor} stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#3f3f46" opacity={0.5} />
+          <CartesianGrid strokeDasharray="4 4" vertical={false} stroke={isDark ? "#3f3f46" : "#e4e4e7"} opacity={0.5} />
           <XAxis 
             dataKey="label" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#a1a1aa', fontSize: 12 }} 
+            tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 12 }} 
             dy={10}
             minTickGap={20}
           />
           <Tooltip 
             contentStyle={{ 
-              backgroundColor: '#18181b', 
-              borderColor: '#27272a',
+              backgroundColor: isDark ? '#18181b' : '#ffffff', 
+              borderColor: isDark ? '#27272a' : '#e4e4e7',
               borderRadius: '12px',
               fontSize: '13px',
-              color: '#e4e4e7',
+              color: isDark ? '#e4e4e7' : '#18181b',
               boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
             }}
-            itemStyle={{ color: activeColor.stroke, fontWeight: 500 }}
-            labelStyle={{ color: '#a1a1aa', marginBottom: '4px' }}
-            cursor={{ stroke: '#52525b', strokeWidth: 1, strokeDasharray: '4 4' }}
-            formatter={(value: number) => [value, 'Total']}
+            itemStyle={{ color: strokeColor, fontWeight: 500 }}
+            labelStyle={{ color: isDark ? '#a1a1aa' : '#71717a', marginBottom: '4px' }}
+            cursor={{ stroke: isDark ? '#52525b' : '#d4d4d8', strokeWidth: 1, strokeDasharray: '4 4' }}
+            formatter={(value: any) => [value, 'Total']}
           />
           <Area
             type="monotone"
             dataKey="value"
-            stroke={activeColor.stroke}
+            stroke={strokeColor}
             strokeWidth={2.5}
             fillOpacity={1}
             fill={`url(#color-${color})`}
-            activeDot={{ r: 5, fill: activeColor.stroke, stroke: '#18181b', strokeWidth: 2 }}
+            activeDot={{ r: 5, fill: strokeColor, stroke: isDark ? '#18181b' : '#ffffff', strokeWidth: 2 }}
           />
         </AreaChart>
       </ResponsiveContainer>
