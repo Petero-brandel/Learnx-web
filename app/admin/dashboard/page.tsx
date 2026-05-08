@@ -62,6 +62,8 @@ export default function AdminDashboardPage() {
  const [coursePerf, setCoursePerf] = useState<CoursePerformance | null>(null)
  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([])
  const [loading, setLoading] = useState(true)
+ const [period, setPeriod] = useState('7d')
+ const [isPeriodLoading, setIsPeriodLoading] = useState(false)
  const { resolvedTheme } = useTheme()
  const isDark = resolvedTheme === 'dark'
 
@@ -78,8 +80,8 @@ export default function AdminDashboardPage() {
  async function loadData() {
  try {
  const [revData, userData, courseData, activityData] = await Promise.all([
- fetchRevenueStats(),
- fetchUserStats(),
+ fetchRevenueStats(period),
+ fetchUserStats(period),
  fetchCoursePerformance(),
  fetchRecentActivity(),
  ])
@@ -91,10 +93,12 @@ export default function AdminDashboardPage() {
  console.error('Failed to load admin dashboard data', err)
  } finally {
  setLoading(false)
+ setIsPeriodLoading(false)
  }
  }
+ setIsPeriodLoading(true)
  loadData()
- }, [])
+ }, [period])
 
  const today = new Date().toLocaleDateString('en-US', {
  weekday: 'long',
@@ -167,11 +171,27 @@ export default function AdminDashboardPage() {
  return (
  <div className="space-y-8">
  {/* Welcome header */}
+ <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
  <div>
  <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
  {getGreeting()}, {getFirstName(user?.full_name || '')}
  </h1>
  <p className="text-sm text-zinc-500 mt-1">{today} &middot; Admin Dashboard</p>
+ </div>
+ 
+ <div className="flex items-center gap-2">
+ <select 
+ value={period}
+ onChange={(e) => setPeriod(e.target.value)}
+ disabled={isPeriodLoading}
+ className="px-3 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm dark:shadow-none disabled:opacity-50"
+ >
+ <option value="7d">Last 7 Days</option>
+ <option value="14d">Last 14 Days</option>
+ <option value="30d">Last 30 Days</option>
+ <option value="1y">Last 1 Year</option>
+ </select>
+ </div>
  </div>
 
  {/* KPI Cards */}
