@@ -107,30 +107,56 @@ export default function AdminDashboardPage() {
  return <LoadingSkeleton />
  }
 
- // Generate the last 7 days array
- const last7Days = Array.from({ length: 7 }, (_, i) => {
+ const getPeriodLabel = () => {
+ if (period === '7d') return '7 Days'
+ if (period === '14d') return '14 Days'
+ if (period === '30d') return '30 Days'
+ return '1 Year'
+ }
+
+ const getChartDateArray = () => {
+ if (period === '1y') {
+ return Array.from({ length: 12 }, (_, i) => {
  const d = new Date()
- d.setDate(d.getDate() - (6 - i))
+ d.setMonth(d.getMonth() - (11 - i))
  return d
  })
+ }
+ const days = period === '7d' ? 7 : period === '14d' ? 14 : 30
+ return Array.from({ length: days }, (_, i) => {
+ const d = new Date()
+ d.setDate(d.getDate() - ((days - 1) - i))
+ return d
+ })
+ }
+
+ const chartDates = getChartDateArray()
+
+ const formatKey = (d: Date) => {
+ if (period === '1y') {
+ return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`
+ }
+ return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+ }
+
+ const formatLabel = (d: Date) => {
+ if (period === '1y') {
+ return d.toLocaleDateString('en-US', { month: 'short' })
+ }
+ return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+ }
 
  const revenueMap = new Map((revenue?.revenue_over_time || []).map(d => [d.day, Number(d.total)]))
- const revenueChartData = last7Days.map(d => {
- const dayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
- return {
- label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
- value: revenueMap.get(dayStr) || 0
- }
- })
+ const revenueChartData = chartDates.map(d => ({
+ label: formatLabel(d),
+ value: revenueMap.get(formatKey(d)) || 0
+ }))
 
  const signupsMap = new Map((userStats?.signups_over_time || []).map(d => [d.day, d.count]))
- const signupsChartData = last7Days.map(d => {
- const dayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
- return {
- label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
- value: signupsMap.get(dayStr) || 0
- }
- })
+ const signupsChartData = chartDates.map(d => ({
+ label: formatLabel(d),
+ value: signupsMap.get(formatKey(d)) || 0
+ }))
 
  // Popular courses for bar visualization (Top 5 only)
  const popularCourses = (coursePerf?.popular_courses || []).slice(0, 5)
