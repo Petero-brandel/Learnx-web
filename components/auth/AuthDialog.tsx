@@ -273,11 +273,13 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  </div>
 
  {error && (
- <div className="mb-4 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/40 px-3 py-2.5 text-xs font-medium text-red-700 dark:text-red-300 flex items-center gap-2">
- <AlertCircle className="h-4 w-4 flex-none" />
- <p>{error}</p>
+ <div className="mb-4 flex items-center gap-3 p-3 rounded-xl text-sm border bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100">
+ <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
+ <AlertCircle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
  </div>
-)}
+ <p className="flex-1 font-medium text-xs">{error}</p>
+ </div>
+ )}
 
  {hasGoogleClientId ? (
  <button

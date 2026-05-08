@@ -10,9 +10,32 @@ import {
 import AdminStatsCard from '@/components/admin/AdminStatsCard'
 import MiniChart from '@/components/admin/MiniChart'
 import RecentOrdersTable from '@/components/admin/RecentOrdersTable'
-import { DollarSign, Users, BookOpen, TrendingUp, BarChart3, ShoppingCart } from 'lucide-react'
+import { Users, BookOpen, TrendingUp, BarChart3, ShoppingCart } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { useTheme } from 'next-themes'
+
+function NairaSign(props: React.SVGProps<SVGSVGElement>) {
+ return (
+ <svg
+ xmlns="http://www.w3.org/2000/svg"
+ width="24"
+ height="24"
+ viewBox="0 0 24 24"
+ fill="none"
+ stroke="currentColor"
+ strokeWidth="2"
+ strokeLinecap="round"
+ strokeLinejoin="round"
+ {...props}
+ >
+ <path d="M6 4v16" />
+ <path d="M6 4l12 16" />
+ <path d="M18 4v16" />
+ <path d="M4 10h16" />
+ <path d="M4 14h16" />
+ </svg>
+ )
+}
 
 function getGreeting(): string {
  const hour = new Date().getHours()
@@ -126,9 +149,9 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* KPI Cards */}
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+ <div className="flex overflow-x-auto gap-3 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
  <AdminStatsCard
- icon={DollarSign}
+ icon={NairaSign}
  label="Total Revenue"
  value={formatCurrency(revenue?.revenue.all_time || 0)}
  sub={`₦${(revenue?.revenue.this_month || 0).toLocaleString()} this month`}
@@ -164,7 +187,7 @@ export default function AdminDashboardPage() {
  <p className="text-xs text-zinc-500 mt-0.5">Daily revenue trend</p>
  </div>
  <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium bg-emerald-500/10 rounded-full px-3 py-1">
- <DollarSign className="h-3 w-3" />
+ <NairaSign className="h-3 w-3" />
  {formatCurrency(revenue?.revenue.this_month || 0)}
  </div>
  </div>
@@ -246,7 +269,7 @@ export default function AdminDashboardPage() {
  {/* Revenue Per Course */}
  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
  <div className="flex items-center gap-2 mb-5">
- <DollarSign className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+ <NairaSign className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue Per Course</h3>
  </div>
  {revPerCourse.length > 0 ? (

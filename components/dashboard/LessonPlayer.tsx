@@ -251,9 +251,11 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  if (!quiz) {
  return (
  <div className="w-full">
- <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-900/10">
- <AlertTriangle className="h-8 w-8 text-red-500 mb-2" />
- <p className="text-sm text-red-600 dark:text-red-400">{error || 'Quiz unavailable.'}</p>
+ <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm">
+ <div className="h-12 w-12 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center mb-3">
+ <AlertTriangle className="h-6 w-6 text-red-500 dark:text-red-400" />
+ </div>
+ <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{error || 'Quiz unavailable.'}</p>
  </div>
  </div>
 )
@@ -417,10 +419,13 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  </div>
 
  {error && (
- <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-xl">
- <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+ <div className="mt-3 flex items-center gap-3 p-3 border rounded-xl text-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100">
+ <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
+ <AlertTriangle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
  </div>
-)}
+ <p className="flex-1 font-medium text-xs">{error}</p>
+ </div>
+ )}
  </div>
 )
  }
@@ -537,13 +542,15 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 )}
 
  {result.passed && (
- <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-900/30 rounded-xl">
- <CheckCircle2 className="h-5 w-5 text-emerald-500 mx-auto mb-1.5" />
- <p className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">
+ <div className="mt-4 flex items-center gap-3 p-4 border rounded-xl bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100 justify-center">
+ <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+ <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+ </div>
+ <p className="font-medium text-sm">
  This lesson is now marked as complete!
  </p>
  </div>
-)}
+ )}
  </div>
  </div>
 )
