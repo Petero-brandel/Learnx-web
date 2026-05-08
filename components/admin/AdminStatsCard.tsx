@@ -5,7 +5,8 @@ interface AdminStatsCardProps {
   label: string
   value: string | number
   sub?: string
-  color?: 'green' | 'blue' | 'purple' | 'amber'
+ color?: 'green' | 'blue' | 'purple' | 'amber'
+ className?: string
 }
 
 const iconColorMap = {
@@ -15,7 +16,7 @@ const iconColorMap = {
   amber: 'text-amber-600 dark:text-amber-400',
 }
 
-export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 'green' }: AdminStatsCardProps) {
+export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 'green', className }: AdminStatsCardProps) {
  const iconColor = iconColorMap[color]
 
  // Safely format the Naira symbol to prevent font overlapping issues
@@ -27,7 +28,8 @@ export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 
  className={cn(
  "relative p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 transition-all duration-300",
  "bg-white dark:bg-zinc-950 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm flex flex-col justify-between shrink-0 snap-start",
- "w-[150px] sm:w-auto" // fixed width on mobile for horizontal scroll, auto in grid
+ "w-[150px] sm:w-auto", // fixed width on mobile for horizontal scroll, auto in grid
+ className
  )}
  >
  <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800", iconColor)}>
