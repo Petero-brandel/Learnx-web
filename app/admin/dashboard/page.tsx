@@ -11,6 +11,8 @@ import AdminStatsCard from '@/components/admin/AdminStatsCard'
 import MiniChart from '@/components/admin/MiniChart'
 import RecentOrdersTable from '@/components/admin/RecentOrdersTable'
 import { DollarSign, Users, BookOpen, TrendingUp, BarChart3, ShoppingCart } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import { useTheme } from 'next-themes'
 
 function getGreeting(): string {
   const hour = new Date().getHours()
@@ -37,6 +39,8 @@ export default function AdminDashboardPage() {
   const [coursePerf, setCoursePerf] = useState<CoursePerformance | null>(null)
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([])
   const [loading, setLoading] = useState(true)
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
 
   // Redirect to login if not authenticated or not admin
   useEffect(() => {
@@ -105,19 +109,17 @@ export default function AdminDashboardPage() {
     }
   })
 
-  // Popular courses for bar visualization
-  const popularCourses = coursePerf?.popular_courses || []
-  const maxEnrollments = Math.max(...popularCourses.map(c => c.total_enrollments), 1)
+  // Popular courses for bar visualization (Top 5 only)
+  const popularCourses = (coursePerf?.popular_courses || []).slice(0, 5)
 
-  // Revenue per course
-  const revPerCourse = revenue?.revenue_per_course || []
-  const maxRevCourse = Math.max(...revPerCourse.map(c => Number(c.total)), 1)
+  // Revenue per course (Top 5 only)
+  const revPerCourse = (revenue?.revenue_per_course || []).slice(0, 5)
 
   return (
     <div className="space-y-8">
       {/* Welcome header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-zinc-100 tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
           {getGreeting()}, {getFirstName(user?.full_name || '')}
         </h1>
         <p className="text-sm text-zinc-500 mt-1">{today} &middot; Admin Dashboard</p>
@@ -155,10 +157,10 @@ export default function AdminDashboardPage() {
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Revenue Chart */}
-        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-200">Revenue (7 Days)</h3>
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue (7 Days)</h3>
               <p className="text-xs text-zinc-500 mt-0.5">Daily revenue trend</p>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium bg-emerald-500/10 rounded-full px-3 py-1">
@@ -170,10 +172,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Signups Chart */}
-        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-200">New Students (7 Days)</h3>
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">New Students (7 Days)</h3>
               <p className="text-xs text-zinc-500 mt-0.5">Daily signups trend</p>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-sky-400 font-medium bg-sky-500/10 rounded-full px-3 py-1">
@@ -188,69 +190,119 @@ export default function AdminDashboardPage() {
       {/* Popular courses + Revenue per course */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Popular Courses */}
-        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-5">
-            <BarChart3 className="h-4 w-4 text-indigo-400" />
-            <h3 className="text-sm font-semibold text-zinc-200">Popular Courses</h3>
+            <BarChart3 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Popular Courses</h3>
           </div>
           {popularCourses.length > 0 ? (
-            <div className="space-y-3">
-              {popularCourses.map((course, i) => (
-                <div key={i} className="group">
-                  <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-zinc-300 font-medium truncate max-w-[70%]">{course.course_title}</span>
-                    <span className="text-zinc-500">{course.total_enrollments} enrolled</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-zinc-800/60 overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-400 transition-all duration-700"
-                      style={{ width: `${(course.total_enrollments / maxEnrollments) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="flex-1 min-h-[250px] w-full mt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={popularCourses} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke={isDark ? "#3f3f46" : "#e4e4e7"} opacity={0.5} />
+                  <XAxis 
+                    dataKey="course_title" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 11 }}
+                    dy={10}
+                    tickFormatter={(value) => value.length > 15 ? `${value.substring(0, 15)}...` : value}
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 11 }}
+                    allowDecimals={false}
+                  />
+                  <Tooltip 
+                    cursor={{ fill: isDark ? '#27272a' : '#f4f4f5', opacity: 0.4 }}
+                    contentStyle={{ 
+                      backgroundColor: isDark ? '#18181b' : '#ffffff', 
+                      borderColor: isDark ? '#27272a' : '#e4e4e7',
+                      borderRadius: '12px',
+                      fontSize: '13px',
+                      color: isDark ? '#e4e4e7' : '#18181b',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                    }}
+                    itemStyle={{ color: isDark ? '#818cf8' : '#6366f1', fontWeight: 500 }}
+                    labelStyle={{ color: isDark ? '#a1a1aa' : '#71717a', marginBottom: '4px' }}
+                    formatter={(value: any) => [value, 'Enrollments']}
+                  />
+                  <Bar dataKey="total_enrollments" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                    {popularCourses.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={isDark ? "#818cf8" : "#6366f1"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-xs text-zinc-600 text-center py-8">No enrollment data yet</p>
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-xs text-zinc-600">No enrollment data yet</p>
+            </div>
           )}
         </div>
 
         {/* Revenue Per Course */}
-        <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-5">
-            <DollarSign className="h-4 w-4 text-emerald-400" />
-            <h3 className="text-sm font-semibold text-zinc-200">Revenue Per Course</h3>
+            <DollarSign className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue Per Course</h3>
           </div>
           {revPerCourse.length > 0 ? (
-            <div className="space-y-3">
-              {revPerCourse.map((course, i) => (
-                <div key={i} className="group">
-                  <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-zinc-300 font-medium truncate max-w-[60%]">{course.course_title}</span>
-                    <span className="text-emerald-400 font-semibold">
-                      ₦{Number(course.total).toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="h-2 rounded-full bg-zinc-800/60 overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-700"
-                      style={{ width: `${(Number(course.total) / maxRevCourse) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="flex-1 min-h-[250px] w-full mt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={revPerCourse} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke={isDark ? "#3f3f46" : "#e4e4e7"} opacity={0.5} />
+                  <XAxis 
+                    dataKey="course_title" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 11 }}
+                    dy={10}
+                    tickFormatter={(value) => value.length > 15 ? `${value.substring(0, 15)}...` : value}
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 11 }}
+                    tickFormatter={(value) => `₦${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
+                  />
+                  <Tooltip 
+                    cursor={{ fill: isDark ? '#27272a' : '#f4f4f5', opacity: 0.4 }}
+                    contentStyle={{ 
+                      backgroundColor: isDark ? '#18181b' : '#ffffff', 
+                      borderColor: isDark ? '#27272a' : '#e4e4e7',
+                      borderRadius: '12px',
+                      fontSize: '13px',
+                      color: isDark ? '#e4e4e7' : '#18181b',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                    }}
+                    itemStyle={{ color: isDark ? '#34d399' : '#10b981', fontWeight: 500 }}
+                    labelStyle={{ color: isDark ? '#a1a1aa' : '#71717a', marginBottom: '4px' }}
+                    formatter={(value: any) => [`₦${Number(value || 0).toLocaleString()}`, 'Revenue']}
+                  />
+                  <Bar dataKey="total" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                    {revPerCourse.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={isDark ? "#34d399" : "#10b981"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-xs text-zinc-600 text-center py-8">No revenue data yet</p>
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-xs text-zinc-600">No revenue data yet</p>
+            </div>
           )}
         </div>
       </div>
 
       {/* Recent Orders */}
-      <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+      <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-5">
-          <ShoppingCart className="h-4 w-4 text-zinc-400" />
-          <h3 className="text-sm font-semibold text-zinc-200">Recent Orders</h3>
+          <ShoppingCart className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Recent Orders</h3>
         </div>
         <RecentOrdersTable orders={recentOrders} />
       </div>
@@ -263,33 +315,33 @@ function LoadingSkeleton() {
   return (
     <div className="space-y-8 animate-pulse">
       <div>
-        <div className="h-8 w-56 bg-zinc-800/60 rounded-lg" />
-        <div className="h-4 w-36 bg-zinc-800/40 rounded mt-2" />
+        <div className="h-8 w-56 bg-zinc-200 dark:bg-zinc-800/60 rounded-lg" />
+        <div className="h-4 w-36 bg-zinc-200 dark:bg-zinc-800/40 rounded mt-2" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="flex items-center gap-4 p-5 rounded-2xl border border-zinc-800/60 bg-zinc-900/30">
-            <div className="h-11 w-11 rounded-xl bg-zinc-800/60" />
+          <div key={i} className="flex items-center gap-4 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30">
+            <div className="h-11 w-11 rounded-xl bg-zinc-100 dark:bg-zinc-800/60" />
             <div>
-              <div className="h-7 w-16 bg-zinc-800/60 rounded" />
-              <div className="h-3 w-24 bg-zinc-800/40 rounded mt-2" />
+              <div className="h-7 w-16 bg-zinc-200 dark:bg-zinc-800/60 rounded" />
+              <div className="h-3 w-24 bg-zinc-100 dark:bg-zinc-800/40 rounded mt-2" />
             </div>
           </div>
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {[1, 2].map((i) => (
-          <div key={i} className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
-            <div className="h-5 w-40 bg-zinc-800/60 rounded mb-4" />
-            <div className="h-48 bg-zinc-800/30 rounded-xl" />
+          <div key={i} className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6">
+            <div className="h-5 w-40 bg-zinc-200 dark:bg-zinc-800/60 rounded mb-4" />
+            <div className="h-48 bg-zinc-100 dark:bg-zinc-800/30 rounded-xl" />
           </div>
         ))}
       </div>
-      <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
-        <div className="h-5 w-32 bg-zinc-800/60 rounded mb-4" />
+      <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6">
+        <div className="h-5 w-32 bg-zinc-200 dark:bg-zinc-800/60 rounded mb-4" />
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-10 bg-zinc-800/30 rounded-lg" />
+            <div key={i} className="h-10 bg-zinc-100 dark:bg-zinc-800/30 rounded-lg" />
           ))}
         </div>
       </div>

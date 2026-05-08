@@ -4,8 +4,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #F7FBFB;
+  --foreground: #0f172a;
 
   /* Bluedemy Brand Colors */
   --color-bluedemy-primary: #1A73E8;
@@ -26,7 +26,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   
   /* Brand Override: Mapping indigo to learning progress (#6366F1) */

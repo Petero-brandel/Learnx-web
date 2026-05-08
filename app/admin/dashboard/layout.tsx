@@ -7,15 +7,12 @@ import AdminMobileHeader from '@/components/admin/AdminMobileHeader'
 import { cn } from '@/lib/utils'
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
-  const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
     <AdminProtectedRoute>
       {/* Sidebar */}
       <AdminSidebar
-        collapsed={collapsed}
-        onToggleCollapse={() => setCollapsed(!collapsed)}
         mobileOpen={mobileOpen}
         onMobileClose={() => setMobileOpen(false)}
       />
@@ -23,12 +20,12 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       {/* Mobile header */}
       <AdminMobileHeader onMenuOpen={() => setMobileOpen(true)} />
 
-      {/* Main content area — shifts right based on sidebar width */}
+      {/* Main content area — shifts right based on fixed closed sidebar width */}
       <main
         className={cn(
-          "min-h-screen bg-[#0a0a0a] transition-all duration-300",
+          "min-h-screen bg-zinc-50 dark:bg-[#0a0a0a] transition-all duration-300",
           "pt-14 md:pt-0", // Mobile has header offset
-          collapsed ? "md:pl-[68px]" : "md:pl-[260px]"
+          "md:pl-[68px]"
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-8">

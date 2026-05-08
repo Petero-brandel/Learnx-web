@@ -4,7 +4,7 @@ import { Reveal } from '@/components/ui/Reveal';
 
 export function CTA() {
   return (
-    <section className="py-28 px-6 bg-zinc-50 dark:bg-[#181818]">
+    <section className="py-28 px-6 bg-transparent dark:bg-[#181818]">
       <div className="max-w-5xl mx-auto text-center">
         <Reveal>
           <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 isolate">

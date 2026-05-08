@@ -59,7 +59,7 @@ export default function EnrollmentsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Enrollment Management</h1>
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Enrollment Management</h1>
         <p className="text-sm text-zinc-500 mt-1">View and manage all student enrollments across courses.</p>
       </div>
 
@@ -81,13 +81,13 @@ export default function EnrollmentsPage() {
 
       {/* Search bar */}
       <div className="relative max-w-md">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 dark:text-zinc-500" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by student or course..."
-          className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700/50 pl-10 pr-4 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"
+          className="w-full rounded-xl bg-white dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50 pl-10 pr-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all shadow-sm dark:shadow-none"
         />
       </div>
 
@@ -95,19 +95,19 @@ export default function EnrollmentsPage() {
       {loading ? (
         <div className="space-y-3 animate-pulse">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="h-12 bg-zinc-800/30 rounded-lg" />
+            <div key={i} className="h-12 bg-zinc-100 dark:bg-zinc-800/30 rounded-lg" />
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/20">
-          <GraduationCap className="h-10 w-10 text-zinc-700 mb-3" />
+        <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20">
+          <GraduationCap className="h-10 w-10 text-zinc-400 dark:text-zinc-700 mb-3" />
           <p className="text-sm text-zinc-500">{search ? 'No matching enrollments' : 'No enrollments found'}</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-zinc-800/60">
+        <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800/60">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-800/60 bg-zinc-900/50">
+              <tr className="border-b border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/50">
                 <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Course</th>
                 <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Progress</th>
@@ -120,22 +120,22 @@ export default function EnrollmentsPage() {
               {filtered.map((enrollment) => (
                 <tr
                   key={enrollment.id}
-                  className="border-b border-zinc-800/30 last:border-0 hover:bg-zinc-800/20 transition-colors"
+                  className="border-b border-zinc-200 dark:border-zinc-800/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors"
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex-shrink-0 h-7 w-7 rounded-full bg-indigo-500/15 flex items-center justify-center">
-                        <span className="text-[10px] font-bold text-indigo-400">
+                      <div className="flex-shrink-0 h-7 w-7 rounded-full bg-indigo-100 dark:bg-indigo-500/15 flex items-center justify-center">
+                        <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">
                           {enrollment.student_email.charAt(0).toUpperCase()}
                         </span>
                       </div>
-                      <span className="text-zinc-300 truncate max-w-[180px]">{enrollment.student_email}</span>
+                      <span className="text-zinc-900 dark:text-zinc-300 font-medium dark:font-normal truncate max-w-[180px]">{enrollment.student_email}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-zinc-400 truncate max-w-[180px]">{enrollment.course_title}</td>
+                  <td className="px-4 py-3 text-zinc-700 dark:text-zinc-400 truncate max-w-[180px]">{enrollment.course_title}</td>
                   <td className="px-4 py-3 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-16 h-1.5 rounded-full bg-zinc-800/60 overflow-hidden">
+                      <div className="w-16 h-1.5 rounded-full bg-zinc-200 dark:bg-zinc-800/60 overflow-hidden">
                         <div
                           className={cn(
                             "h-full rounded-full transition-all",
@@ -171,8 +171,8 @@ export default function EnrollmentsPage() {
                       onClick={() => handleToggle(enrollment)}
                       disabled={toggling === enrollment.id}
                       className={cn(
-                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-zinc-950",
-                        enrollment.is_active ? "bg-indigo-600" : "bg-zinc-700",
+                        "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950",
+                        enrollment.is_active ? "bg-indigo-600" : "bg-zinc-300 dark:bg-zinc-700",
                         toggling === enrollment.id && "opacity-50 cursor-not-allowed"
                       )}
                       aria-label={enrollment.is_active ? 'Deactivate enrollment' : 'Activate enrollment'}

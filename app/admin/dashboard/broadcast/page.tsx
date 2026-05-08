@@ -42,7 +42,7 @@ export default function BroadcastPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Broadcast Message</h1>
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Broadcast Message</h1>
         <p className="text-sm text-zinc-500 mt-1">
           Send an email and in-app notification to all students or a specific course audience.
         </p>
@@ -65,13 +65,13 @@ export default function BroadcastPage() {
       )}
 
       {/* Composer */}
-      <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/30 p-6">
+      <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-3 mb-6">
-          <div className="h-10 w-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-            <Send className="h-5 w-5 text-indigo-400" />
+          <div className="h-10 w-10 rounded-xl bg-indigo-100 dark:bg-indigo-500/10 flex items-center justify-center">
+            <Send className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-zinc-200">Compose Broadcast</h3>
+            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Compose Broadcast</h3>
             <p className="text-xs text-zinc-500 mt-0.5">This sends both an email and an in-app notification</p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function BroadcastPage() {
         <form onSubmit={handleSend} className="space-y-5">
           {/* Target audience */}
           <div>
-            <label className="block text-xs font-medium text-zinc-400 mb-2">Target Audience</label>
+            <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-2">Target Audience</label>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -87,8 +87,8 @@ export default function BroadcastPage() {
                 className={cn(
                   "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all",
                   targetAudience === 'all'
-                    ? "bg-indigo-500/15 border-indigo-500/30 text-indigo-400"
-                    : "bg-zinc-800/30 border-zinc-700/50 text-zinc-400 hover:text-zinc-300 hover:border-zinc-600"
+                    ? "bg-indigo-50 border-indigo-200 text-indigo-700 dark:bg-indigo-500/15 dark:border-indigo-500/30 dark:text-indigo-400"
+                    : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800/30 dark:border-zinc-700/50 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
                 )}
               >
                 <Radio className="h-3.5 w-3.5" />
@@ -102,8 +102,8 @@ export default function BroadcastPage() {
                   className={cn(
                     "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all",
                     targetAudience === String(course.id)
-                      ? "bg-indigo-500/15 border-indigo-500/30 text-indigo-400"
-                      : "bg-zinc-800/30 border-zinc-700/50 text-zinc-400 hover:text-zinc-300 hover:border-zinc-600"
+                      ? "bg-indigo-50 border-indigo-200 text-indigo-700 dark:bg-indigo-500/15 dark:border-indigo-500/30 dark:text-indigo-400"
+                      : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800/30 dark:border-zinc-700/50 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
                   )}
                 >
                   {course.title}
@@ -114,33 +114,33 @@ export default function BroadcastPage() {
 
           {/* Subject */}
           <div>
-            <label className="block text-xs font-medium text-zinc-400 mb-1.5">Subject</label>
+            <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Subject</label>
             <input
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Enter email subject line..."
               required
-              className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700/50 px-4 py-2.5 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"
+              className="w-full rounded-xl bg-white dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all shadow-sm dark:shadow-none"
             />
           </div>
 
           {/* Body */}
           <div>
-            <label className="block text-xs font-medium text-zinc-400 mb-1.5">Message Body</label>
+            <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Message Body</label>
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder="Write your message here..."
               required
               rows={8}
-              className="w-full rounded-xl bg-zinc-800/50 border border-zinc-700/50 px-4 py-3 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all resize-none"
+              className="w-full rounded-xl bg-white dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50 px-4 py-3 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all resize-none shadow-sm dark:shadow-none"
             />
           </div>
 
           {/* Character count + Send */}
           <div className="flex items-center justify-between pt-2">
-            <p className="text-xs text-zinc-600">
+            <p className="text-xs text-zinc-500 dark:text-zinc-600">
               {body.length > 0 ? `${body.length} characters` : 'Start typing...'}
             </p>
             <button
@@ -161,13 +161,13 @@ export default function BroadcastPage() {
       </div>
 
       {/* Info card */}
-      <div className="rounded-xl border border-zinc-800/40 bg-zinc-900/20 p-4 flex items-start gap-3">
-        <div className="h-8 w-8 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0 mt-0.5">
-          <AlertCircle className="h-4 w-4 text-amber-400" />
+      <div className="rounded-xl border border-amber-200 dark:border-zinc-800/40 bg-amber-50 dark:bg-zinc-900/20 p-4 flex items-start gap-3 shadow-sm dark:shadow-none">
+        <div className="h-8 w-8 rounded-lg bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center shrink-0 mt-0.5">
+          <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
         </div>
         <div>
-          <p className="text-xs font-medium text-zinc-400">How broadcasts work</p>
-          <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
+          <p className="text-xs font-medium text-amber-800 dark:text-zinc-400">How broadcasts work</p>
+          <p className="text-xs text-amber-700/80 dark:text-zinc-600 mt-1 leading-relaxed">
             Broadcasting sends an email to every student in the selected audience and creates an in-app notification. 
             The email is queued in the background to avoid blocking the dashboard. Large audiences may take a few minutes to process.
           </p>

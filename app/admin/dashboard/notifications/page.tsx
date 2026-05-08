@@ -54,11 +54,11 @@ export default function AdminNotificationsPage() {
     return (
       <div className="space-y-6 animate-pulse">
         <div className="flex items-center justify-between">
-          <div className="h-7 w-40 bg-zinc-800/60 rounded" />
-          <div className="h-8 w-28 bg-zinc-800/40 rounded-lg" />
+          <div className="h-7 w-40 bg-zinc-200 dark:bg-zinc-800/60 rounded" />
+          <div className="h-8 w-28 bg-zinc-200 dark:bg-zinc-800/40 rounded-lg" />
         </div>
         {[1, 2, 3, 4, 5].map(i => (
-          <div key={i} className="h-20 bg-zinc-800/30 rounded-xl" />
+          <div key={i} className="h-20 bg-zinc-100 dark:bg-zinc-800/30 rounded-xl" />
         ))}
       </div>
     )
@@ -69,7 +69,7 @@ export default function AdminNotificationsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
             Notifications
           </h1>
           {unreadCount > 0 && (
@@ -81,7 +81,7 @@ export default function AdminNotificationsPage() {
         {unreadCount > 0 && (
           <button
             onClick={handleMarkAllRead}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-indigo-400 bg-indigo-500/10 rounded-lg hover:bg-indigo-500/20 transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
           >
             <CheckCheck className="h-3.5 w-3.5" />
             Mark all read
@@ -101,11 +101,11 @@ export default function AdminNotificationsPage() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 px-6 rounded-2xl border-2 border-dashed border-zinc-800 bg-zinc-900/20">
-          <div className="h-16 w-16 rounded-2xl bg-zinc-800/50 flex items-center justify-center mb-4">
-            <Bell className="h-8 w-8 text-zinc-600" />
+        <div className="flex flex-col items-center justify-center py-20 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20">
+          <div className="h-16 w-16 rounded-2xl bg-zinc-100 dark:bg-zinc-800/50 flex items-center justify-center mb-4">
+            <Bell className="h-8 w-8 text-zinc-400 dark:text-zinc-600" />
           </div>
-          <h3 className="text-lg font-semibold text-zinc-300 mb-1">
+          <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-300 mb-1">
             All clear!
           </h3>
           <p className="text-sm text-zinc-500 text-center">

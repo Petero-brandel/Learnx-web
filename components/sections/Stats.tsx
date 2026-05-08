@@ -10,15 +10,15 @@ export function Stats() {
   ];
 
   return (
-    <section className="py-20 px-6 bg-white dark:bg-[#181818]">
+    <section className="py-20 px-6 bg-transparent dark:bg-[#181818]">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <div className="rounded-3xl bg-zinc-900 dark:bg-zinc-800 p-12 md:p-16 border border-zinc-700/50">
+          <div className="rounded-3xl bg-white dark:bg-zinc-800 p-12 md:p-16 border border-zinc-200 dark:border-zinc-700/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               {stats.map((stat, idx) => (
                 <div key={idx} className="text-center">
                   <AnimatedCounter value={stat.value} duration={2000} />
-                  <p className="text-sm md:text-base text-zinc-400 font-medium">
+                  <p className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 font-medium">
                     {stat.label}
                   </p>
                 </div>
