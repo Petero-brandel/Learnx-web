@@ -4,27 +4,27 @@ import { Menu } from 'lucide-react'
 import Link from 'next/link'
 
 interface MobileHeaderProps {
-  onMenuOpen: () => void
+ onMenuOpen: () => void
 }
 
 export default function MobileHeader({ onMenuOpen }: MobileHeaderProps) {
-  return (
-    <header className="fixed top-0 z-50 w-full bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 md:hidden">
-      <div className="flex h-14 items-center justify-between px-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
-        </Link>
+ return (
+ <header className="fixed top-0 z-50 w-full bg-white/80 dark:bg-black/80 border-b border-zinc-200 dark:border-zinc-800 md:hidden">
+ <div className="flex h-14 items-center justify-between px-4">
+ {/* Logo */}
+ <Link href="/" className="flex items-center">
+ <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
+ </Link>
 
-        {/* Hamburger menu */}
-        <button
-          onClick={onMenuOpen}
-          className="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
-      </div>
-    </header>
-  )
+ {/* Hamburger menu */}
+ <button
+ onClick={onMenuOpen}
+ className="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+ aria-label="Open menu"
+ >
+ <Menu className="h-5 w-5" />
+ </button>
+ </div>
+ </header>
+)
 }

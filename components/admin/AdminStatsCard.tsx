@@ -8,52 +8,44 @@ interface AdminStatsCardProps {
   color?: 'green' | 'blue' | 'purple' | 'amber'
 }
 
-const colorMap = {
-  green: {
-    bg: 'bg-emerald-100 dark:bg-emerald-500/10',
-    icon: 'text-emerald-600 dark:text-emerald-400',
-    border: 'border-emerald-200 dark:border-emerald-500/20',
-    glow: 'shadow-emerald-500/5',
-  },
-  blue: {
-    bg: 'bg-sky-100 dark:bg-sky-500/10',
-    icon: 'text-sky-600 dark:text-sky-400',
-    border: 'border-sky-200 dark:border-sky-500/20',
-    glow: 'shadow-sky-500/5',
-  },
-  purple: {
-    bg: 'bg-indigo-100 dark:bg-indigo-500/10',
-    icon: 'text-indigo-600 dark:text-indigo-400',
-    border: 'border-indigo-200 dark:border-indigo-500/20',
-    glow: 'shadow-indigo-500/5',
-  },
-  amber: {
-    bg: 'bg-amber-100 dark:bg-amber-500/10',
-    icon: 'text-amber-600 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-500/20',
-    glow: 'shadow-amber-500/5',
-  },
+const iconColorMap = {
+  green: 'text-emerald-600 dark:text-emerald-400',
+  blue: 'text-blue-600 dark:text-blue-400',
+  purple: 'text-blue-600 dark:text-blue-400',
+  amber: 'text-amber-600 dark:text-amber-400',
 }
 
 export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 'green' }: AdminStatsCardProps) {
-  const colors = colorMap[color]
+  const iconColor = iconColorMap[color]
+
+  // Safely format the Naira symbol to prevent font overlapping issues
+  const isNaira = typeof value === 'string' && value.includes('₦')
+  const displayValue = isNaira ? value.replace('₦', '') : value
 
   return (
     <div
       className={cn(
-        "flex items-center gap-4 p-5 rounded-2xl border transition-all duration-300",
-        "bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900/80 hover:shadow-lg shadow-sm",
-        colors.border,
-        colors.glow
+        "relative overflow-hidden p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 transition-all duration-300",
+        "bg-white dark:bg-zinc-950 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm"
       )}
     >
-      <div className={cn("flex-shrink-0 h-11 w-11 rounded-xl flex items-center justify-center", colors.bg)}>
-        <Icon className={cn("h-5 w-5", colors.icon)} />
+      <div className="flex items-start justify-between mb-4">
+        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{label}</p>
+        <div className={cn("p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900", iconColor)}>
+          <Icon className="h-4 w-4" />
+        </div>
       </div>
-      <div className="min-w-0">
-        <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight truncate">{value}</p>
-        <p className="text-xs font-medium text-zinc-500 mt-0.5">{label}</p>
-        {sub && <p className="text-[11px] text-zinc-500 dark:text-zinc-600 mt-0.5">{sub}</p>}
+      
+      <div>
+        <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight flex items-baseline gap-0.5">
+          {isNaira && <span className="text-xl font-sans text-zinc-400 dark:text-zinc-500 font-normal">₦</span>}
+          {displayValue}
+        </p>
+        {sub && (
+          <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-2 font-medium">
+            {sub}
+          </p>
+        )}
       </div>
     </div>
   )
