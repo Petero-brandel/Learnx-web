@@ -149,13 +149,14 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* KPI Cards */}
- <div className="flex overflow-x-auto gap-3 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+ <div className="flex overflow-x-auto gap-3 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:pb-0">
  <AdminStatsCard
  icon={NairaSign}
  label="Total Revenue"
  value={formatCurrency(revenue?.revenue.all_time || 0)}
  sub={`₦${(revenue?.revenue.this_month || 0).toLocaleString()} this month`}
  color="green"
+ className="first:ml-4 sm:first:ml-0"
  />
  <AdminStatsCard
  icon={Users}

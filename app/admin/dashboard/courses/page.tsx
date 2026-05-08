@@ -124,110 +124,190 @@ export default function AdminCoursesPage() {
  return (
  <div
  key={course.id}
- className="group rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-5 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors shadow-sm dark:shadow-none"
+ className="group rounded-[20px] border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-4 sm:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors shadow-sm dark:shadow-none"
  >
- <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+ <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 h-full">
  {/* Thumbnail */}
  {course.thumbnail && (
- <div className="flex-shrink-0 w-full sm:w-28 h-20 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50">
+ <div className="flex-shrink-0 w-full sm:w-40 h-40 sm:h-28 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800/50">
  <img
  src={course.thumbnail}
  alt={course.title}
  className="w-full h-full object-cover"
  />
  </div>
-)}
+ )}
 
- {/* Info */}
- <div className="flex-1 min-w-0">
+ {/* Info & Actions */}
+ <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
+ <div>
  <div className="flex items-start justify-between gap-3">
- <div className="min-w-0">
- <div className="flex items-center gap-2">
- <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 truncate">{course.title}</h3>
+ <div className="min-w-0 flex-1">
+ <div className="flex items-center justify-between sm:justify-start gap-3 mb-1.5">
+ <h3 className="text-base sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">{course.title}</h3>
  <span
  className={cn(
-"inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold shrink-0",
+ "inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide uppercase shrink-0",
  course.is_published
- ?"bg-emerald-500/10 text-emerald-400"
- :"bg-amber-500/10 text-amber-400"
-)}
+ ?"bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+ :"bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400"
+ )}
  >
  {course.is_published ? 'Published' : 'Draft'}
  </span>
  </div>
- <p className="text-xs text-zinc-500 mt-1 line-clamp-1">{course.description || 'No description'}</p>
- <div className="flex items-center gap-4 mt-2 text-xs text-zinc-500 dark:text-zinc-600">
- <span>{formatPrice(course.price)}</span>
+ <p className="text-sm sm:text-xs text-zinc-500 dark:text-zinc-400 line-clamp-1 mb-3">
+ {course.description || 'No description provided.'}
+ </p>
+ 
+ {/* Stats container */}
+ <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+ <div className="flex items-center gap-1.5">
+ <span className="text-zinc-900 dark:text-zinc-100 font-bold">{formatPrice(course.price)}</span>
+ </div>
+ <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+ <div className="flex items-center gap-1.5">
+ <BookOpen className="h-3.5 w-3.5 text-zinc-400" />
  <span>{moduleCount} module{moduleCount !== 1 ? 's' : ''}</span>
+ </div>
+ <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+ <div className="flex items-center gap-1.5">
+ <Eye className="h-3.5 w-3.5 text-zinc-400" />
  <span>{lessonCount} lesson{lessonCount !== 1 ? 's' : ''}</span>
- <span>Created {formatDate(course.created_at)}</span>
  </div>
- </div>
+ <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+ <span>{formatDate(course.created_at)}</span>
  </div>
  </div>
 
- {/* Actions */}
- <div className="flex items-center gap-3 shrink-0">
- {/* Edit */}
+ {/* Desktop Actions */}
+ <div className="hidden sm:flex items-center gap-2 shrink-0 ml-4">
+ <button
+ onClick={() => handleTogglePublish(course)}
+ disabled={toggling === course.id}
+ className={cn(
+ "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/40",
+ course.is_published ?"bg-emerald-500" :"bg-zinc-300 dark:bg-zinc-700",
+ toggling === course.id &&"opacity-50 cursor-not-allowed"
+ )}
+ title={course.is_published ? 'Unpublish' : 'Publish'}
+ >
+ {toggling === course.id && (
+ <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
+ )}
+ <span
+ className={cn(
+ "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+ course.is_published ?"translate-x-4" :"translate-x-0",
+ toggling === course.id &&"opacity-0"
+ )}
+ />
+ </button>
+
+ <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800 mx-1" />
+
  <button
  onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
- className="p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all opacity-0 group-hover:opacity-100"
+ className="p-1.5 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all opacity-0 group-hover:opacity-100"
  title="Edit course"
  >
  <Pencil className="h-4 w-4" />
  </button>
 
- {/* Delete */}
  <button
  onClick={async () => {
- if (!confirm(`Are you sure you want to delete"${course.title}"? This will permanently remove all modules and lessons.`)) return
+ if (!confirm(`Are you sure you want to delete "${course.title}"? This will permanently remove all modules and lessons.`)) return
  setDeleting(course.id)
  try {
  await deleteCourse(course.slug)
  setCourses((prev) => prev.filter((c) => c.id !== course.id))
  setFeedback({ type: 'success', message: `"${course.title}" deleted successfully` })
  } catch {
- setFeedback({ type: 'error', message: `Failed to delete"${course.title}"` })
+ setFeedback({ type: 'error', message: `Failed to delete "${course.title}"` })
  } finally {
  setDeleting(null)
  }
  }}
  disabled={deleting === course.id}
  className={cn(
-"p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all",
+ "p-1.5 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all",
  deleting === course.id ?"opacity-50 cursor-not-allowed" :"opacity-0 group-hover:opacity-100"
-)}
+ )}
  title="Delete course"
  >
  {deleting === course.id ? (
  <Loader2 className="h-4 w-4 animate-spin" />
-) : (
+ ) : (
  <Trash2 className="h-4 w-4" />
-)}
+ )}
  </button>
+ </div>
+ </div>
+ </div>
 
- {/* Publish toggle */}
+ {/* Mobile Actions Footer */}
+ <div className="sm:hidden mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between">
+ <div className="flex items-center gap-2.5">
  <button
  onClick={() => handleTogglePublish(course)}
  disabled={toggling === course.id}
  className={cn(
-"relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950",
+ "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/40",
  course.is_published ?"bg-emerald-500" :"bg-zinc-300 dark:bg-zinc-700",
  toggling === course.id &&"opacity-50 cursor-not-allowed"
-)}
- title={course.is_published ? 'Unpublish course' : 'Publish course'}
+ )}
  >
- {toggling === course.id ? (
+ {toggling === course.id && (
  <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
-) : null}
+ )}
  <span
  className={cn(
-"pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+ "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
  course.is_published ?"translate-x-4" :"translate-x-0",
  toggling === course.id &&"opacity-0"
-)}
+ )}
  />
  </button>
+ <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400">
+ {course.is_published ? 'Visible' : 'Hidden'}
+ </span>
+ </div>
+
+ <div className="flex items-center gap-2">
+ <button
+ onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
+ className="p-2 rounded-xl text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+ >
+ <Pencil className="h-4 w-4" />
+ </button>
+ <button
+ onClick={async () => {
+ if (!confirm(`Are you sure you want to delete "${course.title}"? This will permanently remove all modules and lessons.`)) return
+ setDeleting(course.id)
+ try {
+ await deleteCourse(course.slug)
+ setCourses((prev) => prev.filter((c) => c.id !== course.id))
+ setFeedback({ type: 'success', message: `"${course.title}" deleted successfully` })
+ } catch {
+ setFeedback({ type: 'error', message: `Failed to delete "${course.title}"` })
+ } finally {
+ setDeleting(null)
+ }
+ }}
+ disabled={deleting === course.id}
+ className={cn(
+ "p-2 rounded-xl text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 transition-colors",
+ deleting === course.id ?"opacity-50 cursor-not-allowed" :""
+ )}
+ >
+ {deleting === course.id ? (
+ <Loader2 className="h-4 w-4 animate-spin" />
+ ) : (
+ <Trash2 className="h-4 w-4" />
+ )}
+ </button>
+ </div>
+ </div>
  </div>
  </div>
  </div>
