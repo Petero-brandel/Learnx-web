@@ -12,7 +12,7 @@ import {
 
 interface MiniChartProps {
  data: { label: string; value: number }[]
- color?: 'emerald' | 'sky' | 'indigo' | 'amber'
+ color?: 'emerald' | 'sky' | 'indigo' | 'amber' | 'zinc'
  height?: number
 }
 
@@ -21,6 +21,7 @@ const colorMap = {
  sky: { stroke: '#38bdf8', fill: '#38bdf8', lightStroke: '#0ea5e9' },
  indigo: { stroke: '#a78bfa', fill: '#a78bfa', lightStroke: '#6366f1' },
  amber: { stroke: '#fbbf24', fill: '#fbbf24', lightStroke: '#f59e0b' },
+ zinc: { stroke: '#e4e4e7', fill: '#e4e4e7', lightStroke: '#18181b' },
 }
 
 export default function MiniChart({ data, color = 'emerald', height = 200 }: MiniChartProps) {

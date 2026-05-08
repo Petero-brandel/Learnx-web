@@ -233,12 +233,12 @@ export default function AdminDashboardPage() {
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue ({getPeriodLabel()})</h3>
  <p className="text-xs text-zinc-500 mt-0.5">Daily revenue trend</p>
  </div>
- <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium bg-emerald-500/10 rounded-full px-3 py-1">
+ <div className="flex items-center gap-1.5 text-xs text-zinc-700 dark:text-zinc-300 font-medium bg-zinc-100 dark:bg-zinc-800 rounded-full px-3 py-1">
  <NairaSign className="h-3 w-3" />
  {formatCurrency(revenue?.revenue.this_month || 0)}
  </div>
  </div>
- <MiniChart data={revenueChartData} color="emerald" height={200} />
+ <MiniChart data={revenueChartData} color="zinc" height={200} />
  </div>
 
  {/* Signups Chart */}
