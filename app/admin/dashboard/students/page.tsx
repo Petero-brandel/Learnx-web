@@ -47,21 +47,24 @@ function FeedbackBanner({ feedback, onDismiss }: { feedback: FeedbackState; onDi
  return (
  <div
  className={cn(
-"flex items-center gap-3 p-3 rounded-xl text-sm mb-4 animate-fade-up-sm",
- feedback.type === 'success'
- ?"bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
- :"bg-red-500/10 border border-red-500/20 text-red-400"
-)}
+ "flex items-center gap-3 p-4 rounded-xl text-sm border mb-4 animate-fade-up-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100"
+ )}
  >
  {feedback.type === 'success' ? (
- <CheckCircle2 className="h-4 w-4 shrink-0" />
-) : (
- <AlertCircle className="h-4 w-4 shrink-0" />
-)}
- <span className="flex-1">{feedback.message}</span>
- <button onClick={onDismiss} className="text-xs opacity-60 hover:opacity-100 transition-opacity">Dismiss</button>
+ <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+ <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
  </div>
-)
+ ) : (
+ <div className="h-8 w-8 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
+ <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
+ </div>
+ )}
+ <span className="flex-1 font-medium">{feedback.message}</span>
+ <button onClick={onDismiss} className="text-xs text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 font-semibold transition-colors px-3 py-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900">
+ Dismiss
+ </button>
+ </div>
+ )
 }
 
 function InputField({

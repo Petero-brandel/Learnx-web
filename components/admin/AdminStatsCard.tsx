@@ -16,37 +16,41 @@ const iconColorMap = {
 }
 
 export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 'green' }: AdminStatsCardProps) {
-  const iconColor = iconColorMap[color]
+ const iconColor = iconColorMap[color]
 
-  // Safely format the Naira symbol to prevent font overlapping issues
-  const isNaira = typeof value === 'string' && value.includes('₦')
-  const displayValue = isNaira ? value.replace('₦', '') : value
+ // Safely format the Naira symbol to prevent font overlapping issues
+ const isNaira = typeof value === 'string' && value.includes('₦')
+ const displayValue = isNaira ? value.replace('₦', '') : value
 
-  return (
-    <div
-      className={cn(
-        "relative overflow-hidden p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 transition-all duration-300",
-        "bg-white dark:bg-zinc-950 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm"
-      )}
-    >
-      <div className="flex items-start justify-between mb-4">
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{label}</p>
-        <div className={cn("p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900", iconColor)}>
-          <Icon className="h-4 w-4" />
-        </div>
-      </div>
-      
-      <div>
-        <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight flex items-baseline gap-0.5">
-          {isNaira && <span className="text-xl font-sans text-zinc-400 dark:text-zinc-500 font-normal">₦</span>}
-          {displayValue}
-        </p>
-        {sub && (
-          <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-2 font-medium">
-            {sub}
-          </p>
-        )}
-      </div>
-    </div>
-  )
+ return (
+ <div
+ className={cn(
+ "relative p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 transition-all duration-300",
+ "bg-white dark:bg-zinc-950 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm flex flex-col justify-between shrink-0 snap-start",
+ "w-[150px] sm:w-auto" // fixed width on mobile for horizontal scroll, auto in grid
+ )}
+ >
+ <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800", iconColor)}>
+ <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
+ </div>
+ 
+ <div className="mb-1.5 flex-1 flex flex-col justify-end">
+ <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight flex items-baseline gap-0.5">
+ {isNaira && <span className="text-sm font-sans text-zinc-400 dark:text-zinc-500 font-medium">₦</span>}
+ {displayValue}
+ </p>
+ </div>
+
+ <div>
+ <p className="text-[13px] font-medium text-zinc-600 dark:text-zinc-400 leading-tight">
+ {label}
+ </p>
+ {sub && (
+ <p className="text-[11px] text-zinc-400 dark:text-zinc-500 mt-0.5 font-medium truncate">
+ {sub}
+ </p>
+ )}
+ </div>
+ </div>
+ )
 }

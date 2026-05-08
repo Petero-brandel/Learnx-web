@@ -120,7 +120,7 @@ function DashboardContent() {
  </div>
 
  {/* Stats row — horizontal scroll on mobile, grid on desktop */}
- <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
+ <div className="flex gap-3 overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
  <StatsCard
  icon={BookOpen}
  label="Enrolled Courses"

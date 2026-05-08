@@ -126,7 +126,7 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* KPI Cards */}
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+ <div className="flex overflow-x-auto gap-3 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
  <AdminStatsCard
  icon={DollarSign}
  label="Total Revenue"
