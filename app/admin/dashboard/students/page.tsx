@@ -131,6 +131,11 @@ export default function StudentsPage() {
  const [students, setStudents] = useState<AdminStudent[]>([])
  const [studentsLoading, setStudentsLoading] = useState(true)
  const [search, setSearch] = useState('')
+ const [displayLimit, setDisplayLimit] = useState(10)
+
+ useEffect(() => {
+ setDisplayLimit(10)
+ }, [search])
 
  // Register form
  const [regEmail, setRegEmail] = useState('')
@@ -174,6 +179,8 @@ export default function StudentsPage() {
  (s) => s.email.toLowerCase().includes(q) || s.full_name.toLowerCase().includes(q) || String(s.id).includes(q)
 )
  }, [students, search])
+
+ const displayedStudents = filteredStudents.slice(0, displayLimit)
 
  const handleRegister = async (e: React.FormEvent) => {
  e.preventDefault()
@@ -288,7 +295,7 @@ export default function StudentsPage() {
  <table className="w-full text-sm">
  <thead>
  <tr className="border-b border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/50">
- <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">#</th>
+ <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">ID</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Email</th>
  <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Courses</th>
@@ -297,7 +304,7 @@ export default function StudentsPage() {
  </tr>
  </thead>
  <tbody>
- {filteredStudents.map((student, index) => (
+ {displayedStudents.map((student, index) => (
  <tr
  key={student.id}
  className="border-b border-zinc-200 dark:border-zinc-800/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors cursor-pointer"
@@ -309,7 +316,7 @@ export default function StudentsPage() {
  >
  <td className="px-4 py-3">
  <span className="inline-flex items-center justify-center h-6 min-w-[28px] px-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-[11px] font-bold text-zinc-600 dark:text-zinc-400">
- {index + 1}
+ {student.id}
  </span>
  </td>
  <td className="px-4 py-3">
@@ -349,12 +356,22 @@ export default function StudentsPage() {
 ))}
  </tbody>
  </table>
+ {displayLimit < filteredStudents.length && (
+ <div className="p-4 flex justify-center border-t border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/30">
+ <button
+ onClick={() => setDisplayLimit(prev => prev + 10)}
+ className="px-5 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-xl transition-colors shadow-sm dark:shadow-none"
+ >
+ Show More
+ </button>
+ </div>
+ )}
  </div>
 )}
 
  {!studentsLoading && (
  <p className="text-xs text-zinc-600">
- Showing {filteredStudents.length} of {students.length} student{students.length !== 1 ? 's' : ''}
+ Showing {displayedStudents.length} of {filteredStudents.length} matching student{filteredStudents.length !== 1 ? 's' : ''} {search ? `(out of ${students.length} total)` : ''}
  </p>
 )}
  </div>
