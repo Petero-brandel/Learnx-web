@@ -184,7 +184,7 @@ export default function AdminDashboardPage() {
  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center justify-between mb-4">
  <div>
- <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue (7 Days)</h3>
+ <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue ({getPeriodLabel()})</h3>
  <p className="text-xs text-zinc-500 mt-0.5">Daily revenue trend</p>
  </div>
  <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium bg-emerald-500/10 rounded-full px-3 py-1">
@@ -199,7 +199,7 @@ export default function AdminDashboardPage() {
  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center justify-between mb-4">
  <div>
- <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">New Students (7 Days)</h3>
+ <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">New Students ({getPeriodLabel()})</h3>
  <p className="text-xs text-zinc-500 mt-0.5">Daily signups trend</p>
  </div>
  <div className="flex items-center gap-1.5 text-xs text-sky-400 font-medium bg-sky-500/10 rounded-full px-3 py-1">

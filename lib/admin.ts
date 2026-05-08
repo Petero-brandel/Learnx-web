@@ -115,13 +115,13 @@ export interface QuizResult {
 
 // ─── Analytics ───────────────────────────────────────────
 
-export async function fetchRevenueStats(): Promise<RevenueStats> {
-  const response = await api.get('/dashboard/stats/revenue/');
+export async function fetchRevenueStats(period = '7d'): Promise<RevenueStats> {
+  const response = await api.get(`/dashboard/stats/revenue/?period=${period}`);
   return response.data;
 }
 
-export async function fetchUserStats(): Promise<UserStats> {
-  const response = await api.get('/dashboard/stats/users/');
+export async function fetchUserStats(period = '7d'): Promise<UserStats> {
+  const response = await api.get(`/dashboard/stats/users/?period=${period}`);
   return response.data;
 }
 
