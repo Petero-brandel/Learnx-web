@@ -1,162 +1,149 @@
-@import "tailwindcss";
+@import"tailwindcss";
 
 /* Enable class-based dark mode (.dark on <html>) */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #F7FBFB;
-  --foreground: #0f172a;
+ --background: #F7FBFB;
+ --foreground: #0f172a;
 
-  /* Bluedemy Brand Colors */
-  --color-bluedemy-primary: #1A73E8;
-  --color-bluedemy-primary-dark: #1557C0;
-  --color-bluedemy-primary-light: #4A90F7;
+ /* Bluedemy Brand Colors */
+ --color-bluedemy-primary: #1A73E8;
+ --color-bluedemy-primary-dark: #1557C0;
+ --color-bluedemy-primary-light: #4A90F7;
 
-  /* Learning Progress - Reserved Indigo */
-  --color-learning-progress: #6366F1;
-  --color-learning-progress-light: #818CF8;
+ /* Learning Progress - Reserved Indigo */
+ --color-learning-progress: #6366F1;
+ --color-learning-progress-light: #818CF8;
 
-  /* Accent Colors */
-  --color-accent-emerald: #34D399;
-  --color-accent-amber: #FBBF24;
-  --color-accent-sky: #0EA5E9;
-  --color-accent-rose: #F43F5E;
+ /* Accent Colors */
+ --color-accent-amber: #F5A623;
+ --color-accent-emerald: #34D399;
+ --color-accent-sky: #0EA5E9;
+ --color-accent-rose: #F43F5E;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
-  
-  /* Brand Override: Mapping indigo to learning progress (#6366F1) */
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-200: #c7d2fe;
-  --color-indigo-300: #a5b4fc;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #6366f1; /* Learning progress indigo */
-  --color-indigo-700: #4f46e5;
-  --color-indigo-800: #4338ca;
-  --color-indigo-900: #312e81;
-  --color-indigo-950: #1e1b4b;
+ --color-background: var(--background);
+ --color-foreground: var(--foreground);
+ --font-sans: var(--font-inter);
+ --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;
-    --foreground: #fafafa;
-  }
+ :root {
+ --background: #121212;
+ --foreground: #fafafa;
+ }
 }
 
 /* Force dark mode class override */
 .dark {
-  --background: #121212;
-  --foreground: #fafafa;
+ --background: #121212;
+ --foreground: #fafafa;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+ background: var(--background);
+ color: var(--foreground);
+ font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
 }
 
 /* Smooth scroll */
 html {
-  scroll-behavior: smooth;
+ scroll-behavior: smooth;
 }
 
 /* Selection */
 ::selection {
-  background-color: rgba(99, 102, 241, 0.25);
+ background-color: rgba(99, 102, 241, 0.25);
 }
 
 /* Custom scrollbar for dark mode */
 .dark ::-webkit-scrollbar,
 .dark::-webkit-scrollbar {
-  width: 8px;
+ width: 8px;
 }
 .dark ::-webkit-scrollbar-track,
 .dark::-webkit-scrollbar-track {
-  background: #121212;
+ background: #121212;
 }
 .dark ::-webkit-scrollbar-thumb,
 .dark::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 4px;
+ background: #27272a;
+ border-radius: 4px;
 }
 .dark ::-webkit-scrollbar-thumb:hover,
 .dark::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+ background: #3f3f46;
 }
 
 /* ─── Scroll-triggered entrance animations ─── */
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+ from { opacity: 0; }
+ to { opacity: 1; }
 }
-@keyframes slide-in-from-top-2 {
-  from { transform: translateY(-8px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes slide-in- {
+ from { transform: translateY(-8px); opacity: 0; }
+ to { transform: translateY(0); opacity: 1; }
 }
 @keyframes slide-in-from-right {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+ from { transform: translateX(100%); }
+ to { transform: translateX(0); }
 }
 @keyframes slide-in-from-left {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+ from { transform: translateX(-100%); }
+ to { transform: translateX(0); }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: 0; transform: translateY(30px); }
+ to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fade-up-sm {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: 0; transform: translateY(16px); }
+ to { opacity: 1; transform: translateY(0); }
 }
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+ from { opacity: 0; transform: scale(0.95); }
+ to { opacity: 1; transform: scale(1); }
 }
 @keyframes blur-in {
-  from { opacity: 0; filter: blur(8px); }
-  to { opacity: 1; filter: blur(0); }
+ from { opacity: 0; filter: blur(8px); }
+ to { opacity: 1; filter: blur(0); }
 }
 
 .animate-in {
-  animation-fill-mode: both;
+ animation-fill-mode: both;
 }
 .fade-in {
-  animation-name: fade-in;
+ animation-name: fade-in;
 }
-.slide-in-from-top-2 {
-  animation-name: slide-in-from-top-2;
+.slide-in- {
+ animation-name: slide-in-;
 }
 .slide-in-from-right {
-  animation-name: slide-in-from-right;
+ animation-name: slide-in-from-right;
 }
 .slide-in-from-left {
-  animation-name: slide-in-from-left;
+ animation-name: slide-in-from-left;
 }
 .animate-fade-up {
-  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+ animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .animate-fade-up-sm {
-  animation: fade-up-sm 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+ animation: fade-up-sm 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .animate-scale-in {
-  animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+ animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .animate-blur-in {
-  animation: blur-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+ animation: blur-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .duration-200 {
-  animation-duration: 200ms;
+ animation-duration: 200ms;
 }
 .duration-300 {
-  animation-duration: 300ms;
+ animation-duration: 300ms;
 }
 
 /* Stagger delays for children */
@@ -169,23 +156,23 @@ html {
 
 /* ─── Prose overrides for dark mode ─── */
 .dark .prose-zinc {
-  --tw-prose-body: #a1a1aa;
-  --tw-prose-headings: #fafafa;
-  --tw-prose-lead: #a1a1aa;
-  --tw-prose-links: #818cf8;
-  --tw-prose-bold: #fafafa;
-  --tw-prose-counters: #71717a;
-  --tw-prose-bullets: #71717a;
-  --tw-prose-hr: #27272a;
-  --tw-prose-quotes: #d4d4d8;
-  --tw-prose-quote-borders: #3f3f46;
+ --tw-prose-body: #a1a1aa;
+ --tw-prose-headings: #fafafa;
+ --tw-prose-lead: #a1a1aa;
+ --tw-prose-links: #818cf8;
+ --tw-prose-bold: #fafafa;
+ --tw-prose-counters: #71717a;
+ --tw-prose-bullets: #71717a;
+ --tw-prose-hr: #27272a;
+ --tw-prose-quotes: #d4d4d8;
+ --tw-prose-quote-borders: #3f3f46;
 }
 
 /* ─── Gradient text helper ─── */
 .gradient-text {
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+ background-clip: text;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
 }
 
 /* ─── Override browser autofill yellow/olive background ─── */
@@ -193,18 +180,24 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
-  -webkit-text-fill-color: #09090b !important;
-  caret-color: #09090b !important;
-  transition: background-color 5000s ease-in-out 0s;
+ -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+ -webkit-text-fill-color: #09090b !important;
+ caret-color: #09090b !important;
+ transition: background-color 5000s ease-in-out 0s;
 }
 
 .dark input:-webkit-autofill,
 .dark input:-webkit-autofill:hover,
 .dark input:-webkit-autofill:focus,
 .dark input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #09090b inset !important;
-  -webkit-text-fill-color: #fafafa !important;
-  caret-color: #fafafa !important;
-  transition: background-color 5000s ease-in-out 0s;
+ -webkit-box-shadow: 0 0 0 30px #09090b inset !important;
+ -webkit-text-fill-color: #fafafa !important;
+ caret-color: #fafafa !important;
+ transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ─── Global Lucide Icon Override ─── */
+/* Make all Lucide icons sharper for a more premium, custom look */
+.lucide {
+  stroke-width: 1.5px !important;
 }
