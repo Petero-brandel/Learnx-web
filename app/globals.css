@@ -34,6 +34,8 @@
  :root {
  --background: #121212;
  --foreground: #fafafa;
+ --color-learning-progress: #C2410C;
+ --color-learning-progress-light: #EA580C;
  }
 }
 
@@ -41,6 +43,8 @@
 .dark {
  --background: #121212;
  --foreground: #fafafa;
+ --color-learning-progress: #C2410C;
+ --color-learning-progress-light: #EA580C;
 }
 
 body {
