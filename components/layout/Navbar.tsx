@@ -395,12 +395,15 @@ export default function Navbar() {
  <Link href="/" onClick={() => setIsOpen(false)}>
  <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
  </Link>
+ <div className="flex items-center gap-2">
+ <ThemeToggle />
  <button
  onClick={() => setIsOpen(false)}
  className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
  >
  <X className="h-5 w-5 text-zinc-500" />
  </button>
+ </div>
  </div>
 
  {/* Mobile nav items */}
