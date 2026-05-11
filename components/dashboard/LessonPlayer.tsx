@@ -34,7 +34,7 @@ export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: L
  <div className="w-full">
  <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 md:p-8">
  <div
- className="prose prose-zinc dark:prose-invert max-w-none text-sm md:text-base leading-relaxed [&_p]:!text-zinc-800 dark:[&_p]:!text-zinc-300 [&_span]:!text-zinc-800 dark:[&_span]:!text-zinc-300 [&_h1]:!text-zinc-900 dark:[&_h1]:!text-zinc-100 [&_h2]:!text-zinc-900 dark:[&_h2]:!text-zinc-100 [&_h3]:!text-zinc-900 dark:[&_h3]:!text-zinc-100 [&_li]:!text-zinc-800 dark:[&_li]:!text-zinc-300"
+ className="prose prose-zinc dark:prose-invert max-w-none whitespace-pre-wrap text-zinc-900 dark:text-zinc-100 text-sm md:text-base leading-relaxed [&_p]:!text-zinc-900 dark:[&_p]:!text-zinc-300 [&_span]:!text-zinc-900 dark:[&_span]:!text-zinc-300 [&_h1]:!text-zinc-900 dark:[&_h1]:!text-zinc-100 [&_h2]:!text-zinc-900 dark:[&_h2]:!text-zinc-100 [&_h3]:!text-zinc-900 dark:[&_h3]:!text-zinc-100 [&_li]:!text-zinc-900 dark:[&_li]:!text-zinc-300"
  dangerouslySetInnerHTML={{ __html: lesson.text_content }}
  />
  </div>
