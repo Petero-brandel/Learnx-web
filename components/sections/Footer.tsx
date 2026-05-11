@@ -11,11 +11,10 @@ const footerLinks = {
  Company: [
  { label: 'About Us', href: '/about' },
  { label: 'Contact', href: '/contact' },
- { label: 'Teach on Bluedemy', href: '/teach' },
- { label: 'Careers', href: '/careers' },
+ { label: 'Blog', href: '/blog' },
  ],
  Support: [
- { label: 'Help Center', href: '/help' },
+ { label: 'Help Center', href: '/faq' },
  { label: 'FAQs', href: '/faq' },
  { label: 'Student Guides', href: '/guides' },
  ],
@@ -38,7 +37,7 @@ export function Footer() {
  <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
  </Link>
  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xs">
- Master the skills of the future with expert-led courses in AI, content creation, and digital marketing.
+ Master the skills of the future with expert-led courses in AI, content creation, and digital marketing and many more.
  </p>
  </div>
 
