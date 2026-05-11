@@ -43,7 +43,6 @@ export default function RootLayout({
  <ThemeProvider
  attribute="class"
  defaultTheme="dark"
- enableSystem
  disableTransitionOnChange
  >
  <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||""}>

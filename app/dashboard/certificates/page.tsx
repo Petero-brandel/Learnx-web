@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { fetchMyCertificates, type Certificate } from '@/lib/dashboard'
+import { api } from '@/lib/api'
 import { Award, Download, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
@@ -13,21 +14,41 @@ export default function CertificatesPage() {
  const handleDownload = async (url: string, title: string, id: string) => {
  setDownloadingId(id)
  try {
- const response = await fetch(url)
- const blob = await response.blob()
- const blobUrl = window.URL.createObjectURL(blob)
- const a = document.createElement('a')
- a.href = blobUrl
- a.download = `Certificate - ${title}.pdf`
- document.body.appendChild(a)
- a.click()
- document.body.removeChild(a)
- window.URL.revokeObjectURL(blobUrl)
+   let fullUrl = url
+   
+   // If the URL is relative (e.g. from Django media storage), prepend the backend domain
+   if (!url.startsWith('http://') && !url.startsWith('https://')) {
+     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/'
+     // Remove '/api' or '/api/' from the end to get the base backend URL
+     const baseUrl = apiUrl.replace(/\/api\/?$/, '')
+     fullUrl = `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`
+   }
+
+   // Fetch the file directly as it's a static media resource
+   const response = await fetch(fullUrl)
+   if (!response.ok) throw new Error(`HTTP ${response.status}`)
+   const blob = await response.blob()
+
+   const blobUrl = window.URL.createObjectURL(blob)
+   const a = document.createElement('a')
+   a.href = blobUrl
+   a.download = `Certificate - ${title}.pdf`
+   document.body.appendChild(a)
+   a.click()
+   document.body.removeChild(a)
+   window.URL.revokeObjectURL(blobUrl)
  } catch (err) {
- console.error('Download failed, opening in new tab', err)
- window.open(url, '_blank')
+   console.error('Download failed', err)
+   // Fallback: try opening the absolute URL directly in a new tab
+   let fallbackUrl = url
+   if (!url.startsWith('http://') && !url.startsWith('https://')) {
+     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/'
+     const baseUrl = apiUrl.replace(/\/api\/?$/, '')
+     fallbackUrl = `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`
+   }
+   window.open(fallbackUrl, '_blank')
  } finally {
- setDownloadingId(null)
+   setDownloadingId(null)
  }
  }
 
@@ -106,10 +127,10 @@ export default function CertificatesPage() {
  <button
  onClick={() => handleDownload(cert.pdf_url!, cert.course_title, cert.certificate_id)}
  disabled={downloadingId === cert.certificate_id}
- className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
+ className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
  >
  {downloadingId === cert.certificate_id ? (
- <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white dark:border-zinc-900 border-t-transparent" />
+ <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
 ) : (
  <Download className="h-3.5 w-3.5" />
 )}
