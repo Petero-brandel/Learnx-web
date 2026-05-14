@@ -5,7 +5,7 @@ export default function TermsPage() {
  return (
  <div className="min-h-screen bg-white dark:bg-[#121212] font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30">
  <Navbar />
- <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
+ <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
  <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">Terms of Service</h1>
  <div className="prose prose-zinc dark:prose-invert max-w-none text-zinc-600 dark:text-zinc-400 leading-relaxed">
  <p className="mb-4">Last updated: {new Date().toLocaleDateString()}</p>

@@ -62,7 +62,7 @@ export default function PricingPage() {
  return (
  <div className="min-h-screen bg-white dark:bg-[#121212] font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30">
  <Navbar />
- <main className="pt-32 pb-24 px-6">
+ <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
  <div className="max-w-7xl mx-auto">
  {/* Header */}
  <div className="text-center max-w-3xl mx-auto mb-20">

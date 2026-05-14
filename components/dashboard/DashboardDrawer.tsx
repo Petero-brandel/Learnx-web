@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { fetchNotifications } from '@/lib/dashboard'
@@ -55,9 +56,7 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
  <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white dark:bg-zinc-950 shadow-2xl md:hidden animate-in slide-in-from-right duration-300">
  {/* Header */}
  <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800">
- <Link href="/" onClick={onClose}>
- <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
- </Link>
+            <Logo href="/" size="xs" variant="auto" onClick={onClose} />
  <button
  onClick={onClose}
  className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"

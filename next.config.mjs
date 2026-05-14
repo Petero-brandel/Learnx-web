@@ -3,6 +3,14 @@ const nextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'oqpwnzpwjmlwpqncpsxh.supabase.co',
+      },
+    ],
+  },
   async headers() {
     return [
       {

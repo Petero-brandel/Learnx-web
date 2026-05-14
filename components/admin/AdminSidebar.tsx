@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { useTheme } from 'next-themes'
@@ -45,9 +46,8 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  <div className="flex items-center justify-center h-9 w-9 rounded-xl bg-blue-100 dark:bg-blue-500/15 shrink-0">
  <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400" />
  </div>
- <div className="min-w-0 opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300">
- <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">Bluedemy</p>
- <p className="text-[10px] font-medium text-blue-600 dark:text-blue-400 uppercase tracking-wider">Admin Panel</p>
+ <div className="flex flex-col items-start justify-center min-w-0 flex-1 opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300">
+ <p className="text-[12px] font-bold text-zinc-900 dark:text-zinc-100 tracking-wider">Admin Panel</p>
  </div>
  {/* Mobile close */}
  <button
@@ -68,15 +68,15 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  href={item.href}
  onClick={onMobileClose}
  className={cn(
-"group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+ "group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200",
  active
- ?"bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400"
- :"text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/50"
+ ?"bg-blue-600 text-white shadow-md dark:bg-blue-500"
+ :"text-zinc-800 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800/50"
 )}
  >
  <item.icon className={cn(
-"h-[18px] w-[18px] shrink-0 transition-colors",
- active ?"text-blue-700 dark:text-blue-400" :"text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300"
+ "h-[18px] w-[18px] shrink-0 transition-colors",
+ active ?"text-white" :"text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white"
 )} />
  <span className="truncate opacity-100 md:opacity-0 md:group-hover/sidebar:opacity-100 transition-opacity duration-300 delay-100">{item.label}</span>
  </Link>
@@ -86,13 +86,13 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  {/* Unified Theme Toggle */}
  <button
  onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
- className="group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/50 w-full text-left mt-4"
+ className="group flex items-center gap-3 pl-[13px] pr-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 text-zinc-800 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800/50 w-full text-left mt-4"
  >
  {mounted ? (
  currentTheme === 'dark' ? (
- <Sun className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300" />
+ <Sun className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white" />
 ) : (
- <Moon className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300" />
+ <Moon className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white" />
 )
 ) : (
  <div className="h-[18px] w-[18px] shrink-0" />
