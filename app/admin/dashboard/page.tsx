@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
  icon={BookOpen}
  label="Active Courses"
  value={popularCourses.length}
- color="purple"
+ color="slate"
  />
  <AdminStatsCard
  icon={TrendingUp}
@@ -238,7 +238,7 @@ export default function AdminDashboardPage() {
  {formatCurrency(revenue?.revenue.this_month || 0)}
  </div>
  </div>
- <MiniChart data={revenueChartData} color="zinc" height={200} />
+ <MiniChart data={revenueChartData} color="emerald" height={200} />
  </div>
 
  {/* Signups Chart */}
@@ -294,13 +294,13 @@ export default function AdminDashboardPage() {
  color: isDark ? '#e4e4e7' : '#18181b',
  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
  }}
- itemStyle={{ color: isDark ? '#818cf8' : '#6366f1', fontWeight: 500 }}
+ itemStyle={{ color: isDark ? '#60a5fa' : '#3b82f6', fontWeight: 500 }}
  labelStyle={{ color: isDark ? '#a1a1aa' : '#71717a', marginBottom: '4px' }}
  formatter={(value: any) => [value, 'Enrollments']}
  />
  <Bar dataKey="total_enrollments" radius={[4, 4, 0, 0]} maxBarSize={40}>
  {popularCourses.map((entry, index) => (
- <Cell key={`cell-${index}`} fill={isDark ?"#818cf8" :"#6366f1"} />
+ <Cell key={`cell-${index}`} fill={isDark ?"#60a5fa" :"#3b82f6"} />
 ))}
  </Bar>
  </BarChart>

@@ -1,42 +1,117 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
-export function CTA() {
- return (
- <section className="py-28 px-6 bg-transparent dark:bg-[#181818]">
- <div className="max-w-5xl mx-auto text-center">
- <Reveal>
- <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 isolate">
- {/* Background gradient */}
- <div className="absolute inset-0 bg-[#1A73E8]" aria-hidden="true" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15),_transparent_60%)]" aria-hidden="true" />
+const avatars = [
+  { src: '/images/avatars/avatar-1.png', alt: 'Student 1' },
+  { src: '/images/avatars/avatar-2.png', alt: 'Student 2' },
+  { initials: 'AO', gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' },
+  { initials: 'CK', gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)' },
+  { initials: 'NM', gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)' },
+  { initials: 'TE', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+];
 
- <h2 className="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
- Ready to master the future?
- </h2>
- <p className="relative z-10 text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
- Join thousands of students building real skills in AI, content creation,
- and digital marketing. Start your first course today — for free.
- </p>
- <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4">
- <Link
- href="/courses"
- className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white text-zinc-900 font-semibold text-base hover:shadow-lg hover:shadow-black/20 transition-all duration-300 hover:-translate-y-0.5"
- >
- Start Learning Free
- <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
- </Link>
- <Link
- href="/about"
- className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/30 text-white font-semibold text-base hover:bg-white/10 transition-all duration-300"
- >
- Learn More
- </Link>
- </div>
- </div>
- </Reveal>
- </div>
- </section>
-);
+export function CTA() {
+  return (
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <div
+            className="relative rounded-3xl overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #0c0e1a 0%, #141729 40%, #1a1f3a 100%)',
+            }}
+          >
+            {/* Subtle noise / glow overlay */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  'radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(139, 92, 246, 0.04) 0%, transparent 50%)',
+              }}
+              aria-hidden="true"
+            />
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16 p-10 md:p-14 lg:p-16">
+              {/* Left Column */}
+              <div className="flex-1 min-w-0">
+                {/* Overlapping Avatars */}
+                <div className="flex items-center -space-x-3 mb-8">
+                  {avatars.map((avatar, i) => (
+                    <div
+                      key={i}
+                      className="relative shrink-0 w-11 h-11 rounded-full ring-2 ring-[#0c0e1a] overflow-hidden"
+                      style={{ zIndex: avatars.length - i }}
+                    >
+                      {'src' in avatar && avatar.src ? (
+                        <Image
+                          src={avatar.src}
+                          alt={avatar.alt || ''}
+                          fill
+                          className="object-cover"
+                          sizes="44px"
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full flex items-center justify-center text-white text-xs font-bold"
+                          style={{ background: avatar.gradient }}
+                        >
+                          {avatar.initials}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Headline */}
+                <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-[1.15] tracking-tight">
+                  Learn practical digital skills{' '}
+                  <br className="hidden sm:block" />
+                  that help you grow faster{' '}
+                  <br className="hidden sm:block" />
+                  with{' '}
+                  <span className="text-white">Bluedemy</span>
+                </h2>
+              </div>
+
+              {/* Right Column */}
+              <div className="flex-shrink-0 w-full lg:w-[360px] flex flex-col gap-5">
+                {/* Description */}
+                <p className="text-[15px] leading-relaxed text-zinc-400">
+                  Master in-demand digital skills with hands-on courses in AI,
+                  content creation, marketing, and tech. Learn at your pace and
+                  build skills you can actually use.
+                </p>
+
+                {/* CTA Button */}
+                <Link
+                  href="/courses"
+                  className="group relative w-full inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/25"
+                  style={{
+                    background: 'linear-gradient(135deg, #1557C0 0%, #1A73E8 50%, #4A90F7 100%)',
+                  }}
+                >
+                  <span className="relative z-10">Get started</span>
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: 'linear-gradient(135deg, #1252a8 0%, #1567d0 50%, #3d82f0 100%)',
+                    }}
+                  />
+                </Link>
+
+                {/* Secondary Link */}
+                <Link
+                  href="/about"
+                  className="w-full inline-flex items-center justify-center py-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors duration-200"
+                >
+                  Explore our learning paths
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
 }

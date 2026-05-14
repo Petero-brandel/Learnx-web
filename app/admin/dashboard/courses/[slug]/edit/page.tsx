@@ -30,6 +30,7 @@ import {
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { uploadPdfAction } from '@/app/actions/upload'
+import RichTextEditor from '@/components/ui/RichTextEditor'
 
 // @dnd-kit
 import {
@@ -180,12 +181,12 @@ function SortableModule({
 
  <div className="flex items-center gap-2">
  <button 
- onClick={() => onAddLesson(module.id)}
- className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors"
- >
- <Plus className="h-3.5 w-3.5" />
- Add Lesson
- </button>
+              onClick={() => onAddLesson(module.id)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-900 shadow-sm text-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:text-zinc-100 rounded-lg text-xs font-semibold transition-all"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add Lesson
+            </button>
  <button 
  onClick={() => onModuleDelete(module.id)}
  className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
@@ -968,12 +969,12 @@ export default function CourseBuilderPage() {
  <div className="flex items-center justify-between">
  <div>
  <Link 
- href="/admin/dashboard/courses"
- className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors mb-2"
- >
- <ArrowLeft className="h-4 w-4" />
- Back to Courses
- </Link>
+                  href="/admin/dashboard/courses"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors mb-2"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Courses
+                </Link>
  <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{course.title}</h1>
  </div>
  <div className="flex items-center gap-3">
@@ -981,11 +982,11 @@ export default function CourseBuilderPage() {
  <button
  onClick={() => handleUpdateCourseDetails({ is_published: !course.is_published })}
  className={cn(
-"px-4 py-2 rounded-xl text-sm font-medium transition-colors border",
+ "px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-sm border",
  course.is_published 
- ?"bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/20 hover:bg-amber-100 dark:hover:bg-amber-500/20"
- :"bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20 hover:bg-emerald-100 dark:hover:bg-emerald-500/20"
-)}
+ ?"bg-zinc-800 text-white border-zinc-800 hover:bg-zinc-900 dark:bg-zinc-200 dark:text-zinc-900 dark:border-zinc-200 dark:hover:bg-white"
+ :"bg-blue-600 text-white border-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:border-blue-500 dark:hover:bg-blue-600"
+ )}
  >
  {course.is_published ? 'Unpublish' : 'Publish'}
  </button>
@@ -996,13 +997,13 @@ export default function CourseBuilderPage() {
  <div className="space-y-4">
  <div className="flex items-center justify-between">
  <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-200">Curriculum</h2>
- <button 
- onClick={handleAddModule}
- className="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-sm font-medium transition-colors"
- >
- <Plus className="h-4 w-4" />
- Add Module
- </button>
+                <button 
+                  onClick={handleAddModule}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white shadow-sm dark:bg-blue-500 dark:hover:bg-blue-600 rounded-xl text-sm font-semibold transition-all"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add Module
+                </button>
  </div>
 
  {course.modules.length === 0 ? (
@@ -1041,7 +1042,7 @@ export default function CourseBuilderPage() {
 ) : (
  <div className="space-y-6">
  <div className="flex items-center justify-between">
- <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">Edit Lesson</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Edit Lesson</h3>
  <button onClick={() => setActiveLesson(null)} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
  Close
  </button>
@@ -1049,7 +1050,7 @@ export default function CourseBuilderPage() {
 
  <div className="space-y-4">
  <div>
- <label className="block text-xs font-medium text-zinc-400 mb-1.5">Lesson Title</label>
+                    <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">Lesson Title</label>
  <input
  type="text"
  value={activeLesson.title}
@@ -1059,7 +1060,7 @@ export default function CourseBuilderPage() {
  </div>
 
  <div>
- <label className="block text-xs font-medium text-zinc-400 mb-1.5">Content Type</label>
+                    <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">Content Type</label>
  <select
  value={activeLesson.content_type}
  onChange={(e) => setActiveLesson({...activeLesson, content_type: e.target.value as any})}
@@ -1082,12 +1083,9 @@ export default function CourseBuilderPage() {
 
  {activeLesson.content_type === 'text' && (
  <div className="space-y-2">
- <textarea
- rows={6}
- value={activeLesson.text_content || ''}
- onChange={(e) => setActiveLesson({...activeLesson, text_content: e.target.value})}
- placeholder="Write your lesson content here..."
- className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
+ <RichTextEditor
+ content={activeLesson.text_content || ''}
+ onChange={(html) => setActiveLesson({...activeLesson, text_content: html})}
  />
  </div>
 )}

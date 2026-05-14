@@ -38,7 +38,7 @@ const stats = [
 
 const team = [
  { name: 'David Adekunle', role: 'Founder & Lead Instructor', avatar: 'D', gradient: 'bg-blue-500', icon: BookOpen },
- { name: 'Funmi Oladipo', role: 'Head of Content', avatar: 'F', gradient: 'bg-violet-500', icon: Award },
+ { name: 'Funmi Oladipo', role: 'Head of Content', avatar: 'F', gradient: 'bg-blue-500', icon: Award },
  { name: 'Chidi Nwachukwu', role: 'Growth Lead', avatar: 'C', gradient: 'bg-cyan-500', icon: Zap },
 ];
 
@@ -48,7 +48,7 @@ export default function AboutPage() {
  <Navbar />
  <main>
  {/* ─── Hero ─── */}
- <section className="pt-32 pb-20 px-6">
+ <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
  <div className="max-w-4xl mx-auto text-center">
  <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-4">
  Our Story
@@ -67,7 +67,7 @@ export default function AboutPage() {
  </section>
 
  {/* ─── Stats Bar ─── */}
- <section className="px-6 pb-20">
+ <section className="px-4 sm:px-6 lg:px-8 pb-20">
  <div className="max-w-5xl mx-auto rounded-3xl bg-zinc-900 dark:bg-zinc-800 p-10 md:p-14 border border-zinc-700/50">
  <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
  {stats.map((stat, idx) => (
@@ -83,7 +83,7 @@ export default function AboutPage() {
  </section>
 
  {/* ─── Mission & Vision ─── */}
- <section className="px-6 pb-28">
+ <section className="px-4 sm:px-6 lg:px-8 pb-28">
  <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
  <div className="p-10 rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/20">
  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/30 mb-6">
@@ -97,8 +97,8 @@ export default function AboutPage() {
  </p>
  </div>
  <div className="p-10 rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/20">
- <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-violet-50 dark:bg-violet-950/30 mb-6">
- <Eye className="h-6 w-6 text-violet-600 dark:text-violet-400" />
+ <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/30 mb-6">
+ <Eye className="h-6 w-6 text-blue-600 dark:text-blue-400" />
  </div>
  <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -111,7 +111,7 @@ export default function AboutPage() {
  </section>
 
  {/* ─── Our Values ─── */}
- <section className="px-6 pb-28">
+ <section className="px-4 sm:px-6 lg:px-8 pb-28">
  <div className="max-w-5xl mx-auto">
  <div className="text-center max-w-2xl mx-auto mb-16">
  <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-4">
@@ -139,7 +139,7 @@ export default function AboutPage() {
  </section>
 
  {/* ─── Team ─── */}
- <section className="px-6 pb-28">
+ <section className="px-4 sm:px-6 lg:px-8 pb-28">
  <div className="max-w-5xl mx-auto">
  <div className="text-center max-w-2xl mx-auto mb-16">
  <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-4">

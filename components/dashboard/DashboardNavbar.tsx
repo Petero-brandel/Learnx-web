@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { fetchNotifications, type Notification as NotifType } from '@/lib/dashboard'
@@ -100,11 +101,7 @@ export default function DashboardNavbar() {
  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
  <div className="flex h-16 items-center justify-between">
  {/* Logo */}
- <Link href="/" className="flex items-center gap-2 group">
- <span className="font-bold text-2xl tracking-tight text-zinc-900 dark:text-zinc-50 transition-transform duration-300 group-hover:scale-105">
- Bluedemy
- </span>
- </Link>
+ <Logo href="/" size="sm" variant="auto" />
 
  {/* Center navigation */}
  <div className="flex items-center gap-1">

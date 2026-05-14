@@ -8,6 +8,10 @@ export async function uploadThumbnailAction(formData: FormData): Promise<{ url?:
  return uploadToSupabase(formData, 'thumbnails');
 }
 
+export async function uploadImageAction(formData: FormData): Promise<{ url?: string; error?: string }> {
+ return uploadToSupabase(formData, 'images');
+}
+
 async function uploadToSupabase(formData: FormData, folder: string): Promise<{ url?: string; error?: string }> {
  try {
  const file = formData.get('file') as File;

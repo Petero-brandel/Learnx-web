@@ -9,11 +9,11 @@ import { Footer } from"@/components/sections/Footer";
 
 export default function Home() {
  return (
- <div className="min-h-screen bg-white dark:bg-[#121212] font-sans text-zinc-950 dark:text-zinc-50">
+ <div className="min-h-screen font-sans">
  <Navbar />
  <main>
  <Hero />
- <Stats />
+ {/* <Stats /> */}
  <Features />
  <CoursePreview />
  <Testimonials />

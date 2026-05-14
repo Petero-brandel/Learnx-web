@@ -27,18 +27,18 @@ const testimonials = [
 
 export function Testimonials() {
  return (
- <section className="py-28 px-6 bg-transparent dark:bg-[#121212]">
- <div className="max-w-7xl mx-auto">
+ <section className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+ <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
  {/* Section header */}
  <Reveal>
  <div className="text-center max-w-2xl mx-auto mb-20">
- <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-4">
+ <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 mb-4">
  Student Stories
  </p>
- <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+ <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-zinc-950">
  Loved by learners
  </h2>
- <p className="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed">
+ <p className="text-lg text-zinc-500 leading-relaxed">
  Hear from real students who have transformed their careers with Bluedemy.
  </p>
  </div>
@@ -49,7 +49,7 @@ export function Testimonials() {
  {testimonials.map((testimonial, idx) => (
  <Reveal key={idx} delay={idx * 100}>
  <div
- className="h-full p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300"
+ className="h-full p-6 rounded-2xl border border-zinc-200 bg-zinc-50 hover:shadow-sm hover:border-zinc-300 transition-all duration-300"
  >
  {/* Stars */}
  <div className="flex gap-1 mb-6">
@@ -59,18 +59,18 @@ export function Testimonials() {
  </div>
 
  {/* Quote */}
- <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 text-sm md:text-base">
+ <p className="text-zinc-600 leading-relaxed mb-8 text-sm md:text-base">
  &ldquo;{testimonial.content}&rdquo;
  </p>
 
  {/* Author */}
  <div className="flex items-center gap-3">
- <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100 font-bold text-sm border border-zinc-200 dark:border-zinc-800">
+ <div className="h-10 w-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-900 font-bold text-sm border border-zinc-200">
  {testimonial.avatar}
  </div>
  <div>
- <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{testimonial.name}</p>
- <p className="text-xs text-zinc-500 dark:text-zinc-400">{testimonial.role}</p>
+ <p className="text-sm font-bold text-zinc-900">{testimonial.name}</p>
+ <p className="text-xs text-zinc-500">{testimonial.role}</p>
  </div>
  </div>
  </div>

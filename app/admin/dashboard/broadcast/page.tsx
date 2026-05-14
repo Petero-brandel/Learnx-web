@@ -166,20 +166,6 @@ export default function BroadcastPage() {
  </div>
  </form>
  </div>
-
- {/* Info card */}
- <div className="rounded-xl border border-amber-200 dark:border-zinc-800/40 bg-amber-50 dark:bg-zinc-900/20 p-4 flex items-start gap-3 shadow-sm dark:shadow-none">
- <div className="h-8 w-8 rounded-lg bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center shrink-0 mt-0.5">
- <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
- </div>
- <div>
- <p className="text-xs font-medium text-amber-800 dark:text-zinc-400">How broadcasts work</p>
- <p className="text-xs text-amber-700/80 dark:text-zinc-600 mt-1 leading-relaxed">
- Broadcasting sends an email to every student in the selected audience and creates an in-app notification. 
- The email is queued in the background to avoid blocking the dashboard. Large audiences may take a few minutes to process.
- </p>
- </div>
- </div>
  </div>
 )
 }

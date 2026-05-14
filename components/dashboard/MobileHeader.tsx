@@ -2,6 +2,7 @@
 
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 
 interface MobileHeaderProps {
  onMenuOpen: () => void
@@ -11,10 +12,8 @@ export default function MobileHeader({ onMenuOpen }: MobileHeaderProps) {
  return (
  <header className="fixed top-0 z-50 w-full bg-white/80 dark:bg-black/80 border-b border-zinc-200 dark:border-zinc-800 md:hidden">
  <div className="flex h-14 items-center justify-between px-4">
- {/* Logo */}
- <Link href="/" className="flex items-center">
- <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
- </Link>
+            {/* Logo */}
+            <Logo href="/" size="xs" variant="auto" />
 
  {/* Hamburger menu */}
  <button

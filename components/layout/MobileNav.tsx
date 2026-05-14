@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from"react";
 import Link from"next/link";
 import { Menu, X, BookOpen, ChevronRight } from"lucide-react";
+import Logo from '@/components/ui/Logo';
 import { cn } from"@/lib/utils";
 
 export default function MobileNav() {
@@ -49,10 +50,7 @@ export default function MobileNav() {
 )}
  >
  <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
- <Link href="/" className="flex items-center space-x-2" onClick={closeMenu}>
- <BookOpen className="h-6 w-6 text-blue-600 dark:text-blue-400" />
- <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Bluedemy</span>
- </Link>
+            <Logo href="/" size="sm" variant="auto" onClick={closeMenu} />
  <button
  onClick={closeMenu}
  className="p-2 -mr-2 text-slate-500 hover:text-slate-900 focus:outline-none dark:text-slate-400 dark:hover:text-slate-50"

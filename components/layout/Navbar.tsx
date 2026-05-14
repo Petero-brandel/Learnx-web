@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 import { useRouter, usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, BookOpen, Star, Briefcase, Trophy, CheckCircle, PlayCircle, Users, Video, HelpCircle, FileText, Shield, CreditCard, ArrowRight, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
+
 import { useAuth } from '@/context/AuthContext'
 
 // ─── Mega-menu content definitions ───
@@ -158,18 +159,14 @@ export default function Navbar() {
  className={cn(
 "fixed top-0 z-50 w-full transition-all duration-500 border-b",
  scrolled
- ?"bg-white/80 dark:bg-black/80 border-zinc-200 dark:border-zinc-800 shadow-sm"
- :"bg-white/50 dark:bg-black/50 border-transparent"
+ ? "bg-white/95 backdrop-blur-md border-zinc-200 shadow-sm"
+ : "bg-white border-zinc-100"
 )}
  >
- <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+ <div className="mx-5 w-full max-w-7xl px-3 sm:px-4 lg:px-6">
  <div className="flex h-16 items-center justify-between">
  {/* Logo */}
- <Link href="/" className="flex items-center gap-2 group">
- <div className="relative transition-transform duration-300 group-hover:scale-105">
- <span className="font-bold text-2xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
- </div>
- </Link>
+ <Logo href="/" size="sm" variant="light" />
 
  {/* Desktop Navigation */}
  <div className="hidden items-center gap-1 md:flex" ref={navRef}>
@@ -184,9 +181,9 @@ export default function Navbar() {
  <button
  className={cn(
 "inline-flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
-"text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/50",
+"text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100",
 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
- activeMenu === item.label &&"text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800/50"
+ activeMenu === item.label &&"text-zinc-900 bg-zinc-100"
 )}
  >
  {item.label}
@@ -201,13 +198,13 @@ export default function Navbar() {
  key={item.label}
  href={item.href!}
  className={cn(
-"px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
+"px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5",
 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
- item.label === 'Teach on Bluedemy'
- ?"text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40"
+ item.label === 'My Learning'
+ ?"text-blue-700 font-semibold bg-blue-50 hover:bg-blue-100 ring-1 ring-inset ring-blue-700/10"
  : cn(
-"text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/50",
- pathname === item.href &&"text-zinc-900 dark:text-zinc-100 font-semibold"
+"text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100",
+ pathname === item.href &&"text-zinc-900 font-semibold"
 )
 )}
  >
@@ -219,77 +216,83 @@ export default function Navbar() {
 
  {/* Right Navigation */}
  <div className="hidden items-center gap-5 md:flex relative">
- {isSearchOpen ? (
- <div className="flex items-center gap-2 animate-in fade-in slide-in- duration-200 bg-zinc-100 dark:bg-zinc-900/80 rounded-full border border-zinc-200 dark:border-zinc-800 px-3 py-1.5">
- <Search className="h-4 w-4 text-zinc-400" />
- <input
- type="text"
- placeholder="Search courses..."
- className="bg-transparent border-none focus:outline-none text-sm w-48 lg:w-64 px-1 text-zinc-900 dark:text-zinc-100"
- autoFocus
- value={searchQuery}
- onChange={(e) => setSearchQuery(e.target.value)}
- />
- <button onClick={() => {setIsSearchOpen(false); setSearchQuery('')}} className="rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 p-0.5 text-zinc-500">
- <X className="h-3 w-3" />
- </button>
-
- {/* Search Results Dropdown Placeholder */}
- {searchQuery && (
- <div className="absolute top-full right-0 mt-4 w-[320px] bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xl rounded-xl p-2 z-50 animate-in fade-in slide-in- duration-200">
- <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 px-2 mt-2">Results for"{searchQuery}"</div>
- <div className="space-y-1">
- <Link href="/courses/prompt-engineering" onClick={() => setIsSearchOpen(false)} className="block px-3 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 rounded-lg transition-colors group">
- <div className="flex items-center gap-3">
- <div className="h-8 w-8 flex-shrink-0 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
- <BookOpen className="h-4 w-4" />
- </div>
- <div className="min-w-0">
- <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">Advanced Prompt Engineering</p>
- <p className="text-xs text-zinc-500 truncate">AI & Logic</p>
- </div>
- </div>
- </Link>
- <Link href="/courses/ai-content" onClick={() => setIsSearchOpen(false)} className="block px-3 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 rounded-lg transition-colors group">
- <div className="flex items-center gap-3">
- <div className="h-8 w-8 flex-shrink-0 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
- <Star className="h-4 w-4" />
- </div>
- <div className="min-w-0">
- <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">AI Content Masterclass</p>
- <p className="text-xs text-zinc-500 truncate">Marketing</p>
- </div>
- </div>
- </Link>
- </div>
- <div className="mt-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
- <Link href={`/search?q=${searchQuery}`} onClick={() => setIsSearchOpen(false)} className="block px-3 py-2 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg text-center transition-colors">
- View all results for"{searchQuery}"
- </Link>
- </div>
- </div>
-)}
- </div>
-) : (
  <button 
- aria-label="Search courses" 
- className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
- onClick={() => setIsSearchOpen(true)}
- >
- <Search className="h-5 w-5" />
- </button>
-)}
- 
- <ThemeToggle />
- 
- <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800 hidden lg:block"></div>
+  aria-label="Search courses" 
+  className="text-zinc-600 hover:text-zinc-900 transition-colors focus-visible:outline-none"
+  onClick={() => setIsSearchOpen(!isSearchOpen)}
+  >
+  <Search className="h-5 w-5" />
+  </button>
 
- <Link href="/login" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+  {isSearchOpen && (
+  <div className="absolute top-full right-0 mt-6 w-[320px] lg:w-[380px] bg-white border border-zinc-200 shadow-xl rounded-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+  <div className="flex items-center gap-2 bg-zinc-50 rounded-xl border border-zinc-200 px-3 py-2.5">
+  <Search className="h-4 w-4 text-zinc-400" />
+  <input
+  type="text"
+  placeholder="Search courses..."
+  className="bg-transparent border-none focus:outline-none text-sm w-full px-1 text-zinc-900 placeholder:text-zinc-400"
+  autoFocus
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+  />
+  <button onClick={() => {setIsSearchOpen(false); setSearchQuery('')}} className="rounded-full hover:bg-zinc-200 p-1 text-zinc-500 transition-colors">
+  <X className="h-3.5 w-3.5" />
+  </button>
+  </div>
+
+  {searchQuery ? (
+  <div className="mt-3">
+  <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 px-2">Results for "{searchQuery}"</div>
+  <div className="space-y-1">
+  <Link href="/courses/prompt-engineering" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-zinc-50 rounded-xl transition-colors group">
+  <div className="flex items-center gap-3">
+  <div className="h-8 w-8 flex-shrink-0 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+  <BookOpen className="h-4 w-4" />
+  </div>
+  <div className="min-w-0">
+  <p className="text-sm font-medium text-zinc-900 truncate group-hover:text-blue-600 transition-colors">Advanced Prompt Engineering</p>
+  <p className="text-xs text-zinc-500 truncate">AI & Logic</p>
+  </div>
+  </div>
+  </Link>
+  <Link href="/courses/ai-content" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-zinc-50 rounded-xl transition-colors group">
+  <div className="flex items-center gap-3">
+  <div className="h-8 w-8 flex-shrink-0 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+  <Star className="h-4 w-4" />
+  </div>
+  <div className="min-w-0">
+  <p className="text-sm font-medium text-zinc-900 truncate group-hover:text-blue-600 transition-colors">AI Content Masterclass</p>
+  <p className="text-xs text-zinc-500 truncate">Marketing</p>
+  </div>
+  </div>
+  </Link>
+  </div>
+  <div className="mt-2 pt-2 border-t border-zinc-100">
+  <Link href={`/search?q=${searchQuery}`} onClick={() => setIsOpen(false)} className="block px-3 py-2.5 text-xs font-semibold text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-xl text-center transition-colors">
+  View all results for "{searchQuery}"
+  </Link>
+  </div>
+  </div>
+  ) : (
+  <div className="py-6 text-center">
+  <Search className="h-6 w-6 text-zinc-300 mx-auto mb-2" />
+  <p className="text-sm text-zinc-500">Type to start searching...</p>
+  </div>
+  )}
+  </div>
+  )}
+ 
+ 
+ 
+ <div className="h-4 w-px bg-zinc-200 hidden lg:block"></div>
+
+ <Link href="/login" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">
  Log in
  </Link>
  <button
  onClick={() => router.push('/signup')}
- className="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-full px-5 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
+ className="bg-zinc-900 text-white rounded-full px-5 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
  >
  Sign up
  </button>
@@ -298,7 +301,7 @@ export default function Navbar() {
  {/* Mobile Menu Button */}
  <button
  onClick={() => setIsOpen(!isOpen)}
- className="inline-flex items-center justify-center rounded-lg p-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+ className="inline-flex items-center justify-center rounded-lg p-2 text-zinc-600 hover:bg-zinc-100 transition-colors md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
  aria-label="Toggle menu"
  >
  {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -314,21 +317,21 @@ export default function Navbar() {
  onMouseLeave={handleMenuLeave}
  >
  {/* Subtle gradient separator */}
- <div className="h-px bg-zinc-200 dark:bg-zinc-800" />
+ <div className="h-px bg-zinc-200" />
 
- <div className="bg-white/95 dark:bg-zinc-950/95 border-b border-zinc-200 dark:border-zinc-800 shadow-2xl">
+ <div className="bg-white/95 border-b border-zinc-200 shadow-2xl">
  <div className="mx-auto w-[90%] max-w-7xl py-8 animate-in fade-in slide-in- duration-300">
  {/* Header */}
- <div className="mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
- <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{megaMenus[activeMenu].heading}</h3>
- <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">{megaMenus[activeMenu].description}</p>
+ <div className="mb-6 pb-4 border-b border-zinc-100">
+ <h3 className="text-lg font-bold text-zinc-900">{megaMenus[activeMenu].heading}</h3>
+ <p className="text-sm text-zinc-500 mt-0.5">{megaMenus[activeMenu].description}</p>
  </div>
 
  {/* Columns grid */}
  <div className="grid grid-cols-2 gap-10">
  {megaMenus[activeMenu].columns.map((col, ci) => (
  <div key={ci}>
- <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">{col.title}</p>
+ <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">{col.title}</p>
  <div className="space-y-1">
  {col.items.map((item, ii) => (
  <Link
@@ -337,25 +340,25 @@ export default function Navbar() {
  onClick={() => setActiveMenu(null)}
  className={cn(
 "group flex items-start gap-4 p-3 rounded-xl transition-all duration-200",
-"hover:bg-zinc-50 dark:hover:bg-zinc-900/50",
+"hover:bg-zinc-50",
 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset"
 )}
  >
  <div className={cn(
 "flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-200",
-"bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 group-hover:scale-110"
+"bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:scale-110"
 )}>
  <item.icon className="h-5 w-5" />
  </div>
  <div className="flex-1 min-w-0">
- <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+ <p className="text-sm font-semibold text-zinc-900 group-hover:text-blue-600 transition-colors">
  {item.label}
  </p>
- <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-relaxed">
+ <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
  {item.description}
  </p>
  </div>
- <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
+ <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
  </Link>
 ))}
  </div>
@@ -365,11 +368,11 @@ export default function Navbar() {
 
  {/* Optional CTA */}
  {megaMenus[activeMenu].cta && (
- <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+ <div className="mt-6 pt-4 border-t border-zinc-100">
  <Link
  href={megaMenus[activeMenu].cta!.href}
  onClick={() => setActiveMenu(null)}
- className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
+ className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
  >
  {megaMenus[activeMenu].cta!.label}
  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -386,20 +389,18 @@ export default function Navbar() {
  {isOpen && (
  <>
  <div
- className="fixed inset-0 z-40 bg-zinc-900/30 dark:bg-black/50 md:hidden animate-in fade-in duration-200"
+ className="fixed inset-0 z-40 bg-zinc-900/30 md:hidden animate-in fade-in duration-200"
  onClick={() => setIsOpen(false)}
  />
- <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white dark:bg-zinc-950 shadow-2xl md:hidden animate-in slide-in-from-right duration-300">
+ <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white shadow-2xl md:hidden animate-in slide-in-from-right duration-300">
  {/* Mobile header */}
- <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800">
- <Link href="/" onClick={() => setIsOpen(false)}>
- <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">Bluedemy</span>
- </Link>
+ <div className="flex items-center justify-between p-5 border-b border-zinc-100">
+ <Logo href="/" size="xs" variant="light" onClick={() => setIsOpen(false)} />
  <div className="flex items-center gap-2">
- <ThemeToggle />
+ 
  <button
  onClick={() => setIsOpen(false)}
- className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+ className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
  >
  <X className="h-5 w-5 text-zinc-500" />
  </button>
@@ -414,37 +415,37 @@ export default function Navbar() {
  <Link
  href={user ? '/dashboard' : '/login'}
  onClick={() => setIsOpen(false)}
- className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-xl transition-colors"
+ className="flex items-center justify-between px-4 py-3 text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors mt-2"
  >
- My Learning
+ <span>My Learning</span>
  </Link>
  <Link
  href="/pricing"
  onClick={() => setIsOpen(false)}
- className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-xl transition-colors"
+ className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-xl transition-colors"
  >
  Pricing
  </Link>
  <Link
  href="/teach"
  onClick={() => setIsOpen(false)}
- className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-xl transition-colors"
+ className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-xl transition-colors"
  >
  Teach on Bluedemy
  </Link>
  </div>
 
  {/* Mobile CTA */}
- <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex gap-3">
+ <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-zinc-100 bg-white flex gap-3">
  <button
  onClick={() => { setIsOpen(false); router.push('/login') }}
- className="w-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 rounded-xl py-3 font-semibold hover:opacity-90 transition-opacity"
+ className="w-full bg-zinc-100 text-zinc-900 rounded-xl py-3 font-semibold hover:opacity-90 transition-opacity"
  >
  Log in
  </button>
  <button
  onClick={() => { setIsOpen(false); router.push('/signup') }}
- className="w-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-xl py-3 font-semibold hover:opacity-90 transition-opacity"
+ className="w-full bg-zinc-900 text-white rounded-xl py-3 font-semibold hover:opacity-90 transition-opacity"
  >
  Sign up
  </button>
@@ -474,8 +475,8 @@ function MobileAccordion({
  onClick={() => setOpen(!open)}
  className={cn(
 "flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-xl transition-colors",
-"text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900",
- open &&"bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100"
+"text-zinc-700 hover:bg-zinc-50",
+ open &&"bg-zinc-50 text-zinc-900"
 )}
  >
  {label}
@@ -488,7 +489,7 @@ function MobileAccordion({
  key={i}
  href={item.href}
  onClick={onClose}
- className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+ className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
  >
  <item.icon className="h-4 w-4 opacity-70" />
  {item.label}
