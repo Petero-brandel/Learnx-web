@@ -167,7 +167,7 @@ export default function Navbar() {
  <div className="flex h-16 items-center justify-between">
  {/* Logo */}
  <div className="md:hidden">
- <Logo href="/" size="xs" variant="light" src="/bluedemy-logo.png" className="h-7 w-auto" />
+ <Logo href="/" size="md" variant="light" src="/bluedemy-logo.png" className="h-8 w-auto" />
  </div>
  <div className="hidden md:block">
  <Logo href="/" size="xs" variant="light" />
