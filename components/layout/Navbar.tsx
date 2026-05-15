@@ -166,7 +166,12 @@ export default function Navbar() {
  <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
  <div className="flex h-16 items-center justify-between">
  {/* Logo */}
+ <div className="md:hidden">
+ <Logo href="/" size="xs" variant="light" src="/bluedemy-logo.png" className="h-7 w-auto" />
+ </div>
+ <div className="hidden md:block">
  <Logo href="/" size="xs" variant="light" />
+ </div>
 
  {/* Desktop Navigation */}
  <div className="hidden items-center gap-1 md:flex" ref={navRef}>
@@ -395,7 +400,7 @@ export default function Navbar() {
  <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white shadow-2xl md:hidden animate-in slide-in-from-right duration-300">
  {/* Mobile header */}
  <div className="flex items-center justify-between p-5 border-b border-zinc-100">
- <Logo href="/" size="xs" variant="light" onClick={() => setIsOpen(false)} />
+ <Logo href="/" size="xs" variant="light" src="/bluedemy-logo.png" onClick={() => setIsOpen(false)} />
  <div className="flex items-center gap-2">
  
  <button

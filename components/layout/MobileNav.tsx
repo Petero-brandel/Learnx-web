@@ -50,7 +50,7 @@ export default function MobileNav() {
 )}
  >
  <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
-            <Logo href="/" size="sm" variant="auto" onClick={closeMenu} />
+            <Logo href="/" size="sm" variant="auto" src="/bluedemy-logo.png" onClick={closeMenu} />
  <button
  onClick={closeMenu}
  className="p-2 -mr-2 text-slate-500 hover:text-slate-900 focus:outline-none dark:text-slate-400 dark:hover:text-slate-50"
