@@ -163,10 +163,10 @@ export default function Navbar() {
  : "bg-white border-zinc-100"
 )}
  >
- <div className="mx-5 w-full max-w-7xl px-3 sm:px-4 lg:px-6">
+ <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
  <div className="flex h-16 items-center justify-between">
  {/* Logo */}
- <Logo href="/" size="sm" variant="light" />
+ <Logo href="/" size="xs" variant="light" />
 
  {/* Desktop Navigation */}
  <div className="hidden items-center gap-1 md:flex" ref={navRef}>
@@ -304,7 +304,7 @@ export default function Navbar() {
  className="inline-flex items-center justify-center rounded-lg p-2 text-zinc-600 hover:bg-zinc-100 transition-colors md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
  aria-label="Toggle menu"
  >
- {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+ {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
  </button>
  </div>
  </div>

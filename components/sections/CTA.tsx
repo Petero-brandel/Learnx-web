@@ -13,7 +13,7 @@ const avatars = [
 
 export function CTA() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#DAEDEB]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div

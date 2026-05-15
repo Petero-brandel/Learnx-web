@@ -10,6 +10,7 @@ interface LogoProps {
   size?: 'xs' | 'sm' | 'md' | 'lg'
   variant?: 'light' | 'dark' | 'auto'
   onClick?: () => void
+  src?: string
 }
 
 const sizeMap = {
@@ -25,20 +26,20 @@ export default function Logo({
   size = 'md',
   variant = 'auto',
   onClick,
+  src = '/bluedemy-icon.png',
 }: LogoProps) {
   const { width, height } = sizeMap[size]
 
   const img = (
     <Image
-      src="/bluedemy-logo.png"
+      src={src}
       alt="Bluedemy"
       width={width}
       height={height}
       className={cn(
         'object-contain',
-        // For dark backgrounds, invert-free: the logo has blue + white elements
-        // On dark bg, we brighten the image so the blue stays visible
-        variant === 'dark' && 'brightness-0 invert',
+        // Keep logo colors natural in dark mode
+        variant === 'dark' && '',
         variant === 'auto' && 'dark:brightness-0 dark:invert',
         className
       )}

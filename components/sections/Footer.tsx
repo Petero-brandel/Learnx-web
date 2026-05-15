@@ -35,7 +35,7 @@ export function Footer() {
  {/* Brand column */}
  <div className="col-span-2 md:col-span-1">
   <div className="mb-4">
-  <Logo href="/" size="sm" variant="dark" />
+  <Logo href="/" size="sm" variant="dark" src="/bluedemy-logo.png" />
   </div>
  <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
  Master the skills of the future with expert-led courses in AI, content creation, and digital marketing and many more.
