@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
 
 function CountUp({ end, suffix = '', duration = 2000 }: { end: number, suffix?: string, duration?: number }) {
@@ -72,6 +73,7 @@ const featuredProducts = [
 		description:
 			'No deadlines, no pressure. Every course on Bluedemy is designed so you can start, pause, and pick up right where you left off — whether you have 15 minutes or a whole afternoon.',
 		cta: 'Browse courses',
+		href: '/courses',
 		image: '/course-player-preview.png',
 	},
 	{
@@ -80,6 +82,7 @@ const featuredProducts = [
 		description:
 			'We don\'t do fluff. Our courses cover the digital skills employers actually care about — UI/UX design, frontend development, data analysis, digital marketing, and more. Everything is hands-on with real projects.',
 		cta: 'See what you can learn',
+		href: '/courses',
 	},
 	{
 		type: 'text-card' as const,
@@ -87,6 +90,7 @@ const featuredProducts = [
 		description:
 			'Your personal dashboard shows exactly where you are in every course. See your progress, revisit lessons, and know when you\'re ready for your certificate — it\'s all right there.',
 		cta: 'How it works',
+		href: '/faq',
 	},
 	{
 		type: 'image-card' as const,
@@ -95,6 +99,7 @@ const featuredProducts = [
 		description:
 			'Bluedemy\'s learning system adapts to you. Pick the skills you want, follow structured paths, and get a learning experience that feels like it was built just for you.',
 		cta: 'Start learning',
+		href: '/signup',
 		image: '/dashboard-preview.png',
 	},
 ];
@@ -163,10 +168,13 @@ export function Features() {
 												</p>
 											</div>
 
-											<button className="mt-6 md:mt-8 inline-flex w-fit items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10">
+											<Link
+												href={product.href}
+												className="mt-6 md:mt-8 inline-flex w-fit items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+											>
 												{product.cta}
 												<ArrowRight className="h-4 w-4" />
-											</button>
+											</Link>
 										</div>
 
 										<div className="relative w-full md:w-[50%] min-h-[240px] md:min-h-full bg-zinc-900 border-t md:border-t-0 md:border-l border-white/10">
@@ -187,9 +195,12 @@ export function Features() {
 											{product.description}
 										</p>
 
-										<button className="mt-8 inline-flex w-fit items-center rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-400 hover:bg-zinc-50">
+										<Link
+											href={product.href}
+											className="mt-8 inline-flex w-fit items-center rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-400 hover:bg-zinc-50"
+										>
 											{product.cta}
-										</button>
+										</Link>
 									</article>
 								)}
 							</Reveal>

@@ -1,28 +1,24 @@
 import Navbar from"@/components/layout/Navbar";
 import { Footer } from"@/components/sections/Footer";
-import { Target, Eye, Zap, Users, BookOpen, Award } from 'lucide-react';
+import Image from"next/image";
 
 const values = [
  {
- icon: Target,
  title: 'Practical First',
  description: 'Every course is built around real-world projects and exercises, not just theory.',
  gradient: 'bg-blue-600',
  },
  {
- icon: Eye,
  title: 'Always Current',
  description: 'Our curriculum is updated continuously to reflect the latest tools and industry trends.',
  gradient: ' ',
  },
  {
- icon: Zap,
  title: 'Learn by Doing',
  description: 'Hands-on projects in every module ensure you can apply skills immediately.',
  gradient: ' ',
  },
  {
- icon: Users,
  title: 'Community Driven',
  description: 'Join a thriving community of learners, mentors, and industry professionals.',
  gradient: ' ',
@@ -37,9 +33,18 @@ const stats = [
 ];
 
 const team = [
- { name: 'David Adekunle', role: 'Founder & Lead Instructor', avatar: 'D', gradient: 'bg-blue-500', icon: BookOpen },
- { name: 'Funmi Oladipo', role: 'Head of Content', avatar: 'F', gradient: 'bg-blue-500', icon: Award },
- { name: 'Chidi Nwachukwu', role: 'Growth Lead', avatar: 'C', gradient: 'bg-cyan-500', icon: Zap },
+ {
+ name: 'David Adekunle',
+ role: 'Founder & Lead Instructor',
+ image: '/images/avatars/avatar-1.png',
+ bio: 'Designs the hands-on learning paths that help students ship real projects fast.',
+ },
+ {
+ name: 'Funmi Oladipo',
+ role: 'Head of Content',
+ image: '/images/avatars/avatar-2.png',
+ bio: 'Leads curriculum quality and ensures every lesson is practical, clear, and current.',
+ },
 ];
 
 export default function AboutPage() {
@@ -86,9 +91,6 @@ export default function AboutPage() {
  <section className="px-4 sm:px-6 lg:px-8 pb-28">
  <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
  <div className="p-10 rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/20">
- <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/30 mb-6">
- <Target className="h-6 w-6 text-blue-600 dark:text-blue-400" />
- </div>
  <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
  To empower individuals and businesses with practical, industry-relevant skills
@@ -97,9 +99,6 @@ export default function AboutPage() {
  </p>
  </div>
  <div className="p-10 rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/20">
- <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/30 mb-6">
- <Eye className="h-6 w-6 text-blue-600 dark:text-blue-400" />
- </div>
  <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
  A world where anyone with ambition can access world-class education in
@@ -127,9 +126,6 @@ export default function AboutPage() {
  key={idx}
  className="group p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-950/50 hover:shadow-lg hover:shadow-zinc-900/5 dark:hover:shadow-black/20 transition-all duration-300 hover:-translate-y-1"
  >
- <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${value.gradient} mb-6 group-hover:scale-110 transition-transform duration-300`}>
- <value.icon className="h-6 w-6 text-white" />
- </div>
  <h3 className="text-lg font-bold mb-2 text-zinc-900 dark:text-zinc-100">{value.title}</h3>
  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{value.description}</p>
  </div>
@@ -140,7 +136,7 @@ export default function AboutPage() {
 
  {/* ─── Team ─── */}
  <section className="px-4 sm:px-6 lg:px-8 pb-28">
- <div className="max-w-5xl mx-auto">
+ <div className="max-w-4xl mx-auto">
  <div className="text-center max-w-2xl mx-auto mb-16">
  <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-4">
  The Team
@@ -149,17 +145,27 @@ export default function AboutPage() {
  Meet the people behind Bluedemy
  </h2>
  </div>
- <div className="grid md:grid-cols-3 gap-6">
+ <div className="grid sm:grid-cols-2 gap-5">
  {team.map((member, idx) => (
  <div
  key={idx}
- className="text-center p-8 rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-950/50 hover:shadow-lg hover:shadow-zinc-900/5 dark:hover:shadow-black/20 transition-all duration-300"
+ className="group max-w-sm mx-auto w-full overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-950/50 hover:shadow-xl hover:shadow-zinc-900/10 dark:hover:shadow-black/30 transition-all duration-300 hover:-translate-y-1"
  >
- <div className={`inline-flex h-20 w-20 items-center justify-center rounded-full ${member.gradient} mb-6 text-white text-2xl font-bold`}>
- {member.avatar}
+ <div className="relative aspect-[5/4] w-full overflow-hidden">
+ <Image
+ src={member.image}
+ alt={member.name}
+ fill
+ sizes="(max-width: 640px) 90vw, (max-width: 1024px) 42vw, 360px"
+ className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+ />
+ <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
  </div>
+ <div className="p-6 text-left">
  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{member.name}</h3>
- <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">{member.role}</p>
+ <p className="text-sm text-blue-600 dark:text-blue-400 mt-1 font-medium">{member.role}</p>
+ <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-4 leading-relaxed">{member.bio}</p>
+ </div>
  </div>
 ))}
  </div>
