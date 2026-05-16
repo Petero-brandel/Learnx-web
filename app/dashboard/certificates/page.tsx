@@ -11,24 +11,15 @@ export default function CertificatesPage() {
  const [loading, setLoading] = useState(true)
  const [downloadingId, setDownloadingId] = useState<string | null>(null)
 
- const handleDownload = async (url: string, title: string, id: string) => {
- setDownloadingId(id)
+ const handleDownload = async (certId: string, title: string) => {
+ setDownloadingId(certId)
  try {
-   let fullUrl = url
-   
-   // If the URL is relative (e.g. from Django media storage), prepend the backend domain
-   if (!url.startsWith('http://') && !url.startsWith('https://')) {
-     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/'
-     // Remove '/api' or '/api/' from the end to get the base backend URL
-     const baseUrl = apiUrl.replace(/\/api\/?$/, '')
-     fullUrl = `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`
-   }
+   // Call the authenticated download endpoint
+   const response = await api.get(`/certificates/${certId}/download/`, {
+     responseType: 'blob',
+   })
 
-   // Fetch the file directly as it's a static media resource
-   const response = await fetch(fullUrl)
-   if (!response.ok) throw new Error(`HTTP ${response.status}`)
-   const blob = await response.blob()
-
+   const blob = new Blob([response.data], { type: 'application/pdf' })
    const blobUrl = window.URL.createObjectURL(blob)
    const a = document.createElement('a')
    a.href = blobUrl
@@ -39,14 +30,7 @@ export default function CertificatesPage() {
    window.URL.revokeObjectURL(blobUrl)
  } catch (err) {
    console.error('Download failed', err)
-   // Fallback: try opening the absolute URL directly in a new tab
-   let fallbackUrl = url
-   if (!url.startsWith('http://') && !url.startsWith('https://')) {
-     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/'
-     const baseUrl = apiUrl.replace(/\/api\/?$/, '')
-     fallbackUrl = `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`
-   }
-   window.open(fallbackUrl, '_blank')
+   alert('Failed to download certificate. Please try again.')
  } finally {
    setDownloadingId(null)
  }
@@ -161,9 +145,8 @@ export default function CertificatesPage() {
    </div>
 
    {/* Download button */}
-   {cert.pdf_url ? (
    <button
-   onClick={() => handleDownload(cert.pdf_url!, cert.course_title, cert.certificate_id)}
+   onClick={() => handleDownload(cert.certificate_id, cert.course_title)}
    disabled={downloadingId === cert.certificate_id}
    className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-sm hover:shadow-md hover:shadow-blue-500/20 active:scale-[0.98]"
    >
@@ -174,12 +157,6 @@ export default function CertificatesPage() {
  )}
    {downloadingId === cert.certificate_id ? 'Downloading...' : 'Download Certificate'}
    </button>
- ) : (
-   <div className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl text-sm font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
-     <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-zinc-300 dark:border-zinc-600 border-t-zinc-500 dark:border-t-zinc-400" />
-     Generating...
-   </div>
- )}
  </div>
  </div>
 ))}
