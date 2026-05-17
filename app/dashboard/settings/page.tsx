@@ -1,11 +1,34 @@
 'use client'
 
+import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { User, Mail, Calendar, Shield } from 'lucide-react'
+import { User, Mail, Calendar, Shield, Edit2, Check, X, Loader2 } from 'lucide-react'
+import { api } from '@/lib/api'
 
 export default function SettingsPage() {
- const { user } = useAuth()
+ const { user, fetchUser } = useAuth()
+ const [isEditingName, setIsEditingName] = useState(false)
+ const [newName, setNewName] = useState('')
+ const [isSavingName, setIsSavingName] = useState(false)
+
+ const handleSaveName = async () => {
+   if (!newName.trim() || newName.trim() === user?.full_name) {
+     setIsEditingName(false)
+     return
+   }
+   setIsSavingName(true)
+   try {
+     await api.patch('/auth/me/', { full_name: newName.trim() })
+     await fetchUser() // Refresh context
+     setIsEditingName(false)
+   } catch (error) {
+     console.error('Failed to update name', error)
+     alert('Failed to update name.')
+   } finally {
+     setIsSavingName(false)
+   }
+ }
 
  return (
  <div className="space-y-8 max-w-2xl">
@@ -52,7 +75,59 @@ export default function SettingsPage() {
 
  {/* Info rows */}
  <div className="space-y-3">
- <InfoRow icon={User} label="Full Name" value={user?.full_name || '—'} />
+ {/* Editable Full Name */}
+ <div className="flex items-center gap-3 py-2">
+   <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
+     <User className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+   </div>
+   <div className="min-w-0 flex-1">
+     <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
+       Full Name
+     </p>
+     <div className="flex items-center gap-2 mt-0.5">
+       {isEditingName ? (
+         <div className="flex items-center gap-2 w-full max-w-sm">
+           <input
+             type="text"
+             value={newName}
+             onChange={(e) => setNewName(e.target.value)}
+             className="flex-1 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+             placeholder="Your full name"
+             autoFocus
+           />
+           <button
+             onClick={handleSaveName}
+             disabled={isSavingName}
+             className="p-1.5 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30 rounded-md transition-colors"
+           >
+             {isSavingName ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
+           </button>
+           <button
+             onClick={() => setIsEditingName(false)}
+             disabled={isSavingName}
+             className="p-1.5 text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800 rounded-md transition-colors"
+           >
+             <X className="h-4 w-4" />
+           </button>
+         </div>
+       ) : (
+         <>
+           <p className="text-sm text-zinc-900 dark:text-zinc-100 truncate">{user?.full_name || 'Not set'}</p>
+           <button
+             onClick={() => {
+               setNewName(user?.full_name || '')
+               setIsEditingName(true)
+             }}
+             className="ml-2 text-zinc-400 hover:text-blue-500 transition-colors"
+             title="Edit Name"
+           >
+             <Edit2 className="h-3.5 w-3.5" />
+           </button>
+         </>
+       )}
+     </div>
+   </div>
+ </div>
  <InfoRow icon={Mail} label="Email" value={user?.email || '—'} badge="Verified" />
  <InfoRow
  icon={Calendar}

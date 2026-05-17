@@ -3,15 +3,23 @@
 import { useState, useEffect } from 'react'
 import { fetchMyCertificates, type Certificate } from '@/lib/dashboard'
 import { api } from '@/lib/api'
-import { Award, Download, ExternalLink, Calendar, Hash, Sparkles } from 'lucide-react'
+import { Award, Download, ExternalLink, Calendar, Hash, Sparkles, X, Loader2 } from 'lucide-react'
+import { useAuth } from '@/context/AuthContext'
 import Link from 'next/link'
 
-export default function CertificatesPage() {
+ export default function CertificatesPage() {
+ const { user, fetchUser } = useAuth()
  const [certificates, setCertificates] = useState<Certificate[]>([])
  const [loading, setLoading] = useState(true)
  const [downloadingId, setDownloadingId] = useState<string | null>(null)
+ 
+ // Modal state
+ const [showNameModal, setShowNameModal] = useState(false)
+ const [tempName, setTempName] = useState('')
+ const [isSavingName, setIsSavingName] = useState(false)
+ const [pendingDownload, setPendingDownload] = useState<{ id: string, title: string } | null>(null)
 
- const handleDownload = async (certId: string, title: string) => {
+ const performDownload = async (certId: string, title: string) => {
  setDownloadingId(certId)
  try {
    // Call the authenticated download endpoint
@@ -35,6 +43,35 @@ export default function CertificatesPage() {
    setDownloadingId(null)
  }
  }
+
+ const handleDownloadClick = (certId: string, title: string) => {
+   if (!user?.full_name) {
+     setPendingDownload({ id: certId, title })
+     setShowNameModal(true)
+     return
+   }
+   performDownload(certId, title)
+ }
+
+ const handleSaveName = async () => {
+   if (!tempName.trim()) return
+   setIsSavingName(true)
+   try {
+     await api.patch('/auth/me/', { full_name: tempName.trim() })
+     await fetchUser() // Update context
+     setShowNameModal(false)
+     if (pendingDownload) {
+       performDownload(pendingDownload.id, pendingDownload.title)
+       setPendingDownload(null)
+     }
+   } catch (error) {
+     console.error('Failed to update name', error)
+     alert('Failed to save name. Please try again.')
+   } finally {
+     setIsSavingName(false)
+   }
+ }
+
 
  useEffect(() => {
  async function load() {
@@ -146,7 +183,7 @@ export default function CertificatesPage() {
 
    {/* Download button */}
    <button
-   onClick={() => handleDownload(cert.certificate_id, cert.course_title)}
+   onClick={() => handleDownloadClick(cert.certificate_id, cert.course_title)}
    disabled={downloadingId === cert.certificate_id}
    className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-sm hover:shadow-md hover:shadow-blue-500/20 active:scale-[0.98]"
    >
@@ -181,6 +218,49 @@ export default function CertificatesPage() {
  </Link>
  </div>
 )}
- </div>
+  {/* Name Collection Modal */}
+  {showNameModal && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/50 backdrop-blur-sm">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-md shadow-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+        <div className="px-6 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Enter Your Full Name</h3>
+          <button 
+            onClick={() => setShowNameModal(false)}
+            className="text-zinc-400 hover:text-zinc-500 transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="p-6 space-y-4">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Before you can download your certificate, we need your full name exactly as you want it to appear on the document.
+          </p>
+          <div>
+            <input
+              type="text"
+              value={tempName}
+              onChange={(e) => setTempName(e.target.value)}
+              placeholder="e.g. John Doe"
+              className="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 px-4 py-2.5 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSaveName()
+              }}
+            />
+          </div>
+          <button
+            onClick={handleSaveName}
+            disabled={!tempName.trim() || isSavingName}
+            className="w-full flex justify-center items-center gap-2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSavingName ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+            {isSavingName ? 'Saving...' : 'Save & Download Certificate'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )}
+  
+  </div>
 )
 }
