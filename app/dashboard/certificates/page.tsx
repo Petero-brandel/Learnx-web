@@ -136,28 +136,31 @@ import Link from 'next/link'
  key={cert.certificate_id}
  className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:border-zinc-300 dark:hover:border-zinc-700"
  >
- {/* Certificate Visual Preview */}
- <div className="relative h-44 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-blue-950/30 dark:via-zinc-900 dark:to-blue-950/20 flex items-center justify-center overflow-hidden">
-   {/* Decorative elements */}
-   <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] dark:opacity-[0.05]">
-     <div className="absolute top-4 left-4 w-20 h-20 border-2 border-blue-500 rounded-full" />
-     <div className="absolute bottom-4 right-4 w-16 h-16 border-2 border-blue-500 rounded-full" />
-     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-blue-400 rounded-full" />
-   </div>
-   
-   {/* Certificate icon */}
-   <div className="relative flex flex-col items-center gap-3">
-     <div className="h-16 w-16 rounded-2xl bg-white dark:bg-zinc-800 shadow-lg shadow-blue-500/10 dark:shadow-blue-500/5 flex items-center justify-center border border-zinc-100 dark:border-zinc-700 group-hover:scale-105 transition-transform duration-300">
-       <Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-     </div>
-     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm border border-zinc-100 dark:border-zinc-700/50 shadow-sm">
-       <Sparkles className="h-3 w-3 text-amber-500" />
-       <span className="text-[10px] font-bold tracking-wider uppercase text-zinc-500 dark:text-zinc-400">
-         Verified
-       </span>
-     </div>
-   </div>
- </div>
+  {/* Certificate Preview — shows actual template */}
+  <div className="relative h-48 overflow-hidden">
+    <img
+      src="/images/certificate_bg.png"
+      alt="Certificate preview"
+      className="w-full h-full object-cover object-top"
+    />
+    {/* Overlay with name and course */}
+    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none" style={{ paddingTop: '28%' }}>
+      <span className="text-[9px] sm:text-[10px] font-extrabold tracking-wider text-blue-800 uppercase drop-shadow-sm" style={{ fontFamily: "'Permanent Marker', cursive" }}>
+        {user?.full_name ? user.full_name.toUpperCase() : 'YOUR NAME'}
+      </span>
+      <span className="text-[6px] sm:text-[7px] text-blue-900/60 mt-1 italic">has completed</span>
+      <span className="text-[7px] sm:text-[8px] font-bold text-blue-900 mt-0.5">
+        {cert.course_title}
+      </span>
+    </div>
+    {/* Verified badge */}
+    <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm border border-zinc-200 dark:border-zinc-700 shadow-sm">
+      <Sparkles className="h-2.5 w-2.5 text-amber-500" />
+      <span className="text-[9px] font-bold tracking-wider uppercase text-zinc-600 dark:text-zinc-300">
+        Verified
+      </span>
+    </div>
+  </div>
 
  {/* Content */}
  <div className="p-5">
