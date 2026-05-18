@@ -7,6 +7,40 @@ import { Award, Download, ExternalLink, Calendar, Hash, Sparkles, X, Loader2 } f
 import { useAuth } from '@/context/AuthContext'
 import Link from 'next/link'
 
+function CertificatePreviewImage({ certId }: { certId: string }) {
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    let objectUrl: string;
+    api.get(`/certificates/${certId}/preview/`, { responseType: 'blob' })
+      .then(response => {
+        objectUrl = window.URL.createObjectURL(new Blob([response.data], { type: 'image/jpeg' }));
+        setImgUrl(objectUrl);
+      })
+      .catch(err => console.error("Failed to load preview", err));
+
+    return () => {
+      if (objectUrl) window.URL.revokeObjectURL(objectUrl);
+    };
+  }, [certId]);
+
+  if (!imgUrl) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+        <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imgUrl}
+      alt="Certificate preview"
+      className="w-full h-full object-cover object-top"
+    />
+  );
+}
+
  export default function CertificatesPage() {
  const { user, fetchUser } = useAuth()
  const [certificates, setCertificates] = useState<Certificate[]>([])
@@ -137,22 +171,8 @@ import Link from 'next/link'
  className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:border-zinc-300 dark:hover:border-zinc-700"
  >
   {/* Certificate Preview — shows actual template */}
-  <div className="relative h-48 overflow-hidden">
-    <img
-      src="/images/certificate_bg.png"
-      alt="Certificate preview"
-      className="w-full h-full object-cover object-top"
-    />
-    {/* Overlay with name and course */}
-    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none" style={{ paddingTop: '28%' }}>
-      <span className="text-[9px] sm:text-[10px] font-extrabold tracking-wider text-blue-800 uppercase drop-shadow-sm" style={{ fontFamily: "'Permanent Marker', cursive" }}>
-        {user?.full_name ? user.full_name.toUpperCase() : 'YOUR NAME'}
-      </span>
-      <span className="text-[6px] sm:text-[7px] text-blue-900/60 mt-1 italic">has completed</span>
-      <span className="text-[7px] sm:text-[8px] font-bold text-blue-900 mt-0.5">
-        {cert.course_title}
-      </span>
-    </div>
+  <div className="relative h-48 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+    <CertificatePreviewImage certId={cert.certificate_id} />
     {/* Verified badge */}
     <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm border border-zinc-200 dark:border-zinc-700 shadow-sm">
       <Sparkles className="h-2.5 w-2.5 text-amber-500" />
