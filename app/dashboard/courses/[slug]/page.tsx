@@ -210,7 +210,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  {/* Left panel — lesson content */}
  <div className="flex-1 flex flex-col">
  {/* Video / content */}
- <div className="p-4 md:p-6">
+ <div className="p-4 md:p-6 flex-1 flex flex-col">
  {activeLesson && (
  <LessonPlayer
  lesson={activeLesson}

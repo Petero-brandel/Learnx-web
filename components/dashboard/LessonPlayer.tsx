@@ -15,8 +15,8 @@ interface LessonPlayerProps {
 export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: LessonPlayerProps) {
  if (lesson.content_type === 'video' && lesson.video_id) {
  return (
- <div className="w-full">
- <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
+ <div className="w-full h-full flex flex-col flex-1 min-h-[50vh] md:min-h-[70vh]">
+ <div className="relative w-full h-full flex-1 rounded-xl overflow-hidden bg-black shadow-inner">
  <iframe
  src={`https://iframe.mediadelivery.net/embed/${bunnyLibraryId}/${lesson.video_id}?autoplay=false&preload=true&responsive=true`}
  loading="lazy"
