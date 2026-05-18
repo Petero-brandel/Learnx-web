@@ -103,7 +103,7 @@ export function CoursePreview() {
      <div className="flex gap-6 overflow-hidden">
      {[1, 2, 3].map((i) => (
         <div key={i} className="min-w-[300px] flex-1 rounded-2xl border border-zinc-100 dark:border-zinc-700 bg-white dark:bg-zinc-800 overflow-hidden animate-pulse">
-        <div className="h-48 bg-zinc-200 dark:bg-zinc-700" />
+        <div className="aspect-video w-full bg-zinc-200 dark:bg-zinc-700" />
         <div className="p-6 space-y-3">
          <div className="h-3 w-20 bg-zinc-200 dark:bg-zinc-700 rounded" />
          <div className="h-5 w-3/4 bg-zinc-200 dark:bg-zinc-700 rounded" />
@@ -158,14 +158,15 @@ export function CoursePreview() {
     className="group flex flex-col h-full rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 overflow-hidden hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-600 transition-all duration-300"
    >
       {/* Thumbnail */}
-      <div className="relative h-48 w-full overflow-hidden flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+      <div className="relative aspect-video w-full overflow-hidden flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
       {course.thumbnail ? (
        <Image
        src={course.thumbnail}
        alt={course.title}
        fill
        className="object-cover transition-transform duration-500 group-hover:scale-105"
-       sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 30vw"
+       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+       priority={false}
        />
       ) : (
        <div className="flex items-center justify-center h-full w-full bg-zinc-100">
