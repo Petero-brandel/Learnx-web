@@ -400,7 +400,7 @@ export default function Navbar() {
  <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white shadow-2xl md:hidden animate-in slide-in-from-right duration-300">
  {/* Mobile header */}
  <div className="flex items-center justify-between p-5 border-b border-zinc-100">
- <Logo href="/" size="xs" variant="light" src="/bluedemy-logo.png" onClick={() => setIsOpen(false)} />
+    <Logo href="/" size="lg" variant="light" src="/bluedemy-logo.png" className="h-16 w-auto" onClick={() => setIsOpen(false)} />
  <div className="flex items-center gap-2">
  
  <button

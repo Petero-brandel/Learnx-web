@@ -11,9 +11,9 @@ interface MobileHeaderProps {
 export default function MobileHeader({ onMenuOpen }: MobileHeaderProps) {
  return (
  <header className="fixed top-0 z-50 w-full bg-white/80 dark:bg-black/80 border-b border-zinc-200 dark:border-zinc-800 md:hidden">
- <div className="flex h-14 items-center justify-between px-4">
+    <div className="flex h-16 items-center justify-between px-4">
             {/* Logo */}
-            <Logo href="/" size="xs" variant="auto" src="/bluedemy-logo.png" className="h-6 w-auto" />
+             <Logo href="/" size="lg" variant="auto" src="/bluedemy-logo.png" className="h-16 w-auto" />
 
  {/* Hamburger menu */}
  <button
