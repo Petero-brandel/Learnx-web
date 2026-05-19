@@ -42,22 +42,13 @@ export function CTA() {
                       className="relative shrink-0 w-11 h-11 rounded-full ring-2 ring-[#0c0e1a] overflow-hidden"
                       style={{ zIndex: avatars.length - i }}
                     >
-                      {'src' in avatar && avatar.src ? (
-                        <Image
-                          src={avatar.src}
-                          alt={avatar.alt || ''}
-                          fill
-                          className="object-cover"
-                          sizes="44px"
-                        />
-                      ) : (
-                        <div
-                          className="w-full h-full flex items-center justify-center text-white text-xs font-bold"
-                          style={{ background: avatar.gradient }}
-                        >
-                          {avatar.initials}
-                        </div>
-                      )}
+                      <Image
+                        src={avatar.src}
+                        alt={avatar.alt || ''}
+                        fill
+                        className="object-cover"
+                        sizes="44px"
+                      />
                     </div>
                   ))}
                 </div>
