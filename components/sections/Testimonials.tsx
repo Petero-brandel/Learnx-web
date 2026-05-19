@@ -38,7 +38,7 @@ const testimonials = [
   {
  name: 'Clinton Mudiaga Akpoyovware',
  role: 'Student, AI Enthusiast',
- content: 'The courses are not just amazing, the courses are not just valuable, they are always double the value. I have noticed that anytime Coach Izu is giving a class, he gives more than what is being paid for. Anything we ask for a class, were expecting just something basic but you don\'t end there, you take us advance. Your Courses are not just amazing, they are wonderful for everyone and I think anyone who registers for your course is making a huge investment in themselves that is always worth it.',
+ content: 'The courses are not just amazing, the courses are not just valuable, they are always double the value.\n\nI have noticed that anytime Coach Izu is giving a class, he gives more than what is being paid for. Anything we ask for a class, were expecting just something basic but you don\'t end there, you take us advance.\n\nYour Courses are not just amazing, they are wonderful for everyone and I think anyone who registers for your course is making a huge investment in themselves that is always worth it.',
  image: '/images/avatars/dpstd4.jpeg',
  rating: 4,
  },
@@ -46,7 +46,7 @@ const testimonials = [
   {
  name: 'Julianah Inyang',
  role: 'Content creator, Writer & Digital Marketer',
-content: 'I got to know Coach Izu through a Facebook group where he usually shared AI-generated images. What first caught my attention was how outstanding and stunning the images were. I became curious and decided to connect with him through WhatsApp to learn more. At that time, I had just started learning about AI, so I didn’t really know much. Coach Izu organized a free class where he taught people how to create AI-generated images for free, and that was my first real introduction to AI creation. His teaching style was very detailed, simple, and easy to understand, even for beginners like me. One thing that really stood out to me was his kindness and generosity. He had different course packages ranging from Bronze to Gold, and honestly, I couldn’t afford much at that moment. But after seeing how passionate and willing I was to learn, he gave me access to the Gold course at a discounted price. That truly meant a lot to me, and I was sincerely grateful for it. Beyond teaching, Coach Izu is someone who genuinely listens to his students. Whenever I had questions, needed clarity, advice on growing an audience, or even ways to make money with AI, he was always willing to help. He is not stingy with knowledge at all. He gives corrections, guidance, advice, and support freely. The course content itself was mind-blowing and premium. Everything I learned was worth far more than what I paid for. He has impacted me in so many positive ways, and sincerely, I’m really glad I met him and learned from him.',
+content: 'I got to know Coach Izu through a Facebook group where he usually shared AI-generated images. What first caught my attention was how outstanding and stunning the images were. I became curious and decided to connect with him through WhatsApp to learn more.\n\nAt that time, I had just started learning about AI, so I didn’t really know much. Coach Izu organized a free class where he taught people how to create AI-generated images for free, and that was my first real introduction to AI creation. His teaching style was very detailed, simple, and easy to understand, even for beginners like me.\n\nOne thing that really stood out to me was his kindness and generosity. He had different course packages ranging from Bronze to Gold, and honestly, I couldn’t afford much at that moment. But after seeing how passionate and willing I was to learn, he gave me access to the Gold course at a discounted price. That truly meant a lot to me, and I was sincerely grateful for it.\n\nBeyond teaching, Coach Izu is someone who genuinely listens to his students. Whenever I had questions, needed clarity, advice on growing an audience, or even ways to make money with AI, he was always willing to help. He is not stingy with knowledge at all. He gives corrections, guidance, advice, and support freely.\n\nThe course content itself was mind-blowing and premium. Everything I learned was worth far more than what I paid for. He has impacted me in so many positive ways, and sincerely, I’m really glad I met him and learned from him.',
  image: '/images/avatars/dpstd5.png',
  rating: 5,
  },
@@ -54,7 +54,7 @@ content: 'I got to know Coach Izu through a Facebook group where he usually shar
   {
  name: 'Nnanwuba Precious',
  role: 'Student, Business Owner',
- content: 'Genuinely, I have learnt and taken good interest in AI because Coach Izu took his time to teach and educate us on the importance and financial benefits of AI. He didn\'t take it likely. Not to talk about his courses,very accessible and understandable, if you are willing to put it into practice. The courses are practical, because I have been able to apply them to my business and it has brought about massive turnout such as I have never seen in business and more still coming. Thank you coach Izu for you efforts, your students are grateful.',
+ content: 'Genuinely, I have learnt and taken good interest in AI because Coach Izu took his time to teach and educate us on the importance and financial benefits of AI. He didn\'t take it likely.\n\nNot to talk about his courses, very accessible and understandable, if you are willing to put it into practice. The courses are practical, because I have been able to apply them to my business and it has brought about massive turnout such as I have never seen in business and more still coming.\n\nThank you coach Izu for your efforts, your students are grateful.',
  image: '/images/avatars/dpstd6.jpeg',
  rating: 5,
  },
@@ -62,7 +62,7 @@ content: 'I got to know Coach Izu through a Facebook group where he usually shar
   {
  name: 'Blossom Chukwudalu',
  role: 'Student, Entrepreneur',
- content: 'As a person, Coach Izu is truly one of a kind. And I don\’t say this lightly… I say it because I have personally experienced it. I have rarely seen someone as humble and selfless as him. He gives out valuable knowledge completely free of charge, knowledge people would normally pay heavily to acquire. But no… Coach Izu chooses impact over profit. In fact, his priority isn\’t money; it\’s his students. Over 99% of his focus is on ensuring that his students gain a skill they can rely on, something meaningful they can build their lives on. And honestly, that\’s rare in today\’s world. To keep this short, I\’ll just say this Coach Izu is someone I can never forget in my life. Why? Because he didn\’t just teach me… he transformed my mindset. Through the knowledge I gained from him, I now make daily income, and beyond that, he taught me something even more powerful CONSISTENCY and the willingness to keep learning and growing. About His Course: Let me be very honest his courses are a MUST HAVE for anyone serious about advancing in the AI space. They are well-structured, deeply insightful, and designed to give you both foundational understanding and practical skills in any area of AI you choose to explore. This isn\’t just theory you actually learn what works. If you\’re serious about leveling up, building a skill, and earning from it, Coach Izu has a course for you. Invest in knowledge. Invest in growth.',
+ content: 'As a person, Coach Izu is truly one of a kind. And I don\’t say this lightly… I say it because I have personally experienced it. I have rarely seen someone as humble and selfless as him.\n\nHe gives out valuable knowledge completely free of charge, knowledge people would normally pay heavily to acquire. But no… Coach Izu chooses impact over profit. In fact, his priority isn\’t money; it\’s his students. Over 99% of his focus is on ensuring that his students gain a skill they can rely on, something meaningful they can build their lives on. And honestly, that\’s rare in today\’s world. To keep this short, I\’ll just say this Coach Izu is someone I can never forget in my life. Why? Because he didn\’t just teach me… he transformed my mindset. Through the knowledge I gained from him, I now make daily income, and beyond that, he taught me something even more powerful—CONSISTENCY and the willingness to keep learning and growing.\n\nAbout His Course: Let me be very honest—his courses are a MUST HAVE for anyone serious about advancing in the AI space. They are well-structured, deeply insightful, and designed to give you both foundational understanding and practical skills in any area of AI you choose to explore. This isn\’t just theory you actually learn what works. If you\’re serious about leveling up, building a skill, and earning from it, Coach Izu has a course for you. Invest in knowledge. Invest in growth.',
  image: '/images/avatars/dpstd7.png',
  rating: 5,
  },
@@ -151,7 +151,7 @@ export function Testimonials() {
 				 src={testimonial.image}
 				 alt={testimonial.name}
 				 fill
-				 className="object-cover object-center"
+				 className="object-cover object-top"
 				 sizes="(max-width: 1024px) 100vw, 40vw"
 				 priority={idx === 0}
 				/>
@@ -184,7 +184,7 @@ export function Testimonials() {
 					   onClick={() => setActiveTestimonial(testimonial)}
 					   className="inline-flex items-center rounded-full text-[#9fb4ff] underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
 					  >
-					   Read more
+					   Read Full
 					  </button>
 					 ) : null}
 					</p>
@@ -208,52 +208,48 @@ export function Testimonials() {
 	  </Swiper>
 
 	  {activeTestimonial ? (
-	   <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/65 px-3 py-3 sm:items-center sm:px-6 sm:py-6" onClick={closeModal}>
+	   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-3 py-4" onClick={closeModal}>
 		<div
-		 className="w-full max-w-5xl overflow-hidden rounded-[24px] bg-[#151b2c] text-white shadow-[0_30px_100px_rgba(0,0,0,0.45)] max-h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-3rem)]"
+		 className="w-full max-w-4xl overflow-hidden rounded-3xl bg-[#151b2c] text-white shadow-[0_40px_120px_rgba(0,0,0,0.5)] flex flex-col max-h-[90svh]"
 		 onClick={(event) => event.stopPropagation()}
 		>
-		 <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6">
-		  <div>
-		   <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#95a1c2]">Testimonial</p>
-		   <h3 className="mt-1 text-lg sm:text-xl font-semibold tracking-[-0.01em]">{activeTestimonial.name}</h3>
+		 {/* Header */}
+		 <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-7 sm:py-5 flex-shrink-0">
+		  <div className="min-w-0">
+		   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7b8cba]">Testimonial</p>
+		   <h3 className="mt-2 text-lg sm:text-2xl font-bold tracking-tight truncate">{activeTestimonial.name}</h3>
+		   <p className="mt-1 text-xs sm:text-sm text-[#9fb4ff] font-medium">{activeTestimonial.role}</p>
 		  </div>
 		  <button
 		   type="button"
 		   onClick={closeModal}
 		   aria-label="Close testimonial"
-		   className="rounded-full p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+		   className="ml-4 flex-shrink-0 rounded-full p-2.5 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
 		  >
 		   <X className="h-5 w-5" />
 		  </button>
 		 </div>
 
-		 <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
-		  <div className="relative min-h-[220px] sm:min-h-[300px] lg:min-h-[520px] bg-[#0f1424]">
-		   <Image
-			 src={activeTestimonial.image}
-			 alt={activeTestimonial.name}
-			 fill
-			 className="object-cover object-center"
-			 sizes="(max-width: 1024px) 100vw, 45vw"
-		   />
+		 {/* Content - scrollable text takes full width */}
+		 <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-6 sm:px-7 sm:py-8 flex flex-col">
+		  {/* Stars */}
+		  <div className="flex items-center gap-1.5 text-[#ffcf66]">
+		   {Array.from({ length: 5 }).map((_, starIndex) => (
+			<Star
+			 key={`${activeTestimonial.name}-modal-${starIndex}`}
+			 className={`h-5 w-5 ${starIndex < activeTestimonial.rating ? 'fill-current' : 'text-white/20'}`}
+			/>
+		   ))}
 		  </div>
 
-		  <div className="max-h-[calc(100svh-14rem)] overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 lg:max-h-[calc(100svh-9rem)]">
-		   <div className="flex items-center gap-1 text-[#ffcf66]">
-			{Array.from({ length: 5 }).map((_, starIndex) => (
-			 <Star
-			  key={`${activeTestimonial.name}-modal-${starIndex}`}
-			  className={`h-4 w-4 ${starIndex < activeTestimonial.rating ? 'fill-current' : 'text-white/30'}`}
-			 />
-			))}
-		   </div>
-		   <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-[#95a1c2]">{activeTestimonial.role}</p>
-		   <p className="mt-5 whitespace-pre-wrap text-base sm:text-lg leading-[1.75] text-[#f5f7ff]">
-			{activeTestimonial.content}
-		   </p>
-		  </div>
+		  {/* Testimonial Text */}
+		  <p className="mt-6 text-base sm:text-lg leading-[1.8] text-[#e5e7eb] font-light whitespace-pre-wrap">
+		   {activeTestimonial.content}
+		  </p>
 		 </div>
+
+		 {/* Bottom Divider */}
+		 <div className="border-t border-white/10 flex-shrink-0" />
 		</div>
 	   </div>
 	  ) : null}
