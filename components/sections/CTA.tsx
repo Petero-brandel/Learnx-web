@@ -3,12 +3,11 @@ import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
 const avatars = [
-  { src: '/images/avatars/avatar-1.png', alt: 'Student 1' },
-  { src: '/images/avatars/avatar-2.png', alt: 'Student 2' },
-  { initials: 'AO', gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' },
-  { initials: 'CK', gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)' },
-  { initials: 'NM', gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)' },
-  { initials: 'TE', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+  { src: '/images/avatars/dpstd5.png', alt: 'Student 1' },
+  { src: '/images/avatars/dpstd7.png', alt: 'Student 2' },
+  { src: '/images/avatars/dpstd3.png', alt: 'Student 3' },
+  { src: '/images/avatars/dpstd2.png', alt: 'Student 4' },
+  { src: '/images/avatars/dpstd1.png', alt: 'Student 5' },
 ];
 
 export function CTA() {

@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, X } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,30 +14,99 @@ import 'swiper/css/pagination';
 
 const testimonials = [
  {
- name: 'Adaora Momah',
- role: 'Freelance Copywriter',
- content: 'I find Bluedemy\'s usability and interface easy to use. It\'s simple and straightforward. I previously struggled with receiving payments for my work, but Bluedemy has made it faster and cheaper to do this now.',
- image: '/images/avatars/avatar-1.png',
+ name: 'ABBA OYALE TESSY',
+ role: 'AI content creator',
+ content: 'I\'m thankful for Coach Izu\'s training, it has opened my eyes to so many aspect of AI and even marketing. I gathered good knowledge from his training concerning AI and it\'s application. Thank you once again',
+ image: '/images/avatars/dpstd1.png',
  rating: 5,
  },
  {
- name: 'Tunde Bello',
- role: 'Digital Marketer',
- content: 'My learning experience has been practical from day one. The platform is easy to navigate, and the structure helped me build confidence and win better-paying clients in less time.',
- image: '/images/avatars/avatar-2.png',
+ name: 'AJEH EMMANUEL',
+ role: 'Student',
+ content: 'Izu is one of the best coaches. He\'s dedicated to teaching others what makes them real money. He has selfless mindset is worth a celebrating. Thank you so much for all you do Coach Izu.',
+ image: '/images/avatars/dpstd2.png',
  rating: 5,
  },
  {
- name: 'Chioma Eze',
- role: 'Content Creator',
- content: 'The lessons are clear, focused, and very actionable. I went from struggling with content ideas to shipping quality campaigns weekly with a process I can actually repeat.',
- image: '/images/avatars/avatar-1.png',
+ name: 'Cynthia Nwabueze',
+ role: 'Content Creator & Student',
+ content: 'Coach Izu and his Courses, has helped me alot, it has opened my eyes to so many things and some of his courses has changed my life, and the way I think. Coach Izu\'s is really a good coach .',
+ image: '/images/avatars/dpstd3.png',
+ rating: 5,
+ },
+
+  {
+ name: 'Clinton Mudiaga Akpoyovware',
+ role: 'Student, AI Enthusiast',
+ content: 'The courses are not just amazing, the courses are not just valuable, they are always double the value. I have noticed that anytime Coach Izu is giving a class, he gives more than what is being paid for. Anything we ask for a class, were expecting just something basic but you don\'t end there, you take us advance. Your Courses are not just amazing, they are wonderful for everyone and I think anyone who registers for your course is making a huge investment in themselves that is always worth it.',
+ image: '/images/avatars/dpstd4.jpeg',
  rating: 4,
  },
+
+  {
+ name: 'Julianah Inyang',
+ role: 'Content creator, Writer & Digital Marketer',
+content: 'I got to know Coach Izu through a Facebook group where he usually shared AI-generated images. What first caught my attention was how outstanding and stunning the images were. I became curious and decided to connect with him through WhatsApp to learn more. At that time, I had just started learning about AI, so I didn’t really know much. Coach Izu organized a free class where he taught people how to create AI-generated images for free, and that was my first real introduction to AI creation. His teaching style was very detailed, simple, and easy to understand, even for beginners like me. One thing that really stood out to me was his kindness and generosity. He had different course packages ranging from Bronze to Gold, and honestly, I couldn’t afford much at that moment. But after seeing how passionate and willing I was to learn, he gave me access to the Gold course at a discounted price. That truly meant a lot to me, and I was sincerely grateful for it. Beyond teaching, Coach Izu is someone who genuinely listens to his students. Whenever I had questions, needed clarity, advice on growing an audience, or even ways to make money with AI, he was always willing to help. He is not stingy with knowledge at all. He gives corrections, guidance, advice, and support freely. The course content itself was mind-blowing and premium. Everything I learned was worth far more than what I paid for. He has impacted me in so many positive ways, and sincerely, I’m really glad I met him and learned from him.',
+ image: '/images/avatars/dpstd5.png',
+ rating: 5,
+ },
+
+  {
+ name: 'Nnanwuba Precious',
+ role: 'Student, Business Owner',
+ content: 'Genuinely, I have learnt and taken good interest in AI because Coach Izu took his time to teach and educate us on the importance and financial benefits of AI. He didn\'t take it likely. Not to talk about his courses,very accessible and understandable, if you are willing to put it into practice. The courses are practical, because I have been able to apply them to my business and it has brought about massive turnout such as I have never seen in business and more still coming. Thank you coach Izu for you efforts, your students are grateful.',
+ image: '/images/avatars/dpstd6.jpeg',
+ rating: 5,
+ },
+
+  {
+ name: 'Blossom Chukwudalu',
+ role: 'Student, Entrepreneur',
+ content: 'As a person, Coach Izu is truly one of a kind. And I don\’t say this lightly… I say it because I have personally experienced it. I have rarely seen someone as humble and selfless as him. He gives out valuable knowledge completely free of charge, knowledge people would normally pay heavily to acquire. But no… Coach Izu chooses impact over profit. In fact, his priority isn\’t money; it\’s his students. Over 99% of his focus is on ensuring that his students gain a skill they can rely on, something meaningful they can build their lives on. And honestly, that\’s rare in today\’s world. To keep this short, I\’ll just say this Coach Izu is someone I can never forget in my life. Why? Because he didn\’t just teach me… he transformed my mindset. Through the knowledge I gained from him, I now make daily income, and beyond that, he taught me something even more powerful CONSISTENCY and the willingness to keep learning and growing. About His Course: Let me be very honest his courses are a MUST HAVE for anyone serious about advancing in the AI space. They are well-structured, deeply insightful, and designed to give you both foundational understanding and practical skills in any area of AI you choose to explore. This isn\’t just theory you actually learn what works. If you\’re serious about leveling up, building a skill, and earning from it, Coach Izu has a course for you. Invest in knowledge. Invest in growth.',
+ image: '/images/avatars/dpstd7.png',
+ rating: 5,
+ },
+
 ];
+
+const previewLimit = testimonials.find((testimonial) => testimonial.name === 'Cynthia Nwabueze')?.content.length ?? 220;
+
+function truncateTestimonial(content: string) {
+ if (content.length <= previewLimit) return { text: content, truncated: false };
+
+ const clipped = content.slice(0, previewLimit).trimEnd();
+ const lastSpace = clipped.lastIndexOf(' ');
+ const safeText = lastSpace > 120 ? clipped.slice(0, lastSpace).trimEnd() : clipped;
+
+ return {
+	text: safeText,
+	truncated: true,
+ };
+}
 
 export function Testimonials() {
  const swiperRef = useRef<SwiperType | null>(null);
+ const [activeTestimonial, setActiveTestimonial] = useState<(typeof testimonials)[number] | null>(null);
+
+ useEffect(() => {
+	if (!activeTestimonial) return;
+
+	const handleKeyDown = (event: KeyboardEvent) => {
+	 if (event.key === 'Escape') {
+		setActiveTestimonial(null);
+	 }
+	};
+
+	document.body.style.overflow = 'hidden';
+	window.addEventListener('keydown', handleKeyDown);
+
+	return () => {
+	 document.body.style.overflow = '';
+	 window.removeEventListener('keydown', handleKeyDown);
+	};
+ }, [activeTestimonial]);
+
+ const closeModal = () => setActiveTestimonial(null);
 
  return (
   <section className="bg-[#ececec] py-14 sm:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -75,15 +144,15 @@ export function Testimonials() {
 		{testimonials.map((testimonial, idx) => (
 		 <SwiperSlide key={testimonial.name}>
 		  <Reveal delay={idx * 80}>
-			<article className="relative rounded-[20px] bg-[#151b2c] text-white overflow-hidden min-h-[420px] lg:min-h-[360px] shadow-[0_10px_35px_rgba(10,15,30,0.2)]">
-			 <div className="grid gap-6 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[0.86fr_1.14fr] lg:gap-8 lg:px-9 lg:py-9">
-			  <div className="relative h-[210px] sm:h-[250px] lg:h-full lg:min-h-[280px] rounded-xl overflow-hidden">
+			<article className="relative rounded-[20px] bg-[#151b2c] text-white overflow-hidden min-h-[420px] lg:min-h-[380px] shadow-[0_10px_35px_rgba(10,15,30,0.2)]">
+			 <div className="grid gap-6 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 lg:px-9 lg:py-9">
+			  <div className="relative h-[230px] sm:h-[260px] lg:h-full lg:min-h-[300px] rounded-2xl overflow-hidden bg-[#0f1424]">
 				<Image
 				 src={testimonial.image}
 				 alt={testimonial.name}
 				 fill
-				 className="object-cover"
-				 sizes="(max-width: 1024px) 100vw, 38vw"
+				 className="object-cover object-center"
+				 sizes="(max-width: 1024px) 100vw, 40vw"
 				 priority={idx === 0}
 				/>
 			  </div>
@@ -101,9 +170,27 @@ export function Testimonials() {
 					/>
 				  ))}
 				 </div>
-				 <p className="mt-3 text-[1.12rem] leading-[1.55] font-medium tracking-[-0.005em] text-[#f5f7ff] sm:text-[1.25rem] lg:text-[1.45rem]">
-				  {testimonial.content}
-				 </p>
+				 {(() => {
+				  const preview = truncateTestimonial(testimonial.content);
+
+				  return (
+				   <div className="mt-3">
+					<p className="text-[1.12rem] leading-[1.55] font-medium tracking-[-0.005em] text-[#f5f7ff] sm:text-[1.2rem] lg:text-[1.28rem]">
+					 {preview.text}
+					 {preview.truncated ? '… ' : ''}
+					 {preview.truncated ? (
+					  <button
+					   type="button"
+					   onClick={() => setActiveTestimonial(testimonial)}
+					   className="inline-flex items-center rounded-full text-[#9fb4ff] underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+					  >
+					   Read more
+					  </button>
+					 ) : null}
+					</p>
+				   </div>
+				  );
+				 })()}
 				</div>
 
 				<div className="mt-7 border-t border-white/15 pt-4">
@@ -119,6 +206,57 @@ export function Testimonials() {
 		 </SwiperSlide>
 		))}
 	  </Swiper>
+
+	  {activeTestimonial ? (
+	   <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/65 px-3 py-3 sm:items-center sm:px-6 sm:py-6" onClick={closeModal}>
+		<div
+		 className="w-full max-w-5xl overflow-hidden rounded-[24px] bg-[#151b2c] text-white shadow-[0_30px_100px_rgba(0,0,0,0.45)] max-h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-3rem)]"
+		 onClick={(event) => event.stopPropagation()}
+		>
+		 <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6">
+		  <div>
+		   <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#95a1c2]">Testimonial</p>
+		   <h3 className="mt-1 text-lg sm:text-xl font-semibold tracking-[-0.01em]">{activeTestimonial.name}</h3>
+		  </div>
+		  <button
+		   type="button"
+		   onClick={closeModal}
+		   aria-label="Close testimonial"
+		   className="rounded-full p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+		  >
+		   <X className="h-5 w-5" />
+		  </button>
+		 </div>
+
+		 <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+		  <div className="relative min-h-[220px] sm:min-h-[300px] lg:min-h-[520px] bg-[#0f1424]">
+		   <Image
+			 src={activeTestimonial.image}
+			 alt={activeTestimonial.name}
+			 fill
+			 className="object-cover object-center"
+			 sizes="(max-width: 1024px) 100vw, 45vw"
+		   />
+		  </div>
+
+		  <div className="max-h-[calc(100svh-14rem)] overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 lg:max-h-[calc(100svh-9rem)]">
+		   <div className="flex items-center gap-1 text-[#ffcf66]">
+			{Array.from({ length: 5 }).map((_, starIndex) => (
+			 <Star
+			  key={`${activeTestimonial.name}-modal-${starIndex}`}
+			  className={`h-4 w-4 ${starIndex < activeTestimonial.rating ? 'fill-current' : 'text-white/30'}`}
+			 />
+			))}
+		   </div>
+		   <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-[#95a1c2]">{activeTestimonial.role}</p>
+		   <p className="mt-5 whitespace-pre-wrap text-base sm:text-lg leading-[1.75] text-[#f5f7ff]">
+			{activeTestimonial.content}
+		   </p>
+		  </div>
+		 </div>
+		</div>
+	   </div>
+	  ) : null}
 
 	  <div className="pointer-events-none absolute -bottom-14 right-2 z-10 flex items-center gap-3 sm:right-5 lg:right-6">
 		<button
