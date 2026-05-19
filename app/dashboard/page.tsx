@@ -119,7 +119,7 @@ function DashboardContent() {
  <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">{today}</p>
  </div>
 
- {/* Stats row — horizontal scroll on mobile, grid on desktop */}
+ {/* Stats row horizontal scroll on mobile, grid on desktop */}
  <div className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
  <StatsCard
  icon={BookOpen}

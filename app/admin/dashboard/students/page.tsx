@@ -327,7 +327,7 @@ export default function StudentsPage() {
  </span>
  </div>
  <span className="text-zinc-900 dark:text-zinc-200 font-medium dark:font-normal truncate max-w-[150px]">
- {student.full_name || '—'}
+ {student.full_name || ''}
  </span>
  </div>
  </td>

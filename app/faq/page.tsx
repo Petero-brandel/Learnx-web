@@ -21,7 +21,7 @@ const faqs = [
  },
  {
  question: 'What is your refund policy?',
- answer: 'We offer a 14-day money-back guarantee on all our individual courses. If you are not satisfied with the content, simply contact our support team within 14 days of purchase for a full refund — no questions asked.',
+ answer: 'We offer a 14-day money-back guarantee on all our individual courses. If you are not satisfied with the content, simply contact our support team within 14 days of purchase for a full refund no questions asked.',
  },
  {
  question: 'Can I access courses on mobile?',

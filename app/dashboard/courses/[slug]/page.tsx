@@ -207,7 +207,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
 
  {/* Two-panel layout */}
  <div className="flex min-h-[calc(100vh-8rem)]">
- {/* Left panel — lesson content */}
+ {/* Left panel lesson content */}
  <div className="flex-1 flex flex-col">
  {/* Video / content */}
  <div className="p-4 md:p-6 flex-1 flex flex-col">
@@ -260,7 +260,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  <span className="hidden sm:inline">Previous</span>
  </button>
 
- {/* Mark Complete — hidden for quiz lessons (quizzes auto-complete on pass) */}
+ {/* Mark Complete hidden for quiz lessons (quizzes auto-complete on pass) */}
  {activeLesson && activeLesson.content_type !== 'quiz' && !completedLessons.has(activeLesson.id) ? (
  <button
  onClick={handleMarkComplete}
@@ -299,7 +299,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  </div>
  </div>
 
- {/* Right panel — course sidebar (desktop only) */}
+ {/* Right panel course sidebar (desktop only) */}
  <aside className="hidden md:flex flex-col w-80 lg:w-96 border-l border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/20">
  {/* Progress header */}
  <div className="flex items-center gap-4 p-5 border-b border-zinc-200 dark:border-zinc-800">

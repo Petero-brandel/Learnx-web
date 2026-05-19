@@ -20,7 +20,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
  {/* Mobile header */}
  <AdminMobileHeader onMenuOpen={() => setMobileOpen(true)} />
 
- {/* Main content area — shifts right based on fixed closed sidebar width */}
+ {/* Main content area shifts right based on fixed closed sidebar width */}
  <main
  className={cn(
 "min-h-screen bg-zinc-50 dark:bg-[#0a0a0a] transition-all duration-300",

@@ -13,7 +13,7 @@ export default function AdminProtectedRoute({ children }: { children: React.Reac
  if (!user) {
  router.push('/login')
  } else if (!user.is_staff && !user.is_superuser) {
- // Authenticated but not admin — send to student dashboard
+ // Authenticated but not admin send to student dashboard
  router.push('/dashboard')
  }
  }

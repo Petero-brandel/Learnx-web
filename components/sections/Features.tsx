@@ -46,7 +46,7 @@ const stats = [
 	{
 		end: 15,
 		suffix: '+',
-		label: 'Courses covering real digital skills — from design to data to development',
+		label: 'Courses covering real digital skills from design to data to development',
 	},
 	{
 		end: 100,
@@ -61,7 +61,7 @@ const stats = [
 	{
 		end: 24,
 		suffix: '/7',
-		label: 'Access to your courses, progress, and certificates — anytime, anywhere',
+		label: 'Access to your courses, progress, and certificates anytime, anywhere',
 	},
 ];
 
@@ -71,7 +71,7 @@ const featuredProducts = [
 		tag: 'Self-paced courses',
 		title: 'Learn at Your Own Speed',
 		description:
-			'No deadlines, no pressure. Every course on Bluedemy is designed so you can start, pause, and pick up right where you left off — whether you have 15 minutes or a whole afternoon.',
+			'No deadlines, no pressure. Every course on Bluedemy is designed so you can start, pause, and pick up right where you left off whether you have 15 minutes or a whole afternoon.',
 		cta: 'Browse courses',
 		href: '/courses',
 		image: '/course-player-preview.png',
@@ -80,7 +80,7 @@ const featuredProducts = [
 		type: 'text-card' as const,
 		title: 'Real Skills That Matter',
 		description:
-			'We don\'t do fluff. Our courses cover the digital skills employers actually care about — UI/UX design, frontend development, data analysis, digital marketing, and more. Everything is hands-on with real projects.',
+			'We don\'t do fluff. Our courses cover the digital skills employers actually care about UI/UX design, frontend development, data analysis, digital marketing, and more. Everything is hands-on with real projects.',
 		cta: 'See what you can learn',
 		href: '/courses',
 	},
@@ -88,7 +88,7 @@ const featuredProducts = [
 		type: 'text-card' as const,
 		title: 'Track Every Step',
 		description:
-			'Your personal dashboard shows exactly where you are in every course. See your progress, revisit lessons, and know when you\'re ready for your certificate — it\'s all right there.',
+			'Your personal dashboard shows exactly where you are in every course. See your progress, revisit lessons, and know when you\'re ready for your certificate it\'s all right there.',
 		cta: 'How it works',
 		href: '/faq',
 	},

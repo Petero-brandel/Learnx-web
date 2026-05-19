@@ -129,7 +129,7 @@ export default function DashboardNavbar() {
  </button>
  </div>
 ) : item.hasNotifDropdown ? (
- /* Notifications — hover triggers the full-width mega-menu */
+ /* Notifications hover triggers the full-width mega-menu */
  <div
  key={item.label}
  className="relative"

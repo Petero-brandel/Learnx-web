@@ -170,7 +170,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
  key={cert.certificate_id}
  className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:border-zinc-300 dark:hover:border-zinc-700"
  >
-  {/* Certificate Preview — shows actual template */}
+  {/* Certificate Preview shows actual template */}
   <div className="relative h-48 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
     <CertificatePreviewImage certId={cert.certificate_id} />
     {/* Verified badge */}

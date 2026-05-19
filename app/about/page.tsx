@@ -94,7 +94,7 @@ export default function AboutPage() {
  <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
  To empower individuals and businesses with practical, industry-relevant skills
- in AI, content creation, and digital marketing — bridging the gap between
+ in AI, content creation, and digital marketing bridging the gap between
  traditional education and the rapidly evolving digital landscape.
  </p>
  </div>

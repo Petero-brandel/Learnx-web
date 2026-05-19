@@ -128,13 +128,13 @@ export default function SettingsPage() {
      </div>
    </div>
  </div>
- <InfoRow icon={Mail} label="Email" value={user?.email || '—'} badge="Verified" />
+ <InfoRow icon={Mail} label="Email" value={user?.email || ''} badge="Verified" />
  <InfoRow
  icon={Calendar}
  label="Member Since"
  value={user?.date_joined
  ? new Date(user.date_joined).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
- : '—'
+ : ''
  }
  />
  <InfoRow
