@@ -64,12 +64,12 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
       await onSave({
         title,
         description,
-        price: price.toString(),
-        thumbnail: thumbnailUrl || null,
+        price: Number(price) as any,
+        thumbnail: thumbnailUrl || undefined,
       })
       onClose()
     } catch (err: any) {
-      setError(err?.message || 'Failed to update course details.')
+      setError(err?.response?.data?.error || err?.response?.data?.detail || JSON.stringify(err?.response?.data) || err?.message || 'Failed to update course details.')
     } finally {
       setLoading(false)
     }

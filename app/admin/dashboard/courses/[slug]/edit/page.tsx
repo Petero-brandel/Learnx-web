@@ -849,18 +849,19 @@ export default function CourseBuilderPage() {
  }, [slug])
 
  // Handlers for Course Data
- const handleUpdateCourseDetails = async (data: Partial<AdminCourse>) => {
- if (!course) return
- setSaving(true)
- try {
- const updated = await updateCourse(slug, data)
- setCourse(updated)
- } catch (e) {
- console.error(e)
- } finally {
- setSaving(false)
- }
- }
+  const handleUpdateCourseDetails = async (data: Partial<AdminCourse>) => {
+  if (!course) return
+  setSaving(true)
+  try {
+  const updated = await updateCourse(slug, data)
+  setCourse(updated)
+  } catch (e: any) {
+  console.error(e)
+  throw e
+  } finally {
+  setSaving(false)
+  }
+  }
 
  // Handlers for Modules
  const handleAddModule = async () => {
