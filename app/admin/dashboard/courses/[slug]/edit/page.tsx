@@ -32,6 +32,7 @@ import { cn } from '@/lib/utils'
 import { uploadPdfAction } from '@/app/actions/upload'
 import RichTextEditor from '@/components/ui/RichTextEditor'
 import CourseSettingsModal from '@/components/admin/CourseSettingsModal'
+import ConfirmDialog from '@/components/ui/ConfirmDialog'
 
 // @dnd-kit
 import {
@@ -489,21 +490,52 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  const [shuffleAnswers, setShuffleAnswers] = useState(lesson.quiz?.shuffle_answers ?? false)
  const [questions, setQuestions] = useState<AdminQuestion[]>(lesson.quiz?.questions ?? [])
 
- useEffect(() => {
- // If quiz already exists, load its data
- if (lesson.quiz) {
- setQuizId(lesson.quiz.id ?? null)
- setPassingScore(lesson.quiz.passing_score)
- setMaxAttempts(lesson.quiz.max_attempts)
- setTimeLimitMinutes(lesson.quiz.time_limit_minutes)
- setIsRequired(lesson.quiz.is_required)
- setShowCorrectAnswers(lesson.quiz.show_correct_answers)
- setShuffleQuestions(lesson.quiz.shuffle_questions)
- setShuffleAnswers(lesson.quiz.shuffle_answers)
- setQuestions(lesson.quiz.questions ?? [])
- }
- setLoading(false)
- }, [lesson.quiz])
+  useEffect(() => {
+    // Check for draft first
+    const draftStr = localStorage.getItem(`quiz_draft_${lesson.id}`)
+    if (draftStr) {
+      try {
+        const draft = JSON.parse(draftStr)
+        if (lesson.quiz) setQuizId(lesson.quiz.id ?? null)
+        setPassingScore(draft.passingScore ?? 70)
+        setMaxAttempts(draft.maxAttempts ?? 0)
+        setTimeLimitMinutes(draft.timeLimitMinutes ?? 0)
+        setIsRequired(draft.isRequired ?? true)
+        setShowCorrectAnswers(draft.showCorrectAnswers ?? true)
+        setShuffleQuestions(draft.shuffleQuestions ?? false)
+        setShuffleAnswers(draft.shuffleAnswers ?? false)
+        setQuestions(draft.questions ?? [])
+        setLoading(false)
+        return
+      } catch (e) {
+        // ignore parse error
+      }
+    }
+
+    // If quiz already exists, load its data
+    if (lesson.quiz) {
+      setQuizId(lesson.quiz.id ?? null)
+      setPassingScore(lesson.quiz.passing_score)
+      setMaxAttempts(lesson.quiz.max_attempts)
+      setTimeLimitMinutes(lesson.quiz.time_limit_minutes)
+      setIsRequired(lesson.quiz.is_required)
+      setShowCorrectAnswers(lesson.quiz.show_correct_answers)
+      setShuffleQuestions(lesson.quiz.shuffle_questions)
+      setShuffleAnswers(lesson.quiz.shuffle_answers)
+      setQuestions(lesson.quiz.questions ?? [])
+    }
+    setLoading(false)
+  }, [lesson.quiz, lesson.id])
+
+  // Auto-save draft to localStorage whenever fields change
+  useEffect(() => {
+    if (loading || saving) return
+    const draft = {
+      passingScore, maxAttempts, timeLimitMinutes, isRequired, 
+      showCorrectAnswers, shuffleQuestions, shuffleAnswers, questions
+    }
+    localStorage.setItem(`quiz_draft_${lesson.id}`, JSON.stringify(draft))
+  }, [passingScore, maxAttempts, timeLimitMinutes, isRequired, showCorrectAnswers, shuffleQuestions, shuffleAnswers, questions, lesson.id, loading, saving])
 
  const handleAddQuestion = (type: 'multiple_choice' | 'true_false') => {
  const newQ: AdminQuestion = {
@@ -527,13 +559,13 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  setQuestions(updated)
  }
 
- const handleAnswerTextChange = (qIdx: number, aIdx: number, text: string) => {
- const updated = [...questions]
- const answers = [...updated[qIdx].answers]
- answers[aIdx] = { ...answers[aIdx], text }
- updated[qIdx] = { ...updated[qIdx], answers }
- setQuestions(updated)
- }
+  const handleAnswerTextChange = (qIdx: number, aIdx: number, text: string) => {
+  const updated = [...questions]
+  const answers = [...updated[qIdx].answers]
+  answers[aIdx] = { ...answers[aIdx], text }
+  updated[qIdx] = { ...updated[qIdx], answers }
+  setQuestions(updated)
+  }
 
  const handleCorrectAnswerChange = (qIdx: number, aIdx: number) => {
  const updated = [...questions]
@@ -593,6 +625,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  })
 
  setSuccess(true)
+ localStorage.removeItem(`quiz_draft_${lesson.id}`) // Clear draft on successful save
  await onSaved()
  setTimeout(() => setSuccess(false), 3000)
  } catch (err: any) {
@@ -886,15 +919,12 @@ export default function CourseBuilderPage() {
  }
  }
 
- const handleDeleteModule = async (id: number) => {
- if (!confirm('Delete this module and all its lessons?')) return
- setSaving(true)
- try {
- await deleteModule(id)
- setCourse(prev => prev ? {...prev, modules: prev.modules.filter(m => m.id !== id)} : prev)
- } finally {
- setSaving(false)
- }
+ const [confirmOpen, setConfirmOpen] = useState(false)
+ const [confirmPayload, setConfirmPayload] = useState<null | { type: 'module' | 'lesson'; id: number; title?: string }>(null)
+
+ const handleDeleteModule = (id: number) => {
+ setConfirmPayload({ type: 'module', id })
+ setConfirmOpen(true)
  }
 
  // Handlers for Lessons
@@ -909,16 +939,31 @@ export default function CourseBuilderPage() {
  }
  }
 
- const handleDeleteLesson = async (id: number) => {
- if (!confirm('Delete this lesson?')) return
+ const handleDeleteLesson = (id: number) => {
+ setConfirmPayload({ type: 'lesson', id })
+ setConfirmOpen(true)
+ }
+
+ const executeConfirm = async () => {
+ if (!confirmPayload) return
+ setConfirmOpen(false)
+ const { type, id } = confirmPayload
  setSaving(true)
  try {
+ if (type === 'module') {
+ await deleteModule(id)
+ setCourse(prev => prev ? { ...prev, modules: prev.modules.filter(m => m.id !== id) } : prev)
+ } else {
  await deleteLesson(id)
  const updated = await fetchCourse(slug)
  setCourse(updated)
  if (activeLesson?.id === id) setActiveLesson(null)
+ }
+ } catch (err) {
+ console.error('Delete failed', err)
  } finally {
  setSaving(false)
+ setConfirmPayload(null)
  }
  }
 
@@ -966,6 +1011,16 @@ export default function CourseBuilderPage() {
 
  return (
  <div className="flex flex-col lg:flex-row gap-6">
+  <ConfirmDialog
+    open={confirmOpen}
+    title={confirmPayload?.type === 'module' ? 'Delete Module' : 'Delete Lesson'}
+    description={confirmPayload?.type === 'module' ? 'Delete this module and all its lessons?' : 'Delete this lesson?'}
+    confirmLabel="Delete"
+    cancelLabel="Cancel"
+    loading={saving}
+    onConfirm={executeConfirm}
+    onCancel={() => { setConfirmOpen(false); setConfirmPayload(null) }}
+  />
   {showSettingsModal && (
     <CourseSettingsModal
       course={course}
