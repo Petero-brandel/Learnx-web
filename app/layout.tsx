@@ -30,7 +30,7 @@ export const metadata: Metadata = {
    { rel: "manifest", url: "/site.webmanifest" },
    { rel: "icon", url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
    { rel: "icon", url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
-   { rel: "mask-icon", url: "/bluedemy-icon.png", color: "#000000" },
+    { rel: "icon", url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
   ],
  },
 };
