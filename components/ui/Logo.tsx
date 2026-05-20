@@ -38,9 +38,6 @@ export default function Logo({
       height={height}
       className={cn(
         'object-contain',
-        // Keep logo colors natural in dark mode
-        variant === 'dark' && '',
-        variant === 'auto' && 'dark:brightness-0 dark:invert',
         className
       )}
       priority

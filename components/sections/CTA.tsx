@@ -3,9 +3,10 @@ import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
 const avatars = [
+  { src: '/images/avatars/dpstd6.jpeg', alt: 'Student 6' },
   { src: '/images/avatars/dpstd5.png', alt: 'Student 1' },
   { src: '/images/avatars/dpstd7.png', alt: 'Student 2' },
-  { src: '/images/avatars/dpstd3.png', alt: 'Student 3' },
+  { src: '/images/avatars/dpstd4.jpeg', alt: 'Student 3' },
   { src: '/images/avatars/dpstd2.png', alt: 'Student 4' },
   { src: '/images/avatars/dpstd1.png', alt: 'Student 5' },
 ];
@@ -18,10 +19,11 @@ export function CTA() {
           <div
             className="relative rounded-3xl overflow-hidden"
             style={{
-              background: 'linear-gradient(135deg, #0c0e1a 0%, #141729 40%, #1a1f3a 100%)',
+              background:
+                'linear-gradient(135deg, #0c0e1a 0%, #141729 40%, #1a1f3a 100%)',
             }}
           >
-            {/* Subtle noise / glow overlay */}
+            {/* Subtle glow overlay */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -36,21 +38,38 @@ export function CTA() {
               <div className="flex-1 min-w-0">
                 {/* Overlapping Avatars */}
                 <div className="flex items-center -space-x-3 mb-8">
-                  {avatars.map((avatar, i) => (
-                    <div
-                      key={i}
-                      className="relative shrink-0 w-11 h-11 rounded-full ring-2 ring-[#0c0e1a] overflow-hidden"
-                      style={{ zIndex: avatars.length - i }}
-                    >
-                      <Image
-                        src={avatar.src}
-                        alt={avatar.alt || ''}
-                        fill
-                        className="object-cover"
-                        sizes="44px"
-                      />
-                    </div>
-                  ))}
+                  {avatars.map((avatar, i) => {
+                    const isLast = i === avatars.length - 1;
+
+                    return (
+                      <div
+                        key={i}
+                        className="relative shrink-0 w-11 h-11 rounded-full ring-2 ring-[#0c0e1a] overflow-hidden"
+                        style={{ zIndex: avatars.length - i }}
+                      >
+                        <Image
+                          src={avatar.src}
+                          alt={avatar.alt || ''}
+                          fill
+                          sizes="44px"
+                          className={`object-cover transition-all duration-300 ${
+                            isLast
+                              ? 'brightness-75 scale-[1.03]'
+                              : ''
+                          }`}
+                        />
+
+                        {/* +N Overlay */}
+                        {isLast && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/25">
+                            <span className="text-white pl-2 text-sm font-bold tracking-wide">
+                              +N
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Headline */}
@@ -59,8 +78,7 @@ export function CTA() {
                   <br className="hidden sm:block" />
                   that help you grow faster{' '}
                   <br className="hidden sm:block" />
-                  with{' '}
-                  <span className="text-white">Bluedemy</span>
+                  with <span className="text-white">Bluedemy</span>
                 </h2>
               </div>
 
@@ -78,14 +96,17 @@ export function CTA() {
                   href="/courses"
                   className="group relative w-full inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold text-base text-white overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/25"
                   style={{
-                    background: 'linear-gradient(135deg, #1557C0 0%, #1A73E8 50%, #4A90F7 100%)',
+                    background:
+                      'linear-gradient(135deg, #1557C0 0%, #1A73E8 50%, #4A90F7 100%)',
                   }}
                 >
                   <span className="relative z-10">Get started</span>
+
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{
-                      background: 'linear-gradient(135deg, #1252a8 0%, #1567d0 50%, #3d82f0 100%)',
+                      background:
+                        'linear-gradient(135deg, #1252a8 0%, #1567d0 50%, #3d82f0 100%)',
                     }}
                   />
                 </Link>
