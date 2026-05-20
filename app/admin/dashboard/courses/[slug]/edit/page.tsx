@@ -31,6 +31,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { uploadPdfAction } from '@/app/actions/upload'
 import RichTextEditor from '@/components/ui/RichTextEditor'
+import CourseSettingsModal from '@/components/admin/CourseSettingsModal'
 
 // @dnd-kit
 import {
@@ -836,8 +837,9 @@ export default function CourseBuilderPage() {
  const [loading, setLoading] = useState(true)
  const [saving, setSaving] = useState(false)
  
- // Right Panel State (Lesson Editing)
- const [activeLesson, setActiveLesson] = useState<AdminLesson | null>(null)
+  // Right Panel State (Lesson Editing)
+  const [activeLesson, setActiveLesson] = useState<AdminLesson | null>(null)
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
  
  useEffect(() => {
  fetchCourse(slug)
@@ -963,6 +965,13 @@ export default function CourseBuilderPage() {
 
  return (
  <div className="flex flex-col lg:flex-row gap-6">
+  {showSettingsModal && (
+    <CourseSettingsModal
+      course={course}
+      onClose={() => setShowSettingsModal(false)}
+      onSave={handleUpdateCourseDetails}
+    />
+  )}
  {/* Left Column: Curriculum Builder */}
  <div className="flex-1 space-y-6">
  {/* Header */}
@@ -977,10 +986,17 @@ export default function CourseBuilderPage() {
                 </Link>
  <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{course.title}</h1>
  </div>
- <div className="flex items-center gap-3">
- {saving && <Loader2 className="h-4 w-4 animate-spin text-zinc-400" />}
- <button
- onClick={() => handleUpdateCourseDetails({ is_published: !course.is_published })}
+  <div className="flex items-center gap-3">
+  {saving && <Loader2 className="h-4 w-4 animate-spin text-zinc-400" />}
+  <button
+    onClick={() => setShowSettingsModal(true)}
+    className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 rounded-xl text-sm font-semibold transition-colors shadow-sm"
+  >
+    <Settings className="h-4 w-4" />
+    <span className="hidden sm:inline">Settings</span>
+  </button>
+  <button
+  onClick={() => handleUpdateCourseDetails({ is_published: !course.is_published })}
  className={cn(
  "px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-sm border",
  course.is_published 
