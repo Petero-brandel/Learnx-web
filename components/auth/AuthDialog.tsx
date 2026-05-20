@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2, Mail, X } from 'lucide-react';
+import { Eye, EyeOff, Loader2, AlertCircle, Mail, X } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
@@ -413,7 +413,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  disabled={isLoading || isGoogleLoading}
  className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
  >
- {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
+ {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
  {isLoading ? submitLoadingLabel : submitLabel}
  </button>
  </form>
@@ -425,7 +425,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  if (mode === 'modal') {
  return (
  <div
- className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-900/35 dark:bg-zinc-950/55 p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
+ className="dark fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/55 p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
  onClick={closeTo}
  >
  {CardContent}
