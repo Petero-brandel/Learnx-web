@@ -52,8 +52,8 @@ export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 
  const style = solidStyles[color]
 
  // Safely format the Naira symbol to prevent font overlapping issues
- const isNaira = typeof value === 'string' && value.includes('â‚¦')
- const displayValue = isNaira ? value.replace('â‚¦', '') : value
+ const isNaira = typeof value === 'string' && value.includes('₦')
+ const displayValue = isNaira ? value.replace('₦', '') : value
 
  return (
  <div
@@ -71,7 +71,7 @@ export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 
  
  <div className="mb-1.5 flex-1 flex flex-col justify-end">
  <p className={cn("text-2xl font-bold tracking-tight flex items-baseline gap-0.5", style.value)}>
- {isNaira && <span className={cn("text-sm font-sans font-medium", style.naira)}>â‚¦</span>}
+ {isNaira && <span className={cn("text-sm font-sans font-medium", style.naira)}>₦</span>}
  {displayValue}
  </p>
  </div>

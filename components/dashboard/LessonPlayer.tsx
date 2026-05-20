@@ -467,7 +467,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  </p>
  <p className="text-sm text-zinc-500">
  {result.correct_count} of {result.total_questions} correct
- {quiz.passing_score > 0 && ` Â· ${quiz.passing_score}% needed`}
+ {quiz.passing_score > 0 && ` · ${quiz.passing_score}% needed`}
  </p>
  </div>
 
@@ -510,7 +510,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  wasSelected && !isThisCorrect &&"text-red-600 dark:text-red-400 line-through",
  !isThisCorrect && !wasSelected &&"text-zinc-500"
 )}>
- {isThisCorrect && 'âœ“ '}{wasSelected && !isThisCorrect && 'âœ— '}{a.text}
+ {isThisCorrect && '✓ '}{wasSelected && !isThisCorrect && '✗ '}{a.text}
  </div>
 )
  })}

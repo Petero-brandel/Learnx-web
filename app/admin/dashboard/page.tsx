@@ -49,9 +49,9 @@ function getFirstName(fullName: string): string {
 }
 
 function formatCurrency(amount: number): string {
- if (amount >= 1_000_000) return `â‚¦${(amount / 1_000_000).toFixed(1)}M`
- if (amount >= 1_000) return `â‚¦${(amount / 1_000).toFixed(1)}K`
- return `â‚¦${amount.toLocaleString()}`
+ if (amount >= 1_000_000) return `₦${(amount / 1_000_000).toFixed(1)}M`
+ if (amount >= 1_000) return `₦${(amount / 1_000).toFixed(1)}K`
+ return `₦${amount.toLocaleString()}`
 }
 
 export default function AdminDashboardPage() {
@@ -200,7 +200,7 @@ export default function AdminDashboardPage() {
  icon={NairaSign}
  label="Total Revenue"
  value={formatCurrency(revenue?.revenue.all_time || 0)}
- sub={`â‚¦${(revenue?.revenue.this_month || 0).toLocaleString()} this month`}
+ sub={`₦${(revenue?.revenue.this_month || 0).toLocaleString()} this month`}
  color="green"
  className="first:ml-4 sm:first:ml-0"
  />
@@ -336,7 +336,7 @@ export default function AdminDashboardPage() {
  axisLine={false} 
  tickLine={false} 
  tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 11 }}
- tickFormatter={(value) => `â‚¦${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
+ tickFormatter={(value) => `₦${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
  />
  <Tooltip 
  cursor={{ fill: isDark ? '#27272a' : '#f4f4f5', opacity: 0.4 }}
@@ -350,7 +350,7 @@ export default function AdminDashboardPage() {
  }}
  itemStyle={{ color: isDark ? '#34d399' : '#10b981', fontWeight: 500 }}
  labelStyle={{ color: isDark ? '#a1a1aa' : '#71717a', marginBottom: '4px' }}
- formatter={(value: any) => [`â‚¦${Number(value || 0).toLocaleString()}`, 'Revenue']}
+ formatter={(value: any) => [`₦${Number(value || 0).toLocaleString()}`, 'Revenue']}
  />
  <Bar dataKey="total" radius={[4, 4, 0, 0]} maxBarSize={40}>
  {revPerCourse.map((entry, index) => (

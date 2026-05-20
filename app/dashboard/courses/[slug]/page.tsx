@@ -71,7 +71,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  if (firstLesson) setActiveLesson(firstLesson)
  }
  }
- // If no enrollment found, enrollment stays null â†’ access denied screen
+ // If no enrollment found, enrollment stays null → access denied screen
  } catch (err) {
  console.error('Failed to load course', err)
  } finally {
@@ -332,7 +332,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  <BottomSheet
  isOpen={sheetOpen}
  onClose={() => setSheetOpen(false)}
- title={`Modules Â· ${progress}% complete`}
+ title={`Modules · ${progress}% complete`}
  >
  <div className="space-y-3">
  {course.modules.map((module, i) => (
