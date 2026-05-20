@@ -6,6 +6,7 @@ import { BookOpen, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, Pencil, Tras
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import ConfirmDialog from '@/components/ui/ConfirmDialog'
 
 function formatDate(dateStr: string): string {
  return new Date(dateStr).toLocaleDateString('en-US', {
@@ -31,6 +32,8 @@ export default function AdminCoursesPage() {
  const [toggling, setToggling] = useState<number | null>(null)
  const [deleting, setDeleting] = useState<number | null>(null)
  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+	const [confirmOpen, setConfirmOpen] = useState(false)
+	const [pendingDelete, setPendingDelete] = useState<null | { id: number; slug: string; title: string }>(null)
 
  useEffect(() => {
  fetchAllCourses()
@@ -45,7 +48,7 @@ export default function AdminCoursesPage() {
  try {
  const updated = await updateCourse(course.slug, { is_published: !course.is_published })
  setCourses((prev) =>
- prev.map((c) => (c.id === course.id ? { ...c, is_published: !c.is_published } : c))
+ prev.map((c) => (c.id === course.id ? { ...c, is_published: !course.is_published } : c))
 )
  setFeedback({
  type: 'success',
@@ -58,11 +61,38 @@ export default function AdminCoursesPage() {
  }
  }
 
+ const executeDeleteCourse = async () => {
+    if (!pendingDelete) return
+    const { id, slug, title } = pendingDelete
+    setConfirmOpen(false)
+    setDeleting(id)
+    try {
+      await deleteCourse(slug)
+      setCourses((prev) => prev.filter((c) => c.id !== id))
+      setFeedback({ type: 'success', message: `"${title}" deleted successfully` })
+    } catch (err) {
+      setFeedback({ type: 'error', message: `Failed to delete "${title}"` })
+    } finally {
+      setDeleting(null)
+      setPendingDelete(null)
+    }
+  }
+
  const published = courses.filter((c) => c.is_published)
  const drafts = courses.filter((c) => !c.is_published)
 
  return (
  <div className="space-y-6">
+		<ConfirmDialog
+			open={confirmOpen}
+			title={`Delete Course`}
+			description={pendingDelete ? `Are you sure you want to delete "${pendingDelete.title}"? This will permanently remove all modules and lessons.` : undefined}
+			confirmLabel="Delete"
+			cancelLabel="Cancel"
+			loading={deleting !== null}
+			onConfirm={executeDeleteCourse}
+			onCancel={() => { setConfirmOpen(false); setPendingDelete(null) }}
+		/>
  {/* Header */}
  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
  <div>
@@ -215,18 +245,9 @@ export default function AdminCoursesPage() {
  </button>
 
  <button
- onClick={async () => {
- if (!confirm(`Are you sure you want to delete "${course.title}"? This will permanently remove all modules and lessons.`)) return
- setDeleting(course.id)
- try {
- await deleteCourse(course.slug)
- setCourses((prev) => prev.filter((c) => c.id !== course.id))
- setFeedback({ type: 'success', message: `"${course.title}" deleted successfully` })
- } catch {
- setFeedback({ type: 'error', message: `Failed to delete "${course.title}"` })
- } finally {
- setDeleting(null)
- }
+ onClick={() => {
+ setPendingDelete({ id: course.id, slug: course.slug, title: course.title })
+ setConfirmOpen(true)
  }}
  disabled={deleting === course.id}
  className={cn(
@@ -281,18 +302,9 @@ export default function AdminCoursesPage() {
  <Pencil className="h-4 w-4" />
  </button>
  <button
- onClick={async () => {
- if (!confirm(`Are you sure you want to delete "${course.title}"? This will permanently remove all modules and lessons.`)) return
- setDeleting(course.id)
- try {
- await deleteCourse(course.slug)
- setCourses((prev) => prev.filter((c) => c.id !== course.id))
- setFeedback({ type: 'success', message: `"${course.title}" deleted successfully` })
- } catch {
- setFeedback({ type: 'error', message: `Failed to delete "${course.title}"` })
- } finally {
- setDeleting(null)
- }
+ onClick={() => {
+ setPendingDelete({ id: course.id, slug: course.slug, title: course.title })
+ setConfirmOpen(true)
  }}
  disabled={deleting === course.id}
  className={cn(
@@ -316,5 +328,5 @@ export default function AdminCoursesPage() {
  </div>
 )}
  </div>
-)
+ )
 }
