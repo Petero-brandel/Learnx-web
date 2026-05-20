@@ -61,12 +61,16 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
     setError(null)
 
     try {
-      await onSave({
+      const payload: Partial<AdminCourse> = {
         title,
         description,
         price: Number(price) as any,
-        thumbnail: thumbnailUrl || undefined,
-      })
+      }
+      // Only include thumbnail if it was changed
+      if (thumbnailUrl !== (course.thumbnail || '')) {
+        (payload as any).thumbnail = thumbnailUrl || undefined
+      }
+      await onSave(payload)
       onClose()
     } catch (err: any) {
       setError(err?.response?.data?.error || err?.response?.data?.detail || JSON.stringify(err?.response?.data) || err?.message || 'Failed to update course details.')
