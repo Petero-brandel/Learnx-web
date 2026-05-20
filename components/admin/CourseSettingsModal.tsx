@@ -183,7 +183,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
                   id="price"
                   type="number"
                   min="0"
-                  step="100"
+                  step="any"
                   required
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}

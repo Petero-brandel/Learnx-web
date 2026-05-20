@@ -183,7 +183,7 @@ function SortableModule({
  <div className="flex items-center gap-2">
  <button 
               onClick={() => onAddLesson(module.id)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-900 shadow-sm text-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:text-zinc-100 rounded-lg text-xs font-semibold transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 dark:bg-zinc-800/80 dark:hover:bg-zinc-700 dark:text-zinc-300 rounded-lg text-xs font-semibold transition-colors"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Lesson
@@ -997,12 +997,12 @@ export default function CourseBuilderPage() {
   </button>
   <button
   onClick={() => handleUpdateCourseDetails({ is_published: !course.is_published })}
- className={cn(
- "px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-sm border",
- course.is_published 
- ?"bg-zinc-800 text-white border-zinc-800 hover:bg-zinc-900 dark:bg-zinc-200 dark:text-zinc-900 dark:border-zinc-200 dark:hover:bg-white"
- :"bg-blue-600 text-white border-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:border-blue-500 dark:hover:bg-blue-600"
- )}
+  className={cn(
+  "px-5 py-2 rounded-xl text-sm font-bold transition-all border",
+  course.is_published 
+  ?"bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-700 dark:hover:bg-zinc-800"
+  :"bg-blue-600 text-white border-blue-600 hover:bg-blue-700 shadow-sm dark:bg-blue-500 dark:border-blue-500 dark:hover:bg-blue-600"
+  )}
  >
  {course.is_published ? 'Unpublish' : 'Publish'}
  </button>
