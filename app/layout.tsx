@@ -18,6 +18,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
  title:"Bluedemy",
  description:"Master AI & Digital Skills with expert-led courses in Prompt Engineering, Content Creation, and Digital Marketing.",
+ icons: {
+  icon: [
+   { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+   { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+   "/favicon.ico",
+  ],
+  shortcut: "/favicon-32x32.png",
+  apple: "/apple-touch-icon.png",
+  other: [
+   { rel: "manifest", url: "/site.webmanifest" },
+   { rel: "icon", url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+   { rel: "icon", url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+   { rel: "mask-icon", url: "/bluedemy-icon.png", color: "#000000" },
+  ],
+ },
 };
 
 export const viewport: Viewport = {
