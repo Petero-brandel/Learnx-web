@@ -27,8 +27,8 @@ export default function ForgotPasswordPage() {
  };
 
  return (
- <div className="min-h-screen bg-zinc-50 dark:bg-[#121212] relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden">
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10">
+ <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/60 bg-white/95 dark:bg-zinc-900 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10">
  
  {status === 'success' ? (
  <div className="text-center py-4">
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
  onChange={(e) => setEmail(e.target.value)}
  placeholder="name@example.com"
  autoComplete="email"
- className="w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3.5 py-3 text-sm outline-none transition-all placeholder:text-zinc-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+ className="w-full rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900 px-3.5 py-3 text-sm outline-none transition-all placeholder:text-zinc-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
  />
  </div>
 

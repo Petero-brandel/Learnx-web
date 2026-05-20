@@ -42,8 +42,8 @@ export default function AdminNotificationItem({ notification, onMarkRead }: Admi
  className={cn(
 "flex items-start gap-3 w-full p-4 rounded-xl text-left transition-all duration-200 border",
  notification.is_read
- ?"border-zinc-200 bg-zinc-50 opacity-70 dark:border-zinc-800/30 dark:bg-zinc-900/20 dark:opacity-60"
- :"border-zinc-300 bg-white hover:bg-zinc-50 hover:border-zinc-400 shadow-sm dark:shadow-none dark:border-zinc-800/60 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/40 dark:hover:border-zinc-700/60"
+ ?"border-zinc-200 bg-zinc-50 opacity-70 dark:border-zinc-700/30 dark:bg-zinc-900/20 dark:opacity-60"
+ :"border-zinc-300 bg-white hover:bg-zinc-50 hover:border-zinc-400 shadow-sm dark:shadow-none dark:border-zinc-700/60 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/40 dark:hover:border-zinc-700/60"
 )}
  >
  {/* Icon */}

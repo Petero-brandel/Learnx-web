@@ -42,7 +42,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  const sidebarContent = (
  <div className="w-full md:w-[260px] flex flex-col h-full">
  {/* Brand header */}
- <div className="flex items-center gap-3 pl-[16px] pr-4 h-16 border-b border-zinc-200 dark:border-zinc-800/60 shrink-0">
+ <div className="flex items-center gap-3 pl-[16px] pr-4 h-16 border-b border-zinc-200 dark:border-zinc-700/60 shrink-0">
  <div className="flex items-center justify-center h-9 w-9 rounded-xl bg-blue-100 dark:bg-blue-500/15 shrink-0">
  <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400" />
  </div>
@@ -104,7 +104,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  </nav>
 
  {/* User info + Logout */}
- <div className="p-3 border-t border-zinc-200 dark:border-zinc-800/60 shrink-0">
+ <div className="p-3 border-t border-zinc-200 dark:border-zinc-700/60 shrink-0">
  <div className="flex items-center gap-3 pl-[6px] pr-3 py-2 mb-2">
  {user?.profile_photo ? (
  <img
@@ -140,7 +140,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  {/* Desktop sidebar */}
  <aside
  className={cn(
-"group/sidebar hidden md:flex flex-col fixed top-0 left-0 h-screen bg-white dark:bg-[#0f0f0f] border-r border-zinc-200 dark:border-zinc-800/60 z-40 transition-all duration-300 overflow-hidden",
+"group/sidebar hidden md:flex flex-col fixed top-0 left-0 h-screen bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700/60 z-40 transition-all duration-300 overflow-hidden",
 "w-[68px] hover:w-[260px]"
 )}
  >
@@ -152,11 +152,11 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  <div className="fixed inset-0 z-50 md:hidden">
  {/* Backdrop */}
  <div
- className="absolute inset-0 bg-black/60"
+ className="absolute inset-0 bg-zinc-950/55"
  onClick={onMobileClose}
  />
  {/* Drawer */}
- <aside className="absolute right-0 top-0 bottom-0 w-[280px] bg-white dark:bg-[#0f0f0f] border-l border-zinc-200 dark:border-zinc-800/60 overflow-hidden animate-in slide-in-from-right duration-300">
+ <aside className="absolute right-0 top-0 bottom-0 w-[280px] bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-700/60 overflow-hidden animate-in slide-in-from-right duration-300">
  {sidebarContent}
  </aside>
  </div>

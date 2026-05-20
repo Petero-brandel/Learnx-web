@@ -91,7 +91,7 @@ export default function NewCoursePage() {
  </p>
  </div>
 
- <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-[20px] p-6">
+ <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-700/60 shadow-sm dark:shadow-none rounded-[20px] p-6">
  <form onSubmit={handleSubmit} className="space-y-6">
  {error && (
  <div className="p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl">
@@ -106,7 +106,7 @@ export default function NewCoursePage() {
  Course Thumbnail
  </label>
  {thumbnailPreview ? (
- <div className="relative w-full h-44 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 group">
+ <div className="relative w-full h-44 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-700/70 group">
  <img 
  src={thumbnailPreview} 
  alt="Thumbnail preview" 
@@ -131,7 +131,7 @@ export default function NewCoursePage() {
  <button
  type="button"
  onClick={() => fileInputRef.current?.click()}
- className="w-full h-44 border-2 border-dashed border-zinc-300 dark:border-zinc-800 hover:border-blue-500/40 dark:hover:border-blue-500/40 rounded-xl flex flex-col items-center justify-center gap-2 transition-colors cursor-pointer bg-zinc-50 dark:bg-zinc-900/30 hover:bg-blue-50 dark:hover:bg-blue-500/5"
+ className="w-full h-44 border-2 border-dashed border-zinc-300 dark:border-zinc-700/70 hover:border-blue-500/40 dark:hover:border-blue-500/40 rounded-xl flex flex-col items-center justify-center gap-2 transition-colors cursor-pointer bg-zinc-50 dark:bg-zinc-900/30 hover:bg-blue-50 dark:hover:bg-blue-500/5"
  >
  <ImagePlus className="h-8 w-8 text-zinc-400 dark:text-zinc-600" />
  <span className="text-xs text-zinc-500">Click to upload a thumbnail image</span>
@@ -158,7 +158,7 @@ export default function NewCoursePage() {
  value={title}
  onChange={(e) => setTitle(e.target.value)}
  placeholder="e.g. Advanced Prompt Engineering"
- className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-sm dark:shadow-none"
+ className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-xl text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-sm dark:shadow-none"
  />
  </div>
 
@@ -172,7 +172,7 @@ export default function NewCoursePage() {
  value={description}
  onChange={(e) => setDescription(e.target.value)}
  placeholder="Briefly describe what students will learn..."
- className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none shadow-sm dark:shadow-none"
+ className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-xl text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none shadow-sm dark:shadow-none"
  />
  </div>
 
@@ -188,12 +188,12 @@ export default function NewCoursePage() {
  required
  value={price}
  onChange={(e) => setPrice(e.target.value)}
- className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-sm dark:shadow-none"
+ className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-xl text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-sm dark:shadow-none"
  />
  </div>
  </div>
 
- <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/60 flex justify-end gap-3">
+ <div className="pt-4 border-t border-zinc-200 dark:border-zinc-700/60 flex justify-end gap-3">
  <Link
  href="/admin/dashboard/courses"
  className="px-5 py-2.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"

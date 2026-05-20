@@ -48,14 +48,14 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
  <>
  {/* Backdrop */}
  <div
- className="fixed inset-0 z-40 bg-zinc-900/30 dark:bg-black/50 md:hidden animate-in fade-in duration-200"
+ className="fixed inset-0 z-40 bg-zinc-900/30 dark:bg-zinc-950/55 md:hidden animate-in fade-in duration-200"
  onClick={onClose}
  />
 
  {/* Drawer */}
- <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white dark:bg-zinc-950 shadow-2xl md:hidden animate-in slide-in-from-right duration-300">
+ <div className="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-white dark:bg-zinc-900 shadow-2xl border-l border-zinc-200 dark:border-zinc-700/60 md:hidden animate-in slide-in-from-right duration-300">
  {/* Header */}
- <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800">
+ <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-700/70">
             <Logo href="/" size="xs" variant="auto" src="/bluedemy-logo.png" onClick={onClose} />
  <button
  onClick={onClose}
@@ -66,7 +66,7 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
  </div>
 
  {/* User profile card */}
- <div className="p-5 border-b border-zinc-100 dark:border-zinc-800">
+ <div className="p-5 border-b border-zinc-100 dark:border-zinc-700/70">
  <div className="flex items-center gap-3">
  {user?.profile_photo ? (
  <img
@@ -128,7 +128,7 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
  </div>
 
  {/* Logout */}
- <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+ <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-zinc-100 dark:border-zinc-700/70 bg-white dark:bg-zinc-900">
  <button
  onClick={() => { onClose(); logout(); }}
  className="flex items-center justify-center gap-2 w-full bg-zinc-100 dark:bg-zinc-900 text-red-600 dark:text-red-400 rounded-xl py-3 font-semibold hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"

@@ -27,19 +27,19 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
  <>
  {/* Backdrop */}
  <div
- className="fixed inset-0 z-40 bg-black/40 animate-in fade-in duration-200"
+ className="fixed inset-0 z-40 bg-zinc-900/35 dark:bg-zinc-950/55 animate-in fade-in duration-200"
  onClick={onClose}
  />
 
  {/* Sheet */}
- <div className="fixed inset-x-0 bottom-0 z-50 max-h-[85vh] flex flex-col bg-white dark:bg-zinc-950 rounded-t-2xl shadow-2xl animate-in slide-in-from-bottom duration-300">
+ <div className="fixed inset-x-0 bottom-0 z-50 max-h-[85vh] flex flex-col bg-white dark:bg-zinc-900 rounded-t-2xl shadow-2xl animate-in slide-in-from-bottom duration-300">
  {/* Drag handle */}
  <div className="flex items-center justify-center pt-3 pb-1">
  <div className="h-1 w-10 rounded-full bg-zinc-300 dark:bg-zinc-700" />
  </div>
 
  {/* Header */}
- <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-100 dark:border-zinc-800">
+ <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-100 dark:border-zinc-700/70">
  <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100">{title}</h3>
  <button
  onClick={onClose}

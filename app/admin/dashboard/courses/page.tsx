@@ -84,7 +84,7 @@ export default function AdminCoursesPage() {
  {feedback && (
  <div
  className={cn(
- "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100"
+ "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100"
  )}
  >
  {feedback.type === 'success' ? (
@@ -107,11 +107,11 @@ export default function AdminCoursesPage() {
  {loading ? (
  <div className="space-y-4 animate-pulse">
  {[1, 2, 3].map((i) => (
- <div key={i} className="h-24 rounded-2xl bg-zinc-100 dark:bg-zinc-800/30 border border-zinc-200 dark:border-zinc-800/60" />
+ <div key={i} className="h-24 rounded-2xl bg-zinc-100 dark:bg-zinc-800/30 border border-zinc-200 dark:border-zinc-700/60" />
 ))}
  </div>
 ) : courses.length === 0 ? (
- <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20">
+ <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900/20">
  <BookOpen className="h-10 w-10 text-zinc-400 dark:text-zinc-700 mb-3" />
  <p className="text-sm text-zinc-500">No courses created yet</p>
  </div>
@@ -124,7 +124,7 @@ export default function AdminCoursesPage() {
  return (
  <div
  key={course.id}
- className="group rounded-[20px] border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-4 sm:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors shadow-sm dark:shadow-none"
+ className="group rounded-[20px] border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-4 sm:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors shadow-sm dark:shadow-none"
  >
  <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 h-full">
  {/* Thumbnail */}
@@ -246,7 +246,7 @@ export default function AdminCoursesPage() {
  </div>
 
  {/* Mobile Actions Footer */}
- <div className="sm:hidden mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between">
+ <div className="sm:hidden mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between">
  <div className="flex items-center gap-2.5">
  <button
  onClick={() => handleTogglePublish(course)}

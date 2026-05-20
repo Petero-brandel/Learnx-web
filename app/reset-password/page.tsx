@@ -68,7 +68,7 @@ function ResetPasswordContent() {
 
  if (!uid || !token) {
  return (
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/70 bg-white/95 dark:bg-zinc-900/85 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
  <div className="mx-auto w-16 h-16 bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 rounded-full flex items-center justify-center mb-6">
  <AlertCircle className="h-8 w-8" />
  </div>
@@ -85,7 +85,7 @@ function ResetPasswordContent() {
 
  if (status === 'success') {
  return (
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/70 bg-white/95 dark:bg-zinc-900/85 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
  <div className="mx-auto w-16 h-16 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-full flex items-center justify-center mb-6">
  <ShieldCheck className="h-8 w-8" />
  </div>
@@ -101,7 +101,7 @@ function ResetPasswordContent() {
  }
 
  return (
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/70 bg-white/95 dark:bg-zinc-900/85 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10">
  <h1 className="text-2xl font-bold tracking-tight mb-2">Create new password</h1>
  <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
  Please enter and confirm your new password below.
@@ -126,7 +126,7 @@ function ResetPasswordContent() {
  value={password}
  onChange={(e) => setPassword(e.target.value)}
  placeholder="Create a strong password"
- className={`w-full rounded-2xl border bg-white dark:bg-zinc-950 px-3.5 py-3 pr-10 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.password ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
+ className={`w-full rounded-2xl border bg-white dark:bg-zinc-900 px-3.5 py-3 pr-10 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.password ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-700/70 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
  />
  <button
  type="button"
@@ -177,7 +177,7 @@ function ResetPasswordContent() {
  value={confirmPassword}
  onChange={(e) => setConfirmPassword(e.target.value)}
  placeholder="Repeat new password"
- className={`w-full rounded-2xl border bg-white dark:bg-zinc-950 px-3.5 py-3 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.confirm ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
+ className={`w-full rounded-2xl border bg-white dark:bg-zinc-900 px-3.5 py-3 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.confirm ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-700/70 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
  />
  {fieldErrors.confirm && <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{fieldErrors.confirm}</p>}
  </div>
@@ -197,9 +197,9 @@ function ResetPasswordContent() {
 
 export default function ResetPasswordPage() {
  return (
- <div className="min-h-screen bg-zinc-50 dark:bg-[#121212] relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden">
+ <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden">
  <Suspense fallback={
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/60 bg-white/95 dark:bg-zinc-900 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
  <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto" />
  </div>
  }>

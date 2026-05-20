@@ -16,7 +16,7 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
  <Link
  href={`/dashboard/courses/${enrollment.course_slug}`}
  className={cn(
- "group block rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden transition-all duration-300 hover:shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 active:scale-[0.98]",
+ "group block rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-300 hover:shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 active:scale-[0.98]",
  enrollment.is_active === false && "opacity-75 grayscale-[0.5]"
  )}
  >

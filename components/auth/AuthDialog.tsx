@@ -208,13 +208,13 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  const subtitleLink = isSignup ? '/login' : '/signup';
  const subtitleLinkLabel = isSignup ? 'Log in' : 'Sign up';
  const submitLabel = isSignup ? 'Create account with email' : 'Continue with email';
- const submitLoadingLabel = isSignup ? 'Creating account…' : 'Signing in…';
+ const submitLoadingLabel = isSignup ? 'Creating account...' : 'Signing in...';
 
  let CardContent;
  if (isVerificationSent) {
  CardContent = (
  <div
- className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center"
+ className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/60 bg-white/95 dark:bg-zinc-900 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center"
  onClick={(e) => e.stopPropagation()}
  >
  <button
@@ -246,7 +246,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  } else {
  CardContent = (
  <div
- className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-8"
+ className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/60 bg-white/95 dark:bg-zinc-900 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-8"
  onClick={(e) => e.stopPropagation()}
  >
  <button
@@ -273,7 +273,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  </div>
 
  {error && (
- <div className="mb-4 flex items-center gap-3 p-3 rounded-xl text-sm border bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100">
+ <div className="mb-4 flex items-center gap-3 p-3 rounded-xl text-sm border bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100">
  <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
  <AlertCircle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
  </div>
@@ -286,7 +286,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  type="button"
  onClick={() => loginWithGoogle()}
  disabled={isGoogleLoading || isLoading}
- className="w-full flex items-center justify-center gap-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-transparent px-4 py-3 text-sm font-medium text-zinc-900 dark:text-zinc-100 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
+ className="w-full flex items-center justify-center gap-3 rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-transparent px-4 py-3 text-sm font-medium text-zinc-900 dark:text-zinc-100 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
  >
  {isGoogleLoading ? (
  <Loader2 className="h-5 w-5 animate-spin" />
@@ -304,7 +304,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  <button
  type="button"
  disabled
- className="w-full flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm font-medium text-zinc-500 dark:text-zinc-400 cursor-not-allowed"
+ className="w-full flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm font-medium text-zinc-500 dark:text-zinc-400 cursor-not-allowed"
  >
  <Mail className="h-4 w-4" />
  Google sign-in is not configured
@@ -333,7 +333,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  onChange={(e) => setEmail(e.target.value)}
  placeholder="name@example.com"
  autoComplete={isSignup ? 'email' : 'username'}
- className={`w-full rounded-2xl border bg-white dark:bg-zinc-950 px-3.5 py-3 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.email ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
+ className={`w-full rounded-2xl border bg-white dark:bg-zinc-900 px-3.5 py-3 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.email ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-700/70 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
  />
  {fieldErrors.email && <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{fieldErrors.email}</p>}
  </div>
@@ -357,7 +357,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  onChange={(e) => setPassword(e.target.value)}
  placeholder={isSignup ? 'Create a password' : 'Enter your password'}
  autoComplete={isSignup ? 'new-password' : 'current-password'}
- className={`w-full rounded-2xl border bg-white dark:bg-zinc-950 px-3.5 py-3 pr-10 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.password ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
+ className={`w-full rounded-2xl border bg-white dark:bg-zinc-900 px-3.5 py-3 pr-10 text-sm outline-none transition-all placeholder:text-zinc-400 ${fieldErrors.password ? 'border-red-300 focus:ring-red-500' : 'border-zinc-200 dark:border-zinc-700/70 focus:ring-2 focus:ring-blue-500 focus:border-transparent'}`}
  />
  <button
  type="button"
@@ -425,7 +425,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  if (mode === 'modal') {
  return (
  <div
- className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/40 p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
+ className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-900/35 dark:bg-zinc-950/55 p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
  onClick={closeTo}
  >
  {CardContent}
@@ -436,7 +436,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  // Page mode: full page with blurred home page background
  return (
  <div
- className="min-h-screen bg-zinc-50 dark:bg-[#121212] relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden"
+ className="min-h-screen bg-zinc-50 dark:bg-zinc-900 relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden"
  onClick={closeTo}
  >
  {/* Blurred Ambient Home Page Background */}

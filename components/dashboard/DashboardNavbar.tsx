@@ -13,7 +13,7 @@ import {
  ArrowRight, Settings, LogOut, Search, ExternalLink
 } from 'lucide-react'
 
-// ─── Mega-menu content for dashboard nav ───
+// --- Mega-menu content for dashboard nav ---
 const dashboardMenus: Record<string, {
  heading: string
  description: string
@@ -97,7 +97,7 @@ export default function DashboardNavbar() {
  ]
 
  return (
- <nav className="fixed top-0 z-50 w-full bg-white/80 dark:bg-black/80 border-b border-zinc-200 dark:border-zinc-800 shadow-sm hidden md:block">
+ <nav className="fixed top-0 z-50 w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700/60 shadow-sm hidden md:block">
  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
  <div className="flex h-16 items-center justify-between">
  {/* Logo */}
@@ -205,12 +205,12 @@ export default function DashboardNavbar() {
  {/* Avatar dropdown panel */}
  {avatarOpen && (
  <div
- className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-xl overflow-hidden animate-in fade-in slide-in- duration-200 z-50"
+ className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/60 shadow-2xl rounded-xl overflow-hidden animate-in fade-in slide-in- duration-200 z-50"
  onMouseEnter={handleAvatarEnter}
  onMouseLeave={handleAvatarLeave}
  >
  {/* User info */}
- <div className="p-4 border-b border-zinc-100 dark:border-zinc-800">
+ <div className="p-4 border-b border-zinc-100 dark:border-zinc-700/70">
  <div className="flex items-center gap-3">
  {user?.profile_photo ? (
  <img
@@ -255,7 +255,7 @@ export default function DashboardNavbar() {
  </div>
 
  {/* Logout */}
- <div className="p-2 border-t border-zinc-100 dark:border-zinc-800">
+ <div className="p-2 border-t border-zinc-100 dark:border-zinc-700/70">
  <button
  onClick={() => { setAvatarOpen(false); logout(); }}
  className="flex items-center gap-3 w-full px-3 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
@@ -271,17 +271,17 @@ export default function DashboardNavbar() {
  </div>
  </div>
 
- {/* ─── Mega-Menu Dropdown ─── */}
+ {/* --- Mega-Menu Dropdown --- */}
  {activeMenu && dashboardMenus[activeMenu] && (
  <div
  className="absolute left-0 right-0 top-full"
  onMouseEnter={handleDropdownEnter}
  onMouseLeave={handleMenuLeave}
  >
- <div className="h-px bg-zinc-200 dark:bg-zinc-800" />
- <div className="bg-white/95 dark:bg-zinc-950/95 border-b border-zinc-200 dark:border-zinc-800 shadow-2xl">
+ <div className="h-px bg-zinc-200 dark:bg-zinc-700/60" />
+ <div className="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700/60 shadow-2xl">
  <div className="mx-auto w-[90%] max-w-7xl py-6 animate-in fade-in slide-in- duration-300">
- <div className="mb-4 pb-3 border-b border-zinc-100 dark:border-zinc-800">
+ <div className="mb-4 pb-3 border-b border-zinc-100 dark:border-zinc-700/70">
  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
  {dashboardMenus[activeMenu].heading}
  </h3>
@@ -315,7 +315,7 @@ export default function DashboardNavbar() {
  </div>
 
  {dashboardMenus[activeMenu].cta && (
- <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800">
+ <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-700/70">
  <Link
  href={dashboardMenus[activeMenu].cta!.href}
  onClick={() => setActiveMenu(null)}
@@ -331,17 +331,17 @@ export default function DashboardNavbar() {
  </div>
 )}
 
- {/* ─── Notifications Full-Width Dropdown ─── */}
+ {/* --- Notifications Full-Width Dropdown --- */}
  {notifHover && (
  <div
  className="absolute left-0 right-0 top-full"
  onMouseEnter={handleNotifEnter}
  onMouseLeave={handleNotifLeave}
  >
- <div className="h-px bg-zinc-200 dark:bg-zinc-800" />
- <div className="bg-white/95 dark:bg-zinc-950/95 border-b border-zinc-200 dark:border-zinc-800 shadow-2xl">
+ <div className="h-px bg-zinc-200 dark:bg-zinc-700/60" />
+ <div className="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700/60 shadow-2xl">
  <div className="mx-auto w-[90%] max-w-7xl py-6 animate-in fade-in slide-in- duration-300">
- <div className="mb-4 pb-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+ <div className="mb-4 pb-3 border-b border-zinc-100 dark:border-zinc-700/70 flex items-center justify-between">
  <div>
  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Notifications</h3>
  <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">Stay up to date with your learning progress.</p>
@@ -394,7 +394,7 @@ export default function DashboardNavbar() {
  </div>
 )}
 
- <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800">
+ <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-700/70">
  <Link
  href="/dashboard/notifications"
  onClick={() => setNotifHover(false)}

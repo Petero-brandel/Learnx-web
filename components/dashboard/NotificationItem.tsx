@@ -43,8 +43,8 @@ export default function NotificationItem({ notification, onMarkRead }: Notificat
 "flex items-start gap-3 w-full p-4 rounded-xl text-left transition-all duration-200",
 "border",
  notification.is_read
- ?"border-zinc-100 dark:border-zinc-800/50 bg-white dark:bg-zinc-900/20 opacity-70"
- :"border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 hover:shadow-sm"
+ ?"border-zinc-100 dark:border-zinc-700/50 bg-white dark:bg-zinc-900/20 opacity-70"
+ :"border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 hover:shadow-sm"
 )}
  >
  {/* Icon */}

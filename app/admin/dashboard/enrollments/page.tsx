@@ -67,7 +67,7 @@ export default function EnrollmentsPage() {
  {feedback && (
  <div
  className={cn(
- "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100"
+ "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100"
  )}
  >
  {feedback.type === 'success' ? (
@@ -106,15 +106,15 @@ export default function EnrollmentsPage() {
 ))}
  </div>
 ) : filtered.length === 0 ? (
- <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20">
+ <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900/20">
  <GraduationCap className="h-10 w-10 text-zinc-400 dark:text-zinc-700 mb-3" />
  <p className="text-sm text-zinc-500">{search ? 'No matching enrollments' : 'No enrollments found'}</p>
  </div>
 ) : (
- <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800/60">
+ <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700/60">
  <table className="w-full text-sm">
  <thead>
- <tr className="border-b border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/50">
+ <tr className="border-b border-zinc-200 dark:border-zinc-700/60 bg-zinc-50 dark:bg-zinc-900/50">
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Course</th>
  <th className="text-center px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Progress</th>
@@ -127,7 +127,7 @@ export default function EnrollmentsPage() {
  {filtered.map((enrollment) => (
  <tr
  key={enrollment.id}
- className="border-b border-zinc-200 dark:border-zinc-800/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors"
+ className="border-b border-zinc-200 dark:border-zinc-700/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors"
  >
  <td className="px-4 py-3">
  <div className="flex items-center gap-2.5">

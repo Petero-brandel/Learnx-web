@@ -30,7 +30,7 @@ export default function MiniChart({ data, color = 'emerald', height = 200 }: Min
 
  if (!data || data.length === 0) {
  return (
- <div className="flex items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-800/20 border border-zinc-200 dark:border-zinc-800/40" style={{ height }}>
+ <div className="flex items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-800/20 border border-zinc-200 dark:border-zinc-700/40" style={{ height }}>
  <p className="text-xs text-zinc-500 dark:text-zinc-600">No data available</p>
  </div>
 )

@@ -21,7 +21,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
  <DashboardDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
  {/* Main content */}
- <main className="min-h-screen bg-white dark:bg-[#121212] pt-14 md:pt-16">
+ <main className="min-h-screen bg-white dark:bg-zinc-900 pt-14 md:pt-16">
  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-8">
  {children}
  </div>

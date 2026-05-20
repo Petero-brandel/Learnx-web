@@ -7,7 +7,7 @@ interface AdminMobileHeaderProps {
 
 export default function AdminMobileHeader({ onMenuOpen }: AdminMobileHeaderProps) {
 	return (
-	<header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between h-16 px-4 bg-white/95 dark:bg-[#0f0f0f]/95 border-b border-zinc-200 dark:border-zinc-800/60 md:hidden">
+	<header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between h-16 px-4 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700/60 md:hidden">
 		<Logo href="/" size="lg" variant="auto" src="/bluedemy-logo.png" className="h-16 w-auto" />
 
 		<button

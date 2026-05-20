@@ -34,7 +34,7 @@ function VerifyEmailContent() {
  }, [token]);
 
  return (
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/70 bg-white/95 dark:bg-zinc-900/85 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
  {status === 'loading' && (
  <div className="py-8">
  <Loader2 className="h-10 w-10 animate-spin text-blue-600 mx-auto mb-6" />
@@ -86,9 +86,9 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
  return (
- <div className="min-h-screen bg-zinc-50 dark:bg-[#121212] relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden">
+ <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 relative flex items-center justify-center p-4 lg:p-8 font-sans text-zinc-950 dark:text-zinc-50 selection:bg-blue-500/30 overflow-hidden">
  <Suspense fallback={
- <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
+ <div className="w-full max-w-[480px] relative z-10 rounded-[28px] border border-zinc-200/80 dark:border-zinc-700/60 bg-white/95 dark:bg-zinc-900 shadow-[0_30px_120px_rgba(0,0,0,0.24)] p-6 sm:p-10 text-center">
  <div className="py-8">
  <Loader2 className="h-10 w-10 animate-spin text-blue-600 mx-auto" />
  </div>

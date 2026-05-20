@@ -52,7 +52,7 @@ export default function BroadcastPage() {
  {feedback && (
  <div
  className={cn(
- "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100"
+ "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100"
  )}
  >
  {feedback.type === 'success' ? (
@@ -72,7 +72,7 @@ export default function BroadcastPage() {
  )}
 
  {/* Composer */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center gap-3 mb-6">
  <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
  <Send className="h-5 w-5 text-blue-600 dark:text-blue-400" />

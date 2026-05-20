@@ -50,7 +50,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  ])
  setCourse(courseData)
 
- // ── Enrollment check: only allow enrolled students ──
+ // -- Enrollment check: only allow enrolled students --
  const myEnrollment = enrollments.find(e => e.course_slug === slug)
  if (myEnrollment) {
  setEnrollment(myEnrollment)
@@ -71,7 +71,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  if (firstLesson) setActiveLesson(firstLesson)
  }
  }
- // If no enrollment found, enrollment stays null → access denied screen
+ // If no enrollment found, enrollment stays null â†’ access denied screen
  } catch (err) {
  console.error('Failed to load course', err)
  } finally {
@@ -113,7 +113,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
 )
  }
 
- // ── ACCESS DENIED: User is not enrolled in this course ──
+ // -- ACCESS DENIED: User is not enrolled in this course --
  if (!enrollment) {
  return (
  <div className="flex flex-col items-center justify-center py-20 px-6">
@@ -146,7 +146,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
 )
  }
 
- // ── DEACTIVATED: Enrollment is deactivated ──
+ // -- DEACTIVATED: Enrollment is deactivated --
  if (enrollment.is_active === false) {
  return (
  <div className="flex flex-col items-center justify-center py-20 px-6">
@@ -182,7 +182,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  return (
  <div className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 md:-my-8">
  {/* Top bar */}
- <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+ <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900">
  <Link
  href="/dashboard"
  className="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
@@ -243,7 +243,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  <div className="flex-1" />
 
  {/* Sticky bottom controls */}
- <div className="sticky bottom-0 bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 px-4 md:px-6 py-3">
+ <div className="sticky bottom-0 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-700/70 px-4 md:px-6 py-3">
  <div className="flex items-center justify-between gap-3">
  {/* Previous */}
  <button
@@ -300,9 +300,9 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  </div>
 
  {/* Right panel course sidebar (desktop only) */}
- <aside className="hidden md:flex flex-col w-80 lg:w-96 border-l border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/20">
+ <aside className="hidden md:flex flex-col w-80 lg:w-96 border-l border-zinc-200 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900/20">
  {/* Progress header */}
- <div className="flex items-center gap-4 p-5 border-b border-zinc-200 dark:border-zinc-800">
+ <div className="flex items-center gap-4 p-5 border-b border-zinc-200 dark:border-zinc-700/70">
  <ProgressRing percentage={progress} size={64} strokeWidth={5} />
  <div>
  <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Course Progress</p>
@@ -332,7 +332,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
  <BottomSheet
  isOpen={sheetOpen}
  onClose={() => setSheetOpen(false)}
- title={`Modules · ${progress}% complete`}
+ title={`Modules Â· ${progress}% complete`}
  >
  <div className="space-y-3">
  {course.modules.map((module, i) => (
@@ -354,11 +354,11 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
 )
 }
 
-// ─── Skeleton ────────────────────────────────────────────
+// --- Skeleton --------------------------------------------
 function CoursePlayerSkeleton() {
  return (
  <div className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 md:-my-8 animate-pulse">
- <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-zinc-200 dark:border-zinc-800">
+ <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-zinc-200 dark:border-zinc-700/70">
  <div className="h-4 w-20 bg-zinc-200 dark:bg-zinc-800 rounded" />
  <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800" />
  <div className="h-4 w-48 bg-zinc-200 dark:bg-zinc-800 rounded flex-1" />
@@ -371,7 +371,7 @@ function CoursePlayerSkeleton() {
  <div className="h-4 w-16 bg-zinc-100 dark:bg-zinc-800/50 rounded" />
  </div>
  </div>
- <aside className="hidden md:block w-80 lg:w-96 border-l border-zinc-200 dark:border-zinc-800 p-5">
+ <aside className="hidden md:block w-80 lg:w-96 border-l border-zinc-200 dark:border-zinc-700/70 p-5">
  <div className="flex items-center gap-4 mb-6">
  <div className="h-16 w-16 rounded-full bg-zinc-200 dark:bg-zinc-800" />
  <div className="space-y-2">

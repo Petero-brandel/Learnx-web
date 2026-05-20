@@ -29,8 +29,8 @@ const solidStyles = {
     naira: 'text-blue-200/80',
   },
   slate: {
-    card: 'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800',
-    iconBg: 'bg-zinc-50 dark:bg-zinc-900/50 border-zinc-100 dark:border-zinc-800',
+    card: 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70',
+    iconBg: 'bg-zinc-50 dark:bg-zinc-900/50 border-zinc-100 dark:border-zinc-700/70',
     iconColor: 'text-slate-600 dark:text-slate-400',
     value: 'text-zinc-900 dark:text-zinc-100',
     label: 'text-zinc-600 dark:text-zinc-400',
@@ -38,8 +38,8 @@ const solidStyles = {
     naira: 'text-zinc-400 dark:text-zinc-500',
   },
   amber: {
-    card: 'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800',
-    iconBg: 'bg-zinc-50 dark:bg-zinc-900/50 border-zinc-100 dark:border-zinc-800',
+    card: 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70',
+    iconBg: 'bg-zinc-50 dark:bg-zinc-900/50 border-zinc-100 dark:border-zinc-700/70',
     iconColor: 'text-amber-600 dark:text-amber-400',
     value: 'text-zinc-900 dark:text-zinc-100',
     label: 'text-zinc-600 dark:text-zinc-400',
@@ -52,8 +52,8 @@ export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 
  const style = solidStyles[color]
 
  // Safely format the Naira symbol to prevent font overlapping issues
- const isNaira = typeof value === 'string' && value.includes('₦')
- const displayValue = isNaira ? value.replace('₦', '') : value
+ const isNaira = typeof value === 'string' && value.includes('â‚¦')
+ const displayValue = isNaira ? value.replace('â‚¦', '') : value
 
  return (
  <div
@@ -71,7 +71,7 @@ export default function AdminStatsCard({ icon: Icon, label, value, sub, color = 
  
  <div className="mb-1.5 flex-1 flex flex-col justify-end">
  <p className={cn("text-2xl font-bold tracking-tight flex items-baseline gap-0.5", style.value)}>
- {isNaira && <span className={cn("text-sm font-sans font-medium", style.naira)}>₦</span>}
+ {isNaira && <span className={cn("text-sm font-sans font-medium", style.naira)}>â‚¦</span>}
  {displayValue}
  </p>
  </div>

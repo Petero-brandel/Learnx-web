@@ -20,13 +20,13 @@ export default function StatsCard({ icon: Icon, label, value, color = 'pink', cl
  return (
  <div
  className={cn(
- "relative p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 transition-all duration-300",
- "bg-white dark:bg-zinc-950 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm flex flex-col justify-between shrink-0 snap-start",
+ "relative p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-700/70 transition-all duration-300",
+ "bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm flex flex-col justify-between shrink-0 snap-start",
  "min-w-[140px] w-[140px] md:w-auto md:min-w-0",
  className
  )}
  >
- <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800", iconColor)}>
+ <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-700/70", iconColor)}>
  <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
  </div>
  

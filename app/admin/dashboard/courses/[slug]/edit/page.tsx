@@ -52,7 +52,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import * as tus from 'tus-js-client'
 
-// ─── Sub-Components ──────────────────────────────────────────
+// --- Sub-Components ------------------------------------------
 
 function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onEdit: () => void, onDelete: () => void }) {
  const {
@@ -77,7 +77,7 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
  <div
  ref={setNodeRef}
  style={style}
- className="flex items-center gap-3 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-none rounded-xl group relative"
+ className="flex items-center gap-3 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 shadow-sm dark:shadow-none rounded-xl group relative"
  >
  <button 
  className="text-zinc-600 hover:text-zinc-400 cursor-grab active:cursor-grabbing p-1"
@@ -153,7 +153,7 @@ function SortableModule({
 )
 
  return (
- <div className="bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-2xl p-4 space-y-4">
+ <div className="bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-700/60 shadow-sm dark:shadow-none rounded-2xl p-4 space-y-4">
  {/* Module Header */}
  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
  {isEditing ? (
@@ -197,7 +197,7 @@ function SortableModule({
  </div>
 
  {/* Lessons List (Drag and Drop) */}
- <div className="pl-2 border-l border-zinc-200 dark:border-zinc-800/60 space-y-2">
+ <div className="pl-2 border-l border-zinc-200 dark:border-zinc-700/60 space-y-2">
  {module.lessons.length === 0 ? (
  <p className="text-xs text-zinc-500 py-2">No lessons in this module yet.</p>
 ) : (
@@ -461,14 +461,14 @@ function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl
  value={lesson.file_url || ''}
  onChange={(e) => onUpdateUrl(e.target.value)}
  placeholder="https://example.com/document.pdf"
- className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
  </div>
 )
 }
 
-// ─── Quiz Builder ────────────────────────────────────────────
+// --- Quiz Builder --------------------------------------------
 
 function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => Promise<void> }) {
  const [loading, setLoading] = useState(true)
@@ -622,7 +622,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  </button>
 
  {settingsOpen && (
- <div className="space-y-3 p-3 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/60 rounded-xl shadow-sm dark:shadow-none">
+ <div className="space-y-3 p-3 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-700/60 rounded-xl shadow-sm dark:shadow-none">
  {/* Passing Score */}
  <div>
  <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Passing Score (%)</label>
@@ -632,7 +632,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  max={100}
  value={passingScore}
  onChange={(e) => setPassingScore(Number(e.target.value))}
- className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
@@ -644,7 +644,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  min={0}
  value={maxAttempts}
  onChange={(e) => setMaxAttempts(Number(e.target.value))}
- className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
@@ -656,7 +656,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  min={0}
  value={timeLimitMinutes}
  onChange={(e) => setTimeLimitMinutes(Number(e.target.value))}
- className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
@@ -697,18 +697,18 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  </div>
 
  {questions.length === 0 && (
- <div className="p-4 text-center border border-dashed border-zinc-300 dark:border-zinc-800 rounded-xl bg-zinc-900/20">
+ <div className="p-4 text-center border border-dashed border-zinc-300 dark:border-zinc-700/70 rounded-xl bg-zinc-900/20">
  <HelpCircle className="h-5 w-5 text-zinc-600 mx-auto mb-1.5" />
  <p className="text-[11px] text-zinc-500">No questions yet. Add one below.</p>
  </div>
 )}
 
  {questions.map((q, qIdx) => (
- <div key={qIdx} className="p-3 bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-xl space-y-2.5">
+ <div key={qIdx} className="p-3 bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-700/60 shadow-sm dark:shadow-none rounded-xl space-y-2.5">
  {/* Question header */}
  <div className="flex items-center justify-between">
  <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
- Q{qIdx + 1} · {q.question_type === 'true_false' ? 'True/False' : 'Multiple Choice'}
+ Q{qIdx + 1} Â· {q.question_type === 'true_false' ? 'True/False' : 'Multiple Choice'}
  </span>
  <button
  type="button"
@@ -725,7 +725,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  value={q.text}
  onChange={(e) => handleQuestionTextChange(qIdx, e.target.value)}
  placeholder="Enter your question..."
- className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 resize-none"
  />
 
  {/* Answers */}
@@ -753,7 +753,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  value={a.text}
  onChange={(e) => handleAnswerTextChange(qIdx, aIdx, e.target.value)}
  placeholder={`Answer ${aIdx + 1}`}
- className="flex-1 px-2 py-1 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="flex-1 px-2 py-1 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-md text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
 )}
 
@@ -827,7 +827,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
 )
 }
 
-// ─── Main Page ───────────────────────────────────────────────
+// --- Main Page -----------------------------------------------
 
 export default function CourseBuilderPage() {
  const params = useParams()
@@ -1007,7 +1007,7 @@ export default function CourseBuilderPage() {
  </div>
 
  {course.modules.length === 0 ? (
- <div className="p-8 text-center border border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30">
+ <div className="p-8 text-center border border-dashed border-zinc-300 dark:border-zinc-700/70 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30">
  <p className="text-sm text-zinc-500">No modules yet. Add a module to start building your curriculum.</p>
  </div>
 ) : (
@@ -1033,7 +1033,7 @@ export default function CourseBuilderPage() {
  {/* Right Column: Lesson Editor (Sticky) */}
  <div className="w-full lg:w-96 shrink-0">
  <div className="sticky top-6">
- <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/60 shadow-sm dark:shadow-none rounded-2xl p-5 min-h-[400px]">
+ <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-700/60 shadow-sm dark:shadow-none rounded-2xl p-5 min-h-[400px]">
  {!activeLesson ? (
  <div className="flex flex-col items-center justify-center h-full text-center space-y-3 opacity-60 min-h-[300px]">
  <Settings className="h-8 w-8 text-zinc-500" />
@@ -1055,7 +1055,7 @@ export default function CourseBuilderPage() {
  type="text"
  value={activeLesson.title}
  onChange={(e) => setActiveLesson({...activeLesson, title: e.target.value})}
- className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
  />
  </div>
 
@@ -1064,7 +1064,7 @@ export default function CourseBuilderPage() {
  <select
  value={activeLesson.content_type}
  onChange={(e) => setActiveLesson({...activeLesson, content_type: e.target.value as any})}
- className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 appearance-none"
+ className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50 appearance-none"
  >
  <option value="video">Video Lesson</option>
  <option value="text">Text Lesson</option>

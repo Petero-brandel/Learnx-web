@@ -31,7 +31,7 @@ export default function ModuleAccordion({
  const completedCount = module.lessons.filter(l => completedLessons.has(l.id)).length
 
  return (
- <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden">
+ <div className="border border-zinc-200 dark:border-zinc-700/70 rounded-xl overflow-hidden">
  {/* Module header */}
  <button
  onClick={() => setOpen(!open)}
@@ -57,7 +57,7 @@ export default function ModuleAccordion({
 
  {/* Lessons list */}
  {open && (
- <div className="border-t border-zinc-100 dark:border-zinc-800">
+ <div className="border-t border-zinc-100 dark:border-zinc-700/70">
  {module.lessons.map((lesson) => {
  const isActive = activeLesson?.id === lesson.id
  const isCompleted = completedLessons.has(lesson.id)

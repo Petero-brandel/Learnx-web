@@ -32,7 +32,7 @@ export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: L
  if (lesson.content_type === 'text' && lesson.text_content) {
  return (
  <div className="w-full">
- <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 md:p-8">
+ <div className="rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 p-6 md:p-8">
  <div
  className="prose prose-zinc dark:prose-invert max-w-none whitespace-pre-wrap text-zinc-900 dark:text-zinc-100 text-sm md:text-base leading-relaxed [&_p]:!text-zinc-900 dark:[&_p]:!text-zinc-300 [&_span]:!text-zinc-900 dark:[&_span]:!text-zinc-300 [&_h1]:!text-zinc-900 dark:[&_h1]:!text-zinc-100 [&_h2]:!text-zinc-900 dark:[&_h2]:!text-zinc-100 [&_h3]:!text-zinc-900 dark:[&_h3]:!text-zinc-100 [&_li]:!text-zinc-900 dark:[&_li]:!text-zinc-300"
  dangerouslySetInnerHTML={{ __html: lesson.text_content }}
@@ -45,7 +45,7 @@ export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: L
  if (lesson.content_type === 'pdf' && lesson.file_url) {
  return (
  <div className="w-full">
- <div className="flex flex-col items-center justify-center py-12 px-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+ <div className="flex flex-col items-center justify-center py-12 px-6 rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50">
  <div className="h-16 w-16 rounded-2xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center mb-4">
  <FileText className="h-8 w-8 text-red-600 dark:text-red-400" />
  </div>
@@ -76,7 +76,7 @@ export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: L
  // Unknown type
  return (
  <div className="w-full">
- <div className="flex flex-col items-center justify-center py-12 px-6 rounded-xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/20">
+ <div className="flex flex-col items-center justify-center py-12 px-6 rounded-xl border-2 border-dashed border-zinc-200 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900/20">
  <p className="text-sm text-zinc-500 dark:text-zinc-400">
  This content type is not yet supported.
  </p>
@@ -85,7 +85,7 @@ export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: L
 )
 }
 
-// ─── Quiz Player ─────────────────────────────────────────────
+// --- Quiz Player ---------------------------------------------
 
 type QuizState = 'loading' | 'intro' | 'active' | 'submitting' | 'results'
 
@@ -235,11 +235,11 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  return `${m}:${s.toString().padStart(2, '0')}`
  }
 
- // ─── Loading ───
+ // --- Loading ---
  if (state === 'loading') {
  return (
  <div className="w-full">
- <div className="flex flex-col items-center justify-center py-16 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+ <div className="flex flex-col items-center justify-center py-16 rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50">
  <Loader2 className="h-8 w-8 animate-spin text-blue-500 mb-3" />
  <p className="text-sm text-zinc-500">Loading quiz...</p>
  </div>
@@ -247,11 +247,11 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 )
  }
 
- // ─── Error without quiz ───
+ // --- Error without quiz ---
  if (!quiz) {
  return (
  <div className="w-full">
- <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm">
+ <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900 shadow-sm">
  <div className="h-12 w-12 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center mb-3">
  <AlertTriangle className="h-6 w-6 text-red-500 dark:text-red-400" />
  </div>
@@ -265,7 +265,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  const totalQuestions = quiz.questions.length
  const allAnswered = answeredCount === totalQuestions
 
- // ─── Intro ───
+ // --- Intro ---
  if (state === 'intro') {
  const attemptsRemaining = quiz.max_attempts > 0
  ? quiz.max_attempts - quiz.attempts_used
@@ -274,7 +274,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 
  return (
  <div className="w-full">
- <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 md:p-8 text-center">
+ <div className="rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 p-6 md:p-8 text-center">
  <div className="h-14 w-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mx-auto mb-5">
  <HelpCircle className="h-7 w-7 text-blue-600 dark:text-blue-400" />
  </div>
@@ -329,13 +329,13 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 )
  }
 
- // ─── Active / Submitting ───
+ // --- Active / Submitting ---
  if (state === 'active' || state === 'submitting') {
  return (
  <div className="w-full">
- <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 overflow-hidden">
+ <div className="rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 overflow-hidden">
  {/* Header bar */}
- <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/80">
+ <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-100 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900/80">
  <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
  {answeredCount} / {totalQuestions} answered
  </span>
@@ -384,7 +384,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 "w-full text-left px-4 py-3 rounded-xl border text-sm transition-all",
  isSelected
  ?"border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500/30"
- :"border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/30 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+ :"border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/30 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
 )}
  >
  {a.text}
@@ -397,7 +397,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  </div>
 
  {/* Submit bar */}
- <div className="px-5 py-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/80 flex items-center justify-between">
+ <div className="px-5 py-4 border-t border-zinc-100 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900/80 flex items-center justify-between">
  <p className="text-xs text-zinc-500">
  {allAnswered ? 'All questions answered!' : `${totalQuestions - answeredCount} remaining`}
  </p>
@@ -419,7 +419,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  </div>
 
  {error && (
- <div className="mt-3 flex items-center gap-3 p-3 border rounded-xl text-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100">
+ <div className="mt-3 flex items-center gap-3 p-3 border rounded-xl text-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100">
  <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
  <AlertTriangle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
  </div>
@@ -430,14 +430,14 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 )
  }
 
- // ─── Results ───
+ // --- Results ---
  if (state === 'results' && result) {
  const attemptsRemaining = result.attempts_remaining
  const canRetake = attemptsRemaining === null || attemptsRemaining > 0
 
  return (
  <div className="w-full">
- <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 md:p-8">
+ <div className="rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 p-6 md:p-8">
  {/* Score Display */}
  <div className="text-center mb-8">
  <div className={cn(
@@ -467,7 +467,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  </p>
  <p className="text-sm text-zinc-500">
  {result.correct_count} of {result.total_questions} correct
- {quiz.passing_score > 0 && ` · ${quiz.passing_score}% needed`}
+ {quiz.passing_score > 0 && ` Â· ${quiz.passing_score}% needed`}
  </p>
  </div>
 
@@ -510,7 +510,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  wasSelected && !isThisCorrect &&"text-red-600 dark:text-red-400 line-through",
  !isThisCorrect && !wasSelected &&"text-zinc-500"
 )}>
- {isThisCorrect && '✓ '}{wasSelected && !isThisCorrect && '✗ '}{a.text}
+ {isThisCorrect && 'âœ“ '}{wasSelected && !isThisCorrect && 'âœ— '}{a.text}
  </div>
 )
  })}
@@ -542,7 +542,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 )}
 
  {result.passed && (
- <div className="mt-4 flex items-center gap-3 p-4 border rounded-xl bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100 justify-center">
+ <div className="mt-4 flex items-center gap-3 p-4 border rounded-xl bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100 justify-center">
  <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
  <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
  </div>

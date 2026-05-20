@@ -27,7 +27,7 @@ function FormCard({
  children: React.ReactNode
 }) {
  return (
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center gap-3 mb-5">
  <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
  <Icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
@@ -47,7 +47,7 @@ function FeedbackBanner({ feedback, onDismiss }: { feedback: FeedbackState; onDi
  return (
  <div
  className={cn(
- "flex items-center gap-3 p-4 rounded-xl text-sm border mb-4 animate-fade-up-sm bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm text-zinc-900 dark:text-zinc-100"
+ "flex items-center gap-3 p-4 rounded-xl text-sm border mb-4 animate-fade-up-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100"
  )}
  >
  {feedback.type === 'success' ? (
@@ -253,8 +253,8 @@ export default function StudentsPage() {
  <p className="text-sm text-zinc-500 mt-1">Browse students, manage enrollments, and generate certificates.</p>
  </div>
 
- {/* ─── Student Directory ─── */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 space-y-4 shadow-sm dark:shadow-none">
+ {/* --- Student Directory --- */}
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 space-y-4 shadow-sm dark:shadow-none">
  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
  <div className="flex items-center gap-3">
  <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
@@ -286,15 +286,15 @@ export default function StudentsPage() {
 ))}
  </div>
 ) : filteredStudents.length === 0 ? (
- <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20">
+ <div className="flex flex-col items-center justify-center py-12 rounded-xl border border-dashed border-zinc-300 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900/20">
  <Users className="h-8 w-8 text-zinc-400 dark:text-zinc-700 mb-2" />
  <p className="text-sm text-zinc-500">{search ? 'No matching students' : 'No students registered yet'}</p>
  </div>
 ) : (
- <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800/60">
+ <div className="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-700/60">
  <table className="w-full text-sm">
  <thead>
- <tr className="border-b border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/50">
+ <tr className="border-b border-zinc-200 dark:border-zinc-700/60 bg-zinc-50 dark:bg-zinc-900/50">
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">ID</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Student</th>
  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">Email</th>
@@ -307,7 +307,7 @@ export default function StudentsPage() {
  {displayedStudents.map((student, index) => (
  <tr
  key={student.id}
- className="border-b border-zinc-200 dark:border-zinc-800/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors cursor-pointer"
+ className="border-b border-zinc-200 dark:border-zinc-700/30 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors cursor-pointer"
  onClick={() => {
  setEnrollUserId(String(student.id))
  setCertUserId(String(student.id))
@@ -357,7 +357,7 @@ export default function StudentsPage() {
  </tbody>
  </table>
  {displayLimit < filteredStudents.length && (
- <div className="p-4 flex justify-center border-t border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/30">
+ <div className="p-4 flex justify-center border-t border-zinc-200 dark:border-zinc-700/60 bg-zinc-50 dark:bg-zinc-900/30">
  <button
  onClick={() => setDisplayLimit(prev => prev + 10)}
  className="px-5 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-xl transition-colors shadow-sm dark:shadow-none"

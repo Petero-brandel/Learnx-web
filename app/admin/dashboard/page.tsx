@@ -49,9 +49,9 @@ function getFirstName(fullName: string): string {
 }
 
 function formatCurrency(amount: number): string {
- if (amount >= 1_000_000) return `₦${(amount / 1_000_000).toFixed(1)}M`
- if (amount >= 1_000) return `₦${(amount / 1_000).toFixed(1)}K`
- return `₦${amount.toLocaleString()}`
+ if (amount >= 1_000_000) return `â‚¦${(amount / 1_000_000).toFixed(1)}M`
+ if (amount >= 1_000) return `â‚¦${(amount / 1_000).toFixed(1)}K`
+ return `â‚¦${amount.toLocaleString()}`
 }
 
 export default function AdminDashboardPage() {
@@ -184,7 +184,7 @@ export default function AdminDashboardPage() {
  value={period}
  onChange={(e) => setPeriod(e.target.value)}
  disabled={isPeriodLoading}
- className="px-3 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm dark:shadow-none disabled:opacity-50"
+ className="px-3 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm dark:shadow-none disabled:opacity-50"
  >
  <option value="7d">Last 7 Days</option>
  <option value="14d">Last 14 Days</option>
@@ -200,7 +200,7 @@ export default function AdminDashboardPage() {
  icon={NairaSign}
  label="Total Revenue"
  value={formatCurrency(revenue?.revenue.all_time || 0)}
- sub={`₦${(revenue?.revenue.this_month || 0).toLocaleString()} this month`}
+ sub={`â‚¦${(revenue?.revenue.this_month || 0).toLocaleString()} this month`}
  color="green"
  className="first:ml-4 sm:first:ml-0"
  />
@@ -227,7 +227,7 @@ export default function AdminDashboardPage() {
  {/* Charts row */}
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {/* Revenue Chart */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center justify-between mb-4">
  <div>
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue ({getPeriodLabel()})</h3>
@@ -242,7 +242,7 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* Signups Chart */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center justify-between mb-4">
  <div>
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">New Students ({getPeriodLabel()})</h3>
@@ -260,7 +260,7 @@ export default function AdminDashboardPage() {
  {/* Popular courses + Revenue per course */}
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {/* Popular Courses */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
  <div className="flex items-center gap-2 mb-5">
  <BarChart3 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Popular Courses</h3>
@@ -314,7 +314,7 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* Revenue Per Course */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
  <div className="flex items-center gap-2 mb-5">
  <NairaSign className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Revenue Per Course</h3>
@@ -336,7 +336,7 @@ export default function AdminDashboardPage() {
  axisLine={false} 
  tickLine={false} 
  tick={{ fill: isDark ? '#a1a1aa' : '#71717a', fontSize: 11 }}
- tickFormatter={(value) => `₦${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
+ tickFormatter={(value) => `â‚¦${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value}`}
  />
  <Tooltip 
  cursor={{ fill: isDark ? '#27272a' : '#f4f4f5', opacity: 0.4 }}
@@ -350,7 +350,7 @@ export default function AdminDashboardPage() {
  }}
  itemStyle={{ color: isDark ? '#34d399' : '#10b981', fontWeight: 500 }}
  labelStyle={{ color: isDark ? '#a1a1aa' : '#71717a', marginBottom: '4px' }}
- formatter={(value: any) => [`₦${Number(value || 0).toLocaleString()}`, 'Revenue']}
+ formatter={(value: any) => [`â‚¦${Number(value || 0).toLocaleString()}`, 'Revenue']}
  />
  <Bar dataKey="total" radius={[4, 4, 0, 0]} maxBarSize={40}>
  {revPerCourse.map((entry, index) => (
@@ -369,7 +369,7 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* Recent Orders */}
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center gap-2 mb-5">
  <ShoppingCart className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Recent Orders</h3>
@@ -380,7 +380,7 @@ export default function AdminDashboardPage() {
 )
 }
 
-// ─── Skeleton ─────────────────────────────────────────────
+// --- Skeleton ---------------------------------------------
 function LoadingSkeleton() {
  return (
  <div className="space-y-8 animate-pulse">
@@ -390,7 +390,7 @@ function LoadingSkeleton() {
  </div>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
  {[1, 2, 3, 4].map((i) => (
- <div key={i} className="flex items-center gap-4 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30">
+ <div key={i} className="flex items-center gap-4 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30">
  <div className="h-11 w-11 rounded-xl bg-zinc-100 dark:bg-zinc-800/60" />
  <div>
  <div className="h-7 w-16 bg-zinc-200 dark:bg-zinc-800/60 rounded" />
@@ -401,13 +401,13 @@ function LoadingSkeleton() {
  </div>
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {[1, 2].map((i) => (
- <div key={i} className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6">
+ <div key={i} className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6">
  <div className="h-5 w-40 bg-zinc-200 dark:bg-zinc-800/60 rounded mb-4" />
  <div className="h-48 bg-zinc-100 dark:bg-zinc-800/30 rounded-xl" />
  </div>
 ))}
  </div>
- <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 p-6">
+ <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6">
  <div className="h-5 w-32 bg-zinc-200 dark:bg-zinc-800/60 rounded mb-4" />
  <div className="space-y-3">
  {[1, 2, 3, 4, 5].map((i) => (

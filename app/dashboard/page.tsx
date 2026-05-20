@@ -165,7 +165,7 @@ function DashboardContent() {
  </div>
 ) : (
  /* Empty state */
- <div className="flex flex-col items-center justify-center py-16 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/20">
+ <div className="flex flex-col items-center justify-center py-16 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900/20">
  <div className="h-16 w-16 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
  <Search className="h-8 w-8 text-blue-600 dark:text-blue-400" />
  </div>
@@ -189,7 +189,7 @@ function DashboardContent() {
 )
 }
 
-// ─── Skeleton Loader ─────────────────────────────────────
+// --- Skeleton Loader -------------------------------------
 function DashboardSkeleton() {
  return (
  <div className="space-y-8 animate-pulse">
@@ -202,7 +202,7 @@ function DashboardSkeleton() {
  {/* Stats skeleton */}
  <div className="flex gap-3 overflow-hidden md:grid md:grid-cols-3">
  {[1, 2, 3].map((i) => (
- <div key={i} className="flex items-center gap-4 p-5 rounded-2xl border border-zinc-100 dark:border-zinc-800 min-w-[200px]">
+ <div key={i} className="flex items-center gap-4 p-5 rounded-2xl border border-zinc-100 dark:border-zinc-700/70 min-w-[200px]">
  <div className="h-11 w-11 rounded-xl bg-zinc-200 dark:bg-zinc-800" />
  <div>
  <div className="h-7 w-12 bg-zinc-200 dark:bg-zinc-800 rounded" />
@@ -217,7 +217,7 @@ function DashboardSkeleton() {
  <div className="h-6 w-32 bg-zinc-200 dark:bg-zinc-800 rounded mb-5" />
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
  {[1, 2, 3].map((i) => (
- <div key={i} className="rounded-2xl border border-zinc-100 dark:border-zinc-800 overflow-hidden">
+ <div key={i} className="rounded-2xl border border-zinc-100 dark:border-zinc-700/70 overflow-hidden">
  <div className="aspect-video bg-zinc-200 dark:bg-zinc-800" />
  <div className="p-4 space-y-3">
  <div className="h-4 w-3/4 bg-zinc-200 dark:bg-zinc-800 rounded" />

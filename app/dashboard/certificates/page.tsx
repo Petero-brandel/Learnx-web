@@ -127,7 +127,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
  <div className="h-7 w-40 bg-zinc-200 dark:bg-zinc-800 rounded" />
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
  {[1, 2].map(i => (
- <div key={i} className="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800">
+ <div key={i} className="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700/70">
    <div className="h-44 bg-zinc-100 dark:bg-zinc-800/50" />
    <div className="p-5 space-y-3">
      <div className="h-4 w-3/4 bg-zinc-200 dark:bg-zinc-800 rounded" />
@@ -168,7 +168,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
  {certificates.map((cert) => (
  <div
  key={cert.certificate_id}
- className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:border-zinc-300 dark:hover:border-zinc-700"
+ className="group rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:border-zinc-300 dark:hover:border-zinc-700"
  >
   {/* Certificate Preview shows actual template */}
   <div className="relative h-48 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
@@ -222,7 +222,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
 ))}
  </div>
 ) : (
- <div className="flex flex-col items-center justify-center py-20 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950">
+ <div className="flex flex-col items-center justify-center py-20 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900">
  <div className="h-16 w-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mb-5 shadow-sm">
  <Award className="h-8 w-8 text-zinc-400 dark:text-zinc-500" />
  </div>
@@ -244,8 +244,8 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
   {/* Name Collection Modal */}
   {showNameModal && (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-md shadow-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
-        <div className="px-6 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-md shadow-2xl border border-zinc-200 dark:border-zinc-700/70 overflow-hidden">
+        <div className="px-6 py-5 border-b border-zinc-100 dark:border-zinc-700/70 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Enter Your Full Name</h3>
           <button 
             onClick={() => setShowNameModal(false)}

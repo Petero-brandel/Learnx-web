@@ -43,8 +43,8 @@ export default function SettingsPage() {
  </div>
 
  {/* Profile Section */}
- <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 overflow-hidden">
- <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
+ <section className="rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 overflow-hidden">
+ <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-700/70">
  <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Profile</h2>
  </div>
  <div className="p-5 space-y-5">
@@ -147,8 +147,8 @@ export default function SettingsPage() {
  </section>
 
  {/* Preferences Section */}
- <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 overflow-hidden">
- <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
+ <section className="rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 overflow-hidden">
+ <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-700/70">
  <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Preferences</h2>
  </div>
  <div className="p-5">
@@ -165,8 +165,8 @@ export default function SettingsPage() {
  </section>
 
  {/* Account Section */}
- <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 overflow-hidden">
- <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
+ <section className="rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-900/50 overflow-hidden">
+ <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-700/70">
  <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Account</h2>
  </div>
  <div className="p-5 space-y-3">
@@ -185,7 +185,7 @@ export default function SettingsPage() {
 )
 }
 
-// ─── Info Row ────────────────────────────────────────────
+// --- Info Row --------------------------------------------
 function InfoRow({ icon: Icon, label, value, badge }: {
  icon: React.ElementType
  label: string
