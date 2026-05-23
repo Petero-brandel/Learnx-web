@@ -59,18 +59,23 @@ const ResizableMediaNode = ({
   editor,
 }: any) => {
   const isVideo = node.type.name === 'youtube'
+
   const [isResizing, setIsResizing] = useState(false)
 
   return (
     <NodeViewWrapper
-      className="relative inline-block"
+      className="relative inline-block max-w-full"
       style={{
         width: node.attrs.width || (isVideo ? 640 : '100%'),
         maxWidth: '100%',
       }}
     >
+      {/* Media */}
       <div
-        className={cn('relative', isResizing && 'pointer-events-none')}
+        className={cn(
+          'relative',
+          isResizing && 'pointer-events-none'
+        )}
         onClick={() => {
           if (typeof getPos === 'function') {
             editor.commands.setNodeSelection(getPos())
@@ -83,7 +88,9 @@ const ResizableMediaNode = ({
               src={node.attrs.src}
               className={cn(
                 'rounded-lg w-full aspect-video border-2 transition-colors',
-                selected ? 'border-blue-500' : 'border-transparent'
+                selected
+                  ? 'border-blue-500'
+                  : 'border-transparent'
               )}
               allowFullScreen
             />
@@ -91,7 +98,9 @@ const ResizableMediaNode = ({
             <div
               className={cn(
                 'absolute inset-0 z-10',
-                selected ? 'pointer-events-none' : 'cursor-pointer'
+                selected
+                  ? 'pointer-events-none'
+                  : 'cursor-pointer'
               )}
             />
           </>
@@ -101,16 +110,31 @@ const ResizableMediaNode = ({
             alt={node.attrs.alt}
             className={cn(
               'rounded-lg border-2 transition-colors w-full h-auto',
-              selected ? 'border-blue-500' : 'border-transparent'
+              selected
+                ? 'border-blue-500'
+                : 'border-transparent'
             )}
           />
         )}
       </div>
 
+      {/* Resize Handle */}
       {(selected || isResizing) && (
         <div
-          className="absolute -bottom-2 -right-2 w-8 h-8 cursor-se-resize flex items-center justify-center z-50"
-          onMouseDown={(e) => {
+          className="
+            absolute
+            -bottom-2
+            -right-2
+            w-8
+            h-8
+            z-50
+            flex
+            items-center
+            justify-center
+            cursor-se-resize
+            touch-none
+          "
+          onPointerDown={(e) => {
             e.preventDefault()
             e.stopPropagation()
 
@@ -118,30 +142,69 @@ const ResizableMediaNode = ({
 
             const startX = e.clientX
 
-            const startWidth =
-              (e.currentTarget.parentElement as HTMLElement)?.offsetWidth || 0
+            const container =
+              e.currentTarget.parentElement as HTMLElement
 
-            const onMouseMove = (e: MouseEvent) => {
-              const newWidth = Math.max(
-                150,
-                startWidth + (e.clientX - startX)
+            const startWidth =
+              container?.offsetWidth || 0
+
+            const maxWidth =
+              container.parentElement?.clientWidth ||
+              window.innerWidth
+
+            const onPointerMove = (
+              event: PointerEvent
+            ) => {
+              const delta =
+                event.clientX - startX
+
+              const newWidth = Math.min(
+                maxWidth,
+                Math.max(150, startWidth + delta)
               )
 
-              updateAttributes({ width: newWidth })
+              updateAttributes({
+                width: newWidth,
+              })
             }
 
-            const onMouseUp = () => {
+            const onPointerUp = () => {
               setIsResizing(false)
 
-              document.removeEventListener('mousemove', onMouseMove)
-              document.removeEventListener('mouseup', onMouseUp)
+              document.removeEventListener(
+                'pointermove',
+                onPointerMove
+              )
+
+              document.removeEventListener(
+                'pointerup',
+                onPointerUp
+              )
             }
 
-            document.addEventListener('mousemove', onMouseMove)
-            document.addEventListener('mouseup', onMouseUp)
+            document.addEventListener(
+              'pointermove',
+              onPointerMove
+            )
+
+            document.addEventListener(
+              'pointerup',
+              onPointerUp
+            )
           }}
         >
-          <div className="w-4 h-4 bg-blue-500 rounded-sm shadow-sm border border-white dark:border-zinc-950" />
+          <div
+            className="
+              w-4
+              h-4
+              rounded-sm
+              bg-blue-500
+              border
+              border-white
+              dark:border-zinc-950
+              shadow-md
+            "
+          />
         </div>
       )}
     </NodeViewWrapper>
@@ -156,7 +219,8 @@ const CustomImage = Image.extend({
       width: {
         default: '100%',
 
-        parseHTML: (element) => element.getAttribute('width'),
+        parseHTML: (element) =>
+          element.getAttribute('width'),
 
         renderHTML: (attributes) => ({
           width: attributes.width,
@@ -166,7 +230,9 @@ const CustomImage = Image.extend({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(ResizableMediaNode)
+    return ReactNodeViewRenderer(
+      ResizableMediaNode
+    )
   },
 })
 
@@ -178,7 +244,8 @@ const CustomYoutube = Youtube.extend({
       width: {
         default: 640,
 
-        parseHTML: (element) => element.getAttribute('width'),
+        parseHTML: (element) =>
+          element.getAttribute('width'),
 
         renderHTML: (attributes) => ({
           width: attributes.width,
@@ -188,7 +255,9 @@ const CustomYoutube = Youtube.extend({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(ResizableMediaNode)
+    return ReactNodeViewRenderer(
+      ResizableMediaNode
+    )
   },
 })
 
@@ -222,19 +291,31 @@ const MenuBar = ({
   isExpanded: boolean
   onToggleExpand: () => void
 }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const fileInputRef =
+    useRef<HTMLInputElement>(null)
 
-  const [uploadingImage, setUploadingImage] = useState(false)
+  const [uploadingImage, setUploadingImage] =
+    useState(false)
 
   const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes('link').href
+    const previousUrl =
+      editor.getAttributes('link').href
 
-    const url = window.prompt('URL', previousUrl)
+    const url = window.prompt(
+      'URL',
+      previousUrl
+    )
 
     if (url === null) return
 
     if (url === '') {
-      editor.chain().focus().extendMarkRange('link').unsetLink().run()
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange('link')
+        .unsetLink()
+        .run()
+
       return
     }
 
@@ -260,7 +341,8 @@ const MenuBar = ({
 
       formData.append('file', file)
 
-      const { url, error } = await uploadImageAction(formData)
+      const { url, error } =
+        await uploadImageAction(formData)
 
       if (error) {
         alert(error)
@@ -268,7 +350,11 @@ const MenuBar = ({
       }
 
       if (url) {
-        editor.chain().focus().setImage({ src: url }).run()
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: url })
+          .run()
       }
     } catch (error) {
       console.error(error)
@@ -324,7 +410,11 @@ const MenuBar = ({
         active={editor.isActive('underline')}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleUnderline().run()
+          editor
+            .chain()
+            .focus()
+            .toggleUnderline()
+            .run()
         }}
         title="Underline"
       >
@@ -345,10 +435,17 @@ const MenuBar = ({
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
 
       <ToolbarButton
-        active={editor.isActive('heading', { level: 1 })}
+        active={editor.isActive('heading', {
+          level: 1,
+        })}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleHeading({ level: 1 }).run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleHeading({ level: 1 })
+            .run()
         }}
         title="Heading 1"
       >
@@ -356,10 +453,17 @@ const MenuBar = ({
       </ToolbarButton>
 
       <ToolbarButton
-        active={editor.isActive('heading', { level: 2 })}
+        active={editor.isActive('heading', {
+          level: 2,
+        })}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleHeading({ level: 2 }).run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleHeading({ level: 2 })
+            .run()
         }}
         title="Heading 2"
       >
@@ -367,10 +471,17 @@ const MenuBar = ({
       </ToolbarButton>
 
       <ToolbarButton
-        active={editor.isActive('heading', { level: 3 })}
+        active={editor.isActive('heading', {
+          level: 3,
+        })}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleHeading({ level: 3 }).run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleHeading({ level: 3 })
+            .run()
         }}
         title="Heading 3"
       >
@@ -383,7 +494,12 @@ const MenuBar = ({
         active={editor.isActive('bulletList')}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleBulletList().run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleBulletList()
+            .run()
         }}
         title="Bullet List"
       >
@@ -394,7 +510,12 @@ const MenuBar = ({
         active={editor.isActive('orderedList')}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleOrderedList().run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleOrderedList()
+            .run()
         }}
         title="Ordered List"
       >
@@ -405,7 +526,12 @@ const MenuBar = ({
         active={editor.isActive('blockquote')}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleBlockquote().run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleBlockquote()
+            .run()
         }}
         title="Blockquote"
       >
@@ -416,7 +542,12 @@ const MenuBar = ({
         active={editor.isActive('codeBlock')}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().toggleCodeBlock().run()
+
+          editor
+            .chain()
+            .focus()
+            .toggleCodeBlock()
+            .run()
         }}
         title="Code Block"
       >
@@ -426,10 +557,17 @@ const MenuBar = ({
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
 
       <ToolbarButton
-        active={editor.isActive({ textAlign: 'left' })}
+        active={editor.isActive({
+          textAlign: 'left',
+        })}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().setTextAlign('left').run()
+
+          editor
+            .chain()
+            .focus()
+            .setTextAlign('left')
+            .run()
         }}
         title="Align Left"
       >
@@ -437,10 +575,17 @@ const MenuBar = ({
       </ToolbarButton>
 
       <ToolbarButton
-        active={editor.isActive({ textAlign: 'center' })}
+        active={editor.isActive({
+          textAlign: 'center',
+        })}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().setTextAlign('center').run()
+
+          editor
+            .chain()
+            .focus()
+            .setTextAlign('center')
+            .run()
         }}
         title="Align Center"
       >
@@ -448,10 +593,17 @@ const MenuBar = ({
       </ToolbarButton>
 
       <ToolbarButton
-        active={editor.isActive({ textAlign: 'right' })}
+        active={editor.isActive({
+          textAlign: 'right',
+        })}
         onClick={(e: any) => {
           e.preventDefault()
-          editor.chain().focus().setTextAlign('right').run()
+
+          editor
+            .chain()
+            .focus()
+            .setTextAlign('right')
+            .run()
         }}
         title="Align Right"
       >
@@ -510,9 +662,16 @@ const MenuBar = ({
 
         <input
           type="color"
-          value={editor.getAttributes('textStyle').color || '#000000'}
+          value={
+            editor.getAttributes('textStyle')
+              .color || '#000000'
+          }
           onChange={(e) => {
-            editor.chain().focus().setColor(e.target.value).run()
+            editor
+              .chain()
+              .focus()
+              .setColor(e.target.value)
+              .run()
           }}
           className="h-5 w-5 cursor-pointer rounded overflow-hidden border-0 bg-transparent"
         />
@@ -547,7 +706,9 @@ const MenuBar = ({
           e.preventDefault()
           onToggleExpand()
         }}
-        title={isExpanded ? 'Minimize' : 'Expand'}
+        title={
+          isExpanded ? 'Minimize' : 'Expand'
+        }
       >
         {isExpanded ? (
           <Minimize className="h-4 w-4" />
@@ -563,7 +724,8 @@ export const RichTextEditor = ({
   content,
   onChange,
 }: RichTextEditorProps) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] =
+    useState(false)
 
   const editor = useEditor({
     extensions: [
@@ -606,28 +768,37 @@ export const RichTextEditor = ({
     <div
       className={cn(
         'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-sm',
-        isExpanded ? 'w-full h-full' : 'h-[500px]'
+        isExpanded
+          ? 'w-full h-full'
+          : 'h-[500px]'
       )}
     >
       {/* Fixed Toolbar */}
       <div
         className="
-          sticky top-0 z-30
+          sticky
+          top-0
+          z-30
           shrink-0
-          border-b border-zinc-200 dark:border-zinc-800
+          border-b
+          border-zinc-200
+          dark:border-zinc-800
           p-2
-          bg-white/95 dark:bg-zinc-950/95
+          bg-white/95
+          dark:bg-zinc-950/95
           backdrop-blur
         "
       >
         <MenuBar
           editor={editor}
           isExpanded={isExpanded}
-          onToggleExpand={() => setIsExpanded(!isExpanded)}
+          onToggleExpand={() =>
+            setIsExpanded(!isExpanded)
+          }
         />
       </div>
 
-      {/* Scrollable Content */}
+      {/* Scrollable Editor */}
       <div className="flex-1 overflow-y-auto">
         <EditorContent editor={editor} />
       </div>
@@ -755,10 +926,10 @@ export const RichTextEditor = ({
             className="
               w-full
               max-w-6xl
-              max-h-[90vh]
               h-full
-              rounded-2xl
+              max-h-[90vh]
               overflow-hidden
+              rounded-2xl
               flex
             "
           >
