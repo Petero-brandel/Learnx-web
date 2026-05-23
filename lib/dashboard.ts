@@ -55,6 +55,7 @@ export interface CourseDetail {
   description: string;
   price: number;
   thumbnail: string | null;
+  preview_video_id: string | null;
   is_published: boolean;
   created_at: string;
   updated_at: string;

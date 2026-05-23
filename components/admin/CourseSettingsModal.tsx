@@ -1,10 +1,120 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { AdminCourse } from '@/lib/admin'
+import { AdminCourse, requestCourseUploadUrl } from '@/lib/admin'
 import { uploadThumbnailAction } from '@/app/actions/upload'
-import { Loader2, ImagePlus, X, Save } from 'lucide-react'
+import { Loader2, ImagePlus, X, Save, Video, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import * as tus from 'tus-js-client'
+
+function CourseVideoUploader({ courseSlug, initialVideoId }: { courseSlug: string, initialVideoId: string | null }) {
+  const [uploading, setUploading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(!!initialVideoId)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setProgress(0)
+    setError(null)
+    setSuccess(false)
+
+    try {
+      const { video_id, library_id, authorization_signature, authorization_expire } = await requestCourseUploadUrl(courseSlug)
+
+      const upload = new tus.Upload(file, {
+        endpoint: 'https://video.bunnycdn.com/tusupload',
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          AuthorizationSignature: authorization_signature,
+          AuthorizationExpire: authorization_expire.toString(),
+          VideoId: video_id,
+          LibraryId: library_id,
+        },
+        metadata: {
+          filetype: file.type,
+          title: file.name,
+        },
+        onError: function (error) {
+          console.error('Failed because: ' + error)
+          setError('Upload failed. Please try again.')
+          setUploading(false)
+        },
+        onProgress: function (bytesUploaded, bytesTotal) {
+          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
+          setProgress(Number(percentage))
+        },
+        onSuccess: function () {
+          setSuccess(true)
+          setUploading(false)
+        },
+      })
+
+      upload.start()
+
+    } catch (err: any) {
+      console.error(err)
+      setError('Failed to request upload URL.')
+      setUploading(false)
+    }
+  }
+
+  if (success && !uploading) {
+    return (
+      <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center mt-2">
+        <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
+        <p className="text-sm text-emerald-400 font-medium">Video uploaded successfully!</p>
+        <p className="text-xs text-zinc-400 mt-1">Bunny Stream is now encoding it.</p>
+        <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors">
+          Replace Video
+          <input type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
+        </label>
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-2 p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+      {uploading && (
+        <div 
+          className="absolute top-0 left-0 h-1 bg-blue-500 transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      )}
+      <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+      <p className="text-xs text-zinc-400">
+        {uploading ? `Uploading... ${progress}%` : "Select a video to upload directly to Bunny Stream."}
+      </p>
+      
+      {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+
+      <button 
+        type="button"
+        disabled={uploading}
+        onClick={() => fileInputRef.current?.click()}
+        className={cn(
+          "mt-3 inline-flex items-center px-4 py-2 bg-white dark:bg-zinc-200 dark:bg-zinc-700 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer",
+          uploading && "opacity-50 cursor-not-allowed pointer-events-none"
+        )}
+      >
+        {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {uploading ? 'Uploading...' : 'Select Video File'}
+      </button>
+      <input 
+        ref={fileInputRef}
+        type="file" 
+        accept="video/*" 
+        className="hidden" 
+        onChange={handleFileChange}
+        disabled={uploading}
+      />
+    </div>
+  )
+}
 
 interface CourseSettingsModalProps {
   course: AdminCourse
@@ -148,6 +258,13 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
                   className="hidden"
                   onChange={handleThumbnailSelect}
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
+                  Preview Video
+                </label>
+                <CourseVideoUploader courseSlug={course.slug} initialVideoId={course.preview_video_id} />
               </div>
 
               <div>

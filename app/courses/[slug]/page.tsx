@@ -9,7 +9,9 @@ import { checkoutCourse } from '@/lib/payments';
 import Image from 'next/image';
 import Navbar from"@/components/layout/Navbar";
 import { Footer } from"@/components/sections/Footer";
-import { Clock, PlayCircle, CheckCircle, ArrowRight, BookOpen, Award, Layers, Loader2 } from 'lucide-react';
+import { Clock, PlayCircle, CheckCircle, ArrowRight, BookOpen, Award, Layers, Loader2, X, Play } from 'lucide-react';
+
+const BUNNY_LIBRARY_ID = process.env.NEXT_PUBLIC_BUNNY_LIBRARY_ID || '';
 
 function formatPrice(price: number | string): string {
  return new Intl.NumberFormat('en-NG', {
@@ -25,6 +27,8 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
  const [course, setCourse] = useState<CourseDetail | null>(null);
  const [loading, setLoading] = useState(true);
  const [error, setError] = useState(false);
+ 
+ const [showPreview, setShowPreview] = useState(false);
  
  const [isCheckingOut, setIsCheckingOut] = useState(false);
  const [isEnrolled, setIsEnrolled] = useState(false);
@@ -142,16 +146,28 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
 )}
  <div className="absolute inset-0 bg-black/50" />
  <div className="relative max-w-7xl mx-auto w-full z-10">
- <div className="max-w-3xl">
- <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
- {course.title}
- </h1>
- <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl">
- {course.description || 'Start your learning journey with this course.'}
- </p>
+        <div className="max-w-3xl">
+          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6 flex items-center gap-4 flex-wrap">
+            {course.title}
+          </h1>
+          <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl">
+            {course.description || 'Start your learning journey with this course.'}
+          </p>
 
- {/* Meta row */}
- <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
+          <div className="flex flex-wrap items-center gap-6 mb-8">
+            {course.preview_video_id && (
+              <button 
+                onClick={() => setShowPreview(true)}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-semibold transition-all backdrop-blur-sm border border-white/20 hover:scale-105"
+              >
+                <Play className="h-4 w-4 fill-white" />
+                Watch Preview
+              </button>
+            )}
+          </div>
+
+          {/* Meta row */}
+          <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
  <span className="inline-flex items-center gap-1.5">
  <Layers className="h-4 w-4" />
  {moduleCount} module{moduleCount !== 1 ? 's' : ''}
@@ -255,6 +271,35 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
  </section>
  </main>
  <Footer />
+
+ {/* Video Preview Modal */}
+ {showPreview && course?.preview_video_id && (
+   <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+     <div 
+       className="w-full max-w-4xl bg-black rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/10"
+       onClick={e => e.stopPropagation()}
+     >
+       <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+         <h3 className="text-sm font-medium text-white/90">Course Preview</h3>
+         <button 
+           onClick={() => setShowPreview(false)}
+           className="p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+         >
+           <X className="h-5 w-5" />
+         </button>
+       </div>
+       <div className="relative w-full aspect-video bg-black">
+         <iframe
+           src={`https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${course.preview_video_id}?autoplay=true&preload=true&responsive=true`}
+           loading="lazy"
+           className="absolute inset-0 w-full h-full border-0"
+           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+           allowFullScreen
+         />
+       </div>
+     </div>
+   </div>
+ )}
  </div>
 );
 }

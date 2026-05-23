@@ -51,6 +51,7 @@ export interface AdminCourse {
   description: string;
   price: string;
   thumbnail: string | null;
+  preview_video_id: string | null;
   is_published: boolean;
   created_at: string;
   updated_at: string;
@@ -234,6 +235,16 @@ export async function updateCourse(slug: string, data: Partial<AdminCourse>): Pr
 
 export async function deleteCourse(slug: string): Promise<void> {
   await api.delete(`/courses/${slug}/`);
+}
+
+export async function requestCourseUploadUrl(slug: string): Promise<{ 
+  video_id: string; 
+  library_id: string;
+  authorization_signature: string;
+  authorization_expire: number;
+}> {
+  const response = await api.post(`/courses/${slug}/request_course_upload_url/`);
+  return response.data;
 }
 
 // ─── Module Management ───────────────────────────────────
