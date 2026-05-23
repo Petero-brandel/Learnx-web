@@ -198,7 +198,13 @@ const MenuBar = ({ editor, isExpanded, onToggleExpand }: { editor: any, isExpand
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-1 border-b border-zinc-200 dark:border-zinc-800 p-2 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-t-xl">
+    <div className=" sticky top-0 z-30
+                      flex flex-wrap items-center gap-1
+                      border-b border-zinc-200 dark:border-zinc-800
+                      p-2
+                      bg-zinc-50/95 dark:bg-zinc-900/95
+                      backdrop-blur
+                      rounded-t-xl">
       {/* Formatting */}
       <button
         onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleBold().run() }}
