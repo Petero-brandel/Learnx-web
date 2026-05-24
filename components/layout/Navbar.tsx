@@ -76,7 +76,7 @@ const DEFAULT_MEGA_MENUS: Record<string, {
       {
         title: 'Why Bluedemy Pro',
         items: [
-          { label: 'Certificates', description: 'Earn certificates to share on LinkedIn', href: '#', icon: Trophy, disabled: true },
+          { label: 'Certificates', description: 'Earn certificates to share on LinkedIn', href: '/courses', icon: Trophy },
           { label: 'Cancel Anytime', description: 'No lock-in contracts for subscriptions', href: '/pricing', icon: Shield },
           { label: 'Priority Support', description: 'Get your questions answered faster', href: '/pricing', icon: HelpCircle },
         ],
