@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Navbar from"@/components/layout/Navbar";
 import { Footer } from"@/components/sections/Footer";
 import { CourseGrid } from"@/components/sections/CourseGrid";
@@ -22,7 +23,9 @@ export default function CoursesPage() {
  </div>
  </section>
 
+ <Suspense fallback={<div className="flex justify-center p-20"><div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div></div>}>
  <CourseGrid />
+ </Suspense>
  </main>
  <Footer />
  </div>

@@ -51,11 +51,11 @@ export function Hero() {
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/courses/free"
+                href="/courses?filter=free"
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-zinc-600 bg-black/40 backdrop-blur-sm text-zinc-200 font-semibold text-base hover:bg-zinc-800 transition-all duration-300"
               >
                 <Play className="h-4 w-4 text-blue-400" />
-                Watch Free Lesson
+                Watch Free Courses
               </Link>
             </div>
           </Reveal>

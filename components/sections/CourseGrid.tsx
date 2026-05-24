@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen, Layers, Search, Loader2 } from 'lucide-react';
@@ -33,10 +34,13 @@ function formatPrice(price: string | number): string {
 }
 
 export function CourseGrid() {
- const [courses, setCourses] = useState<PublicCourse[]>([]);
- const [loading, setLoading] = useState(true);
- const [search, setSearch] = useState('');
- const [filter, setFilter] = useState<'all' | 'free' | 'paid'>('all');
+  const searchParams = useSearchParams();
+  const defaultFilter = searchParams.get('filter') === 'free' ? 'free' : 'all';
+
+  const [courses, setCourses] = useState<PublicCourse[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState<'all' | 'free' | 'paid'>(defaultFilter as any);
 
  useEffect(() => {
  api.get('/courses/')
