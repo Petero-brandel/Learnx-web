@@ -4,108 +4,114 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 import { useRouter, usePathname } from 'next/navigation'
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
+import { useRouter, usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, BookOpen, Star, Briefcase, Trophy, CheckCircle, PlayCircle, Users, Video, HelpCircle, FileText, Shield, CreditCard, ArrowRight, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 import { useAuth } from '@/context/AuthContext'
+import { api } from '@/lib/api'
+
+type MenuItem = { label: string; description: string; href: string; icon: React.ElementType; disabled?: boolean; tooltipOnly?: boolean }
 
 // ─── Mega-menu content definitions ───
-const megaMenus: Record<string, {
- heading: string
- description: string
- columns: {
- title: string
- items: { label: string; description: string; href: string; icon: React.ElementType }[]
- }[]
- cta?: { label: string; href: string; description: string }
+const DEFAULT_MEGA_MENUS: Record<string, {
+  heading: string
+  description: string
+  columns: {
+    title: string
+    items: MenuItem[]
+  }[]
+  cta?: { label: string; href: string; description: string }
 }> = {
- Courses: {
- heading: 'Explore Courses',
- description: 'Master new skills with our expert-led courses across various domains.',
- columns: [
- {
- title: 'Top Categories',
- items: [
- { label: 'Prompt Engineering', description: 'Master AI communication and logic', href: '/courses/prompt-engineering', icon: BookOpen },
- { label: 'AI Content Creation', description: 'Generate high-quality copy, images, & video', href: '/courses/ai-content', icon: Star },
- { label: 'Digital Marketing', description: 'SEO, Ads, and social media growth', href: '/courses/digital-marketing', icon: Briefcase },
- ],
- },
- {
- title: 'Featured',
- items: [
- { label: 'AI Business Bootcamp', description: 'Automate your workflows with AI', href: '/courses/ai-bootcamp', icon: Trophy },
- { label: 'Pro Certifications', description: 'Get certified in AI tools and strategies', href: '/certifications', icon: CheckCircle },
- { label: 'Free Crash Courses', description: 'Start learning AI immediately for free', href: '/courses/free', icon: PlayCircle },
- ],
- },
- ],
- cta: { label: 'Browse catalog', href: '/courses', description: 'See all 500+ courses →' },
- },
- Resources: {
- heading: 'Learning Resources',
- description: 'Everything you need to succeed in your learning journey.',
- columns: [
- {
- title: 'Community',
- items: [
- { label: 'Student Forums', description: 'Connect with peers and instructors', href: '/forums', icon: Users },
- { label: 'Live Events', description: 'Webinars, Q&As, and workshops', href: '/events', icon: Video },
- ],
- },
- {
- title: 'Help & Docs',
- items: [
- { label: 'Help Center', description: 'Guides and FAQs for your platform experience', href: '/help', icon: HelpCircle },
- { label: 'Student Guides', description: 'Tips on how to study effectively', href: '/guides', icon: FileText },
- ],
- },
- ],
- },
- Pricing: {
- heading: 'Pricing Plans',
- description: 'Flexible options for individuals and teams.',
- columns: [
- {
- title: 'Plans',
- items: [
- { label: 'Pro Subscription', description: 'Access to all courses for a monthly fee', href: '/#pricing', icon: Star },
- { label: 'Team Training', description: 'Upskill your entire organization', href: '/#pricing', icon: Users },
- { label: 'Pay per Course', description: 'Buy lifetime access to individual courses', href: '/#pricing', icon: CreditCard },
- ],
- },
- {
- title: 'Why Bluedemy Pro',
- items: [
- { label: 'Certificates', description: 'Earn certificates to share on LinkedIn', href: '/#pricing', icon: Trophy },
- { label: 'Cancel Anytime', description: 'No lock-in contracts for subscriptions', href: '/#pricing', icon: Shield },
- { label: 'Priority Support', description: 'Get your questions answered faster', href: '/#pricing', icon: HelpCircle },
- ],
- },
- ],
- cta: { label: 'View all plans', href: '/#pricing', description: 'Compare features and pricing →' },
- },
- Company: {
- heading: 'About Bluedemy',
- description: 'Learn more about our mission, team, and policies.',
- columns: [
- {
- title: 'About Us',
- items: [
- { label: 'Our Story', description: 'Mission, vision, and team', href: '/about', icon: Users },
- { label: 'Contact Us', description: 'Get in touch with our team', href: '/contact', icon: HelpCircle },
- ],
- },
- {
- title: 'Legal & Help',
- items: [
- { label: 'FAQs', description: 'Frequently asked questions', href: '/faq', icon: HelpCircle },
- { label: 'Privacy Policy', description: 'How we handle your data', href: '/privacy', icon: Shield },
- { label: 'Terms of Service', description: 'Rules and guidelines', href: '/terms', icon: FileText },
- ],
- },
- ],
- },
+  Courses: {
+    heading: 'Explore Courses',
+    description: 'Master new skills with our expert-led courses across various domains.',
+    columns: [
+      {
+        title: 'Top Categories',
+        items: [
+          { label: 'Loading...', description: 'Fetching top courses', href: '#', icon: BookOpen },
+        ],
+      },
+      {
+        title: 'Featured',
+        items: [
+          { label: 'Pro Certifications', description: 'Get certified in AI tools and strategies', href: '/', icon: CheckCircle },
+          { label: 'Free Crash Courses', description: 'Start learning AI immediately for free', href: '/courses?filter=free', icon: PlayCircle },
+        ],
+      },
+    ],
+    cta: { label: 'Browse catalog', href: '/courses', description: 'See all 500+ courses →' },
+  },
+  Resources: {
+    heading: 'Learning Resources',
+    description: 'Everything you need to succeed in your learning journey.',
+    columns: [
+      {
+        title: 'Community',
+        items: [
+          { label: 'Student Forums', description: 'Connect with peers and instructors', href: '#', icon: Users, disabled: true },
+          { label: 'Live Events', description: 'Webinars, Q&As, and workshops', href: '#', icon: Video, disabled: true },
+        ],
+      },
+      {
+        title: 'Help & Docs',
+        items: [
+          { label: 'Help Center', description: 'Guides and FAQs for your platform experience', href: '/faq', icon: HelpCircle },
+          { label: 'Student Guides', description: 'Tips on how to study effectively', href: '#', icon: FileText, disabled: true },
+        ],
+      },
+    ],
+  },
+  Pricing: {
+    heading: 'Pricing Plans',
+    description: 'Flexible options for individuals and teams.',
+    columns: [
+      {
+        title: 'Plans',
+        items: [
+          { label: 'Pro Subscription', description: 'Access to all courses for a monthly fee', href: '#', icon: Star, disabled: true, tooltipOnly: true },
+          { label: 'Team Training', description: 'Upskill your entire organization', href: '#', icon: Users, disabled: true, tooltipOnly: true },
+          { label: 'Pay per Course', description: 'Buy lifetime access to individual courses', href: '/courses?filter=paid', icon: CreditCard },
+        ],
+      },
+      {
+        title: 'Why Bluedemy Pro',
+        items: [
+          { label: 'Certificates', description: 'Earn certificates to share on LinkedIn', href: '#', icon: Trophy, disabled: true },
+          { label: 'Cancel Anytime', description: 'No lock-in contracts for subscriptions', href: '/pricing', icon: Shield },
+          { label: 'Priority Support', description: 'Get your questions answered faster', href: '/pricing', icon: HelpCircle },
+        ],
+      },
+    ],
+    cta: { label: 'View all plans', href: '/pricing', description: 'Compare features and pricing →' },
+  },
+  Company: {
+    heading: 'About Bluedemy',
+    description: 'Learn more about our mission, team, and policies.',
+    columns: [
+      {
+        title: 'About Us',
+        items: [
+          { label: 'Our Story', description: 'Mission, vision, and team', href: '/about', icon: Users },
+          { label: 'Contact Us', description: 'Get in touch with our team', href: '/about', icon: HelpCircle },
+        ],
+      },
+      {
+        title: 'Legal & Help',
+        items: [
+          { label: 'FAQs', description: 'Frequently asked questions', href: '/faq', icon: HelpCircle },
+          { label: 'Privacy Policy', description: 'How we handle your data', href: '/privacy', icon: Shield },
+          { label: 'Terms of Service', description: 'Rules and guidelines', href: '/terms', icon: FileText },
+        ],
+      },
+    ],
+  },
 }
 
 export default function Navbar() {
@@ -119,6 +125,29 @@ export default function Navbar() {
  const [searchQuery, setSearchQuery] = useState('')
  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
  const navRef = useRef<HTMLDivElement>(null)
+
+ const [megaMenus, setMegaMenus] = useState(DEFAULT_MEGA_MENUS)
+
+ useEffect(() => {
+   api.get('/courses/')
+     .then(res => {
+       const topCourses = res.data.slice(0, 3)
+       if (topCourses.length > 0) {
+         setMegaMenus(prev => {
+           const updated = { ...prev }
+           updated.Courses = { ...updated.Courses, columns: [...updated.Courses.columns] }
+           updated.Courses.columns[0] = { ...updated.Courses.columns[0], items: topCourses.map((course: any) => ({
+             label: course.title,
+             description: course.description || 'Master this subject with our expert-led course',
+             href: `/courses/${course.slug}`,
+             icon: BookOpen
+           }))}
+           return updated
+         })
+       }
+     })
+     .catch(() => {})
+ }, [])
 
  useEffect(() => {
  const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -224,71 +253,10 @@ export default function Navbar() {
  <button 
   aria-label="Search courses" 
   className="text-zinc-600 hover:text-zinc-900 transition-colors focus-visible:outline-none"
-  onClick={() => setIsSearchOpen(!isSearchOpen)}
+  onClick={() => setIsOpen(!isSearchOpen)}
   >
   <Search className="h-5 w-5" />
   </button>
-
-  {isSearchOpen && (
-  <div className="absolute top-full right-0 mt-6 w-[320px] lg:w-[380px] bg-white border border-zinc-200 shadow-xl rounded-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-  <div className="flex items-center gap-2 bg-zinc-50 rounded-xl border border-zinc-200 px-3 py-2.5">
-  <Search className="h-4 w-4 text-zinc-400" />
-  <input
-  type="text"
-  placeholder="Search courses..."
-  className="bg-transparent border-none focus:outline-none text-sm w-full px-1 text-zinc-900 placeholder:text-zinc-400"
-  autoFocus
-  value={searchQuery}
-  onChange={(e) => setSearchQuery(e.target.value)}
-  />
-  <button onClick={() => {setIsSearchOpen(false); setSearchQuery('')}} className="rounded-full hover:bg-zinc-200 p-1 text-zinc-500 transition-colors">
-  <X className="h-3.5 w-3.5" />
-  </button>
-  </div>
-
-  {searchQuery ? (
-  <div className="mt-3">
-  <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 px-2">Results for "{searchQuery}"</div>
-  <div className="space-y-1">
-  <Link href="/courses/prompt-engineering" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-zinc-50 rounded-xl transition-colors group">
-  <div className="flex items-center gap-3">
-  <div className="h-8 w-8 flex-shrink-0 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-  <BookOpen className="h-4 w-4" />
-  </div>
-  <div className="min-w-0">
-  <p className="text-sm font-medium text-zinc-900 truncate group-hover:text-blue-600 transition-colors">Advanced Prompt Engineering</p>
-  <p className="text-xs text-zinc-500 truncate">AI & Logic</p>
-  </div>
-  </div>
-  </Link>
-  <Link href="/courses/ai-content" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-zinc-50 rounded-xl transition-colors group">
-  <div className="flex items-center gap-3">
-  <div className="h-8 w-8 flex-shrink-0 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-  <Star className="h-4 w-4" />
-  </div>
-  <div className="min-w-0">
-  <p className="text-sm font-medium text-zinc-900 truncate group-hover:text-blue-600 transition-colors">AI Content Masterclass</p>
-  <p className="text-xs text-zinc-500 truncate">Marketing</p>
-  </div>
-  </div>
-  </Link>
-  </div>
-  <div className="mt-2 pt-2 border-t border-zinc-100">
-  <Link href={`/search?q=${searchQuery}`} onClick={() => setIsOpen(false)} className="block px-3 py-2.5 text-xs font-semibold text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-xl text-center transition-colors">
-  View all results for "{searchQuery}"
-  </Link>
-  </div>
-  </div>
-  ) : (
-  <div className="py-6 text-center">
-  <Search className="h-6 w-6 text-zinc-300 mx-auto mb-2" />
-  <p className="text-sm text-zinc-500">Type to start searching...</p>
-  </div>
-  )}
-  </div>
-  )}
- 
- 
  
  <div className="h-4 w-px bg-zinc-200 hidden lg:block"></div>
 
@@ -337,36 +305,72 @@ export default function Navbar() {
  {megaMenus[activeMenu].columns.map((col, ci) => (
  <div key={ci}>
  <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">{col.title}</p>
- <div className="space-y-1">
- {col.items.map((item, ii) => (
- <Link
- key={ii}
- href={item.href}
- onClick={() => setActiveMenu(null)}
- className={cn(
-"group flex items-start gap-4 p-3 rounded-xl transition-all duration-200",
-"hover:bg-zinc-50",
-"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset"
-)}
- >
- <div className={cn(
-"flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-200",
-"bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:scale-110"
-)}>
- <item.icon className="h-5 w-5" />
- </div>
- <div className="flex-1 min-w-0">
- <p className="text-sm font-semibold text-zinc-900 group-hover:text-blue-600 transition-colors">
- {item.label}
- </p>
- <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
- {item.description}
- </p>
- </div>
- <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
- </Link>
-))}
- </div>
+  <div className="space-y-1">
+  {col.items.map((item, ii) => (
+  item.disabled ? (
+    <div
+      key={ii}
+      className={cn(
+        "group relative flex items-start gap-4 p-3 rounded-xl transition-all duration-200 cursor-not-allowed",
+        item.tooltipOnly ? "hover:bg-zinc-50" : "bg-zinc-50/50"
+      )}
+    >
+      <div className={cn(
+        "flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-200",
+        item.tooltipOnly ? "bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:scale-110" : "bg-zinc-100 text-zinc-400"
+      )}>
+        <item.icon className="h-5 w-5" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className={cn(
+          "text-sm font-semibold transition-colors",
+          item.tooltipOnly ? "text-zinc-900 group-hover:text-blue-600" : "text-zinc-500"
+        )}>
+          {item.label}
+        </p>
+        <p className={cn(
+          "text-xs mt-0.5 leading-relaxed",
+          item.tooltipOnly ? "text-zinc-500" : "text-zinc-400"
+        )}>
+          {item.description}
+        </p>
+      </div>
+      {item.tooltipOnly && (
+        <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
+      )}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-zinc-800 text-xs text-zinc-200 rounded whitespace-nowrap pointer-events-none z-10">
+        Coming soon
+      </div>
+    </div>
+  ) : (
+  <Link
+  key={ii}
+  href={item.href}
+  onClick={() => setActiveMenu(null)}
+  className={cn(
+ "group flex items-start gap-4 p-3 rounded-xl transition-all duration-200",
+ "hover:bg-zinc-50",
+ "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset"
+ )}
+  >
+  <div className={cn(
+ "flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-200",
+ "bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:scale-110"
+ )}>
+  <item.icon className="h-5 w-5" />
+  </div>
+  <div className="flex-1 min-w-0">
+  <p className="text-sm font-semibold text-zinc-900 group-hover:text-blue-600 transition-colors">
+  {item.label}
+  </p>
+  <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
+  {item.description}
+  </p>
+  </div>
+  <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
+  </Link>
+  )))}
+  </div>
  </div>
 ))}
  </div>
@@ -469,7 +473,7 @@ function MobileAccordion({
  onClose,
 }: {
  label: string
- menu: (typeof megaMenus)[string]
+ menu: (typeof DEFAULT_MEGA_MENUS)[string]
  onClose: () => void
 }) {
  const [open, setOpen] = useState(false)
@@ -489,17 +493,32 @@ function MobileAccordion({
  </button>
  {open && (
  <div className="ml-4 mt-1 space-y-1 animate-in fade-in slide-in- duration-200">
- {menu.columns.flatMap(col => col.items).map((item, i) => (
- <Link
- key={i}
- href={item.href}
- onClick={onClose}
- className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
- >
- <item.icon className="h-4 w-4 opacity-70" />
- {item.label}
- </Link>
-))}
+  {menu.columns.flatMap(col => col.items).map((item, i) => (
+  item.disabled ? (
+    <div
+      key={i}
+      className={cn(
+        "group relative flex items-center gap-3 px-4 py-2.5 text-sm cursor-not-allowed rounded-lg transition-colors",
+        item.tooltipOnly ? "text-zinc-600 hover:text-blue-600 hover:bg-blue-50" : "text-zinc-400 bg-zinc-50/50"
+      )}
+    >
+      <item.icon className={cn("h-4 w-4", item.tooltipOnly ? "opacity-70" : "opacity-50")} />
+      {item.label}
+      <div className="absolute left-12 bottom-full mb-1 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-zinc-800 text-xs text-zinc-200 rounded whitespace-nowrap pointer-events-none z-10">
+        Coming soon
+      </div>
+    </div>
+  ) : (
+  <Link
+  key={i}
+  href={item.href}
+  onClick={onClose}
+  className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+  >
+  <item.icon className="h-4 w-4 opacity-70" />
+  {item.label}
+  </Link>
+  )))}
  </div>
 )}
  </div>
