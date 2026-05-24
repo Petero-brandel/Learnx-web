@@ -154,7 +154,20 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
             {course.description || 'Start your learning journey with this course.'}
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 mb-8">
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
+              <span className="inline-flex items-center gap-1.5">
+                <Layers className="h-4 w-4" />
+                {moduleCount} module{moduleCount !== 1 ? 's' : ''}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <PlayCircle className="h-4 w-4" />
+                {lessonCount} lesson{lessonCount !== 1 ? 's' : ''}
+              </span>
+            </div>
+
+            {/* Watch Preview Button */}
             {course.preview_video_id && (
               <button 
                 onClick={() => setShowPreview(true)}
@@ -165,18 +178,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
               </button>
             )}
           </div>
-
-          {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
- <span className="inline-flex items-center gap-1.5">
- <Layers className="h-4 w-4" />
- {moduleCount} module{moduleCount !== 1 ? 's' : ''}
- </span>
- <span className="inline-flex items-center gap-1.5">
- <PlayCircle className="h-4 w-4" />
- {lessonCount} lesson{lessonCount !== 1 ? 's' : ''}
- </span>
- </div>
  </div>
  </div>
  </section>

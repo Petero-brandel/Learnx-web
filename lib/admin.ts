@@ -223,8 +223,19 @@ export async function createCourse(data: {
   price: number;
   is_published: boolean;
   thumbnail?: string;
+  preview_video_id?: string;
 }): Promise<AdminCourse> {
   const response = await api.post('/courses/', data);
+  return response.data;
+}
+
+export async function requestNewCourseUploadUrl(title: string): Promise<{ 
+  video_id: string; 
+  library_id: string;
+  authorization_signature: string;
+  authorization_expire: number;
+}> {
+  const response = await api.post(`/courses/request_new_course_upload_url/`, { title });
   return response.data;
 }
 
