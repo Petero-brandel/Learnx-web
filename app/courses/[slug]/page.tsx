@@ -146,6 +146,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
 )}
  <div className="absolute inset-0 bg-black/50" />
  <div className="relative max-w-7xl mx-auto w-full z-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6 flex items-center gap-4 flex-wrap">
             {course.title}
@@ -154,31 +155,32 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
             {course.description || 'Start your learning journey with this course.'}
           </p>
 
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            {/* Meta row */}
-            <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
-              <span className="inline-flex items-center gap-1.5">
-                <Layers className="h-4 w-4" />
-                {moduleCount} module{moduleCount !== 1 ? 's' : ''}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <PlayCircle className="h-4 w-4" />
-                {lessonCount} lesson{lessonCount !== 1 ? 's' : ''}
-              </span>
-            </div>
-
-            {/* Watch Preview Button */}
-            {course.preview_video_id && (
-              <button 
-                onClick={() => setShowPreview(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-semibold transition-all backdrop-blur-sm border border-white/20 hover:scale-105"
-              >
-                <Play className="h-4 w-4 fill-white" />
-                Watch Preview
-              </button>
-            )}
+          {/* Meta row */}
+          <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
+            <span className="inline-flex items-center gap-1.5">
+              <Layers className="h-4 w-4" />
+              {moduleCount} module{moduleCount !== 1 ? 's' : ''}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <PlayCircle className="h-4 w-4" />
+              {lessonCount} lesson{lessonCount !== 1 ? 's' : ''}
+            </span>
           </div>
- </div>
+        </div>
+
+        {/* Watch Preview Button */}
+        {course.preview_video_id && (
+          <div className="md:mr-4 shrink-0 mb-1 md:mb-0">
+            <button 
+              onClick={() => setShowPreview(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-semibold transition-all backdrop-blur-sm border border-white/20 hover:scale-105"
+            >
+              <Play className="h-4 w-4 fill-white" />
+              Watch Preview
+            </button>
+          </div>
+        )}
+      </div>
  </div>
  </section>
 
