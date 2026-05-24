@@ -1,12 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
-import Logo from '@/components/ui/Logo'
-import { useRouter, usePathname } from 'next/navigation'
-'use client'
-
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 import { useRouter, usePathname } from 'next/navigation'
@@ -14,7 +8,6 @@ import { Menu, X, ChevronDown, BookOpen, Star, Briefcase, Trophy, CheckCircle, P
 import { cn } from '@/lib/utils'
 
 import { useAuth } from '@/context/AuthContext'
-import { api } from '@/lib/api'
 
 type MenuItem = { label: string; description: string; href: string; icon: React.ElementType; disabled?: boolean; tooltipOnly?: boolean }
 
@@ -128,26 +121,29 @@ export default function Navbar() {
 
  const [megaMenus, setMegaMenus] = useState(DEFAULT_MEGA_MENUS)
 
- useEffect(() => {
-   api.get('/courses/')
-     .then(res => {
-       const topCourses = res.data.slice(0, 3)
-       if (topCourses.length > 0) {
-         setMegaMenus(prev => {
-           const updated = { ...prev }
-           updated.Courses = { ...updated.Courses, columns: [...updated.Courses.columns] }
-           updated.Courses.columns[0] = { ...updated.Courses.columns[0], items: topCourses.map((course: any) => ({
-             label: course.title,
-             description: course.description || 'Master this subject with our expert-led course',
-             href: `/courses/${course.slug}`,
-             icon: BookOpen
-           }))}
-           return updated
-         })
-       }
-     })
-     .catch(() => {})
- }, [])
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
+    fetch(`${API_URL}courses/`)
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data)) return;
+        const topCourses = data.slice(0, 3)
+        if (topCourses.length > 0) {
+          setMegaMenus(prev => {
+            const updated = { ...prev }
+            updated.Courses = { ...updated.Courses, columns: [...updated.Courses.columns] }
+            updated.Courses.columns[0] = { ...updated.Courses.columns[0], items: topCourses.map((course: any) => ({
+              label: course.title,
+              description: course.description || 'Master this subject with our expert-led course',
+              href: `/courses/${course.slug}`,
+              icon: BookOpen
+            }))}
+            return updated
+          })
+        }
+      })
+      .catch(() => {})
+  }, [])
 
  useEffect(() => {
  const handleScroll = () => setScrolled(window.scrollY > 20)
