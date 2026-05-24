@@ -1,6 +1,6 @@
 import { api } from './api';
 
-export async function checkoutCourse(courseId: number): Promise<{ authorization_url: string }> {
+export async function checkoutCourse(courseId: number): Promise<{ authorization_url?: string, free?: boolean }> {
   const response = await api.post('/payments/checkout/', { course_id: courseId });
   return response.data;
 }

@@ -193,7 +193,7 @@ export default function AdminCoursesPage() {
  {/* Stats container */}
  <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 text-xs font-medium text-zinc-600 dark:text-zinc-400">
  <div className="flex items-center gap-1.5">
- <span className="text-zinc-900 dark:text-zinc-100 font-bold">{formatPrice(course.price)}</span>
+ <span className="text-zinc-900 dark:text-zinc-100 font-bold">{Number(course.price) === 0 ? 'Free' : formatPrice(course.price)}</span>
  </div>
  <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
  <div className="flex items-center gap-1.5">

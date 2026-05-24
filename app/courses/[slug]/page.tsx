@@ -78,6 +78,8 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
       const res = await checkoutCourse(course.id);
       if (res.authorization_url) {
         window.location.href = res.authorization_url;
+      } else if (res.free) {
+        router.push(`/dashboard/courses/${slug}`);
       }
     } catch (err: any) {
       console.error(err);
@@ -234,7 +236,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ slug: s
             {/* Right column Purchase card */}
             <div className="lg:col-span-1">
               <div className="sticky top-24 p-8 rounded-2xl border border-zinc-100 bg-white shadow-lg">
-                <p className="text-3xl font-bold text-zinc-900 mb-2">{formatPrice(course.price)}</p>
+                <p className="text-3xl font-bold text-zinc-900 mb-2">{Number(course.price) === 0 ? 'Free' : formatPrice(course.price)}</p>
                 <p className="text-sm text-zinc-500 mb-8">One-time payment · Lifetime access</p>
 
                 <button

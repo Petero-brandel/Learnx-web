@@ -36,6 +36,7 @@ export function CourseGrid() {
  const [courses, setCourses] = useState<PublicCourse[]>([]);
  const [loading, setLoading] = useState(true);
  const [search, setSearch] = useState('');
+ const [filter, setFilter] = useState<'all' | 'free' | 'paid'>('all');
 
  useEffect(() => {
  api.get('/courses/')
@@ -45,10 +46,17 @@ export function CourseGrid() {
  }, []);
 
  const filtered = courses.filter((course) => {
+ const searchLower = search.toLowerCase();
  const matchesSearch =
- course.title.toLowerCase().includes(search.toLowerCase()) ||
- (course.description || '').toLowerCase().includes(search.toLowerCase());
- return matchesSearch;
+ course.title.toLowerCase().includes(searchLower) ||
+ (course.description || '').toLowerCase().includes(searchLower) ||
+ (searchLower === 'free' && Number(course.price) === 0);
+
+ let matchesFilter = true;
+ if (filter === 'free') matchesFilter = Number(course.price) === 0;
+ if (filter === 'paid') matchesFilter = Number(course.price) > 0;
+
+ return matchesSearch && matchesFilter;
  });
 
  return (
@@ -65,6 +73,23 @@ export function CourseGrid() {
  onChange={(e) => setSearch(e.target.value)}
  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
  />
+ </div>
+ 
+ <div className="flex items-center gap-2 mt-4 md:mt-0 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+ {(['all', 'free', 'paid'] as const).map((f) => (
+ <button
+ key={f}
+ onClick={() => setFilter(f)}
+ className={cn(
+ "px-4 py-2 rounded-full text-sm font-medium capitalize whitespace-nowrap transition-colors",
+ filter === f 
+ ? "bg-zinc-900 text-white" 
+ : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+ )}
+ >
+ {f === 'all' ? 'All Courses' : `${f} Courses`}
+ </button>
+ ))}
  </div>
  </div>
 
@@ -146,7 +171,9 @@ export function CourseGrid() {
 
  {/* Price */}
  <div className="pt-4 border-t border-zinc-100 flex items-center justify-between">
- <span className="text-lg font-bold text-zinc-900">{formatPrice(course.price)}</span>
+ <span className="text-lg font-bold text-zinc-900">
+ {Number(course.price) === 0 ? 'Free' : formatPrice(course.price)}
+ </span>
  </div>
  </div>
  </Link>
