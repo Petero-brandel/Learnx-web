@@ -1,28 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen, Layers, Search, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { api } from '@/lib/api';
-
-interface PublicCourse {
- id: number;
- title: string;
- slug: string;
- description: string;
- price: string;
- thumbnail: string | null;
- is_published: boolean;
- created_at: string;
- modules: {
- id: number;
- title: string;
- lessons: { id: number }[];
- }[];
-}
+import { useCourses } from '@/lib/hooks';
 
 function formatPrice(price: string | number): string {
  return new Intl.NumberFormat('en-NG', {
@@ -37,17 +21,9 @@ export function CourseGrid() {
   const searchParams = useSearchParams();
   const defaultFilter = searchParams.get('filter') === 'free' ? 'free' : 'all';
 
-  const [courses, setCourses] = useState<PublicCourse[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: courses = [], isLoading: loading } = useCourses();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'free' | 'paid'>(defaultFilter as any);
-
- useEffect(() => {
- api.get('/courses/')
- .then(res => setCourses(res.data))
- .catch(() => {})
- .finally(() => setLoading(false));
- }, []);
 
  const filtered = courses.filter((course) => {
  const searchLower = search.toLowerCase();
@@ -125,8 +101,8 @@ export function CourseGrid() {
  {!loading && filtered.length > 0 && (
  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filtered.map((course) => {
- const lessonCount = course.modules?.reduce((sum, m) => sum + (m.lessons?.length || 0), 0) || 0;
- const moduleCount = course.modules?.length || 0;
+ const lessonCount = course.lesson_count || 0;
+ const moduleCount = course.module_count || 0;
 
  return (
  <Link

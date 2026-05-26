@@ -1,15 +1,15 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { use, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { fetchCourseDetail, fetchMyEnrollments, type CourseDetail } from '@/lib/dashboard';
 import { checkoutCourse } from '@/lib/payments';
 import Image from 'next/image';
 import Navbar from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { Clock, PlayCircle, CheckCircle, ArrowRight, BookOpen, Award, Layers, Loader2, X, Play } from 'lucide-react';
+import { useCourseDetail, useCheckEnrollment } from '@/lib/hooks';
 
 const BUNNY_LIBRARY_ID = process.env.NEXT_PUBLIC_BUNNY_LIBRARY_ID || '';
 
@@ -24,34 +24,17 @@ function formatPrice(price: number | string): string {
 
 export default function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const [course, setCourse] = useState<CourseDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  
+  const { data: course, isLoading: loadingCourse, isError: error } = useCourseDetail(slug);
+  const { data: isEnrolled = false, isLoading: loadingEnrollment } = useCheckEnrollment(course?.id);
+  
+  const loading = loadingCourse;
 
   const [showPreview, setShowPreview] = useState(false);
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [isEnrolled, setIsEnrolled] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    fetchCourseDetail(slug)
-      .then(data => setCourse(data))
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [slug]);
-
-  // Check if user is already enrolled in this course
-  useEffect(() => {
-    if (!user) return;
-    fetchMyEnrollments()
-      .then(enrollments => {
-        const enrolled = enrollments.some(e => e.course_slug === slug);
-        setIsEnrolled(enrolled);
-      })
-      .catch(err => console.error("Failed to check enrollment status", err));
-  }, [user, slug]);
 
   const handleEnroll = async () => {
     if (!user) {

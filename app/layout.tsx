@@ -1,23 +1,24 @@
-import type { Metadata, Viewport } from"next";
-import { Inter, Geist_Mono } from"next/font/google";
-import { ThemeProvider } from"@/components/ThemeProvider";
-import { AuthProvider } from"@/context/AuthContext";
-import { GoogleOAuthProvider } from"@react-oauth/google";
-import"./globals.css";
+import type { Metadata, Viewport } from "next";
+import { Inter, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthProvider } from "@/context/AuthContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Providers from "./providers";
+import "./globals.css";
 
 const inter = Inter({
- variable:"--font-inter",
+ variable: "--font-inter",
  subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
- variable:"--font-geist-mono",
+ variable: "--font-geist-mono",
  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
- title:"Bluedemy",
- description:"Master AI & Digital Skills with expert-led courses in Prompt Engineering, Content Creation, and Digital Marketing.",
+ title: "Bluedemy",
+ description: "Master AI & Digital Skills with expert-led courses in Prompt Engineering, Content Creation, and Digital Marketing.",
  icons: {
   icon: [
    { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
- width:"device-width",
+ width: "device-width",
  initialScale: 1,
  maximumScale: 1,
 };
@@ -70,11 +71,13 @@ export default function RootLayout({
  defaultTheme="dark"
  disableTransitionOnChange
  >
- <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||""}>
+ <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+ <Providers>
  <AuthProvider>
  {children}
  {modal}
  </AuthProvider>
+ </Providers>
  </GoogleOAuthProvider>
  </ThemeProvider>
  </body>

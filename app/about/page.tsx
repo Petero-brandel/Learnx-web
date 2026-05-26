@@ -34,8 +34,8 @@ const stats = [
 
 const team = [
  {
- name: 'David Adekunle',
- role: 'Founder & Lead Instructor',
+ name: 'Chukwuemeka Izuchukwu Emmanuel',
+ role: 'Co-Founder, CEO & Lead Instructor',
  image: '/images/avatars/avatar-1.png',
  bio: 'Designs the hands-on learning paths that help students ship real projects fast.',
  },
