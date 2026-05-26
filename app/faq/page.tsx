@@ -29,7 +29,7 @@ const faqs = [
  },
  {
  question: 'Do you offer team or enterprise plans?',
- answer: 'Yes! We offer special pricing for teams of 5 or more. Our enterprise plans include admin dashboards, progress tracking, custom learning paths, and dedicated support. Contact our sales team at enterprise@bluedemy.com for a custom quote.',
+ answer: 'Yes! We offer special pricing for teams of 5 or more. Our enterprise plans include admin dashboards, progress tracking, custom learning paths, and dedicated support. Contact our sales team at enterprise@bluedemy.org for a custom quote.',
  },
  {
  question: 'How are the courses structured?',
@@ -92,7 +92,7 @@ export default function FAQPage() {
  </h1>
  <p className="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl mx-auto">
  Everything you need to know about Bluedemy. Can&apos;t find what you&apos;re looking for?{' '}
- <a href="mailto:support@bluedemy.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+ <a href="mailto:support@bluedemy.org" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
  Contact our team
  </a>.
  </p>
@@ -117,7 +117,7 @@ export default function FAQPage() {
  Our support team is here to help you every step of the way.
  </p>
  <a
- href="mailto:support@bluedemy.com"
+ href="mailto:support@bluedemy.org"
  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold text-sm hover:opacity-90 transition-opacity"
  >
  Contact Support

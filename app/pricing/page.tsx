@@ -54,7 +54,7 @@ const plans = [
  'Invoice billing available',
  ],
  cta: 'Contact Sales',
- href: 'mailto:enterprise@bluedemy.com',
+ href: 'mailto:enterprise@bluedemy.org',
  },
 ];
 

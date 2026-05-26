@@ -24,7 +24,7 @@ export default function PrivacyPage() {
  </ul>
 
  <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mt-8 mb-4">3. Contacting Us</h2>
- <p className="mb-6">If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at privacy@bluedemy.com.</p>
+ <p className="mb-6">If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at privacy@bluedemy.org.</p>
  </div>
  </main>
  <Footer />

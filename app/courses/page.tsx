@@ -1,7 +1,16 @@
 import { Suspense } from 'react';
-import Navbar from"@/components/layout/Navbar";
-import { Footer } from"@/components/sections/Footer";
-import { CourseGrid } from"@/components/sections/CourseGrid";
+import Navbar from "@/components/layout/Navbar";
+import { Footer } from "@/components/sections/Footer";
+import { CourseGrid } from "@/components/sections/CourseGrid";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Course Catalog | Bluedemy",
+  description: "Browse our collection of expert-led courses in Prompt Engineering, AI Content Creation, Digital Marketing, and more.",
+  alternates: {
+    canonical: "/courses",
+  },
+};
 
 export default function CoursesPage() {
  return (
