@@ -126,8 +126,9 @@ export default function Navbar() {
     fetch(`${API_URL}courses/`)
       .then(res => res.json())
       .then(data => {
-        if (!Array.isArray(data)) return;
-        const topCourses = data.slice(0, 3)
+        const coursesArray = Array.isArray(data) ? data : data.results;
+        if (!Array.isArray(coursesArray)) return;
+        const topCourses = coursesArray.slice(0, 3)
         if (topCourses.length > 0) {
           setMegaMenus(prev => {
             const updated = { ...prev }

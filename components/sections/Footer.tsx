@@ -12,8 +12,10 @@ async function getTopCourses(): Promise<Course[]> {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
     const res = await fetch(`${API_URL}courses/`, { next: { revalidate: 3600 } });
     if (!res.ok) return [];
-    const courses: Course[] = await res.json();
-    return courses.slice(0, 4);
+    const data = await res.json();
+    const coursesArray = Array.isArray(data) ? data : data.results;
+    if (!Array.isArray(coursesArray)) return [];
+    return coursesArray.slice(0, 4);
   } catch (e) {
     return [];
   }

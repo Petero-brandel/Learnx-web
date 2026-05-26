@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 import { Reveal } from '@/components/ui/Reveal';
-import { api } from '@/lib/api';
+import { useCourses } from '@/lib/hooks';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
@@ -20,22 +20,6 @@ import type { Swiper as SwiperType } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
-
-interface PublicCourse {
-  id: number;
-  title: string;
-  slug: string;
-  description: string;
-  price: string;
-  thumbnail: string | null;
-  is_published: boolean;
-  created_at: string;
-  modules: {
-    id: number;
-    title: string;
-    lessons: { id: number }[];
-  }[];
-}
 
 function formatPrice(price: string | number): string {
   return new Intl.NumberFormat('en-NG', {
@@ -47,29 +31,14 @@ function formatPrice(price: string | number): string {
 }
 
 export function CoursePreview() {
-  const [courses, setCourses] = useState<PublicCourse[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data = [], isLoading: loading } = useCourses();
+  const courses = data.slice(0, 8);
   const [mounted, setMounted] = useState(false);
 
   const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    api
-      .get('/courses/')
-      .then((res) => {
-        console.log('Fetched courses:', res.data);
-        setCourses(res.data.slice(0, 8));
-      })
-      .catch((err) => {
-        console.error('Failed to fetch courses:', err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
   }, []);
 
   // Proper Swiper cleanup
@@ -196,15 +165,8 @@ export function CoursePreview() {
               className="pb-4"
             >
               {courses.map((course) => {
-                const lessonCount =
-                  course.modules?.reduce(
-                    (sum, module) =>
-                      sum + (module.lessons?.length || 0),
-                    0
-                  ) || 0;
-
-                const moduleCount =
-                  course.modules?.length || 0;
+                const lessonCount = course.lesson_count || 0;
+                const moduleCount = course.module_count || 0;
 
                 return (
                   <SwiperSlide key={course.id}>

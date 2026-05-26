@@ -209,7 +209,7 @@ export async function broadcastEmail(data: {
 
 export async function fetchAllCourses(): Promise<AdminCourse[]> {
   const response = await api.get('/courses/');
-  return response.data;
+  return Array.isArray(response.data) ? response.data : response.data.results;
 }
 
 export async function fetchCourse(slug: string): Promise<AdminCourse> {
