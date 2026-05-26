@@ -84,7 +84,7 @@ const DEFAULT_MEGA_MENUS: Record<string, {
     ],
     cta: { label: 'View all plans', href: '/pricing', description: 'Compare features and pricing →' },
   },
-  Company: {
+  'About Us': {
     heading: 'About Bluedemy',
     description: 'Learn more about our mission, team, and policies.',
     columns: [
@@ -175,7 +175,7 @@ export default function Navbar() {
  { label: 'Courses', hasMenu: true },
  { label: 'Resources', hasMenu: true },
  { label: 'Pricing', hasMenu: true },
- { label: 'Company', hasMenu: true },
+ { label: 'About Us', hasMenu: true },
  { label: 'My Learning', href: user ? '/dashboard' : '/login' },
  ]
 
@@ -424,20 +424,6 @@ export default function Navbar() {
  className="flex items-center justify-between px-4 py-3 text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors mt-2"
  >
  <span>My Learning</span>
- </Link>
- <Link
- href="/pricing"
- onClick={() => setIsOpen(false)}
- className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-xl transition-colors"
- >
- Pricing
- </Link>
- <Link
- href="/teach"
- onClick={() => setIsOpen(false)}
- className="flex items-center px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-xl transition-colors"
- >
- Teach on Bluedemy
  </Link>
  </div>
 
