@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import Logo from '@/components/ui/Logo';
+import { useState, useEffect } from 'react';
 
 interface Course {
   id: number;
@@ -7,24 +10,28 @@ interface Course {
   slug: string;
 }
 
-async function getTopCourses(): Promise<Course[]> {
-  try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
-    const res = await fetch(`${API_URL}courses/`, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    const coursesArray = Array.isArray(data) ? data : data.results;
-    if (!Array.isArray(coursesArray)) return [];
-    return coursesArray.slice(0, 4);
-  } catch (e) {
-    return [];
-  }
-}
-
 type FooterLink = { label: string; href: string; disabled?: boolean };
 
-export async function Footer() {
-  const topCourses = await getTopCourses();
+export function Footer() {
+  const [topCourses, setTopCourses] = useState<Course[]>([]);
+
+  useEffect(() => {
+    async function getTopCourses() {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
+        const res = await fetch(`${API_URL}courses/`);
+        if (!res.ok) return;
+        const data = await res.json();
+        const coursesArray = Array.isArray(data) ? data : data.results;
+        if (Array.isArray(coursesArray)) {
+          setTopCourses(coursesArray.slice(0, 4));
+        }
+      } catch (e) {
+        // silently fail
+      }
+    }
+    getTopCourses();
+  }, []);
 
   const footerLinks: Record<string, FooterLink[]> = {
     Courses: [

@@ -24,10 +24,10 @@ function formatPrice(price: number | string): string {
 
 export default function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  
+
   const { data: course, isLoading: loadingCourse, isError: error } = useCourseDetail(slug);
   const { data: isEnrolled = false, isLoading: loadingEnrollment } = useCheckEnrollment(course?.id);
-  
+
   const loading = loadingCourse;
 
   const [showPreview, setShowPreview] = useState(false);

@@ -33,6 +33,7 @@ function formatPrice(price: string | number): string {
 export function CoursePreview() {
   const { data = [], isLoading: loading } = useCourses();
   const courses = data.slice(0, 8);
+
   const [mounted, setMounted] = useState(false);
 
   const swiperRef = useRef<SwiperType | null>(null);
@@ -41,7 +42,6 @@ export function CoursePreview() {
     setMounted(true);
   }, []);
 
-  // Proper Swiper cleanup
   useEffect(() => {
     return () => {
       swiperRef.current?.destroy(true, true);
@@ -73,6 +73,7 @@ export function CoursePreview() {
                 onClick={() => swiperRef.current?.slidePrev()}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition-all duration-200 hover:border-zinc-400 hover:text-zinc-900 hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-white"
                 aria-label="Previous courses"
+                type="button"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -82,6 +83,7 @@ export function CoursePreview() {
                 onClick={() => swiperRef.current?.slideNext()}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition-all duration-200 hover:border-zinc-400 hover:text-zinc-900 hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-white"
                 aria-label="Next courses"
+                type="button"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -140,6 +142,10 @@ export function CoursePreview() {
                 swiperRef.current = swiper;
               }}
               modules={[Autoplay, Navigation]}
+              preventClicks={false}
+              preventClicksPropagation={false}
+              touchStartPreventDefault={false}
+              threshold={5}
               observer={true}
               observeParents={true}
               rewind={true}
@@ -172,59 +178,62 @@ export function CoursePreview() {
                   <SwiperSlide key={course.id}>
                     <Link
                       href={`/courses/${course.slug}`}
-                      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:border-zinc-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-600"
+                      className="group block h-full overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:border-zinc-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-600"
                     >
-                      {/* Thumbnail */}
-                      <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                        {course.thumbnail ? (
-                          <Image
-                            src={course.thumbnail}
-                            alt={course.title}
-                            fill
-                            priority={false}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-zinc-100 dark:bg-zinc-800">
-                            <BookOpen className="h-10 w-10 text-zinc-300 dark:text-zinc-500" />
-                          </div>
-                        )}
+                      <div className="flex h-full flex-col">
+                        {/* Thumbnail */}
+                        <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                          {course.thumbnail ? (
+                            <Image
+                              src={course.thumbnail}
+                              alt={course.title}
+                              fill
+                              priority={false}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+                              <BookOpen className="h-10 w-10 text-zinc-300 dark:text-zinc-500" />
+                            </div>
+                          )}
 
-                        <div className="absolute inset-0 bg-black/10 transition-colors duration-500 group-hover:bg-black/0" />
-                      </div>
-
-                      {/* Body */}
-                      <div className="flex flex-1 flex-col p-6">
-                        <h3 className="mb-2 text-lg font-bold text-zinc-900 transition-colors group-hover:text-blue-600 dark:text-white">
-                          {course.title}
-                        </h3>
-
-                        <p className="mb-6 flex-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                          {course.description ||
-                            'No description available.'}
-                        </p>
-
-                        {/* Meta */}
-                        <div className="mb-4 flex items-center gap-4 text-xs text-zinc-400 dark:text-zinc-400">
-                          <span className="inline-flex items-center gap-1">
-                            <Layers className="h-3.5 w-3.5" />
-                            {moduleCount} module
-                            {moduleCount !== 1 ? 's' : ''}
-                          </span>
-
-                          <span className="inline-flex items-center gap-1">
-                            <BookOpen className="h-3.5 w-3.5" />
-                            {lessonCount} lesson
-                            {lessonCount !== 1 ? 's' : ''}
-                          </span>
+                          {/* Overlay */}
+                          <div className="pointer-events-none absolute inset-0 bg-black/10 transition-colors duration-500 group-hover:bg-black/0" />
                         </div>
 
-                        {/* Price */}
-                        <div className="border-t border-zinc-100 pt-4 dark:border-zinc-700">
-                          <span className="text-lg font-bold text-zinc-900 dark:text-white">
-                            {formatPrice(course.price)}
-                          </span>
+                        {/* Body */}
+                        <div className="flex flex-1 flex-col p-6">
+                          <h3 className="mb-2 text-lg font-bold text-zinc-900 transition-colors group-hover:text-blue-600 dark:text-white">
+                            {course.title}
+                          </h3>
+
+                          <p className="mb-6 flex-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                            {course.description ||
+                              'No description available.'}
+                          </p>
+
+                          {/* Meta */}
+                          <div className="mb-4 flex items-center gap-4 text-xs text-zinc-400 dark:text-zinc-400">
+                            <span className="inline-flex items-center gap-1">
+                              <Layers className="h-3.5 w-3.5" />
+                              {moduleCount} module
+                              {moduleCount !== 1 ? 's' : ''}
+                            </span>
+
+                            <span className="inline-flex items-center gap-1">
+                              <BookOpen className="h-3.5 w-3.5" />
+                              {lessonCount} lesson
+                              {lessonCount !== 1 ? 's' : ''}
+                            </span>
+                          </div>
+
+                          {/* Price */}
+                          <div className="border-t border-zinc-100 pt-4 dark:border-zinc-700">
+                            <span className="text-lg font-bold text-zinc-900 dark:text-white">
+                              {formatPrice(course.price)}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </Link>
