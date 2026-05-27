@@ -48,8 +48,18 @@ export function useCheckEnrollment(courseId: number | undefined, isAuthenticated
   return useQuery({
     queryKey: ['enrollment', courseId, isAuthenticated],
     queryFn: async () => {
-      const { data } = await api.get<any>(`/payments/check-enrollment/${courseId}/`);
-      return data.enrolled || data.is_enrolled || data.isEnrolled || false;
+      try {
+        const { data } = await api.get<any>(`/payments/check-enrollment/${courseId}/`);
+        return data.enrolled || data.is_enrolled || data.isEnrolled || false;
+      } catch (err) {
+        console.warn("Lightweight enrollment check failed, falling back to full enrollments list...");
+        try {
+          const { data } = await api.get<any[]>('/payments/my-enrollments/');
+          return data.some(enrollment => enrollment.course_id === courseId);
+        } catch (fallbackErr) {
+          return false;
+        }
+      }
     },
     enabled: !!courseId && isAuthenticated,
     retry: false,
