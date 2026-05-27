@@ -117,17 +117,17 @@ export function Features() {
 							{/* Content */}
 							<div className="relative z-10 flex min-h-[400px] md:min-h-[500px] flex-col justify-center px-8 py-16 md:px-16 md:py-20 lg:w-2/3">
 								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
-									Learn at your own pace. <br className="hidden sm:block" />
-									<span className="text-blue-300">On your own terms.</span>
+									The Easiest Way <br className="hidden sm:block" />
+									<span className="text-blue-300">To Learn While Learning.</span>
 								</h3>
 								<p className="mb-10 max-w-lg text-lg text-blue-50/80 leading-relaxed">
-									No rigid schedules or stressful deadlines. Bluedemy gives you the complete freedom to build real digital skills whenever and wherever it works best for you.
+									No rigid schedules or stressful deadlines. Bluedemy gives you the complete freedom to learn real digital skills whenever and wherever it works best for you.
 								</p>
 								<Link
 									href="/courses"
 									className="inline-flex w-fit items-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-base font-medium text-white transition-all hover:bg-blue-500 hover:-translate-y-1 shadow-[0_10px_20px_rgba(37,99,235,0.3)]"
 								>
-									Explore our courses
+									Learn on Bluedemy
 									<ArrowRight className="h-5 w-5" />
 								</Link>
 							</div>
