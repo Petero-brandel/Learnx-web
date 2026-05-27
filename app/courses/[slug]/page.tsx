@@ -28,7 +28,9 @@ export default function CourseDetailPage() {
   const { user } = useAuth();
   
   const { data: course, isLoading: loadingCourse, isError: error } = useCourseDetail(slug);
-  const { data: isEnrolled = false, isLoading: loadingEnrollment } = useCheckEnrollment(course?.id, !!user);
+  const { data: isEnrolled = false, isLoading: loadingEnrollment, isFetching: fetchingEnrollment } = useCheckEnrollment(course?.id, !!user);
+  
+  const isCheckingEnrollment = loadingEnrollment || fetchingEnrollment;
 
   const loading = loadingCourse;
 
@@ -225,11 +227,11 @@ export default function CourseDetailPage() {
 
                 <button
                   onClick={handleEnroll}
-                  disabled={isCheckingOut || loadingEnrollment}
+                  disabled={isCheckingOut || isCheckingEnrollment}
                   className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-zinc-900 text-white font-semibold text-base hover:opacity-90 disabled:opacity-50 transition-opacity mb-4"
                 >
-                  {isCheckingOut ? 'Processing...' : (loadingEnrollment ? 'Checking status...' : (isEnrolled ? 'Continue Learning' : 'Enroll Now'))}
-                  {!isCheckingOut && !loadingEnrollment && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
+                  {isCheckingOut ? 'Processing...' : (isCheckingEnrollment ? 'Checking status...' : (isEnrolled ? 'Continue Learning' : 'Enroll Now'))}
+                  {!isCheckingOut && !isCheckingEnrollment && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
 
                 <p className="text-center text-xs text-zinc-400 mb-8">

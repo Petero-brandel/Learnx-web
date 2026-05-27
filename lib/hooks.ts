@@ -46,13 +46,12 @@ export function useCourseDetail(slug: string) {
 
 export function useCheckEnrollment(courseId: number | undefined, isAuthenticated: boolean = false) {
   return useQuery({
-    queryKey: ['enrollment', courseId],
+    queryKey: ['enrollment', courseId, isAuthenticated],
     queryFn: async () => {
       const { data } = await api.get<any>(`/payments/check-enrollment/${courseId}/`);
       return data.enrolled || data.is_enrolled || data.isEnrolled || false;
     },
     enabled: !!courseId && isAuthenticated,
-    staleTime: 60 * 1000,
     retry: false,
   });
 }
