@@ -141,9 +141,6 @@ export function Features() {
 						<div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 							{/* Text Content */}
 							<div className="lg:w-1/2 order-2 lg:order-1">
-								<span className="mb-6 inline-flex w-fit items-center rounded-full border border-blue-200 bg-blue-100/50 px-4 py-1.5 text-sm font-medium text-blue-800">
-									Verified Certificates
-								</span>
 								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-[1.1]">
 									Prove your skills with a <br className="hidden sm:block" />
 									<span className="text-blue-600">verifiable certificate.</span>
