@@ -105,11 +105,10 @@ export function Features() {
 						<div className="relative overflow-hidden rounded-[2.5rem] bg-[#0a192f] shadow-2xl ring-1 ring-black/5">
 							{/* Background Image */}
 							<div className="absolute inset-0">
-								<Image
-									src="/feature-banner.jpg"
+								<img
+									src="/feature-banner.png"
 									alt="Happy students learning"
-									fill
-									className="object-cover object-center opacity-90"
+									className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
 								/>
 								{/* Gradient overlay to ensure text readability */}
 								<div className="absolute inset-0 bg-gradient-to-r from-[#030914]/90 via-[#030914]/60 to-transparent" />
