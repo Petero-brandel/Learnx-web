@@ -85,7 +85,8 @@ export interface Certificate {
 
 // ─── Enrollments ─────────────────────────────────────────
 export async function fetchMyEnrollments(): Promise<Enrollment[]> {
-  const response = await api.get('/payments/my-enrollments/');
+  const timestamp = Date.now();
+  const response = await api.get(`/payments/my-enrollments/?t=${timestamp}`);
   return response.data;
 }
 

@@ -56,15 +56,12 @@ function DashboardContent() {
  try {
  await verifyPayment(reference)
  // Clean URL
- router.replace('/dashboard')
+ window.history.replaceState({}, '', '/dashboard')
  } catch (err) {
  console.error('Payment verification failed', err)
  alert('Failed to verify payment automatically. Please contact support.')
- router.replace('/dashboard')
+ window.history.replaceState({}, '', '/dashboard')
  }
- // Return early. The router.replace will strip the reference from the URL
- // and trigger a re-render. The second pass will fetch the updated enrollments.
- return
  }
 
  try {
