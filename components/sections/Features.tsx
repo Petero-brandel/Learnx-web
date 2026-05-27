@@ -116,9 +116,6 @@ export function Features() {
 
 							{/* Content */}
 							<div className="relative z-10 flex min-h-[400px] md:min-h-[500px] flex-col justify-center px-8 py-16 md:px-16 md:py-20 lg:w-2/3">
-								<span className="mb-6 inline-flex w-fit items-center rounded-full border border-blue-400/30 bg-blue-500/20 px-4 py-1.5 text-sm font-medium text-blue-100 backdrop-blur-sm">
-									Self-Paced Learning
-								</span>
 								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
 									Learn at your own pace. <br className="hidden sm:block" />
 									<span className="text-blue-300">On your own terms.</span>
@@ -176,7 +173,7 @@ export function Features() {
 									<ArrowRight className="h-5 w-5" />
 								</Link>
 							</div>
-							
+
 							{/* Image Showcase */}
 							<div className="lg:w-1/2 order-1 lg:order-2 w-full">
 								<div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden bg-white shadow-[0_20px_50px_rgba(15,23,42,0.1)] ring-1 ring-black/5 transform lg:rotate-2 transition-transform hover:rotate-0 duration-500">
