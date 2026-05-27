@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { checkoutCourse } from '@/lib/payments';
 import Image from 'next/image';
@@ -22,18 +22,19 @@ function formatPrice(price: number | string): string {
   }).format(Number(price));
 }
 
-export default function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default function CourseDetailPage() {
+  const { slug } = useParams() as { slug: string };
 
+  const { user } = useAuth();
+  
   const { data: course, isLoading: loadingCourse, isError: error } = useCourseDetail(slug);
-  const { data: isEnrolled = false, isLoading: loadingEnrollment } = useCheckEnrollment(course?.id);
+  const { data: isEnrolled = false, isLoading: loadingEnrollment } = useCheckEnrollment(course?.id, !!user);
 
   const loading = loadingCourse;
 
   const [showPreview, setShowPreview] = useState(false);
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const { user } = useAuth();
   const router = useRouter();
 
   const handleEnroll = async () => {

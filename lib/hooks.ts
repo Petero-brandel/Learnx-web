@@ -44,14 +44,14 @@ export function useCourseDetail(slug: string) {
   });
 }
 
-export function useCheckEnrollment(courseId: number | undefined) {
+export function useCheckEnrollment(courseId: number | undefined, isAuthenticated: boolean = false) {
   return useQuery({
     queryKey: ['enrollment', courseId],
     queryFn: async () => {
       const { data } = await api.get<{ enrolled: boolean }>(`/payments/check-enrollment/${courseId}/`);
       return data.enrolled;
     },
-    enabled: !!courseId,
+    enabled: !!courseId && isAuthenticated,
     staleTime: 60 * 1000,
     retry: false,
   });
