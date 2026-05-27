@@ -61,9 +61,10 @@ function DashboardContent() {
  console.error('Payment verification failed', err)
  alert('Failed to verify payment automatically. Please contact support.')
  router.replace('/dashboard')
- } finally {
- setVerifying(false)
  }
+ // Return early. The router.replace will strip the reference from the URL
+ // and trigger a re-render. The second pass will fetch the updated enrollments.
+ return
  }
 
  try {
@@ -78,6 +79,7 @@ function DashboardContent() {
  } catch (err) {
  console.error('Failed to load dashboard data', err)
  } finally {
+ setVerifying(false) // Clear verifying state if carried over from previous render
  setLoading(false)
  }
  }
