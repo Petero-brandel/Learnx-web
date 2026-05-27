@@ -53,5 +53,7 @@ export function useCheckEnrollment(courseId: number | undefined, isAuthenticated
     },
     enabled: !!courseId && isAuthenticated,
     retry: false,
+    gcTime: 0, // React Query v5: disables cache
+    staleTime: 0, // Forces immediate refetch
   });
 }
