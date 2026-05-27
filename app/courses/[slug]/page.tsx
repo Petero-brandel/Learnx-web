@@ -225,11 +225,11 @@ export default function CourseDetailPage() {
 
                 <button
                   onClick={handleEnroll}
-                  disabled={isCheckingOut}
+                  disabled={isCheckingOut || loadingEnrollment}
                   className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-zinc-900 text-white font-semibold text-base hover:opacity-90 disabled:opacity-50 transition-opacity mb-4"
                 >
-                  {isCheckingOut ? 'Processing...' : (isEnrolled ? 'Continue Learning' : 'Enroll Now')}
-                  {!isCheckingOut && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
+                  {isCheckingOut ? 'Processing...' : (loadingEnrollment ? 'Checking status...' : (isEnrolled ? 'Continue Learning' : 'Enroll Now'))}
+                  {!isCheckingOut && !loadingEnrollment && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
 
                 <p className="text-center text-xs text-zinc-400 mb-8">

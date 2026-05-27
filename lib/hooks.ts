@@ -48,8 +48,8 @@ export function useCheckEnrollment(courseId: number | undefined, isAuthenticated
   return useQuery({
     queryKey: ['enrollment', courseId],
     queryFn: async () => {
-      const { data } = await api.get<{ enrolled: boolean }>(`/payments/check-enrollment/${courseId}/`);
-      return data.enrolled;
+      const { data } = await api.get<any>(`/payments/check-enrollment/${courseId}/`);
+      return data.enrolled || data.is_enrolled || data.isEnrolled || false;
     },
     enabled: !!courseId && isAuthenticated,
     staleTime: 60 * 1000,
