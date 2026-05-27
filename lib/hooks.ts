@@ -48,22 +48,31 @@ export function useCheckEnrollment(courseId: number | undefined, isAuthenticated
   return useQuery({
     queryKey: ['enrollment', courseId, isAuthenticated],
     queryFn: async () => {
+      console.log(`[DEBUG] Checking enrollment for courseId: ${courseId}, isAuthenticated: ${isAuthenticated}`);
       try {
         const { data } = await api.get<any>(`/payments/check-enrollment/${courseId}/`);
-        return data.enrolled || data.is_enrolled || data.isEnrolled || false;
+        console.log("[DEBUG] /check-enrollment/ response:", data);
+        const result = data.enrolled || data.is_enrolled || data.isEnrolled || false;
+        console.log("[DEBUG] Evaluated enrollment status:", result);
+        return result;
       } catch (err) {
-        console.warn("Lightweight enrollment check failed, falling back to full enrollments list...");
+        console.warn("[DEBUG] Lightweight check failed, trying fallback...", err);
         try {
           const { data } = await api.get<any[]>('/payments/my-enrollments/');
-          return data.some(enrollment => enrollment.course_id === courseId);
+          console.log("[DEBUG] /my-enrollments/ response:", data);
+          // Use == instead of === just in case of string/number type mismatches
+          const result = data.some(enrollment => enrollment.course_id == courseId);
+          console.log("[DEBUG] Fallback evaluated status:", result);
+          return result;
         } catch (fallbackErr) {
+          console.error("[DEBUG] Both checks failed!", fallbackErr);
           return false;
         }
       }
     },
     enabled: !!courseId && isAuthenticated,
     retry: false,
-    gcTime: 0, // React Query v5: disables cache
-    staleTime: 0, // Forces immediate refetch
+    gcTime: 0,
+    staleTime: 0,
   });
 }
