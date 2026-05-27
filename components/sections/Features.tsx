@@ -138,6 +138,62 @@ export function Features() {
 						</div>
 					</Reveal>
 				</div>
+
+				{/* ── Certificate Feature ── */}
+				<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+					<Reveal>
+						<div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+							{/* Text Content */}
+							<div className="lg:w-1/2 order-2 lg:order-1">
+								<span className="mb-6 inline-flex w-fit items-center rounded-full border border-blue-200 bg-blue-100/50 px-4 py-1.5 text-sm font-medium text-blue-800">
+									Verified Certificates
+								</span>
+								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-[1.1]">
+									Prove your skills with a <br className="hidden sm:block" />
+									<span className="text-blue-600">verifiable certificate.</span>
+								</h3>
+								<p className="mb-8 max-w-lg text-lg text-zinc-600 leading-relaxed">
+									Complete your course and earn a beautifully designed, verifiable certificate. Share it on LinkedIn, add it to your resume, and show employers exactly what you're capable of.
+								</p>
+								<ul className="space-y-4 text-zinc-600 mb-10">
+									<li className="flex items-center gap-4">
+										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+											<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+										</div>
+										<span className="text-base font-medium">Unique verification ID for employers</span>
+									</li>
+									<li className="flex items-center gap-4">
+										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+											<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+										</div>
+										<span className="text-base font-medium">High-resolution PDF ready for print</span>
+									</li>
+								</ul>
+								<Link
+									href="/signup"
+									className="inline-flex w-fit items-center gap-2 rounded-full border-2 border-zinc-900 px-7 py-3.5 text-base font-medium text-zinc-900 transition-all hover:bg-zinc-900 hover:text-white"
+								>
+									Start your journey
+									<ArrowRight className="h-5 w-5" />
+								</Link>
+							</div>
+							
+							{/* Image Showcase */}
+							<div className="lg:w-1/2 order-1 lg:order-2 w-full">
+								<div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden bg-white shadow-[0_20px_50px_rgba(15,23,42,0.1)] ring-1 ring-black/5 transform lg:rotate-2 transition-transform hover:rotate-0 duration-500">
+									<Image
+										src="/certificate-sample.png"
+										alt="Sample Bluedemy Certificate"
+										fill
+										className="object-cover object-center"
+									/>
+									{/* Subtle inner shadow/border for realism */}
+									<div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-black/10 pointer-events-none" />
+								</div>
+							</div>
+						</div>
+					</Reveal>
+				</div>
 			</div>
 		</section>
 	);
