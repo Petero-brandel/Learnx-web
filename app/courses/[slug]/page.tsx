@@ -40,7 +40,9 @@ export default function CourseDetailPage() {
   const router = useRouter();
 
   const handleEnroll = async () => {
+    console.log("[DEBUG handleEnroll] Clicked! isEnrolled:", isEnrolled, "course:", course?.id, "user:", !!user);
     if (!user) {
+      console.log("[DEBUG handleEnroll] User not authenticated, redirecting to login...");
       if (course) {
         router.push(`/login?checkout=${course.id}`);
       } else {
@@ -51,14 +53,18 @@ export default function CourseDetailPage() {
 
     // If already enrolled, redirect to the learning page
     if (isEnrolled) {
+      console.log("[DEBUG handleEnroll] User is enrolled! Redirecting to dashboard...");
       router.push(`/dashboard/courses/${slug}`);
       return;
     }
 
     if (!course) {
+      console.log("[DEBUG handleEnroll] Course data not loaded.");
       alert("Course data not loaded yet. Please wait a moment.");
       return;
     }
+    
+    console.log("[DEBUG handleEnroll] User is NOT enrolled. Proceeding to checkout...");
     try {
       setIsCheckingOut(true);
       const res = await checkoutCourse(course.id);
