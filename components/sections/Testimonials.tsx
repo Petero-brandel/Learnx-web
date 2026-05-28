@@ -27,13 +27,6 @@ const testimonials = [
  image: '/images/avatars/dpstd2.png',
  rating: 5,
  },
- {
- name: 'Cynthia Nwabueze',
- role: 'Content Creator & Student',
- content: 'Coach Izu and his Courses, has helped me alot, it has opened my eyes to so many things and some of his courses has changed my life, and the way I think. Coach Izu\'s is really a good coach .',
- image: '/images/avatars/dpstd3.png',
- rating: 5,
- },
 
   {
  name: 'Clinton Mudiaga Akpoyovware',
