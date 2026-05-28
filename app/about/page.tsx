@@ -33,8 +33,8 @@ const values = [
 ];
 
 const stats = [
-  { value: '10,000+', label: 'Active Students' },
-  { value: '25+', label: 'Expert-Led Courses' },
+  { value: '500+', label: 'Active Students' },
+  { value: '100+', label: 'Expert-Led Courses' },
   { value: '95%', label: 'Completion Rate' },
   { value: '50+', label: 'Industry Partners' },
 ];

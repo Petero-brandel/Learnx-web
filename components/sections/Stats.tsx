@@ -3,8 +3,8 @@ import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 
 export function Stats() {
   const stats = [
-    { value: '10,000+', label: 'Active Students' },
-    { value: '25+', label: 'Expert-Led Courses' },
+    { value: '500+', label: 'Active Students' },
+    { value: '100+', label: 'Expert-Led Courses' },
     { value: '95%', label: 'Completion Rate' },
     { value: '4.8/5', label: 'Average Rating' },
   ];

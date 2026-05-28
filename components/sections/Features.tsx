@@ -145,7 +145,7 @@ export function Features() {
 									Master AI, Marketing, digital skills...
 									<br/>
 									<span className="text-blue-600">
-										with 500+ expert courses.
+										with 100+ expert courses.
 									</span>
 								</h3>
 
