@@ -17,7 +17,7 @@ export function CTA() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div
-            className="relative rounded-3xl overflow-hidden -mx-4 sm:mx-0 px-4 sm:px-0"
+            className="relative rounded-none sm:rounded-3xl overflow-hidden w-[calc(100%+2rem)] -mx-4 sm:mx-0 sm:w-auto px-4 sm:px-0"
             style={{
               background:
                 'linear-gradient(135deg, #0c0e1a 0%, #141729 40%, #1a1f3a 100%)',
@@ -33,18 +33,18 @@ export function CTA() {
               aria-hidden="true"
             />
 
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16 p-10 md:p-14 lg:p-16">
+            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-16 p-6 md:p-14 lg:p-16">
               {/* Left Column */}
               <div className="flex-1 min-w-0">
                 {/* Overlapping Avatars */}
-                <div className="flex items-center -space-x-3 mb-8">
+                <div className="flex items-center -space-x-3 mb-6">
                   {avatars.map((avatar, i) => {
                     const isLast = i === avatars.length - 1;
 
                     return (
                       <div
                         key={i}
-                        className="relative shrink-0 w-11 h-11 rounded-full ring-2 ring-[#0c0e1a] overflow-hidden"
+                        className="relative shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full ring-2 ring-[#0c0e1a] overflow-hidden"
                         style={{ zIndex: avatars.length - i }}
                       >
                         <Image
@@ -73,7 +73,7 @@ export function CTA() {
                 </div>
 
                 {/* Headline */}
-                <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-[1.15] tracking-tight">
+                <h2 className="text-2xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-[1.15] tracking-tight">
                   Learn practical digital skills{' '}
                   <br className="hidden sm:block" />
                   that help you grow faster{' '}
