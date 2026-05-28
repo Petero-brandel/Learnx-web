@@ -87,7 +87,7 @@ content: 'I got to know Coach Izu through a Facebook group where he usually shar
  name: 'Chukwu Amarachi Gift',
  role: 'Student, Digital creator',
  content: "To my coach, my mentor, my guide, Izu. Some people teach because it is a job. But rare people teach because they genuinely want lives to change. You are one of those rare people. Before your classes, AI felt like something distant… something complicated and impossible to truly understand. But you carried it with patience, wisdom, excellence, and heart. You didn’t just drop information and disappear. You stayed, explained, corrected, guided, pushed, encouraged, and made people believe they could become something greater. It wasn’t just a course. It was an eye opener. A life changer. A confidence builder. The kind of knowledge that makes someone sit quietly and say, “Wow… so I can actually do this.” And the beautiful thing about you is that you never disappoint when it comes to quality. You give your best every single time. Not half knowledge. Not recycled motivation. But real value. Real teaching. Real impact. A lot of people online pretend to care, but you actually do. And I pray God rewards you deeply for every sleepless night, every explanation, every sacrifice, every effort you put into helping others grow. May the same doors you open for people begin to open for you in ways beyond imagination. May your knowledge keep making room for you. May your name be mentioned in places of greatness. May you never lack wisdom, strength, peace, opportunities, and genuine happiness. And when people speak about mentors who truly changed lives, may your name be remembered with honor. Thank you for being real. Thank you for teaching with passion. Thank you for not disappointing us. Thank you for proving that good coaches still exist. The truth is… some people will learn skills and forget where they learnt them from. But some of us will always remember the person who helped us believe in ourselves again. And for many of us… that person is you, Izu.",
- image: '/images/avatars/dpstd10.jpg',
+ image: '/images/avatars/dpstd10.png',
  rating: 5,
  },
 
@@ -95,7 +95,7 @@ content: 'I got to know Coach Izu through a Facebook group where he usually shar
  name: 'AbleGod',
  role: 'Web3 Expert, Writer',
  content: "Izu doesn't chase you. Ignore his corrections and he won't argue or beg, he just goes quiet. And that silence? It hits harder than any lecture ever could. He teaches until you truly understand, not until he's tired or until time runs out, but until it finally clicks for you. That kind of patience is rare in a coach. His AI training was one of the most practical learning experiences I've had — dense, applicable, and the kind of knowledge you keep coming back to long after it ends. The results speak for themselves; the growth is the testimony. But what truly separates Izu from most coaches is that he's not driven by money. You can feel it in the way he shows up, the way he corrects, and the way he remains committed to your progress even when you're not fully committed yourself. If you ever get access to his coaching, don't take it for granted.",
- image: '/images/avatars/dpstd11.jpg',
+ image: '/images/avatars/dpstd11.png',
  rating: 5,
  },
 
