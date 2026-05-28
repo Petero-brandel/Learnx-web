@@ -102,7 +102,7 @@ export function Features() {
 			<div className="bg-[#f0f4ff]">
 				<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-20">
 					<Reveal>
-						<div className="relative overflow-hidden rounded-[2.5rem] bg-[#0a192f] shadow-2xl ring-1 ring-black/5">
+						<div className="relative overflow-hidden rounded-sm md:rounded-[2.5rem] bg-[#0a192f] shadow-2xl ring-1 ring-black/5">
 							{/* Background Image */}
 							<div className="absolute inset-0">
 								<img
@@ -136,7 +136,7 @@ export function Features() {
 				</div>
 
 				{/* ── course de ── */}
-				<div className="ml-4 w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+				<div className="mx-4 w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
 					<Reveal>
 						<div className="flex justify-center">
 							{/* Text Content */}
