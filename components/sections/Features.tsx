@@ -138,44 +138,113 @@ export function Features() {
 				{/* ── course de ── */}
 				<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
 					<Reveal>
-						<div className="">
+						<div className="flex justify-center">
 							{/* Text Content */}
-							<div className="lg:w-1/2 order-2 lg:order-1">
-								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-[1.1]">
-									Master AI, Marketing, digital skills...<br className="hidden sm:block" />
-									<span className="text-blue-600">with 500+ expert courses.</span>
+							<div className="w-full max-w-5xl">
+								<h3 className="mb-6 text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-zinc-900 leading-[1.05]">
+									Master AI, Marketing, digital skills...
+									<br className="hidden sm:block" />
+									<span className="text-blue-600">
+										with 500+ expert courses.
+									</span>
 								</h3>
-								<p className="mb-8 max-w-lg text-lg text-zinc-600 leading-relaxed">
-									Stay ahead in the digital economy through practical learning experiences designed for modern careers From your Favorite - Coach Izu and others.
+
+								<p className="mb-10 max-w-3xl text-xl text-zinc-600 leading-relaxed">
+									Stay ahead in the digital economy through practical learning
+									experiences designed for modern careers From your Favorite -
+									Coach Izu and others.
 								</p>
-								<ul className="space-y-4 text-zinc-600 mb-10">
-									<li className="flex items-center gap-4">
+
+								<ul className="grid gap-6 sm:grid-cols-2 text-zinc-600">
+									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+											<svg
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M5 13l4 4L19 7"
+												/>
+											</svg>
 										</div>
-										<span className="text-base font-medium">High-quality Video Contents and text materials</span>
+
+										<span className="pt-2 text-base font-medium">
+											High-quality Video Contents and text materials
+										</span>
 									</li>
-									<li className="flex items-center gap-4">
+
+									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+											<svg
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M5 13l4 4L19 7"
+												/>
+											</svg>
 										</div>
-										<span className="text-base font-medium">Flexible self-paced learning experience</span>
+
+										<span className="pt-2 text-base font-medium">
+											Flexible self-paced learning experience
+										</span>
 									</li>
-									<li className="flex items-center gap-4">
+
+									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+											<svg
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M5 13l4 4L19 7"
+												/>
+											</svg>
 										</div>
-										<span className="text-base font-medium">High-resolution PDF you can print</span>
+
+										<span className="pt-2 text-base font-medium">
+											High-resolution PDF you can print
+										</span>
 									</li>
-									<li className="flex items-center gap-4">
+
+									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+											<svg
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M5 13l4 4L19 7"
+												/>
+											</svg>
 										</div>
-										<span className="text-base font-medium">Certificate of completion</span>
+
+										<span className="pt-2 text-base font-medium">
+											Certificate of completion
+										</span>
 									</li>
 								</ul>
 							</div>
-
 						</div>
 					</Reveal>
 				</div>
