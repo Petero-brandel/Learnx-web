@@ -143,7 +143,7 @@ export function Features() {
 							<div className="w-full max-w-5xl px-4 sm:px-0">
 								<h3 className="mb-6 text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-[1.05]">
 									Master AI, Marketing, digital skills...
-									<br className="hidden sm:block" />
+									<br/>
 									<span className="text-blue-600">
 										with 500+ expert courses.
 									</span>
