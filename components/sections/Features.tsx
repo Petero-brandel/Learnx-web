@@ -115,12 +115,12 @@ export function Features() {
 							</div>
 
 							{/* Content */}
-							<div className="relative z-10 flex min-h-[400px] md:min-h-[500px] flex-col justify-center px-8 py-16 md:px-16 md:py-20 lg:w-2/3">
-								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
+							<div className="relative z-10 flex min-h-[300px] md:min-h-[500px] flex-col justify-center px-6 sm:px-8 py-12 md:px-16 md:py-20 lg:w-2/3">
+								<h3 className="mb-6 text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[1.15]">
 									The Easiest Way To Learn <br className="hidden sm:block" />
 									<span className="text-blue-300">While Learning.</span>
 								</h3>
-								<p className="mb-10 max-w-lg text-lg text-blue-50/80 leading-relaxed">
+								<p className="mb-10 max-w-lg text-base sm:text-lg text-blue-50/80 leading-relaxed">
 									No rigid schedules or stressful deadlines. Bluedemy gives you the complete freedom to learn real digital skills whenever and wherever it works best for you.
 								</p>
 								<Link
@@ -140,8 +140,8 @@ export function Features() {
 					<Reveal>
 						<div className="flex justify-center">
 							{/* Text Content */}
-							<div className="w-full max-w-5xl">
-								<h3 className="mb-6 text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-zinc-900 leading-[1.05]">
+							<div className="w-full max-w-5xl px-4 sm:px-0">
+								<h3 className="mb-6 text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-[1.05]">
 									Master AI, Marketing, digital skills...
 									<br className="hidden sm:block" />
 									<span className="text-blue-600">
@@ -149,7 +149,7 @@ export function Features() {
 									</span>
 								</h3>
 
-								<p className="mb-10 max-w-3xl text-xl text-zinc-600 leading-relaxed">
+								<p className="mb-10 max-w-3xl text-base sm:text-xl text-zinc-600 leading-relaxed">
 									Stay ahead in the digital economy through practical learning
 									experiences designed for modern careers From your Favorite -
 									Coach Izu and others.
