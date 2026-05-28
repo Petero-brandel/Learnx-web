@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import Image from "next/image";
+import TeamMember from '@/components/about/TeamMember';
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -85,14 +86,14 @@ export default function AboutPage() {
 
         {/* ─── Stats Bar ─── */}
         <section className="px-4 sm:px-6 lg:px-8 pb-20">
-          <div className="max-w-5xl mx-auto rounded-3xl bg-zinc-900 dark:bg-zinc-800 p-10 md:p-14 border border-zinc-700/50">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="max-w-5xl mx-auto rounded-3xl bg-zinc-900 dark:bg-zinc-800 p-6 md:p-14 border border-zinc-700/50">
+            <div className="flex gap-4 items-center justify-between py-2">
               {stats.map((stat, idx) => (
-                <div key={idx} className="text-center">
-                  <p className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white mb-1">
+                <div key={idx} className="text-center flex-1">
+                  <p className="text-xl md:text-4xl font-bold text-zinc-900 dark:text-white mb-1">
                     {stat.value}
                   </p>
-                  <p className="text-sm text-zinc-400 font-medium">{stat.label}</p>
+                  <p className="text-xs md:text-sm text-zinc-400 font-medium">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -135,30 +136,7 @@ export default function AboutPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               {team.map((member, idx) => (
-                <div
-                  key={idx}
-                  className="group max-w-md mx-auto w-full overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-950/50 hover:shadow-xl hover:shadow-zinc-900/10 dark:hover:shadow-black/30 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="relative aspect-[5/4] w-full overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 42vw, 360px"
-                      className="object-contain object-center transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
-                  </div>
-                  <div className="p-6 text-left">
-                    <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">{member.name}</h3>
-                    <p className="text-sm text-blue-600 dark:text-blue-400 mt-1 font-medium">{member.role}</p>
-                    <div className="text-sm text-zinc-500 dark:text-zinc-400 mt-4 leading-relaxed space-y-3">
-                      {member.bio.map((paragraph, i) => (
-                        <p key={i}>{paragraph}</p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <TeamMember key={idx} member={member} />
               ))}
             </div>
           </div>
