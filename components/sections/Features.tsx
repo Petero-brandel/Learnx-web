@@ -44,7 +44,7 @@ function CountUp({ end, suffix = '', duration = 2000 }: { end: number, suffix?: 
 
 const stats = [
 	{
-		end: 15,
+		end: 100,
 		suffix: '+',
 		label: 'Courses covering real digital skills from design to data to development',
 	},
