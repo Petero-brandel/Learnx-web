@@ -13,7 +13,6 @@ import {
 
 const navItems = [
  { label: 'Overview', href: '/admin/dashboard', icon: LayoutDashboard },
- { label: 'Students', href: '/admin/dashboard/students', icon: Users },
  { label: 'Courses', href: '/admin/dashboard/courses', icon: BookOpen },
  { label: 'Enrollments', href: '/admin/dashboard/enrollments', icon: GraduationCap },
  { label: 'Broadcast', href: '/admin/dashboard/broadcast', icon: Send },
