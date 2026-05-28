@@ -138,7 +138,7 @@ export function Features() {
 				{/* ── course de ── */}
 				<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
 					<Reveal>
-						<div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+						<div className="">
 							{/* Text Content */}
 							<div className="lg:w-1/2 order-2 lg:order-1">
 								<h3 className="mb-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-[1.1]">
