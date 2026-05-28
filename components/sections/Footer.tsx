@@ -78,7 +78,7 @@ export function Footer() {
                   <li key={link.label}>
                     {link.disabled ? (
                       <div className="relative group inline-flex">
-                        <span className="text-sm text-zinc-600 cursor-not-allowed">
+                        <span className="text-sm text-zinc-600 cursor-not-allowed block max-w-[220px] sm:max-w-[180px] md:max-w-[220px] truncate overflow-hidden whitespace-nowrap">
                           {link.label}
                         </span>
                         <div className="absolute left-0 bottom-full mb-1 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-zinc-800 text-xs text-zinc-200 rounded whitespace-nowrap pointer-events-none z-10">
@@ -88,7 +88,7 @@ export function Footer() {
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+                        className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors block max-w-[220px] sm:max-w-[180px] md:max-w-[220px] truncate overflow-hidden whitespace-nowrap"
                       >
                         {link.label}
                       </Link>
