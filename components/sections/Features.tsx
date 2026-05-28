@@ -136,7 +136,7 @@ export function Features() {
 				</div>
 
 				{/* ── course de ── */}
-				<div className="mx-4 w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+				<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
 					<Reveal>
 						<div className="flex justify-center">
 							{/* Text Content */}

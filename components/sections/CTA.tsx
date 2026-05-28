@@ -14,10 +14,10 @@ const avatars = [
 export function CTA() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#DAEDEB]">
-      <div className="mx-0 md:mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div
-            className="relative rounded-3xl overflow-hidden"
+            className="relative rounded-3xl overflow-hidden -mx-4 sm:mx-0 px-4 sm:px-0"
             style={{
               background:
                 'linear-gradient(135deg, #0c0e1a 0%, #141729 40%, #1a1f3a 100%)',
