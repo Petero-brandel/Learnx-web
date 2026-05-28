@@ -71,7 +71,7 @@ content: 'I got to know Coach Izu through a Facebook group where he usually shar
  name: 'Victor Emmanuel',
  role: 'Digital Creator',
  content: 'If I must be very honest, coach Izu is one coach that cares really , about his own. I joined his class in October, and ever since then, AI photography has been one of my side gigs that pays me. He teaches very simply and without stress. Explains everything to the barest detail. His courses? They\'re all self explanatory. He explained everything in his book, just the same way he explains it in real life .',
- image: '/images/avatars/dpstd8.jpg',
+ image: '/images/avatars/dpstd8.jpeg',
  rating: 5,
  },
 
