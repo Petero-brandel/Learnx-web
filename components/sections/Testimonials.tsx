@@ -144,9 +144,9 @@ export function Testimonials() {
 		{testimonials.map((testimonial, idx) => (
 		 <SwiperSlide key={testimonial.name}>
 		  <Reveal delay={idx * 80}>
-			<article className="relative rounded-[20px] bg-[#151b2c] text-white overflow-hidden min-h-[420px] lg:min-h-[380px] shadow-[0_10px_35px_rgba(10,15,30,0.2)]">
-			 <div className="grid gap-6 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 lg:px-9 lg:py-9">
-			  <div className="relative h-[230px] sm:h-[260px] lg:h-full lg:min-h-[300px] rounded-2xl overflow-hidden bg-[#0f1424]">
+			<article className="relative rounded-[20px] bg-[#151b2c] text-white overflow-hidden min-h-[360px] sm:min-h-[420px] lg:min-h-[380px] shadow-[0_10px_35px_rgba(10,15,30,0.2)]">
+			 <div className="grid gap-4 px-4 py-5 sm:gap-6 sm:px-7 sm:py-7 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 lg:px-9 lg:py-9">
+			  <div className="relative h-[180px] sm:h-[260px] lg:h-full lg:min-h-[300px] rounded-2xl overflow-hidden bg-[#0f1424]">
 				<Image
 				 src={testimonial.image}
 				 alt={testimonial.name}
@@ -175,7 +175,7 @@ export function Testimonials() {
 
 				  return (
 				   <div className="mt-3">
-					<p className="text-[1.12rem] leading-[1.55] font-medium tracking-[-0.005em] text-[#f5f7ff] sm:text-[1.2rem] lg:text-[1.28rem]">
+					<p className="text-[0.96rem] leading-[1.55] font-medium tracking-[-0.005em] text-[#f5f7ff] sm:text-[1.08rem] lg:text-[1.18rem]">
 					 {preview.text}
 					 {preview.truncated ? '… ' : ''}
 					 {preview.truncated ? (
@@ -193,11 +193,11 @@ export function Testimonials() {
 				 })()}
 				</div>
 
-				<div className="mt-7 border-t border-white/15 pt-4">
-				 <p className="text-xl sm:text-2xl font-semibold tracking-[-0.01em] text-white leading-tight">
+				<div className="mt-5 border-t border-white/15 pt-3 sm:mt-7 sm:pt-4">
+				 <p className="text-lg sm:text-2xl font-semibold tracking-[-0.01em] text-white leading-tight">
 				  {testimonial.name}
 				 </p>
-				 <p className="mt-1 text-sm sm:text-base text-[#a9b2ca]">{testimonial.role}</p>
+				 <p className="mt-1 text-xs sm:text-base text-[#a9b2ca]">{testimonial.role}</p>
 				</div>
 			  </div>
 			 </div>
