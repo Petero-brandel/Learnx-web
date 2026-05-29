@@ -1,85 +1,152 @@
-import Link from 'next/link';
-import { FaLinkedin, FaYoutube, FaTiktok } from 'react-icons/fa';
+'use client';
 
-export default function Footer() {
+import Link from 'next/link';
+import Logo from '@/components/ui/Logo';
+import { useState, useEffect } from 'react';
+import { Briefcase, PlayCircle, Music2 } from 'lucide-react';
+
+interface Course {
+  id: number;
+  title: string;
+  slug: string;
+}
+
+type FooterLink = { label: string; href: string; disabled?: boolean };
+
+export function Footer() {
+  const [topCourses, setTopCourses] = useState<Course[]>([]);
+
+  useEffect(() => {
+    async function getTopCourses() {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
+        const res = await fetch(`${API_URL}courses/`);
+        if (!res.ok) return;
+        const data = await res.json();
+        const coursesArray = Array.isArray(data) ? data : data.results;
+        if (Array.isArray(coursesArray)) {
+          setTopCourses(coursesArray.slice(0, 4));
+        }
+      } catch (e) {
+        // silently fail
+      }
+    }
+    getTopCourses();
+  }, []);
+
+  const footerLinks: Record<string, FooterLink[]> = {
+    Courses: [
+      ...topCourses.map((course) => ({ label: course.title, href: `/courses/${course.slug}` })),
+      { label: 'Free Courses', href: '/courses?filter=free' },
+    ],
+    Company: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Contact', href: '/about' },
+      { label: 'Blog', href: '#', disabled: true },
+    ],
+    Support: [
+      { label: 'Help Center', href: '/faq' },
+      { label: 'FAQs', href: '/faq' },
+      { label: 'Student Guides', href: '#', disabled: true },
+    ],
+    Legal: [
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+    ],
+  };
+
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Company Info */}
-          <div>
-            <h3 className="text-white text-2xl font-bold mb-4">Bluedemy</h3>
-            <p className="text-sm leading-relaxed">
-              Professional online learning platform for career growth and skill development.
+    <footer className="border-t border-zinc-800 bg-[#0a0a0a]">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        {/* Footer grid */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-16">
+          {/* Brand column */}
+          <div className="col-span-2 md:col-span-1">
+            <div className="mb-4">
+              <Logo href="/" size="sm" variant="dark" src="/bluedemy-logo.png" />
+            </div>
+            <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
+              Master the skills of the future with expert-led courses in AI, content creation, and digital marketing and many more.
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/courses" className="hover:text-white transition">All Courses</Link></li>
-              <li><Link href="/about" className="hover:text-white transition">About Us</Link></li>
-              <li><Link href="/pricing" className="hover:text-white transition">Pricing</Link></li>
-              <li><Link href="/faq" className="hover:text-white transition">FAQ</Link></li>
-            </ul>
-          </div>
+          {/* Link columns */}
+          {Object.entries(footerLinks).map(([category, links]) => (
+            <div key={category}>
+              <h4 className="text-sm font-bold text-zinc-100 mb-4">{category}</h4>
+              <ul className="space-y-3">
+                {links.map((link) => (
+                  <li key={link.label}>
+                    {link.disabled ? (
+                      <div className="relative group inline-flex">
+                        <span className="text-sm text-zinc-600 cursor-not-allowed block max-w-[220px] sm:max-w-[180px] md:max-w-[220px] truncate overflow-hidden whitespace-nowrap">
+                          {link.label}
+                        </span>
+                        <div className="absolute left-0 bottom-full mb-1 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-zinc-800 text-xs text-zinc-200 rounded whitespace-nowrap pointer-events-none z-10">
+                          Coming soon
+                        </div>
+                      </div>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors block max-w-[220px] sm:max-w-[180px] md:max-w-[220px] truncate overflow-hidden whitespace-nowrap"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
-          {/* Support */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/contact" className="hover:text-white transition">Contact Us</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition">Terms of Service</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
-            </ul>
-          </div>
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-5">
+          <p className="text-sm text-zinc-500">
+            © {new Date().getFullYear()} Bluedemy. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-zinc-500">
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
+            <Link href="/faq" className="hover:text-zinc-300 transition-colors">FAQs</Link>
+            <span className="hidden md:inline text-zinc-700">|</span>
 
-          {/* Social Media */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Follow Us</h4>
-            <div className="flex gap-6 text-3xl">
-              {/* LinkedIn */}
+            <div className="flex items-center gap-2">
+              <a
+                href="https://www.tiktok.com/@bluedemy.org?_r=1&_t=ZS-96loZUWCH0k"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:border-zinc-500 hover:text-zinc-100 transition-colors"
+                aria-label="Bluedemy TikTok"
+                title="TikTok"
+              >
+                <Music2 size={16} />
+              </a>
+              <a
+                href="https://youtube.com/@bluedemy.org-elearning?si=HATHBNSUI_x_6O-s"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:border-zinc-500 hover:text-zinc-100 transition-colors"
+                aria-label="Bluedemy YouTube"
+                title="YouTube"
+              >
+                <PlayCircle size={16} />
+              </a>
               <a
                 href="https://www.linkedin.com/company/bluedemy/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-500 transition-colors"
-                aria-label="LinkedIn"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:border-zinc-500 hover:text-zinc-100 transition-colors"
+                aria-label="Bluedemy LinkedIn"
+                title="LinkedIn"
               >
-                <FaLinkedin />
-              </a>
-
-              {/* YouTube */}
-              <a
-                href="https://youtube.com/@bluedemy.org-elearning"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-red-500 transition-colors"
-                aria-label="YouTube"
-              >
-                <FaYoutube />
-              </a>
-
-              {/* TikTok */}
-              <a
-                href="https://www.tiktok.com/@bluedemy.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-black transition-colors"
-                aria-label="TikTok"
-              >
-                <FaTiktok />
+                <Briefcase size={16} />
               </a>
             </div>
-            <p className="text-xs mt-8 text-gray-500">
-              © {new Date().getFullYear()} Bluedemy. All rights reserved.
-            </p>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-
-export { Footer };
