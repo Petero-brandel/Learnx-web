@@ -12,7 +12,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     if (res.ok) {
       const data = await res.json()
-      // Ensure we're extracting from the paginated 'results' field if present
       courses = data.results || data || []
     }
   } catch (error) {
@@ -69,6 +68,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+
+    // Company LinkedIn Page
+    {
+      url: 'https://www.linkedin.com/company/bluedemy/',
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+
     ...courseUrls,
   ]
 }
