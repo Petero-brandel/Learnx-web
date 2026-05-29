@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Logo from '@/components/ui/Logo';
 import { useState, useEffect } from 'react';
-import { SiYoutube, SiTiktok } from 'react-icons/si';
+import { SiYoutube, SiTiktok, SiX } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 
 interface Course {
@@ -114,6 +114,16 @@ export function Footer() {
             <span className="hidden md:inline text-zinc-700">|</span>
 
             <div className="flex items-center gap-2">
+              <a
+                href="https://x.com/bluedemy_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:border-zinc-500 hover:text-zinc-100 transition-colors"
+                aria-label="Bluedemy X"
+                title="X"
+              >
+                <SiX size={16} />
+              </a>
               <a
                 href="https://www.tiktok.com/@bluedemy.org?_r=1&_t=ZS-96loZUWCH0k"
                 target="_blank"
