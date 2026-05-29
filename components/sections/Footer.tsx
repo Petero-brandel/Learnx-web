@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import Logo from '@/components/ui/Logo';
 import { useState, useEffect } from 'react';
-import { Briefcase, PlayCircle, Music2 } from 'lucide-react';
+import { SiYoutube, SiTiktok } from 'react-icons/si';
+import { FaLinkedin } from 'react-icons/fa';
 
 interface Course {
   id: number;
@@ -121,7 +122,7 @@ export function Footer() {
                 aria-label="Bluedemy TikTok"
                 title="TikTok"
               >
-                <Music2 size={16} />
+                <SiTiktok size={16} />
               </a>
               <a
                 href="https://youtube.com/@bluedemy.org-elearning?si=HATHBNSUI_x_6O-s"
@@ -131,7 +132,7 @@ export function Footer() {
                 aria-label="Bluedemy YouTube"
                 title="YouTube"
               >
-                <PlayCircle size={16} />
+                <SiYoutube size={16} />
               </a>
               <a
                 href="https://www.linkedin.com/company/bluedemy/"
@@ -141,7 +142,7 @@ export function Footer() {
                 aria-label="Bluedemy LinkedIn"
                 title="LinkedIn"
               >
-                <Briefcase size={16} />
+                <FaLinkedin size={16} />
               </a>
             </div>
           </div>
