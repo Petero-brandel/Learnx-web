@@ -205,6 +205,20 @@ export async function broadcastEmail(data: {
   return response.data;
 }
 
+export interface BroadcastHistoryRecord {
+  id: number;
+  subject: string;
+  body: string;
+  target_audience: string;
+  recipients_count: number;
+  sent_at: string;
+}
+
+export async function fetchBroadcastHistory(): Promise<BroadcastHistoryRecord[]> {
+  const response = await api.get('/dashboard/management/broadcast-history/');
+  return response.data;
+}
+
 // ─── Course Management ───────────────────────────────────
 
 export async function fetchAllCourses(): Promise<AdminCourse[]> {

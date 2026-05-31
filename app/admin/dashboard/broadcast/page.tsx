@@ -75,9 +75,10 @@ export default function BroadcastPage() {
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
+                        <Send className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
-                        <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-200">Compose Broadcast</h3>
+                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Compose Broadcast</h3>
                         <p className="text-xs text-zinc-500 mt-0.5">This sends both an email and an in-app notification</p>
                     </div>
                 </div>
