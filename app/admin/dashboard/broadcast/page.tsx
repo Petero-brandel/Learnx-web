@@ -9,7 +9,7 @@ export default function BroadcastPage() {
     const [courses, setCourses] = useState<AdminCourse[]>([])
     const [subject, setSubject] = useState('')
     const [body, setBody] = useState('')
-    const [targetAudience, setTargetAudience] = useState('all')
+    const [targetAudience, setTargetAudience] = useState<string[]>(['all'])
     const [sending, setSending] = useState(false)
     const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
     const [history, setHistory] = useState<BroadcastHistoryRecord[]>([])
@@ -41,11 +41,11 @@ export default function BroadcastPage() {
         setSending(true)
         setFeedback(null)
         try {
-            const result = await broadcastEmail({ subject, body, target_audience: targetAudience })
+            const result = await broadcastEmail({ subject, body, target_audience: targetAudience.includes('all') ? 'all' : targetAudience.join(',') })
             setFeedback({ type: 'success', message: result.status })
             setSubject('')
             setBody('')
-            setTargetAudience('all')
+            setTargetAudience(['all'])
             loadHistory()
         } catch (err: any) {
             setFeedback({ type: 'error', message: err?.response?.data?.error || 'Failed to send broadcast' })
@@ -90,9 +90,6 @@ export default function BroadcastPage() {
             {/* Composer */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                        <Send className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                    </div>
                     <div>
                         <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Compose Broadcast</h3>
                         <p className="text-xs text-zinc-500 mt-0.5">This sends both an email and an in-app notification</p>
@@ -106,10 +103,10 @@ export default function BroadcastPage() {
                         <div className="flex flex-wrap gap-2">
                             <button
                                 type="button"
-                                onClick={() => setTargetAudience('all')}
+                                onClick={() => setTargetAudience(['all'])}
                                 className={cn(
                                     "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all",
-                                    targetAudience === 'all'
+                                    targetAudience.includes('all')
                                         ? "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900 dark:border-blue-800 dark:text-blue-400"
                                         : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
                                 )}
@@ -121,10 +118,22 @@ export default function BroadcastPage() {
                                 <button
                                     key={course.id}
                                     type="button"
-                                    onClick={() => setTargetAudience(String(course.id))}
+                                    onClick={() => {
+                                        if (targetAudience.includes('all')) {
+                                            setTargetAudience([String(course.id)])
+                                        } else {
+                                            if (targetAudience.includes(String(course.id))) {
+                                                const next = targetAudience.filter(id => id !== String(course.id))
+                                                if (next.length === 0) setTargetAudience(['all'])
+                                                else setTargetAudience(next)
+                                            } else {
+                                                setTargetAudience([...targetAudience, String(course.id)])
+                                            }
+                                        }
+                                    }}
                                     className={cn(
                                         "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all",
-                                        targetAudience === String(course.id)
+                                        targetAudience.includes(String(course.id))
                                             ? "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900 dark:border-blue-800 dark:text-blue-400"
                                             : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
                                     )}
@@ -233,7 +242,7 @@ export default function BroadcastPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
-                                                {record.target_audience === 'all' ? 'All Students' : `Course ID: ${record.target_audience}`}
+                                                {record.target_audience === 'all' ? 'All Students' : `Course IDs: ${record.target_audience}`}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">
