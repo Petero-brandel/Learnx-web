@@ -68,15 +68,15 @@ export default function BroadcastPage() {
             {feedback && (
                 <div
                     className={cn(
-                        "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100"
+                        "flex items-center gap-3 p-4 rounded-xl text-sm border animate-fade-up-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100"
                     )}
                 >
                     {feedback.type === 'success' ? (
-                        <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+                        <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-900 flex items-center justify-center shrink-0">
                             <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                         </div>
                     ) : (
-                        <div className="h-8 w-8 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
+                        <div className="h-8 w-8 rounded-full bg-red-50 dark:bg-red-900 flex items-center justify-center shrink-0">
                             <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
                         </div>
                     )}
@@ -88,9 +88,9 @@ export default function BroadcastPage() {
             )}
 
             {/* Composer */}
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
                         <Send className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
@@ -110,8 +110,8 @@ export default function BroadcastPage() {
                                 className={cn(
                                     "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all",
                                     targetAudience === 'all'
-                                        ? "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-500/15 dark:border-blue-500/30 dark:text-blue-400"
-                                        : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800/30 dark:border-zinc-700/50 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
+                                        ? "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900 dark:border-blue-800 dark:text-blue-400"
+                                        : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
                                 )}
                             >
 
@@ -125,8 +125,8 @@ export default function BroadcastPage() {
                                     className={cn(
                                         "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all",
                                         targetAudience === String(course.id)
-                                            ? "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-500/15 dark:border-blue-500/30 dark:text-blue-400"
-                                            : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800/30 dark:border-zinc-700/50 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
+                                            ? "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900 dark:border-blue-800 dark:text-blue-400"
+                                            : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300 dark:hover:border-zinc-600"
                                     )}
                                 >
                                     {course.title}
@@ -144,7 +144,7 @@ export default function BroadcastPage() {
                             onChange={(e) => setSubject(e.target.value)}
                             placeholder="Enter email subject line..."
                             required
-                            className="w-full rounded-xl bg-white dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all shadow-sm dark:shadow-none"
+                            className="w-full rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all"
                         />
                     </div>
 
@@ -157,7 +157,7 @@ export default function BroadcastPage() {
                             placeholder="Write your message here..."
                             required
                             rows={8}
-                            className="w-full rounded-xl bg-white dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50 px-4 py-3 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all resize-none shadow-sm dark:shadow-none"
+                            className="w-full rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 px-4 py-3 text-sm text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all resize-none"
                         />
                     </div>
 
@@ -184,9 +184,9 @@ export default function BroadcastPage() {
             </div>
 
             {/* History Table */}
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 overflow-hidden shadow-sm dark:shadow-none">
-                <div className="p-6 border-b border-zinc-100 dark:border-zinc-800/50 flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 flex items-center justify-center">
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden">
+                <div className="p-6 border-b border-zinc-100 dark:border-zinc-800 flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
                         <History className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
                     </div>
                     <div>
@@ -197,7 +197,7 @@ export default function BroadcastPage() {
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm whitespace-nowrap">
-                        <thead className="bg-zinc-50/50 dark:bg-zinc-800/20 text-zinc-500 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/50">
+                        <thead className="bg-zinc-50 dark:bg-zinc-950 text-zinc-500 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800">
                             <tr>
                                 <th className="px-6 py-4 font-medium">Subject & Message</th>
                                 <th className="px-6 py-4 font-medium">Audience</th>
@@ -205,7 +205,7 @@ export default function BroadcastPage() {
                                 <th className="px-6 py-4 font-medium">Sent At</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
+                        <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
                             {loadingHistory ? (
                                 <tr>
                                     <td colSpan={4} className="px-6 py-8 text-center text-zinc-500">
@@ -221,7 +221,7 @@ export default function BroadcastPage() {
                                 </tr>
                             ) : (
                                 history.slice(0, visibleCount).map((record) => (
-                                    <tr key={record.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors">
+                                    <tr key={record.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-start gap-3 max-w-[300px]">
                                                 <Mail className="h-4 w-4 text-zinc-400 mt-0.5 shrink-0" />
@@ -256,10 +256,10 @@ export default function BroadcastPage() {
                 </div>
                 
                 {!loadingHistory && history.length > visibleCount && (
-                    <div className="p-4 border-t border-zinc-100 dark:border-zinc-800/50 flex justify-center bg-zinc-50/30 dark:bg-zinc-800/10">
+                    <div className="p-4 border-t border-zinc-100 dark:border-zinc-800 flex justify-center bg-zinc-50 dark:bg-zinc-950">
                         <button
                             onClick={() => setVisibleCount(prev => prev + 5)}
-                            className="text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 px-4 py-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+                            className="text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 px-4 py-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                         >
                             Show More ({history.length - visibleCount} remaining)
                         </button>
