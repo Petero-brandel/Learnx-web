@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { broadcastEmail, fetchAllCourses, type AdminCourse } from '@/lib/admin'
-import { Send, Loader2, CheckCircle2, AlertCircle, Radio } from 'lucide-react'
+import { broadcastEmail, fetchAllCourses, fetchBroadcastHistory, type AdminCourse, type BroadcastHistoryRecord } from '@/lib/admin'
+import { Send, Loader2, CheckCircle2, AlertCircle, Radio, History, Users, Clock, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function BroadcastPage() {
@@ -12,11 +12,26 @@ export default function BroadcastPage() {
     const [targetAudience, setTargetAudience] = useState('all')
     const [sending, setSending] = useState(false)
     const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+    const [history, setHistory] = useState<BroadcastHistoryRecord[]>([])
+    const [visibleCount, setVisibleCount] = useState(5)
+    const [loadingHistory, setLoadingHistory] = useState(true)
+
+    const loadHistory = async () => {
+        try {
+            const data = await fetchBroadcastHistory()
+            setHistory(data)
+        } catch (error) {
+            console.error('Failed to fetch history', error)
+        } finally {
+            setLoadingHistory(false)
+        }
+    }
 
     useEffect(() => {
         fetchAllCourses()
             .then(setCourses)
             .catch(() => { })
+        loadHistory()
     }, [])
 
     const handleSend = async (e: React.FormEvent) => {
@@ -31,6 +46,7 @@ export default function BroadcastPage() {
             setSubject('')
             setBody('')
             setTargetAudience('all')
+            loadHistory()
         } catch (err: any) {
             setFeedback({ type: 'error', message: err?.response?.data?.error || 'Failed to send broadcast' })
         } finally {
@@ -165,6 +181,90 @@ export default function BroadcastPage() {
                         </button>
                     </div>
                 </form>
+            </div>
+
+            {/* History Table */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 overflow-hidden shadow-sm dark:shadow-none">
+                <div className="p-6 border-b border-zinc-100 dark:border-zinc-800/50 flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 flex items-center justify-center">
+                        <History className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Broadcast History</h3>
+                        <p className="text-xs text-zinc-500 mt-0.5">Review previously sent messages and their audience</p>
+                    </div>
+                </div>
+
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm whitespace-nowrap">
+                        <thead className="bg-zinc-50/50 dark:bg-zinc-800/20 text-zinc-500 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/50">
+                            <tr>
+                                <th className="px-6 py-4 font-medium">Subject & Message</th>
+                                <th className="px-6 py-4 font-medium">Audience</th>
+                                <th className="px-6 py-4 font-medium">Recipients</th>
+                                <th className="px-6 py-4 font-medium">Sent At</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
+                            {loadingHistory ? (
+                                <tr>
+                                    <td colSpan={4} className="px-6 py-8 text-center text-zinc-500">
+                                        <Loader2 className="h-5 w-5 animate-spin mx-auto mb-2" />
+                                        <p className="text-xs">Loading history...</p>
+                                    </td>
+                                </tr>
+                            ) : history.length === 0 ? (
+                                <tr>
+                                    <td colSpan={4} className="px-6 py-8 text-center text-zinc-500 text-xs">
+                                        No broadcast history found.
+                                    </td>
+                                </tr>
+                            ) : (
+                                history.slice(0, visibleCount).map((record) => (
+                                    <tr key={record.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors">
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-start gap-3 max-w-[300px]">
+                                                <Mail className="h-4 w-4 text-zinc-400 mt-0.5 shrink-0" />
+                                                <div className="truncate">
+                                                    <p className="font-medium text-zinc-900 dark:text-zinc-200 truncate">{record.subject}</p>
+                                                    <p className="text-xs text-zinc-500 truncate mt-0.5">{record.body}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+                                                {record.target_audience === 'all' ? 'All Students' : `Course ID: ${record.target_audience}`}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">
+                                            <div className="flex items-center gap-1.5">
+                                                <Users className="h-3.5 w-3.5" />
+                                                <span>{record.recipients_count}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 text-zinc-500 dark:text-zinc-500 text-xs">
+                                            <div className="flex items-center gap-1.5">
+                                                <Clock className="h-3.5 w-3.5" />
+                                                <span>{new Date(record.sent_at).toLocaleString()}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                
+                {!loadingHistory && history.length > visibleCount && (
+                    <div className="p-4 border-t border-zinc-100 dark:border-zinc-800/50 flex justify-center bg-zinc-50/30 dark:bg-zinc-800/10">
+                        <button
+                            onClick={() => setVisibleCount(prev => prev + 5)}
+                            className="text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 px-4 py-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+                        >
+                            Show More ({history.length - visibleCount} remaining)
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
