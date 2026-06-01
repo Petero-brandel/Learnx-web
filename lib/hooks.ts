@@ -26,8 +26,8 @@ export function useCourses() {
   return useQuery({
     queryKey: ['courses'],
     queryFn: async () => {
-      const { data } = await api.get<PaginatedResponse<PublicCourse>>('/courses/');
-      return data.results;
+      const { data } = await api.get<PaginatedResponse<PublicCourse> | PublicCourse[]>('/courses/');
+      return Array.isArray(data) ? data : data.results;
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
