@@ -228,246 +228,256 @@ function SortableModule({
 )
 }
 
-function VideoUploader({ lessonId, initialVideoId }: { lessonId: number, initialVideoId: string | null }) {
- const [uploading, setUploading] = useState(false)
- const [progress, setProgress] = useState(0)
- const [error, setError] = useState<string | null>(null)
- const [success, setSuccess] = useState(!!initialVideoId)
+function VideoUploader({ lessonId, initialVideoId, onUploadingChange }: { lessonId: number, initialVideoId: string | null, onUploadingChange?: (uploading: boolean) => void }) {
+  const [uploading, setUploadingState] = useState(false)
+  
+  const setUploading = (val: boolean) => {
+    setUploadingState(val)
+    if (onUploadingChange) onUploadingChange(val)
+  }
 
- const fileInputRef = useRef<HTMLInputElement>(null)
+  const [progress, setProgress] = useState(0)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(!!initialVideoId)
 
- const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
- const file = e.target.files?.[0]
- if (!file) return
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
- setUploading(true)
- setProgress(0)
- setError(null)
- setSuccess(false)
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
 
- try {
- const { video_id, library_id, authorization_signature, authorization_expire } = await requestUploadUrl(lessonId)
+    setUploading(true)
+    setProgress(0)
+    setError(null)
+    setSuccess(false)
 
- const upload = new tus.Upload(file, {
- endpoint: 'https://video.bunnycdn.com/tusupload',
- retryDelays: [0, 3000, 5000, 10000, 20000],
- headers: {
- AuthorizationSignature: authorization_signature,
- AuthorizationExpire: authorization_expire.toString(),
- VideoId: video_id,
- LibraryId: library_id,
- },
- metadata: {
- filetype: file.type,
- title: file.name,
- },
- onError: function (error) {
- console.error('Failed because: ' + error)
- setError('Upload failed. Please try again.')
- setUploading(false)
- },
- onProgress: function (bytesUploaded, bytesTotal) {
- const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
- setProgress(Number(percentage))
- },
- onSuccess: function () {
- setSuccess(true)
- setUploading(false)
- },
- })
+    try {
+      const { video_id, library_id, authorization_signature, authorization_expire } = await requestUploadUrl(lessonId)
 
- upload.start()
+      const upload = new tus.Upload(file, {
+        endpoint: 'https://video.bunnycdn.com/tusupload',
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          AuthorizationSignature: authorization_signature,
+          AuthorizationExpire: authorization_expire.toString(),
+          VideoId: video_id,
+          LibraryId: library_id,
+        },
+        metadata: {
+          filetype: file.type,
+          title: file.name,
+        },
+        onError: function (error) {
+          console.error('Failed because: ' + error)
+          setError('Upload failed. Please try again.')
+          setUploading(false)
+        },
+        onProgress: function (bytesUploaded, bytesTotal) {
+          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
+          setProgress(Number(percentage))
+        },
+        onSuccess: function () {
+          setSuccess(true)
+          setUploading(false)
+        },
+      })
 
- } catch (err: any) {
- console.error(err)
- setError('Failed to request upload URL.')
- setUploading(false)
- }
- }
+      upload.start()
 
- if (success && !uploading) {
- return (
- <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center">
- <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
- <p className="text-sm text-emerald-400 font-medium">Video uploaded successfully!</p>
- <p className="text-xs text-zinc-400 mt-1">Bunny Stream is now encoding it.</p>
- <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors">
- Replace Video
- <input type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
- </label>
- </div>
-)
- }
+    } catch (err: any) {
+      console.error(err)
+      setError('Failed to request upload URL.')
+      setUploading(false)
+    }
+  }
 
- return (
- <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
- {uploading && (
- <div 
- className="absolute top-0 left-0 h-1 bg-blue-500 transition-all duration-300"
- style={{ width: `${progress}%` }}
- />
-)}
- <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
- <p className="text-xs text-zinc-400">
- {uploading ? `Uploading... ${progress}%` :"Select a video to upload directly to Bunny Stream."}
- </p>
- 
- {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+  if (success && !uploading) {
+    return (
+      <div className="p-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-center">
+        <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
+        <p className="text-sm text-emerald-400 font-medium">Video uploaded successfully!</p>
+        <p className="text-xs text-zinc-400 mt-1">Bunny Stream is now encoding it.</p>
+        <label className="mt-3 cursor-pointer inline-flex px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors">
+          Replace Video
+          <input type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
+        </label>
+      </div>
+    )
+  }
 
- <button 
- type="button"
- disabled={uploading}
- onClick={() => fileInputRef.current?.click()}
- className={cn(
-"mt-3 inline-flex items-center px-4 py-2 bg-white dark:bg-zinc-200 dark:bg-zinc-700 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer",
- uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
-)}
- >
- {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
- {uploading ? 'Uploading...' : 'Select Video File'}
- </button>
- <input 
- ref={fileInputRef}
- type="file" 
- accept="video/*" 
- className="hidden" 
- onChange={handleFileChange}
- disabled={uploading}
- />
- </div>
-)
+  return (
+    <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+      {uploading && (
+        <div 
+          className="absolute top-0 left-0 h-1 bg-blue-500 transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      )}
+      <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+      <p className="text-xs text-zinc-400">
+        {uploading ? `Uploading... ${progress}%` :"Select a video to upload directly to Bunny Stream."}
+      </p>
+      
+      {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+
+      <button 
+        type="button"
+        disabled={uploading}
+        onClick={() => fileInputRef.current?.click()}
+        className={cn(
+          "mt-3 inline-flex items-center px-4 py-2 bg-white dark:bg-zinc-200 dark:bg-zinc-700 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer",
+          uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
+        )}
+      >
+        {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {uploading ? 'Uploading...' : 'Select Video File'}
+      </button>
+      <input 
+        ref={fileInputRef}
+        type="file" 
+        accept="video/*" 
+        className="hidden" 
+        onChange={handleFileChange}
+        disabled={uploading}
+      />
+    </div>
+  )
 }
 
-function PdfUploader({ lesson, onUpdateUrl }: { lesson: AdminLesson, onUpdateUrl: (url: string) => void }) {
- const [uploading, setUploading] = useState(false)
- const [error, setError] = useState<string | null>(null)
- const fileInputRef = useRef<HTMLInputElement>(null)
+function PdfUploader({ lesson, onUpdateUrl, onUploadingChange }: { lesson: AdminLesson, onUpdateUrl: (url: string) => void, onUploadingChange?: (uploading: boolean) => void }) {
+  const [uploading, setUploadingState] = useState(false)
+  
+  const setUploading = (val: boolean) => {
+    setUploadingState(val)
+    if (onUploadingChange) onUploadingChange(val)
+  }
 
- const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
- const file = e.target.files?.[0]
- if (!file) return
+  const [error, setError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
- setUploading(true)
- setError(null)
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
 
- try {
- const formData = new FormData()
- formData.append('file', file)
- 
- const { url, error: uploadError } = await uploadPdfAction(formData)
- 
- if (uploadError) throw new Error(uploadError)
- if (url) onUpdateUrl(url)
+    setUploading(true)
+    setError(null)
 
- } catch (err: any) {
- console.error(err)
- setError(err.message || 'Failed to upload PDF.')
- } finally {
- setUploading(false)
- }
- }
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      
+      const { url, error: uploadError } = await uploadPdfAction(formData)
+      
+      if (uploadError) throw new Error(uploadError)
+      if (url) onUpdateUrl(url)
 
- const hasFile = !!lesson.file_url
+    } catch (err: any) {
+      console.error(err)
+      setError(err.message || 'Failed to upload PDF.')
+    } finally {
+      setUploading(false)
+    }
+  }
 
- if (hasFile && !uploading) {
- let fileName = lesson.file_url?.split('/').pop() || lesson.file_url || 'Document.pdf';
- // Remove the timestamp prefix generated during upload (e.g., 17145234-filename.pdf)
- if (fileName.match(/^\d{13}-/)) {
- fileName = fileName.substring(fileName.indexOf('-') + 1);
- }
- // Decode URI encoding (like %20 for spaces)
- try { fileName = decodeURIComponent(fileName); } catch(e){}
+  const hasFile = !!lesson.file_url
 
- return (
- <div className="p-3 border border-blue-500/30 bg-blue-500/10 rounded-xl flex items-center justify-between">
- <div className="flex items-center gap-3 overflow-hidden">
- <div className="p-2 bg-blue-500/20 rounded-lg shrink-0">
- <FileText className="h-5 w-5 text-blue-400" />
- </div>
- <div className="text-left overflow-hidden">
- <p className="text-sm text-zinc-200 font-medium truncate" title={fileName}>{fileName}</p>
- <p className="text-[10px] text-blue-400/80 uppercase tracking-wider mt-0.5 font-semibold">PDF Attached</p>
- </div>
- </div>
- 
- <div className="flex items-center gap-1.5 shrink-0 ml-4">
- <button 
- type="button"
- onClick={() => fileInputRef.current?.click()}
- className="px-2.5 py-1.5 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer"
- >
- Replace
- </button>
- <input 
- ref={fileInputRef}
- type="file" 
- accept="application/pdf" 
- className="hidden" 
- onChange={handleFileChange}
- />
- <button 
- type="button"
- onClick={() => onUpdateUrl('')}
- className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
- title="Remove file"
- >
- <Trash2 className="h-4 w-4" />
- </button>
- </div>
- </div>
-)
- }
+  if (hasFile && !uploading) {
+    let fileName = lesson.file_url?.split('/').pop() || lesson.file_url || 'Document.pdf';
+    if (fileName.match(/^\d{13}-/)) {
+      fileName = fileName.substring(fileName.indexOf('-') + 1);
+    }
+    try { fileName = decodeURIComponent(fileName); } catch(e){}
 
- return (
- <div className="space-y-4">
- <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
- <File className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
- <p className="text-xs text-zinc-400">
- Upload a PDF directly to Supabase Storage
- </p>
- 
- {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
+    return (
+      <div className="p-3 border border-blue-500/30 bg-blue-500/10 rounded-xl flex items-center justify-between">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <div className="p-2 bg-blue-500/20 rounded-lg shrink-0">
+            <FileText className="h-5 w-5 text-blue-400" />
+          </div>
+          <div className="text-left overflow-hidden">
+            <p className="text-sm text-zinc-200 font-medium truncate" title={fileName}>{fileName}</p>
+            <p className="text-[10px] text-blue-400/80 uppercase tracking-wider mt-0.5 font-semibold">PDF Attached</p>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-1.5 shrink-0 ml-4">
+          <button 
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="px-2.5 py-1.5 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 shadow-sm dark:shadow-none rounded-lg text-xs font-medium transition-colors cursor-pointer"
+          >
+            Replace
+          </button>
+          <input 
+            ref={fileInputRef}
+            type="file" 
+            accept="application/pdf" 
+            className="hidden" 
+            onChange={handleFileChange}
+          />
+          <button 
+            type="button"
+            onClick={() => onUpdateUrl('')}
+            className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+            title="Remove file"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    )
+  }
 
- <button 
- type="button"
- disabled={uploading}
- onClick={() => fileInputRef.current?.click()}
- className={cn(
-"mt-3 inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-xs font-medium transition-colors cursor-pointer",
- uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
-)}
- >
- {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
- {uploading ? 'Uploading PDF...' : 'Select PDF File'}
- </button>
- <input 
- ref={fileInputRef}
- type="file" 
- accept="application/pdf" 
- className="hidden" 
- onChange={handleFileChange}
- disabled={uploading}
- />
- </div>
+  return (
+    <div className="space-y-4">
+      <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
+        <File className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+        <p className="text-xs text-zinc-400">
+          Upload a PDF directly to Supabase Storage
+        </p>
+        
+        {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
 
- <div className="flex items-center gap-4">
- <div className="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
- <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">OR</span>
- <div className="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
- </div>
+        <button 
+          type="button"
+          disabled={uploading}
+          onClick={() => fileInputRef.current?.click()}
+          className={cn(
+            "mt-3 inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-xs font-medium transition-colors cursor-pointer",
+            uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
+          )}
+        >
+          {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+          {uploading ? 'Uploading PDF...' : 'Select PDF File'}
+        </button>
+        <input 
+          ref={fileInputRef}
+          type="file" 
+          accept="application/pdf" 
+          className="hidden" 
+          onChange={handleFileChange}
+          disabled={uploading}
+        />
+      </div>
 
- <div className="space-y-2">
- <label className="block text-xs font-medium text-zinc-400">Host Externally (Google Drive, etc.)</label>
- <input
- type="url"
- value={lesson.file_url || ''}
- onChange={(e) => onUpdateUrl(e.target.value)}
- placeholder="https://example.com/document.pdf"
- className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
- />
- </div>
- </div>
-)
+      <div className="flex items-center gap-4">
+        <div className="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
+        <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">OR</span>
+        <div className="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="block text-xs font-medium text-zinc-400">Host Externally (Google Drive, etc.)</label>
+        <input
+          type="url"
+          value={lesson.file_url || ''}
+          onChange={(e) => onUpdateUrl(e.target.value)}
+          placeholder="https://example.com/document.pdf"
+          className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-lg text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-500/50"
+        />
+      </div>
+    </div>
+  )
 }
 
 // --- Quiz Builder --------------------------------------------
@@ -583,7 +593,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
 
  const handleDeleteAnswer = (qIdx: number, aIdx: number) => {
  const updated = [...questions]
- const answers = updated[qIdx].answers.filter((_, i) => i !== aIdx)
+ const answers = [...updated[qIdx].answers.filter((_, i) => i !== aIdx)]
  // If we deleted the correct answer, make the first one correct
  if (!answers.some(a => a.is_correct) && answers.length > 0) {
  answers[0] = { ...answers[0], is_correct: true }
@@ -873,6 +883,7 @@ export default function CourseBuilderPage() {
   // Right Panel State (Lesson Editing)
   const [activeLesson, setActiveLesson] = useState<AdminLesson | null>(null)
   const [showSettingsModal, setShowSettingsModal] = useState(false)
+  const [isUploadingContent, setIsUploadingContent] = useState(false)
  
  useEffect(() => {
  fetchCourse(slug)
@@ -1114,15 +1125,20 @@ export default function CourseBuilderPage() {
 ) : (
  <div className="space-y-6">
  <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Edit Lesson</h3>
- <button onClick={() => setActiveLesson(null)} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
- Close
- </button>
+ <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Edit Lesson</h3>
+  <button 
+    onClick={() => !isUploadingContent && setActiveLesson(null)} 
+    disabled={isUploadingContent}
+    title={isUploadingContent ? "Please wait for upload to finish..." : undefined}
+    className={cn("text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors", isUploadingContent && "opacity-50 cursor-not-allowed")}
+  >
+  Close
+  </button>
  </div>
 
  <div className="space-y-4">
  <div>
-                    <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">Lesson Title</label>
+ <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">Lesson Title</label>
  <input
  type="text"
  value={activeLesson.title}
@@ -1132,7 +1148,7 @@ export default function CourseBuilderPage() {
  </div>
 
  <div>
-                    <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">Content Type</label>
+ <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">Content Type</label>
  <select
  value={activeLesson.content_type}
  onChange={(e) => setActiveLesson({...activeLesson, content_type: e.target.value as any})}
@@ -1149,7 +1165,7 @@ export default function CourseBuilderPage() {
  {/* Placeholder for actual content editing based on type */}
  {activeLesson.content_type === 'video' && (
  <div className="space-y-3">
- <VideoUploader lessonId={activeLesson.id} initialVideoId={activeLesson.video_id} />
+ <VideoUploader lessonId={activeLesson.id} initialVideoId={activeLesson.video_id} onUploadingChange={setIsUploadingContent} />
  </div>
 )}
 
@@ -1167,6 +1183,7 @@ export default function CourseBuilderPage() {
  <PdfUploader 
  lesson={activeLesson} 
  onUpdateUrl={(url) => setActiveLesson({...activeLesson, file_url: url})} 
+ onUploadingChange={setIsUploadingContent}
  />
  </div>
 )}
@@ -1187,10 +1204,11 @@ export default function CourseBuilderPage() {
  text_content: activeLesson.text_content,
  file_url: activeLesson.file_url
  })}
- disabled={saving}
- className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+ disabled={saving || isUploadingContent}
+ title={isUploadingContent ? "Please wait for upload to finish..." : undefined}
+ className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
  >
- {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+ {(saving || isUploadingContent) ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
  Save Lesson
  </button>
  </div>

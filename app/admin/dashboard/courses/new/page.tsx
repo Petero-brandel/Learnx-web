@@ -9,8 +9,14 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import * as tus from 'tus-js-client'
 
-function NewCourseVideoUploader({ courseTitle, onVideoUploaded }: { courseTitle: string, onVideoUploaded: (videoId: string) => void }) {
-  const [uploading, setUploading] = useState(false)
+function NewCourseVideoUploader({ courseTitle, onVideoUploaded, onUploadingChange }: { courseTitle: string, onVideoUploaded: (videoId: string) => void, onUploadingChange?: (uploading: boolean) => void }) {
+  const [uploading, setUploadingState] = useState(false)
+  
+  const setUploading = (val: boolean) => {
+    setUploadingState(val)
+    if (onUploadingChange) onUploadingChange(val)
+  }
+
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
@@ -135,6 +141,7 @@ export default function NewCoursePage() {
  const [thumbnailUrl, setThumbnailUrl] = useState('')
  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null)
  const [uploadingThumb, setUploadingThumb] = useState(false)
+ const [uploadingVideo, setUploadingVideo] = useState(false)
  const [previewVideoId, setPreviewVideoId] = useState<string | null>(null)
  const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -269,7 +276,7 @@ export default function NewCoursePage() {
  <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
  Preview Video
  </label>
- <NewCourseVideoUploader courseTitle={title} onVideoUploaded={setPreviewVideoId} />
+ <NewCourseVideoUploader courseTitle={title} onVideoUploaded={setPreviewVideoId} onUploadingChange={setUploadingVideo} />
  </div>
 
  <div>
@@ -321,16 +328,17 @@ export default function NewCoursePage() {
  <div className="pt-4 border-t border-zinc-200 dark:border-zinc-700/60 flex justify-end gap-3">
  <Link
  href="/admin/dashboard/courses"
- className="px-5 py-2.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+ className={cn("px-5 py-2.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors", uploadingVideo && "opacity-50 cursor-not-allowed pointer-events-none")}
  >
  Cancel
  </Link>
  <button
  type="submit"
- disabled={loading || !title || uploadingThumb}
+ disabled={loading || !title || uploadingThumb || uploadingVideo}
+ title={uploadingVideo ? "Please wait for video to finish uploading..." : undefined}
  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
  >
- {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+ {(loading || uploadingVideo || uploadingThumb) && <Loader2 className="h-4 w-4 animate-spin" />}
  Create & Continue
  </button>
  </div>

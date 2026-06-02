@@ -7,8 +7,14 @@ import { Loader2, ImagePlus, X, Save, Video, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import * as tus from 'tus-js-client'
 
-function CourseVideoUploader({ courseSlug, initialVideoId }: { courseSlug: string, initialVideoId: string | null }) {
-  const [uploading, setUploading] = useState(false)
+function CourseVideoUploader({ courseSlug, initialVideoId, onUploadingChange }: { courseSlug: string, initialVideoId: string | null, onUploadingChange?: (uploading: boolean) => void }) {
+  const [uploading, setUploadingState] = useState(false)
+  
+  const setUploading = (val: boolean) => {
+    setUploadingState(val)
+    if (onUploadingChange) onUploadingChange(val)
+  }
+
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(!!initialVideoId)
@@ -133,6 +139,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(course.thumbnail || null)
   
   const [uploadingThumb, setUploadingThumb] = useState(false)
+  const [uploadingVideo, setUploadingVideo] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleThumbnailSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -198,8 +205,9 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
         <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200 dark:border-zinc-800">
           <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Course Settings</h2>
           <button 
-            onClick={onClose}
-            className="p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            onClick={() => !uploadingVideo && !uploadingThumb && onClose()}
+            disabled={uploadingVideo || uploadingThumb}
+            className="p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <X className="h-4 w-4" />
           </button>
@@ -264,7 +272,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
                 <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
                   Preview Video
                 </label>
-                <CourseVideoUploader courseSlug={course.slug} initialVideoId={course.preview_video_id} />
+                <CourseVideoUploader courseSlug={course.slug} initialVideoId={course.preview_video_id} onUploadingChange={setUploadingVideo} />
               </div>
 
               <div>
@@ -318,18 +326,20 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
         <div className="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex justify-end gap-3">
           <button
             type="button"
-            onClick={onClose}
-            className="px-5 py-2.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+            onClick={() => !uploadingVideo && !uploadingThumb && onClose()}
+            disabled={uploadingVideo || uploadingThumb}
+            className="px-5 py-2.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             type="submit"
             form="course-settings-form"
-            disabled={loading || !title || uploadingThumb}
+            disabled={loading || !title || uploadingThumb || uploadingVideo}
+            title={uploadingVideo ? "Please wait for video to finish uploading..." : undefined}
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            {(loading || uploadingVideo || uploadingThumb) ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             Save Changes
           </button>
         </div>
