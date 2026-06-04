@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import type { Module, Lesson } from '@/lib/dashboard'
-import { ChevronDown, PlayCircle, FileText, CheckCircle, BookOpen } from 'lucide-react'
+import { ChevronDown, PlayCircle, FileText, CheckCircle, BookOpen, Check } from 'lucide-react'
 
 interface ModuleAccordionProps {
  module: Module
@@ -78,15 +78,15 @@ export default function ModuleAccordion({
  >
  {/* Icon */}
  <div className={cn(
-"flex-shrink-0 h-9 w-9 rounded-xl flex items-center justify-center transition-colors",
+"flex-shrink-0 h-9 w-9 rounded-xl flex items-center justify-center transition-all duration-200",
  isCompleted
- ?"bg-emerald-100 dark:bg-emerald-900/30"
+ ?"bg-emerald-500 dark:bg-emerald-500 shadow-sm shadow-emerald-500/20"
  : isActive
  ?"bg-blue-100 dark:bg-blue-900/30"
  :"bg-zinc-100 dark:bg-zinc-800/80 group-hover:bg-zinc-200 dark:group-hover:bg-zinc-700"
 )}>
  {isCompleted ? (
- <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+ <Check className="h-5 w-5 text-white" strokeWidth={3} />
 ) : (
  <Icon className={cn(
 "h-5 w-5",
