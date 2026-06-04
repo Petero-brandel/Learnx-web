@@ -73,11 +73,11 @@ export default function BroadcastPage() {
                 >
                     {feedback.type === 'success' ? (
                         <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-900 flex items-center justify-center shrink-0">
-                            <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                            <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                         </div>
                     ) : (
                         <div className="h-8 w-8 rounded-full bg-red-50 dark:bg-red-900 flex items-center justify-center shrink-0">
-                            <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
+                            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
                         </div>
                     )}
                     <span className="flex-1 font-medium">{feedback.message}</span>
@@ -184,8 +184,8 @@ export default function BroadcastPage() {
                                 (sending || !subject.trim() || !body.trim()) && "opacity-50 cursor-not-allowed"
                             )}
                         >
-                            {sending && <Loader2 className="h-4 w-4 animate-spin" />}
-                            <Send className="h-4 w-4" />
+                            {sending && <Loader2 className="h-5 w-5 animate-spin" />}
+                            <Send className="h-5 w-5" />
                             Send Broadcast
                         </button>
                     </div>
@@ -196,7 +196,7 @@ export default function BroadcastPage() {
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden">
                 <div className="p-6 border-b border-zinc-100 dark:border-zinc-800 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-                        <History className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
+                        <History className="h-5 w-5 text-zinc-600 dark:text-zinc-600 dark:text-zinc-400" />
                     </div>
                     <div>
                         <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Broadcast History</h3>
@@ -233,7 +233,7 @@ export default function BroadcastPage() {
                                     <tr key={record.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-start gap-3 max-w-[300px]">
-                                                <Mail className="h-4 w-4 text-zinc-400 mt-0.5 shrink-0" />
+                                                <Mail className="h-5 w-5 text-zinc-600 dark:text-zinc-400 mt-0.5 shrink-0" />
                                                 <div className="truncate">
                                                     <p className="font-medium text-zinc-900 dark:text-zinc-200 truncate">{record.subject}</p>
                                                     <p className="text-xs text-zinc-500 truncate mt-0.5">{record.body}</p>
@@ -247,13 +247,13 @@ export default function BroadcastPage() {
                                         </td>
                                         <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">
                                             <div className="flex items-center gap-1.5">
-                                                <Users className="h-3.5 w-3.5" />
+                                                <Users className="h-5 w-5" />
                                                 <span>{record.recipients_count}</span>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-zinc-500 dark:text-zinc-500 text-xs">
                                             <div className="flex items-center gap-1.5">
-                                                <Clock className="h-3.5 w-3.5" />
+                                                <Clock className="h-5 w-5" />
                                                 <span>{new Date(record.sent_at).toLocaleString()}</span>
                                             </div>
                                         </td>

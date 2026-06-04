@@ -187,7 +187,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                     href="/dashboard"
                     className="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                 >
-                    <ArrowLeft className="h-4 w-4" />
+                    <ArrowLeft className="h-5 w-5" />
                     <span className="hidden sm:inline">Dashboard</span>
                 </Link>
                 <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800" />
@@ -200,7 +200,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                     onClick={() => setSheetOpen(true)}
                     className="md:hidden flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-full transition-colors hover:bg-blue-100 dark:hover:bg-blue-900/40"
                 >
-                    <ListOrdered className="h-3.5 w-3.5" />
+                    <ListOrdered className="h-5 w-5" />
                     Modules
                 </button>
             </div>
@@ -256,7 +256,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                                         : "text-zinc-300 dark:text-zinc-700 bg-zinc-50 dark:bg-zinc-900 cursor-not-allowed"
                                 )}
                             >
-                                <ChevronLeft className="h-4 w-4" />
+                                <ChevronLeft className="h-5 w-5" />
                                 <span className="hidden sm:inline">Previous</span>
                             </button>
 
@@ -268,15 +268,15 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                                     className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-all disabled:opacity-60 active:scale-95"
                                 >
                                     {marking ? (
-                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                        <Loader2 className="h-5 w-5 animate-spin" />
                                     ) : (
-                                        <Check className="h-4 w-4" />
+                                        <Check className="h-5 w-5" />
                                     )}
                                     {marking ? 'Saving...' : 'Mark Complete'}
                                 </button>
                             ) : activeLesson && completedLessons.has(activeLesson.id) ? (
                                 <div className="flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
-                                    <Check className="h-4 w-4" />
+                                    <Check className="h-5 w-5" />
                                     Completed
                                 </div>
                             ) : null}
@@ -293,7 +293,7 @@ export default function CoursePlayerPage({ params }: { params: Promise<{ slug: s
                                 )}
                             >
                                 <span className="hidden sm:inline">Next</span>
-                                <ChevronRight className="h-4 w-4" />
+                                <ChevronRight className="h-5 w-5" />
                             </button>
                         </div>
                     </div>

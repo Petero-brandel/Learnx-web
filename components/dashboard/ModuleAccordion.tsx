@@ -86,7 +86,7 @@ export default function ModuleAccordion({
  :"bg-zinc-100 dark:bg-zinc-800"
 )}>
  {isCompleted ? (
- <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+ <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
 ) : (
  <Icon className={cn(
 "h-4 w-4",

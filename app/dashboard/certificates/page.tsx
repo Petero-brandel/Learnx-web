@@ -27,7 +27,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
   if (!imgUrl) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
-        <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-zinc-600 dark:text-zinc-400" />
       </div>
     );
   }
@@ -154,7 +154,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
    </div>
    {certificates.length > 0 && (
      <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20">
-       <Award className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+       <Award className="h-5 w-5 text-blue-600 dark:text-blue-400" />
        <span className="text-xs font-semibold text-blue-700 dark:text-blue-300">
          {certificates.length} earned
        </span>
@@ -191,7 +191,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
    {/* Meta info */}
    <div className="flex flex-wrap items-center gap-3 mb-4">
      <span className="inline-flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
-       <Calendar className="h-3 w-3" />
+       <Calendar className="h-5 w-5" />
        {new Date(cert.issued_at).toLocaleDateString('en-US', {
          year: 'numeric',
          month: 'short',
@@ -199,7 +199,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
        })}
      </span>
      <span className="inline-flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500 font-mono">
-       <Hash className="h-3 w-3" />
+       <Hash className="h-5 w-5" />
        {cert.certificate_id.slice(0, 8)}
      </span>
    </div>
@@ -213,7 +213,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
    {downloadingId === cert.certificate_id ? (
    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
  ) : (
-   <Download className="h-4 w-4" />
+   <Download className="h-5 w-5" />
  )}
    {downloadingId === cert.certificate_id ? 'Downloading...' : 'Download Certificate'}
    </button>
@@ -224,7 +224,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
 ) : (
  <div className="flex flex-col items-center justify-center py-20 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-700/70 bg-zinc-50/50 dark:bg-zinc-900">
  <div className="h-16 w-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mb-5 shadow-sm">
- <Award className="h-8 w-8 text-zinc-400 dark:text-zinc-500" />
+ <Award className="h-8 w-8 text-zinc-600 dark:text-zinc-400 dark:text-zinc-700 dark:text-zinc-300" />
  </div>
  <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
  No certificates yet
@@ -237,7 +237,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-blue-500/20 active:scale-[0.98]"
  >
  Go to My Courses
- <ExternalLink className="h-3.5 w-3.5" />
+ <ExternalLink className="h-5 w-5" />
  </Link>
  </div>
 )}
@@ -276,7 +276,7 @@ function CertificatePreviewImage({ certId }: { certId: string }) {
             disabled={!tempName.trim() || isSavingName}
             className="w-full flex justify-center items-center gap-2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSavingName ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+            {isSavingName ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
             {isSavingName ? 'Saving...' : 'Save & Download Certificate'}
           </button>
         </div>

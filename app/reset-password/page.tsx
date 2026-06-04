@@ -109,7 +109,7 @@ function ResetPasswordContent() {
 
  {status === 'error' && (
  <div className="mb-6 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/40 px-3 py-2.5 text-xs font-medium text-red-700 dark:text-red-300 flex items-center gap-2">
- <AlertCircle className="h-4 w-4 flex-none" />
+ <AlertCircle className="h-5 w-5 flex-none" />
  <p>{errorMessage}</p>
  </div>
 )}
@@ -133,7 +133,7 @@ function ResetPasswordContent() {
  onClick={() => setShowPassword((v) => !v)}
  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
  >
- {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+ {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
  </button>
  </div>
  {fieldErrors.password && <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{fieldErrors.password}</p>}
@@ -187,7 +187,7 @@ function ResetPasswordContent() {
  disabled={status === 'loading' || !password || !confirmPassword}
  className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
  >
- {status === 'loading' ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
+ {status === 'loading' ? <Loader2 className="h-5 w-5 animate-spin" /> : <CheckCircle2 className="h-5 w-5" />}
  Reset Password
  </button>
  </form>

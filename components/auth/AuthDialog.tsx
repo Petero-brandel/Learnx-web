@@ -275,7 +275,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  {error && (
  <div className="mb-4 flex items-center gap-3 p-3 rounded-xl text-sm border bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100">
  <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
- <AlertCircle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
+ <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
  </div>
  <p className="flex-1 font-medium text-xs">{error}</p>
  </div>
@@ -306,7 +306,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  disabled
  className="w-full flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm font-medium text-zinc-500 dark:text-zinc-400 cursor-not-allowed"
  >
- <Mail className="h-4 w-4" />
+ <Mail className="h-5 w-5" />
  Google sign-in is not configured
  </button>
 )}
@@ -365,7 +365,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
  aria-label={showPassword ? 'Hide password' : 'Show password'}
  >
- {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+ {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
  </button>
  </div>
  {fieldErrors.password && <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{fieldErrors.password}</p>}
@@ -413,7 +413,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
  disabled={isLoading || isGoogleLoading}
  className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
  >
- {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+ {isLoading && <Loader2 className="h-5 w-5 animate-spin" />}
  {isLoading ? submitLoadingLabel : submitLabel}
  </button>
  </form>
@@ -455,7 +455,7 @@ function AuthDialogContent({ variant, mode }: AuthDialogProps) {
 
 export function AuthDialog(props: AuthDialogProps) {
  return (
- <Suspense fallback={<div className="flex items-center justify-center p-8 h-full"><Loader2 className="h-8 w-8 animate-spin text-zinc-500" /></div>}>
+ <Suspense fallback={<div className="flex items-center justify-center p-8 h-full"><Loader2 className="h-8 w-8 animate-spin text-zinc-700 dark:text-zinc-300" /></div>}>
  <AuthDialogContent {...props} />
  </Suspense>
 );

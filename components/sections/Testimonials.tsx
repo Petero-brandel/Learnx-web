@@ -294,7 +294,7 @@ export function Testimonials() {
 		 aria-label="Previous testimonial"
 		 className="pointer-events-auto h-11 w-11 rounded-full border border-[#c9ced8] bg-transparent text-[#8a90a0] flex items-center justify-center transition-all duration-200 hover:bg-white hover:text-[#1a2238] hover:border-[#b4bbca]"
 		>
-		 <ChevronLeft className="h-4 w-4" />
+		 <ChevronLeft className="h-5 w-5" />
 		</button>
 		<button
 		 type="button"
@@ -302,7 +302,7 @@ export function Testimonials() {
 		 aria-label="Next testimonial"
 		 className="pointer-events-auto h-11 w-11 rounded-full border border-[#c9ced8] bg-transparent text-[#8a90a0] flex items-center justify-center transition-all duration-200 hover:bg-white hover:text-[#1a2238] hover:border-[#b4bbca]"
 		>
-		 <ChevronRight className="h-4 w-4" />
+		 <ChevronRight className="h-5 w-5" />
 		</button>
 	  </div>
 	 </div>

@@ -151,7 +151,7 @@ function DashboardContent() {
  className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-colors"
  >
  Browse more
- <ArrowRight className="h-3.5 w-3.5" />
+ <ArrowRight className="h-5 w-5" />
  </Link>
 )}
  </div>
@@ -179,7 +179,7 @@ function DashboardContent() {
  className="inline-flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-full px-6 py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity"
  >
  Browse Courses
- <ArrowRight className="h-4 w-4" />
+ <ArrowRight className="h-5 w-5" />
  </Link>
  </div>
 )}

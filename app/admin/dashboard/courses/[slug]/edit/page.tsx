@@ -86,7 +86,7 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
  {...attributes} 
  {...listeners}
  >
- <GripVertical className="h-4 w-4" />
+ <GripVertical className="h-5 w-5" />
  </button>
  
  <div className="p-2 bg-zinc-100 dark:bg-zinc-800/50 rounded-lg">
@@ -99,10 +99,10 @@ function SortableLesson({ lesson, onEdit, onDelete }: { lesson: AdminLesson, onE
 
  <div className="flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
  <button onClick={onEdit} className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md">
- <Settings className="h-4 w-4" />
+ <Settings className="h-5 w-5" />
  </button>
  <button onClick={onDelete} className="p-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-md">
- <Trash2 className="h-4 w-4" />
+ <Trash2 className="h-5 w-5" />
  </button>
  </div>
  </div>
@@ -169,14 +169,14 @@ function SortableModule({
  onKeyDown={(e) => e.key === 'Enter' && handleSave()}
  />
  <button onClick={handleSave} className="p-1.5 text-blue-400 hover:bg-blue-500/10 rounded-md">
- <CheckCircle2 className="h-4 w-4" />
+ <CheckCircle2 className="h-5 w-5" />
  </button>
  </div>
 ) : (
  <div className="flex items-center gap-3">
  <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{module.title}</h3>
  <button onClick={() => setIsEditing(true)} className="p-1 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
- <Settings className="h-3.5 w-3.5" />
+ <Settings className="h-5 w-5" />
  </button>
  </div>
 )}
@@ -186,14 +186,14 @@ function SortableModule({
               onClick={() => onAddLesson(module.id)}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 dark:bg-zinc-800/80 dark:hover:bg-zinc-700 dark:text-zinc-300 rounded-lg text-xs font-semibold transition-colors"
             >
-              <Plus className="h-3.5 w-3.5" />
+              <Plus className="h-5 w-5" />
               Add Lesson
             </button>
  <button 
  onClick={() => onModuleDelete(module.id)}
  className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
  >
- <Trash2 className="h-4 w-4" />
+ <Trash2 className="h-5 w-5" />
  </button>
  </div>
  </div>
@@ -313,7 +313,7 @@ function VideoUploader({ lessonId, initialVideoId, onUploadingChange }: { lesson
           style={{ width: `${progress}%` }}
         />
       )}
-      <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+      <Video className="h-6 w-6 text-zinc-700 dark:text-zinc-300 mx-auto mb-2" />
       <p className="text-xs text-zinc-400">
         {uploading ? `Uploading... ${progress}%` :"Select a video to upload directly to Bunny Stream."}
       </p>
@@ -329,7 +329,7 @@ function VideoUploader({ lessonId, initialVideoId, onUploadingChange }: { lesson
           uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
         )}
       >
-        {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {uploading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : null}
         {uploading ? 'Uploading...' : 'Select Video File'}
       </button>
       <input 
@@ -421,7 +421,7 @@ function PdfUploader({ lesson, onUpdateUrl, onUploadingChange }: { lesson: Admin
             className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
             title="Remove file"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-5 w-5" />
           </button>
         </div>
       </div>
@@ -431,7 +431,7 @@ function PdfUploader({ lesson, onUpdateUrl, onUploadingChange }: { lesson: Admin
   return (
     <div className="space-y-4">
       <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/30 rounded-xl text-center relative overflow-hidden">
-        <File className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+        <File className="h-6 w-6 text-zinc-700 dark:text-zinc-300 mx-auto mb-2" />
         <p className="text-xs text-zinc-400">
           Upload a PDF directly to Supabase Storage
         </p>
@@ -447,7 +447,7 @@ function PdfUploader({ lesson, onUpdateUrl, onUploadingChange }: { lesson: Admin
             uploading &&"opacity-50 cursor-not-allowed pointer-events-none"
           )}
         >
-          {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+          {uploading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : null}
           {uploading ? 'Uploading PDF...' : 'Select PDF File'}
         </button>
         <input 
@@ -647,7 +647,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  }
 
  if (loading) {
- return <div className="flex justify-center py-6"><Loader2 className="h-5 w-5 animate-spin text-zinc-500" /></div>
+ return <div className="flex justify-center py-6"><Loader2 className="h-5 w-5 animate-spin text-zinc-700 dark:text-zinc-300" /></div>
  }
 
  return (
@@ -659,10 +659,10 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  className="w-full flex items-center justify-between px-3 py-2 bg-zinc-100 dark:bg-zinc-800/50 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
  >
  <span className="flex items-center gap-2">
- <Settings className="h-3.5 w-3.5" />
+ <Settings className="h-5 w-5" />
  Quiz Settings
  </span>
- {settingsOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+ {settingsOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
  </button>
 
  {settingsOpen && (
@@ -759,7 +759,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  onClick={() => handleDeleteQuestion(qIdx)}
  className="p-1 text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
  >
- <Trash2 className="h-3.5 w-3.5" />
+ <Trash2 className="h-5 w-5" />
  </button>
  </div>
 
@@ -807,7 +807,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  onClick={() => handleDeleteAnswer(qIdx, aIdx)}
  className="p-0.5 text-zinc-600 hover:text-red-400 transition-colors"
  >
- <Trash2 className="h-3 w-3" />
+ <Trash2 className="h-5 w-5" />
  </button>
 )}
  </div>
@@ -819,7 +819,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  onClick={() => handleAddAnswer(qIdx)}
  className="inline-flex items-center gap-1 px-2 py-1 text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors mt-1"
  >
- <Plus className="h-3 w-3" /> Add Answer
+ <Plus className="h-5 w-5" /> Add Answer
  </button>
 )}
  </div>
@@ -833,14 +833,14 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  onClick={() => handleAddQuestion('multiple_choice')}
  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors"
  >
- <CircleDot className="h-3.5 w-3.5" /> Multiple Choice
+ <CircleDot className="h-5 w-5" /> Multiple Choice
  </button>
  <button
  type="button"
  onClick={() => handleAddQuestion('true_false')}
  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 rounded-lg text-xs font-medium transition-colors"
  >
- <CheckCircle2 className="h-3.5 w-3.5" /> True / False
+ <CheckCircle2 className="h-5 w-5" /> True / False
  </button>
  </div>
  </div>
@@ -864,7 +864,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  disabled={saving || questions.length === 0}
  className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
  >
- {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+ {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
  {saving ? 'Saving Quiz...' : 'Save Quiz'}
  </button>
  </div>
@@ -1017,7 +1017,7 @@ export default function CourseBuilderPage() {
  }
  }
 
- if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-8 w-8 animate-spin text-zinc-500" /></div>
+ if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-8 w-8 animate-spin text-zinc-700 dark:text-zinc-300" /></div>
  if (!course) return <div>Course not found</div>
 
  return (
@@ -1048,18 +1048,18 @@ export default function CourseBuilderPage() {
                   href="/admin/dashboard/courses"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors mb-2"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-5 w-5" />
                   Back to Courses
                 </Link>
  <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{course.title}</h1>
  </div>
   <div className="flex items-center gap-3">
-  {saving && <Loader2 className="h-4 w-4 animate-spin text-zinc-400" />}
+  {saving && <Loader2 className="h-5 w-5 animate-spin text-zinc-600 dark:text-zinc-400" />}
   <button
     onClick={() => setShowSettingsModal(true)}
     className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 rounded-xl text-sm font-semibold transition-colors shadow-sm"
   >
-    <Settings className="h-4 w-4" />
+    <Settings className="h-5 w-5" />
     <span className="hidden sm:inline">Settings</span>
   </button>
   <button
@@ -1084,7 +1084,7 @@ export default function CourseBuilderPage() {
                   onClick={handleAddModule}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white shadow-sm dark:bg-blue-500 dark:hover:bg-blue-600 rounded-xl text-sm font-semibold transition-all"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-5 w-5" />
                   Add Module
                 </button>
  </div>
@@ -1119,7 +1119,7 @@ export default function CourseBuilderPage() {
  <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-700/60 shadow-sm dark:shadow-none rounded-2xl p-5 min-h-[400px]">
  {!activeLesson ? (
  <div className="flex flex-col items-center justify-center h-full text-center space-y-3 opacity-60 min-h-[300px]">
- <Settings className="h-8 w-8 text-zinc-500" />
+ <Settings className="h-8 w-8 text-zinc-700 dark:text-zinc-300" />
  <p className="text-sm text-zinc-400">Select a lesson to edit its content.</p>
  </div>
 ) : (
@@ -1208,7 +1208,7 @@ export default function CourseBuilderPage() {
  title={isUploadingContent ? "Please wait for upload to finish..." : undefined}
  className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
  >
- {(saving || isUploadingContent) ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+ {(saving || isUploadingContent) ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
  Save Lesson
  </button>
  </div>

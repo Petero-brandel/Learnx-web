@@ -195,8 +195,8 @@ const ResizableMediaNode = ({
         >
           <div
             className="
-              w-4
-              h-4
+              w-5
+              h-5
               rounded-sm
               bg-blue-500
               border
@@ -392,7 +392,7 @@ const MenuBar = ({
         }}
         title="Bold"
       >
-        <Bold className="h-4 w-4" />
+        <Bold className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -403,7 +403,7 @@ const MenuBar = ({
         }}
         title="Italic"
       >
-        <Italic className="h-4 w-4" />
+        <Italic className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -418,7 +418,7 @@ const MenuBar = ({
         }}
         title="Underline"
       >
-        <UnderlineIcon className="h-4 w-4" />
+        <UnderlineIcon className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -429,7 +429,7 @@ const MenuBar = ({
         }}
         title="Strike"
       >
-        <Strikethrough className="h-4 w-4" />
+        <Strikethrough className="h-5 w-5" />
       </ToolbarButton>
 
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
@@ -449,7 +449,7 @@ const MenuBar = ({
         }}
         title="Heading 1"
       >
-        <Heading1 className="h-4 w-4" />
+        <Heading1 className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -467,7 +467,7 @@ const MenuBar = ({
         }}
         title="Heading 2"
       >
-        <Heading2 className="h-4 w-4" />
+        <Heading2 className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -485,7 +485,7 @@ const MenuBar = ({
         }}
         title="Heading 3"
       >
-        <Heading3 className="h-4 w-4" />
+        <Heading3 className="h-5 w-5" />
       </ToolbarButton>
 
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
@@ -503,7 +503,7 @@ const MenuBar = ({
         }}
         title="Bullet List"
       >
-        <List className="h-4 w-4" />
+        <List className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -519,7 +519,7 @@ const MenuBar = ({
         }}
         title="Ordered List"
       >
-        <ListOrdered className="h-4 w-4" />
+        <ListOrdered className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -535,7 +535,7 @@ const MenuBar = ({
         }}
         title="Blockquote"
       >
-        <Quote className="h-4 w-4" />
+        <Quote className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -551,7 +551,7 @@ const MenuBar = ({
         }}
         title="Code Block"
       >
-        <Code className="h-4 w-4" />
+        <Code className="h-5 w-5" />
       </ToolbarButton>
 
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
@@ -571,7 +571,7 @@ const MenuBar = ({
         }}
         title="Align Left"
       >
-        <AlignLeft className="h-4 w-4" />
+        <AlignLeft className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -589,7 +589,7 @@ const MenuBar = ({
         }}
         title="Align Center"
       >
-        <AlignCenter className="h-4 w-4" />
+        <AlignCenter className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -607,7 +607,7 @@ const MenuBar = ({
         }}
         title="Align Right"
       >
-        <AlignRight className="h-4 w-4" />
+        <AlignRight className="h-5 w-5" />
       </ToolbarButton>
 
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
@@ -620,7 +620,7 @@ const MenuBar = ({
         }}
         title="Link"
       >
-        <LinkIcon className="h-4 w-4" />
+        <LinkIcon className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -631,9 +631,9 @@ const MenuBar = ({
         title="Upload Image"
       >
         {uploadingImage ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
-          <ImageIcon className="h-4 w-4" />
+          <ImageIcon className="h-5 w-5" />
         )}
       </ToolbarButton>
 
@@ -652,13 +652,13 @@ const MenuBar = ({
         }}
         title="YouTube"
       >
-        <YoutubeIcon className="h-4 w-4" />
+        <YoutubeIcon className="h-5 w-5" />
       </ToolbarButton>
 
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
 
       <div className="flex items-center gap-2 px-2">
-        <Palette className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
+        <Palette className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
 
         <input
           type="color"
@@ -686,7 +686,7 @@ const MenuBar = ({
         }}
         title="Undo"
       >
-        <Undo className="h-4 w-4" />
+        <Undo className="h-5 w-5" />
       </ToolbarButton>
 
       <ToolbarButton
@@ -696,7 +696,7 @@ const MenuBar = ({
         }}
         title="Redo"
       >
-        <Redo className="h-4 w-4" />
+        <Redo className="h-5 w-5" />
       </ToolbarButton>
 
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
@@ -711,9 +711,9 @@ const MenuBar = ({
         }
       >
         {isExpanded ? (
-          <Minimize className="h-4 w-4" />
+          <Minimize className="h-5 w-5" />
         ) : (
-          <Maximize className="h-4 w-4" />
+          <Maximize className="h-5 w-5" />
         )}
       </ToolbarButton>
     </div>
@@ -915,7 +915,7 @@ export const RichTextEditor = ({
     return (
       <>
         {/* Placeholder */}
-        <div className="w-full h-[500px] border border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30 flex items-center justify-center text-zinc-500 text-sm">
+        <div className="w-full h-[500px] border border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30 flex items-center justify-center text-zinc-700 dark:text-zinc-300 text-sm">
           Editor is open in expanded view...
         </div>
 

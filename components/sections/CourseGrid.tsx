@@ -45,7 +45,7 @@ export function CourseGrid() {
  {/* ─── Search ─── */}
  <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-10">
  <div className="relative w-full md:w-80">
- <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+ <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-600 dark:text-zinc-400" />
  <input
  type="text"
  placeholder="Search courses..."
@@ -140,11 +140,11 @@ export function CourseGrid() {
  {/* Meta */}
  <div className="flex items-center gap-4 text-xs text-zinc-400 mb-4">
  <span className="inline-flex items-center gap-1">
- <Layers className="h-3.5 w-3.5" />
+ <Layers className="h-5 w-5" />
  {moduleCount} module{moduleCount !== 1 ? 's' : ''}
  </span>
  <span className="inline-flex items-center gap-1">
- <BookOpen className="h-3.5 w-3.5" />
+ <BookOpen className="h-5 w-5" />
  {lessonCount} lesson{lessonCount !== 1 ? 's' : ''}
  </span>
  </div>
@@ -165,7 +165,7 @@ export function CourseGrid() {
  {/* ─── Empty state ─── */}
  {!loading && filtered.length === 0 && (
  <div className="text-center py-20">
- <BookOpen className="h-10 w-10 text-zinc-400 mx-auto mb-3" />
+ <BookOpen className="h-10 w-10 text-zinc-600 dark:text-zinc-400 mx-auto mb-3" />
  <p className="text-zinc-400 text-lg mb-2">No courses found</p>
  <p className="text-zinc-400 text-sm">
  {search ? 'Try adjusting your search.' : 'No courses are published yet. Check back soon!'}

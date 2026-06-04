@@ -83,7 +83,7 @@ export default function AdminNotificationsPage() {
  onClick={handleMarkAllRead}
  className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-colors"
  >
- <CheckCheck className="h-3.5 w-3.5" />
+ <CheckCheck className="h-5 w-5" />
  Mark all read
  </button>
 )}
@@ -103,7 +103,7 @@ export default function AdminNotificationsPage() {
 ) : (
  <div className="flex flex-col items-center justify-center py-20 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900/20">
  <div className="h-16 w-16 rounded-2xl bg-zinc-100 dark:bg-zinc-800/50 flex items-center justify-center mb-4">
- <Bell className="h-8 w-8 text-zinc-400 dark:text-zinc-600" />
+ <Bell className="h-8 w-8 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600" />
  </div>
  <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-300 mb-1">
  All clear!

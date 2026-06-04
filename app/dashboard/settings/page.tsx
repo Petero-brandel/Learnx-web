@@ -78,7 +78,7 @@ export default function SettingsPage() {
  {/* Editable Full Name */}
  <div className="flex items-center gap-3 py-2">
    <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-     <User className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+     <User className="h-5 w-5 text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400" />
    </div>
    <div className="min-w-0 flex-1">
      <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
@@ -100,14 +100,14 @@ export default function SettingsPage() {
              disabled={isSavingName}
              className="p-1.5 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30 rounded-md transition-colors"
            >
-             {isSavingName ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
+             {isSavingName ? <Loader2 className="h-5 w-5 animate-spin" /> : <Check className="h-5 w-5" />}
            </button>
            <button
              onClick={() => setIsEditingName(false)}
              disabled={isSavingName}
              className="p-1.5 text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800 rounded-md transition-colors"
            >
-             <X className="h-4 w-4" />
+             <X className="h-5 w-5" />
            </button>
          </div>
        ) : (
@@ -121,7 +121,7 @@ export default function SettingsPage() {
              className="ml-2 text-zinc-400 hover:text-blue-500 transition-colors"
              title="Edit Name"
            >
-             <Edit2 className="h-3.5 w-3.5" />
+             <Edit2 className="h-5 w-5" />
            </button>
          </>
        )}

@@ -105,7 +105,7 @@ export default function AdminCoursesPage() {
  href="/admin/dashboard/courses/new"
  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-colors"
  >
- <Plus className="h-4 w-4" />
+ <Plus className="h-5 w-5" />
  Create Course
  </Link>
  </div>
@@ -119,11 +119,11 @@ export default function AdminCoursesPage() {
  >
  {feedback.type === 'success' ? (
  <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
- <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+ <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
  </div>
  ) : (
  <div className="h-8 w-8 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
- <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
+ <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
  </div>
  )}
  <span className="flex-1 font-medium">{feedback.message}</span>
@@ -142,7 +142,7 @@ export default function AdminCoursesPage() {
  </div>
 ) : courses.length === 0 ? (
  <div className="flex flex-col items-center justify-center py-16 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700/70 bg-zinc-50 dark:bg-zinc-900/20">
- <BookOpen className="h-10 w-10 text-zinc-400 dark:text-zinc-700 mb-3" />
+ <BookOpen className="h-10 w-10 text-zinc-600 dark:text-zinc-400 dark:text-zinc-700 mb-3" />
  <p className="text-sm text-zinc-500">No courses created yet</p>
  </div>
 ) : (
@@ -197,12 +197,12 @@ export default function AdminCoursesPage() {
  </div>
  <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
  <div className="flex items-center gap-1.5">
- <BookOpen className="h-3.5 w-3.5 text-zinc-400" />
+ <BookOpen className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
  <span>{moduleCount} module{moduleCount !== 1 ? 's' : ''}</span>
  </div>
  <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
  <div className="flex items-center gap-1.5">
- <Eye className="h-3.5 w-3.5 text-zinc-400" />
+ <Eye className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
  <span>{lessonCount} lesson{lessonCount !== 1 ? 's' : ''}</span>
  </div>
  <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
@@ -223,7 +223,7 @@ export default function AdminCoursesPage() {
  title={course.is_published ? 'Unpublish' : 'Publish'}
  >
  {toggling === course.id && (
- <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
+ <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-5 w-5 animate-spin text-white z-10" />
  )}
  <span
  className={cn(
@@ -241,7 +241,7 @@ export default function AdminCoursesPage() {
  className="p-1.5 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all opacity-0 group-hover:opacity-100"
  title="Edit course"
  >
- <Pencil className="h-4 w-4" />
+ <Pencil className="h-5 w-5" />
  </button>
 
  <button
@@ -257,9 +257,9 @@ export default function AdminCoursesPage() {
  title="Delete course"
  >
  {deleting === course.id ? (
- <Loader2 className="h-4 w-4 animate-spin" />
+ <Loader2 className="h-5 w-5 animate-spin" />
  ) : (
- <Trash2 className="h-4 w-4" />
+ <Trash2 className="h-5 w-5" />
  )}
  </button>
  </div>
@@ -279,7 +279,7 @@ export default function AdminCoursesPage() {
  )}
  >
  {toggling === course.id && (
- <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-white z-10" />
+ <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-5 w-5 animate-spin text-white z-10" />
  )}
  <span
  className={cn(
@@ -299,7 +299,7 @@ export default function AdminCoursesPage() {
  onClick={() => router.push(`/admin/dashboard/courses/${course.slug}/edit`)}
  className="p-2 rounded-xl text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
  >
- <Pencil className="h-4 w-4" />
+ <Pencil className="h-5 w-5" />
  </button>
  <button
  onClick={() => {
@@ -313,9 +313,9 @@ export default function AdminCoursesPage() {
  )}
  >
  {deleting === course.id ? (
- <Loader2 className="h-4 w-4 animate-spin" />
+ <Loader2 className="h-5 w-5 animate-spin" />
  ) : (
- <Trash2 className="h-4 w-4" />
+ <Trash2 className="h-5 w-5" />
  )}
  </button>
  </div>

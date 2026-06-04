@@ -104,7 +104,7 @@ export default function CourseDetailPage() {
         <Navbar />
         <main className="pt-16">
           <div className="flex flex-col items-center justify-center py-40 px-4 sm:px-6 lg:px-8 text-center">
-            <BookOpen className="h-12 w-12 text-zinc-400 mb-4" />
+            <BookOpen className="h-12 w-12 text-zinc-600 dark:text-zinc-400 mb-4" />
             <h1 className="text-2xl font-bold text-zinc-900 mb-2">Course not found</h1>
             <p className="text-zinc-500 mb-6">This course doesn&apos;t exist or hasn&apos;t been published yet.</p>
             <Link
@@ -152,11 +152,11 @@ export default function CourseDetailPage() {
                 {/* Meta row */}
                 <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
                   <span className="inline-flex items-center gap-1.5">
-                    <Layers className="h-4 w-4" />
+                    <Layers className="h-5 w-5" />
                     {moduleCount} module{moduleCount !== 1 ? 's' : ''}
                   </span>
                   <span className="inline-flex items-center gap-1.5">
-                    <PlayCircle className="h-4 w-4" />
+                    <PlayCircle className="h-5 w-5" />
                     {lessonCount} lesson{lessonCount !== 1 ? 's' : ''}
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export default function CourseDetailPage() {
                     onClick={() => setShowPreview(true)}
                     className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-semibold transition-all backdrop-blur-sm border border-white/20 hover:scale-105"
                   >
-                    <Play className="h-4 w-4 fill-white" />
+                    <Play className="h-5 w-5 fill-white" />
                     Watch Preview
                   </button>
                 </div>
@@ -217,7 +217,7 @@ export default function CourseDetailPage() {
                             </p>
                           </div>
                         </div>
-                        <BookOpen className="h-4 w-4 text-zinc-400" />
+                        <BookOpen className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
                       </div>
                     ))}
                   </div>
@@ -237,7 +237,7 @@ export default function CourseDetailPage() {
                   className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-zinc-900 text-white font-semibold text-base hover:opacity-90 disabled:opacity-50 transition-opacity mb-4"
                 >
                   {isCheckingOut ? 'Processing...' : (isCheckingEnrollment ? 'Checking status...' : (isEnrolled ? 'Continue Learning' : 'Enroll Now'))}
-                  {!isCheckingOut && !isCheckingEnrollment && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
+                  {!isCheckingOut && !isCheckingEnrollment && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
                 </button>
 
                 <p className="text-center text-xs text-zinc-400 mb-8">
@@ -246,19 +246,19 @@ export default function CourseDetailPage() {
 
                 <div className="space-y-4 pt-6 border-t border-zinc-100">
                   <div className="flex items-center gap-3 text-sm text-zinc-600">
-                    <PlayCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                    <PlayCircle className="h-5 w-5 text-blue-600 flex-shrink-0" />
                     {lessonCount} on-demand lessons
                   </div>
                   <div className="flex items-center gap-3 text-sm text-zinc-600">
-                    <Layers className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                    <Layers className="h-5 w-5 text-blue-600 flex-shrink-0" />
                     {moduleCount} structured modules
                   </div>
                   <div className="flex items-center gap-3 text-sm text-zinc-600">
-                    <Award className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                    <Award className="h-5 w-5 text-blue-600 flex-shrink-0" />
                     Certificate of completion
                   </div>
                   <div className="flex items-center gap-3 text-sm text-zinc-600">
-                    <BookOpen className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                    <BookOpen className="h-5 w-5 text-blue-600 flex-shrink-0" />
                     Downloadable resources
                   </div>
                 </div>

@@ -39,12 +39,12 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
         {/* Completion badge */}
         {enrollment.is_active === false ? (
           <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-red-500/90 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
-            <AlertCircle className="h-3.5 w-3.5" />
+            <AlertCircle className="h-5 w-5" />
             Deactivated
           </div>
         ) : isComplete && (
           <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
-            <CheckCircle className="h-3.5 w-3.5" />
+            <CheckCircle className="h-5 w-5" />
             Completed
           </div>
         )}
@@ -95,7 +95,7 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
               : "text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300"
           )}>
             {isComplete ? 'Review Course' : 'Continue Learning'}
-            <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </span>
         </div>
       </div>

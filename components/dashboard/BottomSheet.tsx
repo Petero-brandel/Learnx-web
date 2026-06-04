@@ -45,7 +45,7 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
  onClick={onClose}
  className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
  >
- <X className="h-4 w-4 text-zinc-500" />
+ <X className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
  </button>
  </div>
 

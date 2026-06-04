@@ -61,7 +61,7 @@ export default function LessonPlayer({ lesson, bunnyLibraryId, onQuizPassed }: L
  rel="noopener noreferrer"
  className="inline-flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-full px-6 py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity"
  >
- <Download className="h-4 w-4" />
+ <Download className="h-5 w-5" />
  Download PDF
  </a>
  </div>
@@ -287,22 +287,22 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  {/* Quiz Info */}
  <div className="flex flex-wrap items-center justify-center gap-4 mb-8 text-sm text-zinc-600 dark:text-zinc-400">
  <span className="inline-flex items-center gap-1.5">
- <HelpCircle className="h-4 w-4" />
+ <HelpCircle className="h-5 w-5" />
  {totalQuestions} question{totalQuestions !== 1 ? 's' : ''}
  </span>
  <span className="inline-flex items-center gap-1.5">
- <Trophy className="h-4 w-4" />
+ <Trophy className="h-5 w-5" />
  {quiz.passing_score}% to pass
  </span>
  {quiz.time_limit_minutes > 0 && (
  <span className="inline-flex items-center gap-1.5">
- <Clock className="h-4 w-4" />
+ <Clock className="h-5 w-5" />
  {quiz.time_limit_minutes} min
  </span>
 )}
  {quiz.max_attempts > 0 && (
  <span className="inline-flex items-center gap-1.5">
- <RotateCcw className="h-4 w-4" />
+ <RotateCcw className="h-5 w-5" />
  {attemptsRemaining} attempt{attemptsRemaining !== 1 ? 's' : ''} left
  </span>
 )}
@@ -344,7 +344,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 "inline-flex items-center gap-1.5 text-sm font-mono font-semibold",
  timeRemaining <= 60 ?"text-red-500 animate-pulse" :"text-zinc-600 dark:text-zinc-300"
 )}>
- <Clock className="h-4 w-4" />
+ <Clock className="h-5 w-5" />
  {formatTime(timeRemaining)}
  </span>
 )}
@@ -408,7 +408,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  >
  {state === 'submitting' ? (
  <>
- <Loader2 className="h-4 w-4 animate-spin" />
+ <Loader2 className="h-5 w-5 animate-spin" />
  Submitting...
  </>
 ) : (
@@ -421,7 +421,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  {error && (
  <div className="mt-3 flex items-center gap-3 p-3 border rounded-xl text-sm bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100">
  <div className="h-7 w-7 rounded-full bg-red-50 dark:bg-red-500/10 flex items-center justify-center shrink-0">
- <AlertTriangle className="h-3.5 w-3.5 text-red-600 dark:text-red-400" />
+ <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
  </div>
  <p className="flex-1 font-medium text-xs">{error}</p>
  </div>
@@ -489,9 +489,9 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
 )}>
  <div className="flex items-start gap-2 mb-2">
  {isCorrect ? (
- <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+ <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
 ) : (
- <XCircle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
+ <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
 )}
  <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
  {idx + 1}. {q.text}
@@ -529,7 +529,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  onClick={handleRetake}
  className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity"
  >
- <RotateCcw className="h-4 w-4" />
+ <RotateCcw className="h-5 w-5" />
  Retake Quiz
  {attemptsRemaining !== null && (
  <span className="text-xs opacity-70">({attemptsRemaining} left)</span>
@@ -544,7 +544,7 @@ function QuizPlayer({ quizId, onPassed }: { quizId: number; onPassed?: () => voi
  {result.passed && (
  <div className="mt-4 flex items-center gap-3 p-4 border rounded-xl bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700/70 shadow-sm text-zinc-900 dark:text-zinc-100 justify-center">
  <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
- <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+ <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
  </div>
  <p className="font-medium text-sm">
  This lesson is now marked as complete!

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
@@ -158,19 +158,7 @@ export function Features() {
 								<ul className="grid gap-6 sm:grid-cols-2 text-zinc-600">
 									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M5 13l4 4L19 7"
-												/>
-											</svg>
+											<Check className="h-5 w-5" />
 										</div>
 
 										<span className="pt-2 text-base font-medium">
@@ -180,19 +168,7 @@ export function Features() {
 
 									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M5 13l4 4L19 7"
-												/>
-											</svg>
+											<Check className="h-5 w-5" />
 										</div>
 
 										<span className="pt-2 text-base font-medium">
@@ -202,19 +178,7 @@ export function Features() {
 
 									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M5 13l4 4L19 7"
-												/>
-											</svg>
+											<Check className="h-5 w-5" />
 										</div>
 
 										<span className="pt-2 text-base font-medium">
@@ -224,19 +188,7 @@ export function Features() {
 
 									<li className="flex items-start gap-4">
 										<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-											<svg
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M5 13l4 4L19 7"
-												/>
-											</svg>
+											<Check className="h-5 w-5" />
 										</div>
 
 										<span className="pt-2 text-base font-medium">

@@ -333,7 +333,7 @@ export default function Navbar() {
         </p>
       </div>
       {item.tooltipOnly && (
-        <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
+        <ArrowRight className="h-5 w-5 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
       )}
       <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-zinc-800 text-xs text-zinc-200 rounded whitespace-nowrap pointer-events-none z-10">
         Coming soon
@@ -364,7 +364,7 @@ export default function Navbar() {
   {item.description}
   </p>
   </div>
-  <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
+  <ArrowRight className="h-5 w-5 text-transparent group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
   </Link>
   )))}
   </div>
@@ -381,7 +381,7 @@ export default function Navbar() {
  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
  >
  {megaMenus[activeMenu].cta!.label}
- <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+ <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
  </Link>
  </div>
 )}
@@ -408,7 +408,7 @@ export default function Navbar() {
  onClick={() => setIsOpen(false)}
  className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
  >
- <X className="h-5 w-5 text-zinc-500" />
+ <X className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
  </button>
  </div>
  </div>

@@ -48,13 +48,13 @@ export function Hero() {
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-blue-600 text-white font-semibold text-base hover:bg-blue-700 transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-blue-600/30"
               >
                 Browse Courses
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/courses?filter=free"
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-zinc-600 bg-black/40 backdrop-blur-sm text-zinc-200 font-semibold text-base hover:bg-zinc-800 transition-all duration-300"
               >
-                <Play className="h-4 w-4 text-blue-400" />
+                <Play className="h-5 w-5 text-blue-400" />
                 Watch Free Courses
               </Link>
             </div>

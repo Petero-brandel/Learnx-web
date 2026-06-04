@@ -91,7 +91,7 @@ function CourseVideoUploader({ courseSlug, initialVideoId, onUploadingChange }: 
           style={{ width: `${progress}%` }}
         />
       )}
-      <Video className="h-6 w-6 text-zinc-500 mx-auto mb-2" />
+      <Video className="h-6 w-6 text-zinc-700 dark:text-zinc-300 mx-auto mb-2" />
       <p className="text-xs text-zinc-400">
         {uploading ? `Uploading... ${progress}%` : "Select a video to upload directly to Bunny Stream."}
       </p>
@@ -107,7 +107,7 @@ function CourseVideoUploader({ courseSlug, initialVideoId, onUploadingChange }: 
           uploading && "opacity-50 cursor-not-allowed pointer-events-none"
         )}
       >
-        {uploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {uploading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : null}
         {uploading ? 'Uploading...' : 'Select Video File'}
       </button>
       <input 
@@ -209,7 +209,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
             disabled={uploadingVideo || uploadingThumb}
             className="p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
           </button>
         </div>
 
@@ -244,7 +244,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
                         onClick={removeThumbnail}
                         className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-black/80 rounded-full text-white transition-colors opacity-0 group-hover:opacity-100"
                       >
-                        <X className="h-4 w-4" />
+                        <X className="h-5 w-5" />
                       </button>
                     )}
                   </div>
@@ -254,7 +254,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
                     onClick={() => fileInputRef.current?.click()}
                     className="w-full h-44 border-2 border-dashed border-zinc-300 dark:border-zinc-700/70 hover:border-blue-500/40 dark:hover:border-blue-500/40 rounded-xl flex flex-col items-center justify-center gap-2 transition-colors cursor-pointer bg-zinc-50 dark:bg-zinc-900/30 hover:bg-blue-50 dark:hover:bg-blue-500/5"
                   >
-                    <ImagePlus className="h-8 w-8 text-zinc-400 dark:text-zinc-600" />
+                    <ImagePlus className="h-8 w-8 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600" />
                     <span className="text-xs text-zinc-500">Click to upload a thumbnail image</span>
                     <span className="text-[10px] text-zinc-400 dark:text-zinc-600">JPG, PNG, or WebP recommended</span>
                   </button>
@@ -339,7 +339,7 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
             title={uploadingVideo ? "Please wait for video to finish uploading..." : undefined}
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {(loading || uploadingVideo || uploadingThumb) ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            {(loading || uploadingVideo || uploadingThumb) ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
             Save Changes
           </button>
         </div>

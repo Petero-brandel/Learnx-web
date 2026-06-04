@@ -51,7 +51,7 @@ export default function ForgotPasswordPage() {
 ) : (
  <>
  <Link href="/login" className="inline-flex items-center text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors mb-6 group">
- <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+ <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
  Back to login
  </Link>
 
@@ -62,7 +62,7 @@ export default function ForgotPasswordPage() {
 
  {status === 'error' && (
  <div className="mb-6 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/40 px-3 py-2.5 text-xs font-medium text-red-700 dark:text-red-300 flex items-center gap-2">
- <AlertCircle className="h-4 w-4 flex-none" />
+ <AlertCircle className="h-5 w-5 flex-none" />
  <p>{errorMessage}</p>
  </div>
 )}
@@ -90,9 +90,9 @@ export default function ForgotPasswordPage() {
  className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
  >
  {status === 'loading' ? (
- <Loader2 className="h-4 w-4 animate-spin" />
+ <Loader2 className="h-5 w-5 animate-spin" />
 ) : (
- <CheckCircle2 className="h-4 w-4" />
+ <CheckCircle2 className="h-5 w-5" />
 )}
  Send reset link
  </button>

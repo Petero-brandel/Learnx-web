@@ -241,7 +241,7 @@ export default function DashboardNavbar() {
  onClick={() => setAvatarOpen(false)}
  className="flex items-center gap-3 px-3 py-2.5 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 rounded-lg transition-colors"
  >
- <Settings className="h-4 w-4 text-zinc-400" />
+ <Settings className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
  Settings
  </Link>
  <Link
@@ -249,7 +249,7 @@ export default function DashboardNavbar() {
  onClick={() => setAvatarOpen(false)}
  className="flex items-center gap-3 px-3 py-2.5 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 rounded-lg transition-colors"
  >
- <ExternalLink className="h-4 w-4 text-zinc-400" />
+ <ExternalLink className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
  Browse Courses
  </Link>
  </div>
@@ -260,7 +260,7 @@ export default function DashboardNavbar() {
  onClick={() => { setAvatarOpen(false); logout(); }}
  className="flex items-center gap-3 w-full px-3 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
  >
- <LogOut className="h-4 w-4" />
+ <LogOut className="h-5 w-5" />
  Log out
  </button>
  </div>
@@ -309,7 +309,7 @@ export default function DashboardNavbar() {
  {item.description}
  </p>
  </div>
- <ArrowRight className="h-4 w-4 text-transparent group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
+ <ArrowRight className="h-5 w-5 text-transparent group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200 mt-1 flex-shrink-0" />
  </Link>
 ))}
  </div>
@@ -322,7 +322,7 @@ export default function DashboardNavbar() {
  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
  >
  {dashboardMenus[activeMenu].cta!.label}
- <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+ <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
  </Link>
  </div>
 )}
@@ -388,7 +388,7 @@ export default function DashboardNavbar() {
 ) : (
  <div className="py-8 text-center">
  <div className="h-12 w-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mx-auto mb-3">
- <Bell className="h-6 w-6 text-zinc-400" />
+ <Bell className="h-6 w-6 text-zinc-600 dark:text-zinc-400" />
  </div>
  <p className="text-sm text-zinc-500 dark:text-zinc-400">No notifications yet</p>
  </div>
@@ -401,7 +401,7 @@ export default function DashboardNavbar() {
  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
  >
  View all notifications
- <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+ <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
  </Link>
  </div>
  </div>

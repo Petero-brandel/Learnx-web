@@ -90,7 +90,7 @@ export default function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
  className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 bg-white dark:bg-zinc-800/30 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors border border-zinc-200 dark:border-zinc-700/60 shadow-sm dark:shadow-none"
  >
  Show More
- <ChevronDown className="h-4 w-4" />
+ <ChevronDown className="h-5 w-5" />
  </button>
  </div>
 )}

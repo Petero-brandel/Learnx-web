@@ -249,7 +249,7 @@ export default function AdminDashboardPage() {
  <p className="text-xs text-zinc-500 mt-0.5">Daily signups trend</p>
  </div>
  <div className="flex items-center gap-1.5 text-xs text-sky-400 font-medium bg-sky-500/10 rounded-full px-3 py-1">
- <Users className="h-3 w-3" />
+ <Users className="h-5 w-5" />
  {userStats?.total_students || 0} total
  </div>
  </div>
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
  {/* Popular Courses */}
  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 flex flex-col shadow-sm dark:shadow-none">
  <div className="flex items-center gap-2 mb-5">
- <BarChart3 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+ <BarChart3 className="h-5 w-5 text-blue-600 dark:text-blue-400" />
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Popular Courses</h3>
  </div>
  {popularCourses.length > 0 ? (
@@ -371,7 +371,7 @@ export default function AdminDashboardPage() {
  {/* Recent Orders */}
  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-white dark:bg-zinc-900/30 p-6 shadow-sm dark:shadow-none">
  <div className="flex items-center gap-2 mb-5">
- <ShoppingCart className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+ <ShoppingCart className="h-5 w-5 text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400" />
  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Recent Orders</h3>
  </div>
  <RecentOrdersTable orders={recentOrders} />

@@ -139,7 +139,7 @@ export default function PricingPage() {
  {/* FAQ/Trust info */}
  <div className="max-w-2xl mx-auto mt-24 text-center">
  <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-zinc-100 dark:bg-zinc-900 mb-6">
- <Info className="h-6 w-6 text-zinc-600 dark:text-zinc-400" />
+ <Info className="h-6 w-6 text-zinc-600 dark:text-zinc-600 dark:text-zinc-400" />
  </div>
  <h3 className="text-2xl font-bold mb-4">14-Day Money-Back Guarantee</h3>
  <p className="text-zinc-500 dark:text-zinc-400 mb-6">

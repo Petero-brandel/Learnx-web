@@ -93,7 +93,7 @@ export function CoursePreview() {
                 className="group ml-3 hidden items-center gap-2 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700 md:inline-flex"
               >
                 View all
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
@@ -110,10 +110,10 @@ export function CoursePreview() {
                 <div className="aspect-video w-full bg-zinc-200 dark:bg-zinc-700" />
 
                 <div className="space-y-3 p-6">
-                  <div className="h-3 w-20 rounded bg-zinc-200 dark:bg-zinc-700" />
-                  <div className="h-5 w-3/4 rounded bg-zinc-200 dark:bg-zinc-700" />
-                  <div className="h-3 w-full rounded bg-zinc-200 dark:bg-zinc-700" />
-                  <div className="h-3 w-2/3 rounded bg-zinc-200 dark:bg-zinc-700" />
+                  <div className="h-5 w-20 rounded bg-zinc-200 dark:bg-zinc-700" />
+                  <div className="h-5 w-5/4 rounded bg-zinc-200 dark:bg-zinc-700" />
+                  <div className="h-5 w-full rounded bg-zinc-200 dark:bg-zinc-700" />
+                  <div className="h-5 w-2/3 rounded bg-zinc-200 dark:bg-zinc-700" />
                 </div>
               </div>
             ))}
@@ -123,9 +123,9 @@ export function CoursePreview() {
         {/* Empty State */}
         {!loading && courses.length === 0 && (
           <div className="rounded-2xl border border-dashed border-zinc-200 bg-white/50 py-20 text-center dark:border-zinc-700 dark:bg-white/5">
-            <BookOpen className="mx-auto mb-3 h-10 w-10 text-zinc-400 dark:text-zinc-300" />
+            <BookOpen className="mx-auto mb-3 h-10 w-10 text-zinc-600 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-300" />
 
-            <p className="text-zinc-500 dark:text-zinc-400">
+            <p className="text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400">
               No courses available yet. Check back soon!
             </p>
           </div>
@@ -194,7 +194,7 @@ export function CoursePreview() {
                             />
                           ) : (
                             <div className="flex h-full w-full items-center justify-center bg-zinc-100 dark:bg-zinc-800">
-                              <BookOpen className="h-10 w-10 text-zinc-300 dark:text-zinc-500" />
+                              <BookOpen className="h-10 w-10 text-zinc-300 dark:text-zinc-700 dark:text-zinc-300" />
                             </div>
                           )}
 
@@ -208,21 +208,21 @@ export function CoursePreview() {
                             {course.title}
                           </h3>
 
-                          <p className="mb-6 flex-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                          <p className="mb-6 flex-1 line-clamp-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400">
                             {course.description ||
                               'No description available.'}
                           </p>
 
                           {/* Meta */}
-                          <div className="mb-4 flex items-center gap-4 text-xs text-zinc-400 dark:text-zinc-400">
+                          <div className="mb-4 flex items-center gap-4 text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
                             <span className="inline-flex items-center gap-1">
-                              <Layers className="h-3.5 w-3.5" />
+                              <Layers className="h-5 w-5" />
                               {moduleCount} module
                               {moduleCount !== 1 ? 's' : ''}
                             </span>
 
                             <span className="inline-flex items-center gap-1">
-                              <BookOpen className="h-3.5 w-3.5" />
+                              <BookOpen className="h-5 w-5" />
                               {lessonCount} lesson
                               {lessonCount !== 1 ? 's' : ''}
                             </span>
@@ -231,7 +231,7 @@ export function CoursePreview() {
                           {/* Price */}
                           <div className="border-t border-zinc-100 pt-4 dark:border-zinc-700">
                             <span className="text-lg font-bold text-zinc-900 dark:text-white">
-                              {formatPrice(course.price)}
+                              {Number(course.price) === 0 ? 'Free' : formatPrice(course.price)}
                             </span>
                           </div>
                         </div>
@@ -251,7 +251,7 @@ export function CoursePreview() {
             className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
           >
             View all courses
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
       </div>

@@ -89,9 +89,9 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
  >
  {mounted ? (
  currentTheme === 'dark' ? (
- <Sun className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white" />
+ <Sun className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-white" />
 ) : (
- <Moon className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white" />
+ <Moon className="h-[18px] w-[18px] shrink-0 transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-white" />
 )
 ) : (
  <div className="h-[18px] w-[18px] shrink-0" />

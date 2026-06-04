@@ -61,7 +61,7 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
  onClick={onClose}
  className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
  >
- <X className="h-5 w-5 text-zinc-500" />
+ <X className="h-5 w-5 text-zinc-700 dark:text-zinc-300" />
  </button>
  </div>
 
@@ -133,7 +133,7 @@ export default function DashboardDrawer({ isOpen, onClose }: DashboardDrawerProp
  onClick={() => { onClose(); logout(); }}
  className="flex items-center justify-center gap-2 w-full bg-zinc-100 dark:bg-zinc-900 text-red-600 dark:text-red-400 rounded-xl py-3 font-semibold hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
  >
- <LogOut className="h-4 w-4" />
+ <LogOut className="h-5 w-5" />
  Log out
  </button>
  </div>
