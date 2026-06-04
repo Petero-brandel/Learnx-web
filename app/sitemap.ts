@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch courses
   let courses: any[] = []
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/'
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://engine.bluedemy.org/api/'
     const res = await fetch(`${apiUrl}courses/`, {
       next: { revalidate: 3600 },
     })

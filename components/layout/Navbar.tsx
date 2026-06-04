@@ -122,7 +122,7 @@ export default function Navbar() {
  const [megaMenus, setMegaMenus] = useState(DEFAULT_MEGA_MENUS)
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://engine.bluedemy.org/api/';
     fetch(`${API_URL}courses/`)
       .then(res => res.json())
       .then(data => {

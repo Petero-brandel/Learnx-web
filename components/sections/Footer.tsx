@@ -20,7 +20,7 @@ export function Footer() {
   useEffect(() => {
     async function getTopCourses() {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://engine.bluedemy.org/api/';
         const res = await fetch(`${API_URL}courses/`);
         if (!res.ok) return;
         const data = await res.json();

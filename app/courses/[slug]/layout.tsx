@@ -8,7 +8,7 @@ type Props = {
 async function getCourse(slug: string) {
   try {
     // We use the full API url. You might need to adjust this depending on your environment
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://learnx-app.fly.dev/api/';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://engine.bluedemy.org/api/';
     const res = await fetch(`${apiUrl}courses/${slug}/`, {
       next: { revalidate: 3600 }, // Revalidate cache every hour
     });
