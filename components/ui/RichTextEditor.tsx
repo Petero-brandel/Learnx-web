@@ -15,7 +15,6 @@ import { Color } from '@tiptap/extension-color'
 import Link from '@tiptap/extension-link'
 import TextAlign from '@tiptap/extension-text-align'
 import Image from '@tiptap/extension-image'
-import Youtube from '@tiptap/extension-youtube'
 
 import {
   Bold,
@@ -34,7 +33,6 @@ import {
   AlignRight,
   Link as LinkIcon,
   Image as ImageIcon,
-  Video as YoutubeIcon,
   Undo,
   Redo,
   Palette,
@@ -236,31 +234,6 @@ const CustomImage = Image.extend({
   },
 })
 
-const CustomYoutube = Youtube.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
-
-      width: {
-        default: 640,
-
-        parseHTML: (element) =>
-          element.getAttribute('width'),
-
-        renderHTML: (attributes) => ({
-          width: attributes.width,
-        }),
-      },
-    }
-  },
-
-  addNodeView() {
-    return ReactNodeViewRenderer(
-      ResizableMediaNode
-    )
-  },
-})
-
 const ToolbarButton = ({
   active,
   onClick,
@@ -367,18 +340,6 @@ const MenuBar = ({
       }
     }
   }
-
-  const addYoutubeVideo = useCallback(() => {
-    const url = prompt('Enter YouTube URL')
-
-    if (url) {
-      editor.commands.setYoutubeVideo({
-        src: url,
-        width: 640,
-        height: 360,
-      })
-    }
-  }, [editor])
 
   if (!editor) return null
 
@@ -645,16 +606,6 @@ const MenuBar = ({
         className="hidden"
       />
 
-      <ToolbarButton
-        onClick={(e: any) => {
-          e.preventDefault()
-          addYoutubeVideo()
-        }}
-        title="YouTube"
-      >
-        <YoutubeIcon className="h-5 w-5" />
-      </ToolbarButton>
-
       <div className="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1" />
 
       <div className="flex items-center gap-2 px-2">
@@ -747,7 +698,6 @@ export const RichTextEditor = ({
       }),
 
       CustomImage,
-      CustomYoutube,
     ],
 
     content,

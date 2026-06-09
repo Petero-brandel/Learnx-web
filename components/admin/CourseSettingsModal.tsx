@@ -6,6 +6,7 @@ import { uploadThumbnailAction } from '@/app/actions/upload'
 import { Loader2, ImagePlus, X, Save, Video, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import * as tus from 'tus-js-client'
+import { RichTextEditor } from '@/components/ui/RichTextEditor'
 
 function CourseVideoUploader({ courseSlug, initialVideoId, onUploadingChange }: { courseSlug: string, initialVideoId: string | null, onUploadingChange?: (uploading: boolean) => void }) {
   const [uploading, setUploadingState] = useState(false)
@@ -294,14 +295,12 @@ export default function CourseSettingsModal({ course, onSave, onClose }: CourseS
                 <label htmlFor="description" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
                   Short Description
                 </label>
-                <textarea
-                  id="description"
-                  rows={3}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Briefly describe what students will learn..."
-                  className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/70 rounded-xl text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none shadow-sm dark:shadow-none"
-                />
+                <div className="border border-zinc-200 dark:border-zinc-700/70 rounded-xl overflow-hidden shadow-sm dark:shadow-none">
+                  <RichTextEditor
+                    content={description}
+                    onChange={setDescription}
+                  />
+                </div>
               </div>
 
               <div>

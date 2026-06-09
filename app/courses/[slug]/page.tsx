@@ -13,6 +13,10 @@ import { useCourseDetail, useCheckEnrollment } from '@/lib/hooks';
 
 const BUNNY_LIBRARY_ID = process.env.NEXT_PUBLIC_BUNNY_LIBRARY_ID || '';
 
+function stripHtml(html: string) {
+  return html.replace(/<[^>]*>?/gm, '');
+}
+
 function formatPrice(price: number | string): string {
   return new Intl.NumberFormat('en-NG', {
     style: 'currency',
@@ -145,8 +149,8 @@ export default function CourseDetailPage() {
                 <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6 flex items-center gap-4 flex-wrap">
                   {course.title}
                 </h1>
-                <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl">
-                  {course.description || 'Start your learning journey with this course.'}
+                <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl line-clamp-3">
+                  {course.description ? stripHtml(course.description) : 'Start your learning journey with this course.'}
                 </p>
 
                 {/* Meta row */}
@@ -187,9 +191,10 @@ export default function CourseDetailPage() {
               {course.description && (
                 <div>
                   <h2 className="text-2xl font-bold mb-4">About this course</h2>
-                  <p className="text-zinc-600 leading-relaxed text-base">
-                    {course.description}
-                  </p>
+                  <div 
+                    className="prose prose-zinc dark:prose-invert max-w-none prose-sm sm:prose-base text-zinc-600 dark:text-zinc-300"
+                    dangerouslySetInnerHTML={{ __html: course.description }}
+                  />
                 </div>
               )}
 

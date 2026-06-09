@@ -8,6 +8,10 @@ import { BookOpen, Layers, Search, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCourses } from '@/lib/hooks';
 
+function stripHtml(html: string) {
+  return html.replace(/<[^>]*>?/gm, '');
+}
+
 function formatPrice(price: string | number): string {
  return new Intl.NumberFormat('en-NG', {
  style: 'currency',
@@ -134,7 +138,7 @@ export function CourseGrid() {
  {course.title}
  </h3>
  <p className="text-sm text-zinc-500 leading-relaxed mb-6 flex-1 line-clamp-2">
- {course.description || 'No description available.'}
+ {course.description ? stripHtml(course.description) : 'No description available.'}
  </p>
 
  {/* Meta */}
