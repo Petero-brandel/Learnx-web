@@ -213,7 +213,7 @@ export default function AdminDashboardPage() {
  <AdminStatsCard
  icon={BookOpen}
  label="Active Courses"
- value={popularCourses.length}
+ value={coursePerf?.total_active_courses || 0}
  color="slate"
  />
  <AdminStatsCard

@@ -21,6 +21,7 @@ export interface UserStats {
 export interface CoursePerformance {
   popular_courses: { course_title: string; total_enrollments: number }[];
   average_completion_rate: number;
+  total_active_courses: number;
 }
 
 export interface RecentOrder {
