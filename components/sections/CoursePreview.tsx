@@ -30,6 +30,10 @@ function formatPrice(price: string | number): string {
   }).format(Number(price));
 }
 
+function stripHtml(html: string) {
+  return html.replace(/<[^>]*>?/gm, '');
+}
+
 export function CoursePreview() {
   const { data = [], isLoading: loading } = useCourses();
   const courses = data.slice(0, 8);
@@ -175,12 +179,11 @@ export function CoursePreview() {
                 const moduleCount = course.module_count || 0;
 
                 return (
-                  <SwiperSlide key={course.id}>
+                  <SwiperSlide key={course.id} className="!h-auto">
                     <Link
                       href={`/courses/${course.slug}`}
-                      className="group block h-full overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:border-zinc-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-600"
+                      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:border-zinc-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-600"
                     >
-                      <div className="flex h-full flex-col">
                         {/* Thumbnail */}
                         <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                           {course.thumbnail ? (
@@ -208,13 +211,12 @@ export function CoursePreview() {
                             {course.title}
                           </h3>
 
-                          <p className="mb-6 flex-1 line-clamp-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400">
-                            {course.description ||
-                              'No description available.'}
+                          <p className="mb-6 flex-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                            {course.description ? stripHtml(course.description) : 'No description available.'}
                           </p>
 
                           {/* Meta */}
-                          <div className="mb-4 flex items-center gap-4 text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                          <div className="mb-4 flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
                             <span className="inline-flex items-center gap-1">
                               <Layers className="h-5 w-5" />
                               {moduleCount} module
@@ -235,7 +237,6 @@ export function CoursePreview() {
                             </span>
                           </div>
                         </div>
-                      </div>
                     </Link>
                   </SwiperSlide>
                 );
