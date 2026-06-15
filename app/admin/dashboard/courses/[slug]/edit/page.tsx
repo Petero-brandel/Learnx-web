@@ -752,7 +752,7 @@ function QuizBuilder({ lesson, onSaved }: { lesson: AdminLesson, onSaved: () => 
  {/* Question header */}
  <div className="flex items-center justify-between">
  <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
- Q{qIdx + 1} Â· {q.question_type === 'true_false' ? 'True/False' : 'Multiple Choice'}
+ Q{qIdx + 1} &bull; {q.question_type === 'true_false' ? 'True/False' : 'Multiple Choice'}
  </span>
  <button
  type="button"
@@ -1042,7 +1042,7 @@ export default function CourseBuilderPage() {
  {/* Left Column: Curriculum Builder */}
  <div className="flex-1 space-y-6">
  {/* Header */}
- <div className="flex items-center justify-between">
+ <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
  <div>
  <Link 
                   href="/admin/dashboard/courses"
@@ -1051,9 +1051,9 @@ export default function CourseBuilderPage() {
                   <ArrowLeft className="h-5 w-5" />
                   Back to Courses
                 </Link>
- <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{course.title}</h1>
+ <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight break-words">{course.title}</h1>
  </div>
-  <div className="flex items-center gap-3">
+  <div className="flex flex-wrap items-center gap-3">
   {saving && <Loader2 className="h-5 w-5 animate-spin text-zinc-600 dark:text-zinc-400" />}
   <button
     onClick={() => setShowSettingsModal(true)}
