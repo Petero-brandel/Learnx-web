@@ -247,7 +247,7 @@ export default function NewCoursePage() {
  <button
  type="button"
  onClick={removeThumbnail}
- className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-black/80 rounded-full text-white transition-colors opacity-0 group-hover:opacity-100"
+ className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-black/80 rounded-full text-white transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100"
  >
  <X className="h-5 w-5" />
  </button>
